@@ -60,7 +60,7 @@ export default function Sidebar() {
         src="/images/logo.png" // Path relative to the public directory
         alt="InfoGreen Logo"
         width={100} // Specify the intrinsic width of the image in pixels
-        height={40} // Specify the intrinsic height of the image in pixels
+        height={100} // Specify the intrinsic height of the image in pixels
       />
 
         </div>
