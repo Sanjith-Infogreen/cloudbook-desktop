@@ -128,16 +128,16 @@ export default function Sidebar() {
 
             
             <li
-              onClick={() => router.push('/desktop/modules/complaint')}
+              onClick={() => router.push('/modules/sukumar')}
               className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                isActive('/desktop/modules/complaint') 
+                isActive('/modules/sukumar') 
                   ? 'bg-[#191f26] border-l-[#1aed59] text-white' 
                   : 'text-[#b0b3b7] border-l-transparent'
               }`}
             >
               <div className="flex items-center">
                 <i className={`ri-file-edit-line mr-3 text-lg ${
-                  isActive('/desktop/modules/complaint') ? 'text-white' : ''
+                  isActive('/modules/sukumar') ? 'text-white' : ''
                 }`}></i>
                 <span>Complaint List</span>
               </div>
@@ -276,7 +276,7 @@ export default function Sidebar() {
 
            <li
             className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isActive('/desktop/modules/complaint') 
+              isActive('/modules/sukumar') 
                 ? 'bg-[#191f26] border-l-[#1aed59] text-white' 
                 : 'text-[#b0b3b7] border-l-transparent'
             }`}
@@ -285,7 +285,7 @@ export default function Sidebar() {
           >
             <div className="flex items-center">
               <i className={`ri-file-edit-line text-lg ${
-                isActive('/desktop/modules/complaint') ? 'text-white' : ''
+                isActive('/modules/sukumar') ? 'text-white' : ''
               }`}></i>
             </div>
 
@@ -294,9 +294,9 @@ export default function Sidebar() {
                 <ul>
                   <li 
                     className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive('/desktop/modules/complaint') ? 'bg-[#103d5a] border-[#1aed59] text-[#fff] ' : 'border-l-transparent'
+                      isActive('/modules/sukumar') ? 'bg-[#103d5a] border-[#1aed59] text-[#fff] ' : 'border-l-transparent'
                     }`}
-                    onClick={() => router.push('/desktop/modules/complaint')}
+                    onClick={() => router.push('/modules/sukumar')}
                   >
                     <i className="ri-file-edit-line text-[16px]"></i> Complaint List
                   </li>
