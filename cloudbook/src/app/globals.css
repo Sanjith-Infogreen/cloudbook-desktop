@@ -43,17 +43,17 @@
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
-
+/* 
 .active-menu {
   background-color: #191f26;
   border-left-color: #1aed59;
-}
+} */
 
 .font-helvetica {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.submenu::before {
+/* .submenu::before {
   content: "";
   position: absolute;
   top: 0.6rem;
@@ -61,7 +61,7 @@ body {
   border-width: 8px;
   border-style: solid;
   border-color: transparent rgb(18, 52, 77) transparent transparent;
-}
+} */
 
 ::-webkit-scrollbar {
   width: 11px;            
