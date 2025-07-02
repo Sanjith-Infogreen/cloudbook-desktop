@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import CommonModal from "@/app/utils/common-modal";
+import Layout from "@/app/components/Layout";
 import {
   Input,
   RadioGroup,
@@ -35,6 +36,7 @@ const Page: React.FC = () => {
   };
 
   return (
+    <Layout>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 font-inter">
       <button
         id="ModalBtn"
@@ -110,6 +112,7 @@ const Page: React.FC = () => {
         </button>
       </form>
     </div>
+    </Layout>
   );
 };
 
