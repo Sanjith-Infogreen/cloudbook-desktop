@@ -20,13 +20,13 @@ interface DatePickerProps {
   required?: boolean;
   "data-validate"?: string;
   id: string;
-  minDate?: Date;
-  maxDate?: Date;
+  minDate?: Date | string; // Now accepts both Date and string
+  maxDate?: Date | string; // Now accepts both Date and string
   disableFuture?: boolean;
   disablePast?: boolean;
-  initialDate?: Date;
+  initialDate?: Date | string; // Now accepts both Date and string
 
-  selected: Date | undefined;
+  selected: Date | string | undefined; // Now accepts both Date and string
   onChange: (date: string | undefined) => void;
 }
 
@@ -39,9 +39,29 @@ function isValidDate(date: Date | undefined) {
   return date instanceof Date && !isNaN(date.getTime());
 }
 
+// New function to parse DD/MM/YYYY string to Date object
+function parseDMYtoJSDate(dateString: string | undefined): Date | undefined {
+  if (!dateString) return undefined;
+  const parts = dateString.split("/");
+  if (parts.length === 3) {
+    const [day, month, year] = parts.map(Number);
+    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+      const parsed = new Date(year, month - 1, day);
+      parsed.setHours(0, 0, 0, 0);
+      return isValidDate(parsed) ? parsed : undefined;
+    }
+  }
+  return undefined;
+}
 
+// Helper function to normalize input to Date object
+function normalizeToDate(input: Date | string | undefined): Date | undefined {
+  if (!input) return undefined;
+  if (input instanceof Date) return input;
+  if (typeof input === 'string') return parseDMYtoJSDate(input);
+  return undefined;
+}
 
-  
 const DatePicker = ({
   className,
   placeholder = "Select date",
@@ -63,36 +83,42 @@ const DatePicker = ({
     return d;
   }, []);
 
+  // Convert string props to Date objects for internal use
+  const selectedDate = useMemo(() => normalizeToDate(selected), [selected]);
+  const initialDateObj = useMemo(() => normalizeToDate(initialDate), [initialDate]);
+  const minDateObj = useMemo(() => normalizeToDate(minDate), [minDate]);
+  const maxDateObj = useMemo(() => normalizeToDate(maxDate), [maxDate]);
+
   // internal state for the input field display
   const [inputValue, setInputValue] = useState(
-    formatDate(selected || initialDate || today)
-  ); // Initialize with 'selected' or 'initialDate'
+    formatDate(selectedDate || initialDateObj || today)
+  ); // Initialize with 'selectedDate' or 'initialDateObj'
   const [open, setOpen] = useState(false);
   // Month for the calendar view, defaults to selectedDate or today
   const [calendarMonth, setCalendarMonth] = useState<Date>(
-    selected || initialDate || today // Initialize calendar month based on selected, initial, or today
+    selectedDate || initialDateObj || today // Initialize calendar month based on selected, initial, or today
   );
 
   // Effect to sync the 'selected' prop (from parent) with the internal input display
   useEffect(() => {
     // Only update if the selected prop from the parent changes AND it's different from the current input value
-    if (!areDatesEqual(selected, parseDateString(inputValue))) {
-      setInputValue(formatDate(selected));
+    if (!areDatesEqual(selectedDate, parseDateString(inputValue))) {
+      setInputValue(formatDate(selectedDate));
     }
     // Also update calendarMonth if selected changes, to keep the calendar view in sync
-    if (selected && !areDatesEqual(selected, calendarMonth)) {
-      setCalendarMonth(selected);
+    if (selectedDate && !areDatesEqual(selectedDate, calendarMonth)) {
+      setCalendarMonth(selectedDate);
     } else if (
-      !selected &&
+      !selectedDate &&
       !areDatesEqual(today, calendarMonth) &&
-      !initialDate
+      !initialDateObj
     ) {
       // If cleared and no initialDate, go back to today's month
       setCalendarMonth(today);
     }
-  }, [selected, inputValue, calendarMonth, today, initialDate]); // Add initialDate as dependency
+  }, [selectedDate, today, initialDateObj]); // Updated dependencies
 
-  // Helper to parse DD/MM/YYYY string to Date object
+  // Helper to parse DD/MM/YYYY string to Date object (existing function)
   const parseDateString = (dateString: string): Date | undefined => {
     const parts = dateString.split("/");
     if (parts.length === 3) {
@@ -128,8 +154,8 @@ const DatePicker = ({
 
     if (isValidDate(parsedDate)) {
       const isDateAllowed =
-        (!minDate || (parsedDate && parsedDate >= minDate)) &&
-        (!maxDate || (parsedDate && parsedDate <= maxDate)) &&
+        (!minDateObj || (parsedDate && parsedDate >= minDateObj)) &&
+        (!maxDateObj || (parsedDate && parsedDate <= maxDateObj)) &&
         (!disableFuture || (parsedDate && parsedDate <= today)) &&
         (!disablePast || (parsedDate && parsedDate >= today));
 
@@ -171,7 +197,7 @@ const DatePicker = ({
       <input
         type="hidden"
         name={name}
-        value={formatDate(selected)} // Always format for the hidden input, use 'selected' prop
+        value={formatDate(selectedDate)} // Always format for the hidden input, use 'selectedDate'
         required={required}
         data-validate={dataValidate}
       />
@@ -204,7 +230,7 @@ const DatePicker = ({
           >
             <Calendar
               mode="single"
-              selected={selected} // Bind calendar to the 'selected' prop from the parent
+              selected={selectedDate} // Bind calendar to the normalized 'selectedDate'
               captionLayout="dropdown"
               month={calendarMonth} // Control calendar's displayed month
               onMonthChange={setCalendarMonth}
@@ -226,8 +252,8 @@ const DatePicker = ({
                   return true;
                 if (disablePast && normalizedDateToCheck < normalizedToday)
                   return true;
-                if (minDate && normalizedDateToCheck < minDate) return true;
-                if (maxDate && normalizedDateToCheck > maxDate) return true;
+                if (minDateObj && normalizedDateToCheck < minDateObj) return true;
+                if (maxDateObj && normalizedDateToCheck > maxDateObj) return true;
                 return false;
               }}
             />
