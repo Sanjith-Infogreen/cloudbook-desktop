@@ -1,9 +1,9 @@
  'use client';
 
 import { useState } from 'react';
-import Layout from '@/app/components/Layout'; // Adjust this path to your actual Layout file
-import SearchableSelect, { Option } from '@/app/utils/searchableSelect'; // Keep your existing import
-import FilterSidebar from '@/app/utils/filterSIdebar'; // ✅ Adjust this path to your FilterSidebar component
+import Layout from '@/app/components/Layout';  
+import SearchableSelect, { Option } from '@/app/utils/searchableSelect';  
+import FilterSidebar from '@/app/utils/filterSIdebar';  
 
 const Page: React.FC = () => {
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false); // State to control sidebar visibility

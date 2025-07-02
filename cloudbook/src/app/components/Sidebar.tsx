@@ -125,6 +125,20 @@ export default function Sidebar() {
                 </li>
                 <li
                   className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                    isActive('/modules/tharani')
+                      ? 'bg-[#191f26] border-l-[#1aed59] text-white' 
+                      : 'text-[#b0b3b7] border-l-transparent'
+                  }`}
+                >
+                  <span 
+                    onClick={() => router.push('/modules/tharani')}
+                    className={`${isActive('/modules/tharani') ? 'text-white' : ''}`}
+                  >
+                    Tharani
+                  </span>
+                </li>
+                <li
+                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
                     isActive('/modules/sanjith')
                       ? 'bg-[#191f26] border-l-[#1aed59] text-white' 
                       : 'text-[#b0b3b7] border-l-transparent'
@@ -137,6 +151,7 @@ export default function Sidebar() {
                     sanjith
                   </span>
                 </li>
+
                 <li
                   className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
                     isActive('/modules/aishvarya')
@@ -149,6 +164,20 @@ export default function Sidebar() {
                     className={`${isActive('/modules/aishvarya') ? 'text-white' : ''}`}
                   >
                     aishvarya
+                  </span>
+                </li>
+                <li
+                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                    isActive('/modules/sukumar')
+                      ? 'bg-[#191f26] border-l-[#1aed59] text-white' 
+                      : 'text-[#b0b3b7] border-l-transparent'
+                  }`}
+                >
+                  <span 
+                    onClick={() => router.push('/modules/sukumar')}
+                    className={`${isActive('/modules/sukumar') ? 'text-white' : ''}`}
+                  >
+                    sukumar
                   </span>
                 </li>
               </ul>
