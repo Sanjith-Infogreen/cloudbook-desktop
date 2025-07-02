@@ -1,12 +1,13 @@
  'use client';
 
-import { useState } from 'react'; 
-import SearchableSelect, { Option } from '@/app/utils/searchableSelect';
+import { useState } from 'react';
+import SearchableSelect, { Option } from '@/app/utils/searchableSelect'; // Adjust path if needed
 
 const Page: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState<string | null>('india'); // Example with an initial value
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']); // Array for multiple
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]); // New state for multi-select color
 
   const fruitOptions: Option[] = [
     { value: 'apple', label: 'Apple' },
@@ -14,8 +15,18 @@ const Page: React.FC = () => {
     { value: 'orange', label: 'Orange' },
     { value: 'grape', label: 'Grape' },
     { value: 'strawberry', label: 'Strawberry' },
+    { value: 'mango', label: 'Mango' },
+    { value: 'pineapple', label: 'Pineapple' },
+    { value: 'blueberry', label: 'Blueberry' },
+    { value: 'watermelon', label: 'Watermelon' },
+    { value: 'kiwi', label: 'Kiwi' },
+    { value: 'peach', label: 'Peach' },
+    { value: 'cherry', label: 'Cherry' },
+    { value: 'papaya', label: 'Papaya' },
+    { value: 'plum', label: 'Plum' },
+    { value: 'raspberry', label: 'Raspberry' },
   ];
-
+  
   const countryOptions: Option[] = [
     { value: 'usa', label: 'United States' },
     { value: 'canada', label: 'Canada' },
@@ -33,39 +44,42 @@ const Page: React.FC = () => {
     { value: 'purple', label: 'Purple' },
   ];
 
-  const handleFruitChange = (value: string | null) => {
+  const handleFruitChange = (value: string | string[] | null) => {
     console.log('Selected Fruit:', value);
-    setSelectedFruit(value);
+    setSelectedFruit(value as string | null);  
   };
 
-  const handleCountryChange = (value: string | null) => {
-    console.log('Selected Country:', value);
-    setSelectedCountry(value);
+  const handleCountryChange = (value: string | string[] | null) => {
+    console.log('Selected Countries:', value);
+    setSelectedCountries(value as string[]); // Cast for multi-select state
   };
 
-  const handleColorChange = (value: string | null) => {
+  const handleColorChange = (value: string | string[] | null) => {
     console.log('Selected Color:', value);
-    setSelectedColor(value);
+    setSelectedColor(value as string | null);
+  };
+
+  const handleMultiColorChange = (value: string | string[] | null) => {
+    console.log('Selected Multi-Colors:', value);
+    setSelectedMultiColors(value as string[]);
   };
 
   const handleAddNewItem = () => {
-    // Using a custom modal or message box instead of alert()
-    // For this example, we'll log to console or simulate a message
     console.log('Add New button clicked!');
-    // In a real application, you might open a modal or navigate to a creation page
+    alert('Add New functionality would go here!');
   };
 
   const handleRefreshOptions = () => {
-    // Using a custom modal or message box instead of alert()
     console.log('Refresh options clicked!');
-    // In a real application, you would re-fetch your options data here
+    alert('Refresh options functionality would go here!');
+    // In a real app, you would refetch options here.
   };
 
   return (
     <div className="p-8 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-6">Searchable Select Examples</h1>
 
-      {/* Basic Searchable Select */}
+      {/* Single Select Fruit */}
       <div className="mb-6">
         <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
           Select a Fruit (Searchable)
@@ -85,28 +99,30 @@ const Page: React.FC = () => {
 
       <hr className="my-6" />
 
-      {/* Select with initial value and refresh option */}
+      {/* Multi-Select Countries */}
       <div className="mb-6">
-        <label htmlFor="country-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Country (Initial Value & Refresh)
+        <label htmlFor="country-select-multi" className="block text-sm font-medium text-gray-700 mb-1">
+          Select Countries (Multi-Select, Initial Value & Refresh)
         </label>
         <SearchableSelect
-          id="country-select"
-          name="country"
+          id="country-select-multi"
+          name="countries"
           options={countryOptions}
-          placeholder="Pick a country"
+          placeholder="Pick countries"
           searchable
           onChange={handleCountryChange}
-          initialValue={selectedCountry}
+          initialValue={selectedCountries}
           onRefresh={handleRefreshOptions}
-          required
+          multiple // Enable multiple selection
         />
-        {selectedCountry && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountry}</p>}
+        {selectedCountries.length > 0 && (
+          <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountries.join(', ')}</p>
+        )}
       </div>
 
       <hr className="my-6" />
 
-      {/* Non-searchable Select */}
+      {/* Non-searchable Single Select Color */}
       <div className="mb-6">
         <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
           Select a Color (Non-Searchable)
@@ -121,6 +137,28 @@ const Page: React.FC = () => {
           initialValue={selectedColor}
         />
         {selectedColor && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedColor}</p>}
+      </div>
+
+      <hr className="my-6" />
+
+      {/* Multi-Select Colors (Non-Searchable) */}
+      <div className="mb-6">
+        <label htmlFor="multi-color-select" className="block text-sm font-medium text-gray-700 mb-1">
+          Select Multiple Colors (Non-Searchable)
+        </label>
+        <SearchableSelect
+          id="multi-color-select"
+          name="multi-colors"
+          options={colorOptions}
+          placeholder="Choose multiple colors"
+          searchable={false}
+          onChange={handleMultiColorChange}
+          initialValue={selectedMultiColors}
+          multiple // Enable multiple selection
+        />
+        {selectedMultiColors.length > 0 && (
+          <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedMultiColors.join(', ')}</p>
+        )}
       </div>
 
       <hr className="my-6" />
