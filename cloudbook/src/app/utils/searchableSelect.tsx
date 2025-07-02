@@ -339,31 +339,14 @@ const SearchableSelect = ({
             className="ml-2 text-gray-400 hover:text-gray-600 focus:outline-none"
             aria-label="Clear selection"
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            {/* Remix Icon: ri-close-circle-line for clear */}
+            <i className="ri-close-circle-line w-4 h-4"></i>
           </button>
         )}
-        <svg
-          className={`w-4 h-4 text-gray-400 transition-transform ${
+        {/* Remix Icon: ri-arrow-down-s-line for dropdown arrow */}
+        <i className={`ri-arrow-down-s-line w-4 h-4 text-gray-400 transition-transform ${
             isOpen ? 'rotate-180' : ''
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+          }`}></i>
       </div>
       {error && (
         <p className="mt-1 text-sm text-red-600">{error}</p>
@@ -390,15 +373,13 @@ const SearchableSelect = ({
                 {filteredOptions.map((option, index) => (
                   <li
                     key={option.value}
-                    className={`flex items-center gap-2 px-3 py-2 cursor-pointer text-sm transition-colors duration-150 ${
-                      currentSelection.has(option.value)
-                        ? 'bg-[#E6F5EC] text-gray-900' // Selected background
-                        : 'hover:bg-gray-100 text-gray-900' // Hover background
-                    } ${
-                      focusedIndex === index ? 'bg-[#ebe8e8]' : '' // Focused style with stronger visual indicator
-                    }`}
+                    className={`flex items-center gap-2 px-3 py-2 cursor-pointer text-sm transition-colors duration-150 
+                      ${currentSelection.has(option.value) ? 'bg-[#E6F5EC] text-gray-900' : 'text-gray-900'} 
+                      ${focusedIndex === index ? 'bg-[#ebe8e8]' : 'hover:bg-gray-100'} 
+                    `}
                     onClick={() => handleSelect(option)}
-                    onMouseEnter={() => setFocusedIndex(index)} // Update focused index on hover
+                    onMouseEnter={() => setFocusedIndex(index)}  
+                    onMouseLeave={() => setFocusedIndex(-1)}  
                     role="option"
                     aria-selected={currentSelection.has(option.value)}
                   >
@@ -433,9 +414,8 @@ const SearchableSelect = ({
                   }}
                   className="flex items-center gap-1 text-sm text-[#009333] hover:text-green-700 font-medium"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                  </svg>
+                  {/* Remix Icon: ri-add-line */}
+                  <i className="ri-add-line w-4 h-4"></i>
                   Add New
                 </button>
               )}
@@ -466,7 +446,7 @@ const SearchableSelect = ({
                   className="text-gray-600 hover:text-gray-800 p-1 rounded"
                   aria-label="Close"
                 >
-                   <i className="ri-close-line"></i>
+                  <i className="ri-close-line"></i>
                 </button>
               </div>
             </div>

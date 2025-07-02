@@ -1,13 +1,14 @@
- 'use client';
+'use client';
 
 import { useState } from 'react';
-import SearchableSelect, { Option } from '@/app/utils/searchableSelect'; // Adjust path if needed
+import Layout from '@/app/components/Layout'; // ✅ Adjust this path to your actual Layout file
+import SearchableSelect, { Option } from '@/app/utils/searchableSelect'; // ✅ Keep your existing import
 
 const Page: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']); // Array for multiple
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]); // New state for multi-select color
+  const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]);
 
   const fruitOptions: Option[] = [
     { value: 'apple', label: 'Apple' },
@@ -26,7 +27,7 @@ const Page: React.FC = () => {
     { value: 'plum', label: 'Plum' },
     { value: 'raspberry', label: 'Raspberry' },
   ];
-  
+
   const countryOptions: Option[] = [
     { value: 'usa', label: 'United States' },
     { value: 'canada', label: 'Canada' },
@@ -46,12 +47,12 @@ const Page: React.FC = () => {
 
   const handleFruitChange = (value: string | string[] | null) => {
     console.log('Selected Fruit:', value);
-    setSelectedFruit(value as string | null);  
+    setSelectedFruit(value as string | null);
   };
 
   const handleCountryChange = (value: string | string[] | null) => {
     console.log('Selected Countries:', value);
-    setSelectedCountries(value as string[]); // Cast for multi-select state
+    setSelectedCountries(value as string[]);
   };
 
   const handleColorChange = (value: string | string[] | null) => {
@@ -65,136 +66,135 @@ const Page: React.FC = () => {
   };
 
   const handleAddNewItem = () => {
-    console.log('Add New button clicked!');
     alert('Add New functionality would go here!');
   };
 
   const handleRefreshOptions = () => {
-    console.log('Refresh options clicked!');
     alert('Refresh options functionality would go here!');
-    // In a real app, you would refetch options here.
   };
 
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Searchable Select Examples</h1>
+    <Layout pageTitle="Usage Page">
+      <div className="p-8 max-w-md mx-auto">
+        <h1 className="text-2xl font-bold mb-6">Searchable Select Examples</h1>
 
-      {/* Single Select Fruit */}
-      <div className="mb-6">
-        <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Fruit (Searchable)
-        </label>
-        <SearchableSelect
-          id="fruit-select"
-          name="fruit"
-          options={fruitOptions}
-          placeholder="Choose a fruit"
-          searchable
-          onChange={handleFruitChange}
-          initialValue={selectedFruit}
-          onAddNew={handleAddNewItem}
-        />
-        {selectedFruit && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedFruit}</p>}
+        {/* Single Select Fruit */}
+        <div className="mb-6">
+          <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
+            Select a Fruit (Searchable)
+          </label>
+          <SearchableSelect
+            id="fruit-select"
+            name="fruit"
+            options={fruitOptions}
+            placeholder="Choose a fruit"
+            searchable
+            onChange={handleFruitChange}
+            initialValue={selectedFruit}
+            onAddNew={handleAddNewItem}
+          />
+          {selectedFruit && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedFruit}</p>}
+        </div>
+
+        <hr className="my-6" />
+
+        {/* Multi-Select Countries */}
+        <div className="mb-6">
+          <label htmlFor="country-select-multi" className="block text-sm font-medium text-gray-700 mb-1">
+            Select Countries (Multi-Select, Initial Value & Refresh)
+          </label>
+          <SearchableSelect
+            id="country-select-multi"
+            name="countries"
+            options={countryOptions}
+            placeholder="Pick countries"
+            searchable
+            onChange={handleCountryChange}
+            initialValue={selectedCountries}
+            onRefresh={handleRefreshOptions}
+            multiple
+          />
+          {selectedCountries.length > 0 && (
+            <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountries.join(', ')}</p>
+          )}
+        </div>
+
+        <hr className="my-6" />
+
+        {/* Non-searchable Single Select Color */}
+        <div className="mb-6">
+          <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
+            Select a Color (Non-Searchable)
+          </label>
+          <SearchableSelect
+            id="color-select"
+            name="color"
+            options={colorOptions}
+            placeholder="Choose a color"
+            searchable={false}
+            onChange={handleColorChange}
+            initialValue={selectedColor}
+          />
+          {selectedColor && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedColor}</p>}
+        </div>
+
+        <hr className="my-6" />
+
+        {/* Multi-Select Colors (Non-Searchable) */}
+        <div className="mb-6">
+          <label htmlFor="multi-color-select" className="block text-sm font-medium text-gray-700 mb-1">
+            Select Multiple Colors (Non-Searchable)
+          </label>
+          <SearchableSelect
+            id="multi-color-select"
+            name="multi-colors"
+            options={colorOptions}
+            placeholder="Choose multiple colors"
+            searchable={false}
+            onChange={handleMultiColorChange}
+            initialValue={selectedMultiColors}
+            multiple
+          />
+          {selectedMultiColors.length > 0 && (
+            <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedMultiColors.join(', ')}</p>
+          )}
+        </div>
+
+        <hr className="my-6" />
+
+        {/* Disabled Select */}
+        <div className="mb-6">
+          <label htmlFor="disabled-select" className="block text-sm font-medium text-gray-700 mb-1">
+            Disabled Select
+          </label>
+          <SearchableSelect
+            id="disabled-select"
+            name="disabled-item"
+            options={[{ value: 'disabled-option', label: 'This option is disabled' }]}
+            placeholder="Cannot select"
+            disabled
+            initialValue="disabled-option"
+          />
+        </div>
+
+        <hr className="my-6" />
+
+        {/* Select with an error */}
+        <div className="mb-6">
+          <label htmlFor="error-select" className="block text-sm font-medium text-gray-700 mb-1">
+            Select with Error
+          </label>
+          <SearchableSelect
+            id="error-select"
+            name="error-item"
+            options={[{ value: 'valid', label: 'Valid Option' }]}
+            placeholder="Select something"
+            error="This field is required!"
+            required
+          />
+        </div>
       </div>
-
-      <hr className="my-6" />
-
-      {/* Multi-Select Countries */}
-      <div className="mb-6">
-        <label htmlFor="country-select-multi" className="block text-sm font-medium text-gray-700 mb-1">
-          Select Countries (Multi-Select, Initial Value & Refresh)
-        </label>
-        <SearchableSelect
-          id="country-select-multi"
-          name="countries"
-          options={countryOptions}
-          placeholder="Pick countries"
-          searchable
-          onChange={handleCountryChange}
-          initialValue={selectedCountries}
-          onRefresh={handleRefreshOptions}
-          multiple // Enable multiple selection
-        />
-        {selectedCountries.length > 0 && (
-          <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountries.join(', ')}</p>
-        )}
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Non-searchable Single Select Color */}
-      <div className="mb-6">
-        <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Color (Non-Searchable)
-        </label>
-        <SearchableSelect
-          id="color-select"
-          name="color"
-          options={colorOptions}
-          placeholder="Choose a color"
-          searchable={false}
-          onChange={handleColorChange}
-          initialValue={selectedColor}
-        />
-        {selectedColor && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedColor}</p>}
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Multi-Select Colors (Non-Searchable) */}
-      <div className="mb-6">
-        <label htmlFor="multi-color-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select Multiple Colors (Non-Searchable)
-        </label>
-        <SearchableSelect
-          id="multi-color-select"
-          name="multi-colors"
-          options={colorOptions}
-          placeholder="Choose multiple colors"
-          searchable={false}
-          onChange={handleMultiColorChange}
-          initialValue={selectedMultiColors}
-          multiple // Enable multiple selection
-        />
-        {selectedMultiColors.length > 0 && (
-          <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedMultiColors.join(', ')}</p>
-        )}
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Disabled Select */}
-      <div className="mb-6">
-        <label htmlFor="disabled-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Disabled Select
-        </label>
-        <SearchableSelect
-          id="disabled-select"
-          name="disabled-item"
-          options={[{ value: 'disabled-option', label: 'This option is disabled' }]}
-          placeholder="Cannot select"
-          disabled
-          initialValue="disabled-option"
-        />
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Select with an error */}
-      <div className="mb-6">
-        <label htmlFor="error-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select with Error
-        </label>
-        <SearchableSelect
-          id="error-select"
-          name="error-item"
-          options={[{ value: 'valid', label: 'Valid Option' }]}
-          placeholder="Select something"
-          error="This field is required!"
-          required
-        />
-      </div>
-    </div>
+    </Layout>
   );
 };
 
