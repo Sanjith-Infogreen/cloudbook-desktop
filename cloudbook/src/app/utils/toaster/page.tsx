@@ -67,8 +67,8 @@ const ToastMessage: React.FC<ToastMessageProps> = ({
 
     return (
         <div
-            className={`fixed top-6 right-6 p-3 rounded-md shadow-lg bg-white  ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                } z-50 max-w-[280px]`}
+            className={`fixed top-14 right-3 p-3 rounded-md shadow-lg bg-white  ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                } z-50 w-[280px]`}
             role="alert"
         >
             <div className="flex items-start relative">
