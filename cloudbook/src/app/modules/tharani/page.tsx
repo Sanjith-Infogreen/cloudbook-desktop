@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import ConfirmationModal from '@/app/utils/confirmationModal/page';
 import ToastMessage from '@/app/utils/toaster/page';
-
+import Layout from '@/app/components/Layout';
 export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPurpose, setModalPurpose] = useState<'delete' | 'leave' | null>(null); // To distinguish modal actions
@@ -74,6 +74,7 @@ export default function HomePage() {
   const modalProps = getModalContent();
 
   return (
+    <Layout>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Welcome to My App</h1>
       <p className="text-md text-gray-600 mb-8">Click the buttons below to trigger a confirmation modal or a toast message.</p>
@@ -141,5 +142,6 @@ export default function HomePage() {
         onClose={handleClearToast}
       />
     </div>
+    </Layout>
   );
 }
