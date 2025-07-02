@@ -1,12 +1,17 @@
  'use client';
 
-import { useState } from 'react'; 
-import SearchableSelect, { Option } from '@/app/utils/searchableSelect';
+import { useState } from 'react';
+import Layout from '@/app/components/Layout';  
+import SearchableSelect, { Option } from '@/app/utils/searchableSelect';  
+import FilterSidebar from '@/app/utils/filterSIdebar';  
 
 const Page: React.FC = () => {
+  const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false); // State to control sidebar visibility
+
   const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState<string | null>('india'); // Example with an initial value
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]);
 
   const fruitOptions: Option[] = [
     { value: 'apple', label: 'Apple' },
@@ -14,6 +19,16 @@ const Page: React.FC = () => {
     { value: 'orange', label: 'Orange' },
     { value: 'grape', label: 'Grape' },
     { value: 'strawberry', label: 'Strawberry' },
+    { value: 'mango', label: 'Mango' },
+    { value: 'pineapple', label: 'Pineapple' },
+    { value: 'blueberry', label: 'Blueberry' },
+    { value: 'watermelon', label: 'Watermelon' },
+    { value: 'kiwi', label: 'Kiwi' },
+    { value: 'peach', label: 'Peach' },
+    { value: 'cherry', label: 'Cherry' },
+    { value: 'papaya', label: 'Papaya' },
+    { value: 'plum', label: 'Plum' },
+    { value: 'raspberry', label: 'Raspberry' },
   ];
 
   const countryOptions: Option[] = [
@@ -33,130 +48,203 @@ const Page: React.FC = () => {
     { value: 'purple', label: 'Purple' },
   ];
 
-  const handleFruitChange = (value: string | null) => {
+  const handleFruitChange = (value: string | string[] | null) => {
     console.log('Selected Fruit:', value);
-    setSelectedFruit(value);
+    setSelectedFruit(value as string | null);
   };
 
-  const handleCountryChange = (value: string | null) => {
-    console.log('Selected Country:', value);
-    setSelectedCountry(value);
+  const handleCountryChange = (value: string | string[] | null) => {
+    console.log('Selected Countries:', value);
+    setSelectedCountries(value as string[]);
   };
 
-  const handleColorChange = (value: string | null) => {
+  const handleColorChange = (value: string | string[] | null) => {
     console.log('Selected Color:', value);
-    setSelectedColor(value);
+    setSelectedColor(value as string | null);
+  };
+
+  const handleMultiColorChange = (value: string | string[] | null) => {
+    console.log('Selected Multi-Colors:', value);
+    setSelectedMultiColors(value as string[]);
   };
 
   const handleAddNewItem = () => {
-    // Using a custom modal or message box instead of alert()
-    // For this example, we'll log to console or simulate a message
-    console.log('Add New button clicked!');
-    // In a real application, you might open a modal or navigate to a creation page
+    alert('Add New functionality would go here!');
   };
 
   const handleRefreshOptions = () => {
-    // Using a custom modal or message box instead of alert()
-    console.log('Refresh options clicked!');
-    // In a real application, you would re-fetch your options data here
+    alert('Refresh options functionality would go here!');
+  };
+
+  // Sidebar specific handlers
+  const handleOpenFilterSidebar = () => {
+    setIsFilterSidebarOpen(true);
+  };
+
+  const handleCloseFilterSidebar = () => {
+    setIsFilterSidebarOpen(false);
+  };
+
+  const handleApplyFilters = () => {
+    console.log('Applying filters:', {
+      selectedFruit,
+      selectedCountries,
+      selectedColor,
+      selectedMultiColors,
+    });
+    // Here you would typically apply the filters to your data and then close the sidebar
+    setIsFilterSidebarOpen(false);
+  };
+
+  const handleResetFilters = () => {
+    console.log('Resetting filters');
+    setSelectedFruit(null);
+    setSelectedCountries([]); // Reset to empty array for multi-select
+    setSelectedColor(null);
+    setSelectedMultiColors([]); // Reset to empty array for multi-select
+    // Optionally close sidebar after reset, or keep it open for user to re-select
+    // setIsFilterSidebarOpen(false);
   };
 
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Searchable Select Examples</h1>
+    <Layout pageTitle="Usage Page">
+      <div className="p-8 max-w-md mx-auto">
+        <h1 className="text-2xl font-bold mb-6">Searchable Select Examples</h1>
 
-      {/* Basic Searchable Select */}
-      <div className="mb-6">
-        <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Fruit (Searchable)
-        </label>
-        <SearchableSelect
-          id="fruit-select"
-          name="fruit"
-          options={fruitOptions}
-          placeholder="Choose a fruit"
-          searchable
-          onChange={handleFruitChange}
-          initialValue={selectedFruit}
-          onAddNew={handleAddNewItem}
-        />
-        {selectedFruit && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedFruit}</p>}
+        {/* Button to open the filter sidebar */}
+        <button
+          className="btn btn-primary mb-6"
+          onClick={handleOpenFilterSidebar}
+        >
+          Open Filters
+        </button>
+
+        <hr className="my-6" />
+
+        {/* Existing content of your page (if any) can go here */}
+        <p className="text-gray-700">
+          This is the main content area. Click the "Open Filters" button to see the filter sidebar.
+        </p>
+
+        {/* Filter Sidebar */}
+        <FilterSidebar
+          isOpen={isFilterSidebarOpen}
+          onClose={handleCloseFilterSidebar}
+          onApply={handleApplyFilters}
+          onReset={handleResetFilters}
+          title="Apply Your Filters"
+        >
+          {/* Content to be placed inside the sidebar */}
+          <div className="space-y-6">
+            {/* Single Select Fruit */}
+            <div>
+              <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
+                Select a Fruit (Searchable)
+              </label>
+              <SearchableSelect
+                id="fruit-select"
+                name="fruit"
+                options={fruitOptions}
+                placeholder="Choose a fruit"
+                searchable
+                onChange={handleFruitChange}
+                initialValue={selectedFruit}
+                onAddNew={handleAddNewItem}
+              />
+              {selectedFruit && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedFruit}</p>}
+            </div>
+
+            {/* Multi-Select Countries */}
+            <div>
+              <label htmlFor="country-select-multi" className="block text-sm font-medium text-gray-700 mb-1">
+                Select Countries (Multi-Select, Initial Value & Refresh)
+              </label>
+              <SearchableSelect
+                id="country-select-multi"
+                name="countries"
+                options={countryOptions}
+                placeholder="Pick countries"
+                searchable
+                onChange={handleCountryChange}
+                initialValue={selectedCountries}
+                onRefresh={handleRefreshOptions}
+                multiple
+              />
+              {selectedCountries.length > 0 && (
+                <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountries.join(', ')}</p>
+              )}
+            </div>
+
+            {/* Non-searchable Single Select Color */}
+            <div>
+              <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
+                Select a Color (Non-Searchable)
+              </label>
+              <SearchableSelect
+                id="color-select"
+                name="color"
+                options={colorOptions}
+                placeholder="Choose a color"
+                searchable={false}
+                onChange={handleColorChange}
+                initialValue={selectedColor}
+              />
+              {selectedColor && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedColor}</p>}
+            </div>
+
+            {/* Multi-Select Colors (Non-Searchable) */}
+            <div>
+              <label htmlFor="multi-color-select" className="block text-sm font-medium text-gray-700 mb-1">
+                Select Multiple Colors (Non-Searchable)
+              </label>
+              <SearchableSelect
+                id="multi-color-select"
+                name="multi-colors"
+                options={colorOptions}
+                placeholder="Choose multiple colors"
+                searchable={false}
+                onChange={handleMultiColorChange}
+                initialValue={selectedMultiColors}
+                multiple
+              />
+              {selectedMultiColors.length > 0 && (
+                <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedMultiColors.join(', ')}</p>
+              )}
+            </div>
+
+            {/* Disabled Select */}
+            <div>
+              <label htmlFor="disabled-select" className="block text-sm font-medium text-gray-700 mb-1">
+                Disabled Select
+              </label>
+              <SearchableSelect
+                id="disabled-select"
+                name="disabled-item"
+                options={[{ value: 'disabled-option', label: 'This option is disabled' }]}
+                placeholder="Cannot select"
+                disabled
+                initialValue="disabled-option"
+              />
+            </div>
+
+            {/* Select with an error */}
+            <div>
+              <label htmlFor="error-select" className="block text-sm font-medium text-gray-700 mb-1">
+                Select with Error
+              </label>
+              <SearchableSelect
+                id="error-select"
+                name="error-item"
+                options={[{ value: 'valid', label: 'Valid Option' }]}
+                placeholder="Select something"
+                error="This field is required!"
+                required
+              />
+            </div>
+          </div>
+        </FilterSidebar>
       </div>
-
-      <hr className="my-6" />
-
-      {/* Select with initial value and refresh option */}
-      <div className="mb-6">
-        <label htmlFor="country-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Country (Initial Value & Refresh)
-        </label>
-        <SearchableSelect
-          id="country-select"
-          name="country"
-          options={countryOptions}
-          placeholder="Pick a country"
-          searchable
-          onChange={handleCountryChange}
-          initialValue={selectedCountry}
-          onRefresh={handleRefreshOptions}
-          required
-        />
-        {selectedCountry && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedCountry}</p>}
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Non-searchable Select */}
-      <div className="mb-6">
-        <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select a Color (Non-Searchable)
-        </label>
-        <SearchableSelect
-          id="color-select"
-          name="color"
-          options={colorOptions}
-          placeholder="Choose a color"
-          searchable={false}
-          onChange={handleColorChange}
-          initialValue={selectedColor}
-        />
-        {selectedColor && <p className="mt-2 text-sm text-gray-600">Currently selected: {selectedColor}</p>}
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Disabled Select */}
-      <div className="mb-6">
-        <label htmlFor="disabled-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Disabled Select
-        </label>
-        <SearchableSelect
-          id="disabled-select"
-          name="disabled-item"
-          options={[{ value: 'disabled-option', label: 'This option is disabled' }]}
-          placeholder="Cannot select"
-          disabled
-          initialValue="disabled-option"
-        />
-      </div>
-
-      <hr className="my-6" />
-
-      {/* Select with an error */}
-      <div className="mb-6">
-        <label htmlFor="error-select" className="block text-sm font-medium text-gray-700 mb-1">
-          Select with Error
-        </label>
-        <SearchableSelect
-          id="error-select"
-          name="error-item"
-          options={[{ value: 'valid', label: 'Valid Option' }]}
-          placeholder="Select something"
-          error="This field is required!"
-          required
-        />
-      </div>
-    </div>
+    </Layout>
   );
 };
 
