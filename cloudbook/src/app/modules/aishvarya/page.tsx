@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import CommonModal from "@/app/utils/common-modal";
-import Layout from "@/app/components/Layout";
+import Layout from '@/app/components/Layout'; // ✅ Adjust this path to your actual Layout file
+
 import {
   Input,
   RadioGroup,
@@ -35,8 +36,7 @@ const Page: React.FC = () => {
     console.log("Form Values:", form);
   };
 
-  return (
-    <Layout>
+  return (    <Layout pageTitle="Usage Page">
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 font-inter">
       <button
         id="ModalBtn"
