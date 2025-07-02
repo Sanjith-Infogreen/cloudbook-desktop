@@ -43,17 +43,17 @@
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
-
+/* 
 .active-menu {
   background-color: #191f26;
   border-left-color: #1aed59;
-}
+} */
 
 .font-helvetica {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.submenu::before {
+/* .submenu::before {
   content: "";
   position: absolute;
   top: 0.6rem;
@@ -61,7 +61,7 @@ body {
   border-width: 8px;
   border-style: solid;
   border-color: transparent rgb(18, 52, 77) transparent transparent;
-}
+} */
 
 ::-webkit-scrollbar {
   width: 11px;            
@@ -92,15 +92,22 @@ textarea::placeholder {
   @apply text-[13px] text-[#585858];
 }
 
-input[type="radio"],
+/* input[type="radio"],
 input[type="checkbox"] {
   @apply accent-[#009333];
-}
+} */
 
 @layer components {
   .form-control {
     @apply block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333];
   }
+   .form-radio {
+    @apply accent-[#009333];
+  }
+     .form-checkbox {
+    @apply accent-[#009333];
+  }
+
 
   .form-label {
     @apply text-sm text-[#1D1D1D];
