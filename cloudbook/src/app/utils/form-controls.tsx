@@ -65,7 +65,7 @@ export const RadioGroup = ({
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio text-[#009333] focus:ring-[#009333]"
+              className="form-radio"
               checked={selectedValue === option.value}
               onChange={handleChange}
             />
@@ -115,7 +115,7 @@ export const CheckboxGroup = ({
             type="checkbox"
             name={name}
             value={option.value}
-           className="form-checkbox text-[#009333] focus:ring-2 focus:ring-[#009333] focus:outline-none"
+           className="form-checkbox"
 
             checked={selectedValues.includes(option.value)}
             onChange={handleChange}
