@@ -110,7 +110,7 @@ input[type="checkbox"] {
 
 
   .form-label {
-    @apply text-sm text-[#1D1D1D];
+    @apply block text-sm text-[#1D1D1D];
   }
 
    .filter-label {
@@ -118,7 +118,7 @@ input[type="checkbox"] {
   }
 
    .filter-header {
-    @apply py-[0.5rem] px-[0.75rem] border-b border-[#dee2e6] flex justify-between items-center text-sm text-[#12344d];
+    @apply py-2 px-3 border-b border-[#dee2e6] flex justify-between items-center text-[15px] text-[#12344d];
   }
 
      .offcanvas-sidebar {
