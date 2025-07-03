@@ -112,7 +112,9 @@ const NewExpense = () => {
         console.log("Add new name clicked");
         // Handle add new logic here
     };
-
+const handleNameSelect = (name: any) => {
+        console.log("Selected name:", name);
+    };
   return (
     <Layout pageTitle="Expense New">
       <div className="flex-1">
@@ -209,6 +211,8 @@ const NewExpense = () => {
               displayField="name"
               minSearchLength={1}
               onAddNew={handleAddNewName}
+              onSelect={handleNameSelect}
+
             />
            </div>
           </div>
