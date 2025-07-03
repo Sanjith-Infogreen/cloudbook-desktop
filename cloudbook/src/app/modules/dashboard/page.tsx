@@ -12,27 +12,37 @@
  const Dashboard: React.FC<DashboardProps> = ({ mainContentHTML, isDropdownOpen, handleDropdownToggle }) => {
    const [pages, setPages] = useState<string[]>([]); // You'll populate this from data
    const [recentSearches, setRecentSearches] = useState<string[]>([]); // You'll populate this from data
- 
-   useEffect(() => {
-     setPages([
-       'Contact',
-       'Contact List',
-       'Invoice',
-       'Invoice List',
-       'Invoice Payment',
-       'Expense',
-       'Expense List',
-       'Purchase',
-       'Purchase List',
-       'Quotation',
-       'Quotation List'
-     ]);
-     setRecentSearches([
-       'Search term 1',
-       'Search term 2',
-       'Search term 3',
-     ]);
-   }, []);
+ const [modals, setModals] = useState<string[]>([]); 
+  useEffect(() => {
+  setPages([
+    'Contact',
+    'Contact List',
+    'Invoice',
+    'Invoice List',
+    'Invoice Payment',
+    'Expense',
+    'Expense List',
+    'Purchase',
+    'Purchase List',
+    'Quotation',
+    'Quotation List',
+  ]);
+
+  setModals([
+    'Customer Ledger',
+    'Product Ledger',
+    'Expense Ledger',
+    'Unit Ledger',
+    'Bank Accounts',
+    'Mandatory Fields',
+  ]);
+
+  setRecentSearches([
+    'Search term 1',
+    'Search term 2',
+    'Search term 3',
+  ]);
+}, []);
  
    const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
      const searchTerm = event.target.value.toLowerCase();
@@ -59,46 +69,50 @@
              <div className="bg-white mt-2">
                <div className="relative mb-0 p-2 rounded-md">
                  <div className="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none">
-                   <svg
-                     className="w-4 h-4 text-gray-500"
-                     aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none"
-                     viewBox="0 0 20 20"
-                   >
-                     <path
-                       stroke="currentColor"
-                       strokeLinecap="round"
-                       strokeLinejoin="round"
-                       strokeWidth="2"
-                       d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                     />
-                   </svg>
+                 <i className="ri-search-line text-[#59636e] text-[0.875rem]"></i>
+
                  </div>
                  <input
                    type="search"
                    id="searchInput"
                    className="w-full p-2 pl-10 text-sm text-gray-900 border border-[#009333] rounded-lg"
-                   placeholder="Search"
+                   placeholder="Search here..."
                    onChange={handleSearchInput}
                  />
                </div>
  
                {/* Pages Section */}
-               <div className="mb-1 border-b-1 border-b-[#DEE2E6]">
-                 <h2 className="text-sm font-semibold text-green-600 mb-1 mr-3 ml-3">Pages</h2>
-                 <ul className="p-1 mr-3 ml-3 max-h-[340px] overflow-y-scroll" id="pages-list">
-                   {pages.map((page, index) => (
-                     <li key={index} className="py-1 cursor-pointer hover:bg-gray-100 px-2 rounded-md flex justify-between items-center">
-                       <div className="flex items-center">
-                         <i className="ri-file-line text-gray-500 mr-2"></i> {/* Remix icon added here */}
-                         {page}
-                       </div>
-                       <span className="text-gray-400 text-sm">Jump to</span> {/* "Jump to" text added here */}
-                     </li>
-                   ))}
-                 </ul>
-               </div>
+             <div className="mb-1 border-b border-[#DEE2E6] max-h-[300px]  overflow-y-scroll">
+  {/* Pages Section */}
+  <h2 className="text-[12px] font-semibold text-[#59636E] mb-1 mr-3 ml-3">Pages</h2>
+  <ul className="p-1 mr-3 ml-3">
+    {pages.map((page, index) => (
+      <li key={index} className="py-1.5 text-[14px] text-[#1f2328] cursor-pointer hover:bg-gray-100 px-2 rounded-sm flex justify-between items-center">
+        <div className="flex items-center">
+          <i className="ri-file-line text-gray-500 mr-2"></i>
+          {page}
+        </div>
+        <span className="text-gray-400 text-sm">Jump to</span>
+      </li>
+    ))}
+  </ul>
+
+  {/* Modals Section */}
+  <h2 className="text-[12px] font-semibold text-[#59636E] mb-1 mr-3 ml-3">Modals</h2>
+  <ul className="p-1 mr-3 ml-3">
+    {modals.map((modal, index) => (
+      <li key={index} className="py-1.5 text-[14px] text-[#1f2328] cursor-pointer hover:bg-gray-100 px-2 rounded-sm flex justify-between items-center">
+        <div className="flex items-center">
+          <i className="ri-file-line text-gray-500 mr-2"></i>
+          {modal}
+        </div>
+        <span className="text-gray-400 text-sm">Jump to</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+              
  
                {/* Recent Searches Section */}
                <div className="mb-3 border-b-1 border-b-[#DEE2E6]">
