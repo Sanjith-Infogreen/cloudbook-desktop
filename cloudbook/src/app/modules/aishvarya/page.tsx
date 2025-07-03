@@ -82,15 +82,15 @@ const Page: React.FC = () => {
           <CheckboxGroup
             name="features"
             options={[
-              { value: "AC", label: "AC" },
-              { value: "WiFi", label: "WiFi" },
-              { value: "Parking", label: "Parking" },
+              { value: "AC"} 
+             
             ]}
             defaultValues={form.features}
             onChange={(values) =>
               setForm((prev) => ({ ...prev, features: values }))
             }
           />
+          <label>AC</label>
         </div>
 
         <div>
