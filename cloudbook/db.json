@@ -1,11 +1,197 @@
- 
 {
-    "posts": [
-      { "id": "1", "title": "JSON Server is Great!", "author": "Alice" },
-      { "id": "2", "title": "Learning Next.js", "author": "Bob" }
-    ],
-    "users": [
-      { "id": "1", "name": "John Doe", "email": "john.doe@example.com" },
-      { "id": "2", "name": "Jane Smith", "email": "jane.smith@example.com" }
-    ]
-  }
+  "posts": [
+    { "id": "1", "title": "JSON Server is Great!", "author": "Alice" },
+    { "id": "2", "title": "Learning Next.js", "author": "Bob" }
+  ],
+  "users": [
+    { "id": "1", "name": "John Doe", "email": "john.doe@example.com" },
+    { "id": "2", "name": "Jane Smith", "email": "jane.smith@example.com" }
+  ],
+  "typeHeadData": [
+    {
+      "id": 1,
+      "name": "Aaaaaaaaaaaaaaaa",
+      "description": "This is a detailed description for Aaaaaaaaaaaaaaaa item with more information about its features and usage."
+    },
+    {
+      "id": 2,
+      "name": "Ad Agency Solutions",
+      "description": "Professional advertising and marketing solutions for businesses of all sizes."
+    },
+    {
+      "id": 3,
+      "name": "Anil Alta Technologies",
+      "description": "Advanced technology solutions and IT services provider."
+    },
+    {
+      "id": 4,
+      "name": "Anil Maggie Foods",
+      "description": "Quality food products and catering services for various occasions."
+    },
+    {
+      "id": 5,
+      "name": "Anil Kumar Enterprises",
+      "description": "Multi-business enterprise offering various commercial services."
+    },
+    {
+      "id": 6,
+      "name": "Arun Suppliers",
+      "description": "Reliable supplier of industrial and commercial goods and materials."
+    },
+    {
+      "id": 7,
+      "name": "Asdfasf Industries",
+      "description": "Manufacturing and industrial solutions provider with quality products."
+    },
+    {
+      "id": 8,
+      "name": "Alpha Beta Corp",
+      "description": "Corporate solutions and business consulting services."
+    },
+    {
+      "id": 9,
+      "name": "Amazing Products Ltd",
+      "description": "Innovative product development and distribution company."
+    },
+    {
+      "id": 10,
+      "name": "Advance Systems",
+      "description": "Advanced system integration and technical support services."
+    }
+  ],
+  "sidebarData": [
+    {
+      "icon": " ri-dashboard-line",
+      "Title": "Master",
+      "icon_down": "ri-arrow-down-s-line",
+      "submenu": [
+        {
+          "Title": "Contact",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/contact/list",
+          "new_Link": "/modules/contact/new",
+          "order": 6
+     
+        },
+        {
+          "Title": "Options",
+          "icon_New": "",
+          "main_Link": "/modules/options",
+          "new_Link": "",
+          "order": 5
+        },
+        {
+          "Title": "Sanjith",
+          "icon_New": "",
+          "main_Link": "/modules/sanjith",
+          "new_Link": "",
+          "order": 4
+        },
+        {
+          "Title": "Sukumar",
+          "icon_New": "",
+          "main_Link": "/modules/sukumar",
+          "new_Link": "",
+          "order": 3
+        },
+        {
+          "Title": "Tharani",
+          "icon_New": "",
+          "main_Link": "/modules/tharani",
+          "new_Link": "",
+          "order": 2
+        },
+        {
+          "Title": "Aishvarya",
+          "icon_New": "",
+          "main_Link": "/modules/aishvarya",
+          "new_Link": "",
+          "order": 1
+        }
+      ],
+      "order": 1
+    },
+
+    {
+      "icon": "ri-shopping-cart-line",
+      "Title": "Purchase",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/purchase/list",
+      "new_Link": "/modules/purchase/new",
+      "order": 2
+      
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Invoice",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/invoice/list",
+      "new_Link": "/modules/invoice/new",
+      "order": 3
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "Quotation",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/quotation/list",
+      "new_Link": "/modules/quotation/new",
+      "order": 4
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "Payment",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/payment/list",
+      "new_Link": "/modules/payment/new",
+      "order": 5
+    },
+    {
+      "icon": "ri-calculator-line",
+      "Title": "Expense",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/expense/list",
+      "new_Link": "/modules/expense/new",
+      "order": 6
+    },
+    {
+      "icon": "ri-money-rupee-circle-line",
+      "Title": "Receipt",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/receipt/list",
+      "new_Link": "/modules/receipt/new",
+      "order": 7
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "P.Return",
+      "icon_New": " ri-add-fill",
+      "main_Link": "/modules/purchase-return/list",
+      "new_Link": "/modules/purchase-return/new",
+      "order": 8
+    },
+    {
+      "icon": "ri-reply-line",
+      "Title": "S.Return",
+      "icon_New": " ri-add-fill",
+      "main_Link": "modules/sales-return/list",
+      "new_Link": "modules/sales-return/new",
+      "order": 9
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "Category",
+      "icon_New": "",
+      "main_Link": "/modules/category",
+      "new_Link": "",
+      "order": 10
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Report",
+      "icon_New": "",
+      "main_Link": "/modules/report",
+      "new_Link": "",
+      "order": 11
+    }
+  ]
+}
