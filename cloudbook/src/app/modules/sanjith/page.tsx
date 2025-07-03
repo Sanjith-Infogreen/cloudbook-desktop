@@ -135,10 +135,10 @@ const Page: React.FC = () => {
           title="Apply Your Filters"
         >
           {/* Content to be placed inside the sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Single Select Fruit */}
             <div>
-              <label htmlFor="fruit-select" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="fruit-select" className="filter-label">
                 Select a Fruit (Searchable)
               </label>
               <SearchableSelect
@@ -156,8 +156,8 @@ const Page: React.FC = () => {
 
             {/* Multi-Select Countries */}
             <div>
-              <label htmlFor="country-select-multi" className="block text-sm font-medium text-gray-700 mb-1">
-                Select Countries (Multi-Select, Initial Value & Refresh)
+              <label htmlFor="country-select-multi" className="filter-label">
+                Select Countries 
               </label>
               <SearchableSelect
                 id="country-select-multi"
@@ -177,7 +177,7 @@ const Page: React.FC = () => {
 
             {/* Non-searchable Single Select Color */}
             <div>
-              <label htmlFor="color-select" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="color-select" className="filter-label">
                 Select a Color (Non-Searchable)
               </label>
               <SearchableSelect
@@ -194,7 +194,7 @@ const Page: React.FC = () => {
 
             {/* Multi-Select Colors (Non-Searchable) */}
             <div>
-              <label htmlFor="multi-color-select" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="multi-color-select" className="filter-label">
                 Select Multiple Colors (Non-Searchable)
               </label>
               <SearchableSelect
@@ -214,7 +214,7 @@ const Page: React.FC = () => {
 
             {/* Disabled Select */}
             <div>
-              <label htmlFor="disabled-select" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="disabled-select" className="filter-label">
                 Disabled Select
               </label>
               <SearchableSelect
@@ -229,7 +229,7 @@ const Page: React.FC = () => {
 
             {/* Select with an error */}
             <div>
-              <label htmlFor="error-select" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="error-select" className="filter-label">
                 Select with Error
               </label>
               <SearchableSelect
