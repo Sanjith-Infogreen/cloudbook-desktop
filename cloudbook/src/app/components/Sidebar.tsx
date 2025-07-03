@@ -11,63 +11,70 @@ export default function Sidebar() {
   const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>(
     {}
   );
-const sidebarRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const sideMenuBar = useSelector(
     (state: RootState) => state.sideMenu.sideMenuBar
   );
-useEffect(() => {
-  const checkScreenSize = () => {
-    setIsMobile(window.innerWidth <= 1024);
-  };
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      sidebarRef.current &&
-      !sidebarRef.current.contains(event.target as Node)
-    ) {
-      setHoveredMenu(null);
-    }
-  };
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setHoveredMenu(null);
+      }
+    };
 
-  // Run initial screen size check
-  checkScreenSize();
+    // Run initial screen size check
+    checkScreenSize();
 
-  // Attach both listeners
-  window.addEventListener("resize", checkScreenSize);
-  document.addEventListener("mousedown", handleClickOutside);
+    // Attach both listeners
+    window.addEventListener("resize", checkScreenSize);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  // Cleanup both listeners
-  return () => {
-    window.removeEventListener("resize", checkScreenSize);
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
-
+    // Cleanup both listeners
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const isActive = (path: string) => pathname.startsWith(path);
 
   const isSectionActive = (submenu: any[]) =>
     submenu.some((s) => pathname.startsWith(s.main_Link));
 
-  const toggleSection = (title: string) =>
-    setOpenSections((prev) => ({ ...prev, [title]: !prev[title] }));
+  const toggleSection = (title: string, currentOpen: boolean) =>
+    setOpenSections((prev) => ({
+      ...prev,
+      [title]: !currentOpen, // flip based on current resolved open state
+    }));
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
     return (
-      <div ref={sidebarRef} className="w-[200px] bg-[#212934] shadow-md relative h-full">
-        <div className="px-0 pt-2 pb-0 flex justify-center">
-          <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+      <div
+        ref={sidebarRef}
+        className="w-[200px] bg-[#212934] shadow-md relative h-full"
+      >
+        <div className="px-0 pt-1 pb-0 flex justify-center">
+          <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
         </div>
 
-        <nav className="py-0">
+        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
           <ul>
             {sideMenuBar.map((menu, idx) => {
               const isSection = menu.submenu && menu.submenu.length > 0;
-              const sectionOpen =
-                openSections[menu.Title] || isSectionActive(menu.submenu || []);
+              const hasToggled = menu.Title in openSections;
+              const sectionOpen = hasToggled
+                ? openSections[menu.Title]
+                : isSectionActive(menu.submenu || []);
               const activeItem = !isSection && isActive(menu.main_Link);
 
               return (
@@ -76,9 +83,11 @@ useEffect(() => {
                     <>
                       <div
                         className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                          sectionOpen ? "text-white " : "text-[#b0b3b7]"
+                          hasToggled || sectionOpen
+                            ? "text-white "
+                            : "text-[#b0b3b7]"
                         }`}
-                        onClick={() => toggleSection(menu.Title)}
+                        onClick={() => toggleSection(menu.Title, sectionOpen)}
                       >
                         <div className="flex items-center">
                           <i className={`${menu.icon} mr-3 text-lg`}></i>
@@ -189,12 +198,15 @@ useEffect(() => {
 
   // MOBILE/TABLET SIDEBAR
   return (
-    <div ref={sidebarRef} className="w-[60px] bg-[#212934] shadow-md relative h-full">
+    <div
+      ref={sidebarRef}
+      className="w-[60px] bg-[#212934] shadow-md relative h-full"
+    >
       <div className="px-0 py-1.5 flex justify-center">
         <img src="/images/tab-logo.png" alt="Logo" className="h-9" />
       </div>
 
-      <nav className="py-0">
+      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
         <ul>
           {sideMenuBar.map((menu, idx) => {
             const isSection = menu.submenu && menu.submenu.length > 0;
@@ -210,7 +222,6 @@ useEffect(() => {
                     ? "bg-[#191f26] border-l-[#1aed59] text-white"
                     : "text-[#b0b3b7] border-l-transparent"
                 }`}
-                
                 onClick={() => setHoveredMenu(menu.Title)}
               >
                 <div className="flex items-center">
@@ -230,9 +241,9 @@ useEffect(() => {
                             {sub.main_Link && (
                               <li
                                 key={`${subIdx}-main`}
-                                className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                                className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
                                   isActive(sub.main_Link)
-                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                    ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
                                     : "border-l-transparent"
                                 }`}
                                 onClick={() => router.push(sub.main_Link)}
@@ -247,9 +258,9 @@ useEffect(() => {
                             {sub.new_Link && sub.main_Link && (
                               <li
                                 key={`${subIdx}-new`}
-                                className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                                className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
                                   isActive(sub.new_Link)
-                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                    ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
                                     : "border-l-transparent"
                                 }`}
                                 onClick={() => router.push(sub.new_Link)}
@@ -262,9 +273,9 @@ useEffect(() => {
                         ))
                       ) : (
                         <li
-                          className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                          className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
                             isActive(menu.main_Link)
-                              ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                              ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
                               : "border-l-transparent"
                           }`}
                           onClick={() => router.push(menu.main_Link)}
