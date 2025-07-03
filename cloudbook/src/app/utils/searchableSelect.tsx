@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 export interface Option {
@@ -86,8 +86,8 @@ const SearchableSelect = ({
 
   const filteredOptions = searchable
     ? options.filter((option) =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      option.label.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     : options;
 
   // Effect to reset focusedIndex when options change or dropdown closes
@@ -95,10 +95,10 @@ const SearchableSelect = ({
     if (!isOpen) {
       setFocusedIndex(-1);
     } else if (filteredOptions.length > 0 && focusedIndex === -1) {
-        // If opening or options change, try to focus on the current selection or first item
-        const currentlySelectedValue = multiple ? Array.from(currentSelection)[0] : Array.from(currentSelection)[0];
-        const initialFocusIndex = filteredOptions.findIndex(opt => opt.value === currentlySelectedValue);
-        setFocusedIndex(initialFocusIndex !== -1 ? initialFocusIndex : 0);
+      // If opening or options change, try to focus on the current selection or first item
+      const currentlySelectedValue = multiple ? Array.from(currentSelection)[0] : Array.from(currentSelection)[0];
+      const initialFocusIndex = filteredOptions.findIndex(opt => opt.value === currentlySelectedValue);
+      setFocusedIndex(initialFocusIndex !== -1 ? initialFocusIndex : 0);
     }
   }, [isOpen, filteredOptions, currentSelection, focusedIndex, multiple]);
 
@@ -292,7 +292,7 @@ const SearchableSelect = ({
       });
     }
   }, [disabled, isOpen, searchable]);
-  
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -308,46 +308,48 @@ const SearchableSelect = ({
         required={required}
         data-validate={dataValidate}
       />
-      <div
-        id={id}
-        className={`form-control flex items-center justify-between border rounded-md px-3 py-2 cursor-pointer ${
-          disabled
-            ? 'bg-gray-100 cursor-not-allowed opacity-60'
-            : ''
-        } ${
-          isOpen ? 'ring-0.5' : 'border-gray-300'
-        } ${error ? 'border-red-500' : ''}`}
-        onClick={handleToggle}
-        onKeyDown={handleKeyDown}
-        tabIndex={disabled ? -1 : 0}
-        role="combobox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        aria-labelledby={id}
-      >
-        <span
-          className={`flex-1 truncate ${
-            currentSelection.size > 0 ? 'text-black' : 'text-gray-500'
-          }`}
-        >
-          {displayLabel || placeholder}
-        </span>
+      <div className="relative w-full" onClick={handleToggle}>
+        <input
+          id={id}
+          type="text"
+          readOnly // Keep readOnly if you're using this like a custom select
+          value={displayLabel ?? ''}
+          placeholder={placeholder}
+     
+          onKeyDown={handleKeyDown}
+          disabled={disabled}
+          tabIndex={disabled ? -1 : 0}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-labelledby={id}
+          className={`
+      form-control w-full truncate pr-8 rounded-md px-3 py-2 cursor-pointer
+      ${disabled ? 'bg-gray-100 cursor-not-allowed opacity-60' : ''}
+      ${isOpen ? 'border-[#009333]' : error ? 'border-red-500' : 'border-gray-300'}
+      focus:outline-none focus:border-[#009333]
+    `}
+        />
+
+        {/* Clear Button */}
         {currentSelection.size > 0 && !disabled && (
           <button
             type="button"
             onClick={handleClear}
-            className="ml-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
             aria-label="Clear selection"
           >
-            {/* Remix Icon: ri-close-circle-line for clear */}
             <i className="ri-close-circle-line w-4 h-4"></i>
           </button>
         )}
-        {/* Remix Icon: ri-arrow-down-s-line for dropdown arrow */}
-        <i className={`ri-arrow-down-s-line w-4 h-4 text-gray-400 transition-transform ${
-            isOpen ? 'rotate-180' : ''
-          }`}></i>
+
+        {/* Arrow Icon */}
+        <i
+          className={`ri-arrow-down-s-line absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''
+            }`}
+        ></i>
       </div>
+
       {error && (
         <p className="mt-1 text-sm text-red-600">{error}</p>
       )}
@@ -359,7 +361,7 @@ const SearchableSelect = ({
                 ref={searchInputRef}
                 type="text"
                 placeholder="Search..."
-                className="form-control w-full p-2 border border-gray-300 rounded"
+                className="form-control w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#009333]"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 onKeyDown={handleSearchKeyDown}
@@ -378,8 +380,8 @@ const SearchableSelect = ({
                       ${focusedIndex === index ? 'bg-[#ebe8e8]' : 'hover:bg-gray-100'} 
                     `}
                     onClick={() => handleSelect(option)}
-                    onMouseEnter={() => setFocusedIndex(index)}  
-                    onMouseLeave={() => setFocusedIndex(-1)}  
+                    onMouseEnter={() => setFocusedIndex(index)}
+                    onMouseLeave={() => setFocusedIndex(-1)}
                     role="option"
                     aria-selected={currentSelection.has(option.value)}
                   >
@@ -420,7 +422,7 @@ const SearchableSelect = ({
                 </button>
               )}
               {/* This div ensures both refresh and close icons are grouped on the right */}
-              <div className="flex gap-2 ml-auto"> 
+              <div className="flex gap-2 ml-auto">
                 {onRefresh && (
                   <button
                     type="button"
