@@ -285,9 +285,9 @@ input[type="checkbox"] {
   .in-page-title {
     @apply text-base font-semibold;
   }
-  a:hover {
+  /* a:hover {
     @apply text-[#009333];
-  }
+  } */
   
 }
  
