@@ -1,5 +1,4 @@
-// app/utils/form-controls.tsx
-"use client";
+ "use client";
 
 import React, { useState, useEffect } from "react";
 
@@ -57,19 +56,20 @@ export const RadioGroup = ({
   };
 
   return (
-    <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})} {...props}>
+    <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})}>
       <div className="flex flex-wrap items-center gap-6">
         {options.map((option) => (
-          <label key={option.value} className="inline-flex items-center text-sm">
+          <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
             <input
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio"
+              className="form-radio h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500 rounded-full"
               checked={selectedValue === option.value}
               onChange={handleChange}
+              {...props}
             />
-            <span className="ml-2">{option.label}</span>
+            <span className="ml-2 text-gray-700">{option.label}</span>
           </label>
         ))}
       </div>
@@ -77,7 +77,7 @@ export const RadioGroup = ({
   );
 };
 
-// Checkbox Group Component
+
 export const CheckboxGroup = ({
   name,
   options,
@@ -86,16 +86,14 @@ export const CheckboxGroup = ({
   ...props
 }: {
   name: string;
-  options: { value: string; label: string }[];
+  options: { value: any }[];
   defaultValues?: string[];
   onChange?: (values: string[]) => void;
   [key: string]: any;
 }) => {
+  // Initialize state directly with defaultValues.
+  // This value will only be used on the first render.
   const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues);
-
-  useEffect(() => {
-    setSelectedValues(defaultValues);
-  }, [defaultValues]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -110,18 +108,17 @@ export const CheckboxGroup = ({
   return (
     <div className="flex flex-wrap gap-4" {...props}>
       {options.map((option) => (
-        <label key={option.value} className="inline-flex items-center text-sm">
-          <input
-            type="checkbox"
-            name={name}
-            value={option.value}
-           className="form-checkbox"
+        <input
+          key={option.value}
+          type="checkbox"
+          name={name}
+          value={option.value}
+          className="form-checkbox"
+          checked={selectedValues.includes(option.value)}
+          onChange={handleChange}
+         
+        />
 
-            checked={selectedValues.includes(option.value)}
-            onChange={handleChange}
-          />
-          <span className="ml-2">{option.label}</span>
-        </label>
       ))}
     </div>
   );
@@ -141,17 +138,21 @@ export const Toggle = ({
   label?: string;
   [key: string]: any;
 }) => (
-  <label className="inline-flex items-center cursor-pointer">
-    <input
-      type="checkbox"
-      name={name}
-      checked={checked}
-      onChange={onChange}
-      className="sr-only peer"
-      {...props}
-    />
-  <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors relative after:content-[''] after:absolute after:top-[0.125rem] after:left-[0.125rem] after:w-2.5 after:h-2.5 after:bg-[#bfbfbf] after:rounded-full after:shadow after:transition-transform peer-checked:after:translate-x-3.5 peer-checked:after:bg-white" />
+    <label className="relative inline-flex items-center cursor-pointer">
+      <input
+        type="checkbox"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="sr-only peer" 
+        {...props}
+      />
+ 
+      <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors" />
 
-    {label && <span className="ml-3 text-sm">{label}</span>}
-  </label>
+    
+      <div className="absolute left-0.5 top-0.2 w-2.5 h-2.5 bg-[#bfbfbf] rounded-full shadow transition-transform peer-checked:translate-x-4 peer-checked:bg-white" />
+
+      {label && <span className="ml-3 text-sm font-medium text-gray-900">{label}</span>}
+    </label>
 );
