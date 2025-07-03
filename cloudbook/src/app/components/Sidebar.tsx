@@ -204,7 +204,7 @@ export default function Sidebar() {
                       isActive("/modules/sukumar") ? "text-white" : ""
                     }`}
                   >
-                    sukumar
+                    Sukumar
                   </span>
                 </li>
               </ul>
