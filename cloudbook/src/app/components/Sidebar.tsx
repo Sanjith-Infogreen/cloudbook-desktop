@@ -12,29 +12,17 @@ export default function Sidebar() {
     {}
   );
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const sidebarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const sideMenuBar = useSelector(
     (state: RootState) => state.sideMenu.sideMenuBar
   );
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
+
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 1024);
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
-      ) {
-        setHoveredMenu(null);
-      }
-    };
     const handleClickOutside = (event: MouseEvent) => {
       if (
         sidebarRef.current &&
@@ -86,11 +74,6 @@ export default function Sidebar() {
       ...prev,
       [title]: !currentOpen, // flip based on current resolved open state
     }));
-  const toggleSection = (title: string, currentOpen: boolean) =>
-    setOpenSections((prev) => ({
-      ...prev,
-      [title]: !currentOpen, // flip based on current resolved open state
-    }));
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
@@ -101,23 +84,13 @@ export default function Sidebar() {
       >
         <div className="px-0 pt-1 pb-0 flex justify-center">
           <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
-      <div
-        ref={sidebarRef}
-        className="w-[200px] bg-[#212934] shadow-md relative h-full"
-      >
-        <div className="px-0 pt-1 pb-0 flex justify-center">
-          <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
         </div>
 
-        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
         <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
           <ul>
             {sideMenuBar.map((menu, idx) => {
               const isSection = menu.submenu && menu.submenu.length > 0;
-              const hasToggled = menu.Title in openSections;
-              const sectionOpen = hasToggled
-                ? openSections[menu.Title]
-                : isSectionActive(menu.submenu || []);
+
               const hasToggled = menu.Title in openSections;
               const sectionOpen = hasToggled
                 ? openSections[menu.Title]
@@ -133,11 +106,7 @@ export default function Sidebar() {
                           hasToggled || sectionOpen
                             ? "text-white "
                             : "text-[#b0b3b7]"
-                          hasToggled || sectionOpen
-                            ? "text-white "
-                            : "text-[#b0b3b7]"
                         }`}
-                        onClick={() => toggleSection(menu.Title, sectionOpen)}
                         onClick={() => toggleSection(menu.Title, sectionOpen)}
                       >
                         <div className="flex items-center">
@@ -253,15 +222,10 @@ export default function Sidebar() {
       ref={sidebarRef}
       className="w-[60px] bg-[#212934] shadow-md relative h-full"
     >
-    <div
-      ref={sidebarRef}
-      className="w-[60px] bg-[#212934] shadow-md relative h-full"
-    >
       <div className="px-0 py-1.5 flex justify-center">
         <img src="/images/tab-logo.png" alt="Logo" className="h-9" />
       </div>
 
-      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
       <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
         <ul>
           {sideMenuBar.map((menu, idx) => {
