@@ -1,4 +1,4 @@
-'use client';
+ 'use client';
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 export interface Option {
@@ -47,6 +47,8 @@ const SearchableSelect = ({
   const [currentSelection, setCurrentSelection] = useState<Set<string>>(new Set());
   const [displayLabel, setDisplayLabel] = useState<string | null>(null);
   const [focusedIndex, setFocusedIndex] = useState(-1); // New state for keyboard navigation focus
+  // New state to track if navigation is happening via keyboard
+  const [isKeyboardNavigating, setIsKeyboardNavigating] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -86,14 +88,15 @@ const SearchableSelect = ({
 
   const filteredOptions = searchable
     ? options.filter((option) =>
-      option.label.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+        option.label.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     : options;
 
   // Effect to reset focusedIndex when options change or dropdown closes
   useEffect(() => {
     if (!isOpen) {
       setFocusedIndex(-1);
+      setIsKeyboardNavigating(false); // Reset keyboard navigation flag
     } else if (filteredOptions.length > 0 && focusedIndex === -1) {
       // If opening or options change, try to focus on the current selection or first item
       const currentlySelectedValue = multiple ? Array.from(currentSelection)[0] : Array.from(currentSelection)[0];
@@ -130,18 +133,29 @@ const SearchableSelect = ({
         if (externalOnChange) {
           externalOnChange(Array.from(newSelection));
         }
-      } else {
+      }  else {
         newSelection = new Set([option.value]);
         setCurrentSelection(newSelection);
-        setIsOpen(false);
         setSearchTerm('');
         if (externalOnChange) {
           externalOnChange(option.value);
         }
+        // Close the dropdown
+        setIsOpen(false);
+        // After closing, ensure the main input element gets focus back
+        requestAnimationFrame(() => {
+          const mainInput = wrapperRef.current?.querySelector('input[type="text"]');
+          // Type assertion to tell TypeScript that mainInput is an HTMLInputElement
+          if (mainInput instanceof HTMLInputElement) {
+            mainInput.focus();
+          }
+        });
       }
+      setIsKeyboardNavigating(false); // Reset keyboard navigation after selection
     },
     [currentSelection, multiple, externalOnChange]
   );
+  
 
   const handleClear = useCallback(
     (e: React.MouseEvent) => {
@@ -159,12 +173,19 @@ const SearchableSelect = ({
     if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
       setIsOpen(false);
       setSearchTerm('');
+      setIsKeyboardNavigating(false); // Reset keyboard navigation flag
     }
   }, []);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (disabled) return;
+
+      // Set keyboard navigation flag when a relevant key is pressed
+      if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(e.key)) {
+        setIsKeyboardNavigating(true);
+      }
+
 
       if (!isOpen) {
         // If dropdown is closed, open it on ArrowDown, ArrowUp, or Enter
@@ -228,12 +249,18 @@ const SearchableSelect = ({
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setFocusedIndex(0); // Reset focused index on search
+    setIsKeyboardNavigating(false); // Reset keyboard navigation when typing in search
   }, []);
 
   // Handle keyboard events for search input
   const handleSearchKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (disabled) return;
+
+      // Set keyboard navigation flag when a relevant key is pressed
+      if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(e.key)) {
+        setIsKeyboardNavigating(true);
+      }
 
       switch (e.key) {
         case 'Enter':
@@ -291,12 +318,17 @@ const SearchableSelect = ({
         searchInputRef.current?.focus();
       });
     }
+    // When opening/closing with a click, we are not keyboard navigating
+    setIsKeyboardNavigating(false);
   }, [disabled, isOpen, searchable]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [handleClickOutside]);
+
+  // Determine if a value is currently selected
+  const hasValue = currentSelection.size > 0;
 
   return (
     <div ref={wrapperRef} className={`relative ${className}`}>
@@ -315,7 +347,6 @@ const SearchableSelect = ({
           readOnly // Keep readOnly if you're using this like a custom select
           value={displayLabel ?? ''}
           placeholder={placeholder}
-     
           onKeyDown={handleKeyDown}
           disabled={disabled}
           tabIndex={disabled ? -1 : 0}
@@ -324,30 +355,32 @@ const SearchableSelect = ({
           aria-haspopup="listbox"
           aria-labelledby={id}
           className={`
-      form-control w-full truncate pr-8 rounded-md px-3 py-2 cursor-pointer
-      ${disabled ? 'bg-gray-100 cursor-not-allowed opacity-60' : ''}
-      ${isOpen ? 'border-[#009333]' : error ? 'border-red-500' : 'border-gray-300'}
-      focus:outline-none focus:border-[#009333]
-    `}
+            form-control w-full truncate pr-8 rounded-md px-3 py-2 cursor-pointer
+            ${disabled ? 'bg-gray-100 cursor-not-allowed opacity-60' : ''}
+            ${isOpen ? 'border-[#009333]' : error ? 'border-red-500' : 'border-gray-300'}
+            focus:outline-none focus:border-[#009333]
+          `}
         />
 
-        {/* Clear Button */}
-        {currentSelection.size > 0 && !disabled && (
+        {/* Clear Button - Show only if there's a value and not disabled */}
+        {hasValue && !disabled && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
             aria-label="Clear selection"
           >
             <i className="ri-close-circle-line w-4 h-4"></i>
           </button>
         )}
 
-        {/* Arrow Icon */}
-        <i
-          className={`ri-arrow-down-s-line absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''
-            }`}
-        ></i>
+        {/* Arrow Icon - Show only if there's no value or if the component is disabled */}
+        {(!hasValue || disabled) && (
+          <i
+            className={`ri-arrow-down-s-line absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''
+              }`}
+          ></i>
+        )}
       </div>
 
       {error && (
@@ -375,26 +408,40 @@ const SearchableSelect = ({
                 {filteredOptions.map((option, index) => (
                   <li
                     key={option.value}
-                    className={`flex items-center gap-2 px-3 py-2 cursor-pointer text-sm transition-colors duration-150 
-                      ${currentSelection.has(option.value) ? 'bg-[#E6F5EC] text-gray-900' : 'text-gray-900'} 
-                      ${focusedIndex === index ? 'bg-[#ebe8e8]' : 'hover:bg-gray-100'} 
+                    className={`flex items-center gap-2 px-3 py-2 cursor-pointer text-sm transition-colors duration-150
+                      ${currentSelection.has(option.value) ? 'bg-[#E6F5EC] text-gray-900' : 'text-gray-900'}
+                      ${focusedIndex === index ? 'bg-[#ebe8e8]' : (!isKeyboardNavigating ? 'hover:bg-gray-100' : '')}
                     `}
+                    
+                    // The li itself still triggers selection for better UX (clicking anywhere on the row)
                     onClick={() => handleSelect(option)}
-                    onMouseEnter={() => setFocusedIndex(index)}
-                    onMouseLeave={() => setFocusedIndex(-1)}
+                    // Only update focusedIndex on mouse enter if not keyboard navigating
+                    onMouseEnter={() => {
+                      if (!isKeyboardNavigating) {
+                        setFocusedIndex(index);
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (!isKeyboardNavigating) {
+                        setFocusedIndex(-1);
+                      }
+                    }}
                     role="option"
                     aria-selected={currentSelection.has(option.value)}
                   >
                     {multiple && (
+                      // The checkbox
                       <input
-                        type="checkbox"
-                        checked={currentSelection.has(option.value)}
-                        readOnly // Managed by parent li click
-                        className="form-checkbox h-4 w-4 text-[#009333] border-gray-300 rounded focus:ring-[#009333]"
-                        onClick={(e) => e.stopPropagation()} // Prevent handleSelect from firing twice
+                        type="checkbox"
+                        checked={currentSelection.has(option.value)}
+                        onChange={() => handleSelect(option)} // <-- Use onChange to toggle selection
+                        onClick={(e) => e.stopPropagation()} // Still prevent bubbling
+                        className="form-checkbox h-4 w-4 text-[#009333] border-gray-300 rounded focus:ring-[#009333]"
                       />
+                      
                     )}
-                    {option.label}
+                    {/* The label for the option */}
+                    <span className="flex-grow">{option.label}</span>
                   </li>
                 ))}
               </ul>
@@ -413,6 +460,7 @@ const SearchableSelect = ({
                     e.stopPropagation();
                     if (onAddNew) onAddNew();
                     setIsOpen(false);
+                    setIsKeyboardNavigating(false); // Reset keyboard navigation after action
                   }}
                   className="flex items-center gap-1 text-sm text-[#009333] hover:text-green-700 font-medium"
                 >
@@ -430,6 +478,7 @@ const SearchableSelect = ({
                       e.stopPropagation();
                       if (onRefresh) onRefresh();
                       setIsOpen(false);
+                      setIsKeyboardNavigating(false); // Reset keyboard navigation after action
                     }}
                     className="text-blue-600 hover:text-blue-700 p-1 rounded"
                     aria-label="Refresh options"
@@ -444,6 +493,7 @@ const SearchableSelect = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsOpen(false);
+                    setIsKeyboardNavigating(false); // Reset keyboard navigation after closing
                   }}
                   className="text-gray-600 hover:text-gray-800 p-1 rounded"
                   aria-label="Close"
