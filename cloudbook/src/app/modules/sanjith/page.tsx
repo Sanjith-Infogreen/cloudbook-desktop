@@ -6,7 +6,7 @@ import SearchableSelect, { Option } from '@/app/utils/searchableSelect';
 import FilterSidebar from '@/app/utils/filterSIdebar';  
 
 const Page: React.FC = () => {
-  const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false); // State to control sidebar visibility
+  const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);  
 
   const [selectedFruit, setSelectedFruit] = useState<string | null>(null);
   const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']);
