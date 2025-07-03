@@ -163,7 +163,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   };
 
   // Handle item selection
-  const handleItemSelect = (item: any) => {
+  const handleItemSelect = (item: any) => {    
     setSelectedItem(item);
     setSearchTerm(item[displayField]);
     setIsDropdownOpen(false);
