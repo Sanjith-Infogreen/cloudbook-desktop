@@ -167,7 +167,7 @@ useEffect(() => {
 
         <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
           <div className="mr-2">
-            <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center">
               <img
                 src="/images/profile-pic.png"
                 alt="User Image"
@@ -176,11 +176,11 @@ useEffect(() => {
             </div>
           </div>
           <div className="text-[#b0b3b7]">
-            <div className="font-semibold">Emily Clark</div>
+            <div className="font-semibold text-[15px]">Emily Clark</div>
             <div className="text-xs">Admin</div>
           </div>
           <div className="ml-auto">
-            <i className="ri-expand-up-down-fill text-[#b0b3b7] text-lg cursor-pointer"></i>
+            <i className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"></i>
           </div>
         </div>
       </div>
