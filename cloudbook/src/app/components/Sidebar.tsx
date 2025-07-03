@@ -1,286 +1,167 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function Sidebar() {
   const [isMobile, setIsMobile] = useState(false);
-  const [masterMenuOpen, setMasterMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+const sidebarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const sideMenuBar = useSelector(
+    (state: RootState) => state.sideMenu.sideMenuBar
+  );
+useEffect(() => {
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 1024);
+  };
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
-
-  // Auto-expand menus based on current path
-  useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
-      pathname.includes("/modules/sanjith") ||
-      pathname.includes("/modules/sukumar") ||
-      pathname.includes("/modules/tharani") ||
-      pathname.includes("/modules/aishvarya") ||
-      pathname.includes("/modules/contact") ||
-      pathname.includes("/modules/options")
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target as Node)
     ) {
-      setMasterMenuOpen(true);
+      setHoveredMenu(null);
     }
-  }, [pathname]);
-
-  const handleMasterMenuClick = () => {
-    setMasterMenuOpen(!masterMenuOpen);
   };
 
-  // Check if a path is active
-  const isActive = (path: string) => {
-    return pathname === path;
-  };
+  // Run initial screen size check
+  checkScreenSize();
 
-  // Check if a menu section is active
-  const isSectionActive = (paths: string[]) => {
-    return paths.some((path) => pathname.includes(path));
-  };
+  // Attach both listeners
+  window.addEventListener("resize", checkScreenSize);
+  document.addEventListener("mousedown", handleClickOutside);
 
-  // Desktop Sidebar (wider)
+  // Cleanup both listeners
+  return () => {
+    window.removeEventListener("resize", checkScreenSize);
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+
+  const isActive = (path: string) => pathname.startsWith(path);
+
+  const isSectionActive = (submenu: any[]) =>
+    submenu.some((s) => pathname.startsWith(s.main_Link));
+
+  const toggleSection = (title: string) =>
+    setOpenSections((prev) => ({ ...prev, [title]: !prev[title] }));
+
+  // DESKTOP SIDEBAR
   if (!isMobile) {
     return (
-      <div className="w-[200px] bg-[#212934] shadow-md relative h-full">
+      <div ref={sidebarRef} className="w-[200px] bg-[#212934] shadow-md relative h-full">
         <div className="px-0 pt-2 pb-0 flex justify-center">
-          <Image
-            src="/images/logo.png" // Path relative to the public directory
-            alt="InfoGreen Logo"
-            width={100} // Specify the intrinsic width of the image in pixels
-            height={100} // Specify the intrinsic height of the image in pixels
-          />
+          <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
         </div>
 
         <nav className="py-0">
           <ul>
-            <li
-              className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                masterMenuOpen ||
-                isSectionActive([
-                  "/modules/vehicle",
-                  "/modules/contact",
-                  "/modules/options",
-                ])
-                  ? "text-white "
-                  : "text-[#b0b3b7]"
-              }`}
-              onClick={handleMasterMenuClick}
-            >
-              <div className="flex items-center">
-                <i
-                  className={`ri-dashboard-line mr-3 text-lg ${
-                    masterMenuOpen ||
-                    isSectionActive([
-                      "/modules/vehicle",
-                      "/modules/contact",
-                      "/modules/options",
-                    ])
-                      ? "text-white"
-                      : ""
-                  }`}
-                ></i>
-                <span>Master</span>
-              </div>
-              <i
-                className={`ri-arrow-down-s-line text-lg transition-transform duration-200 ${
-                  masterMenuOpen ? "rotate-180" : ""
-                }`}
-              ></i>
-            </li>
+            {sideMenuBar.map((menu, idx) => {
+              const isSection = menu.submenu && menu.submenu.length > 0;
+              const sectionOpen =
+                openSections[menu.Title] || isSectionActive(menu.submenu || []);
+              const activeItem = !isSection && isActive(menu.main_Link);
 
-            {masterMenuOpen && (
-              <ul className="text-[#b0b3b7]">
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/contact/list") ||
-                    isActive("/modules/contact/new")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/contact/list")}
-                    className={`${
-                      isActive("/modules/contact/list") ? "text-white" : ""
-                    }`}
-                  >
-                    Contact
-                  </span>
-                  <i
-                    onClick={() => router.push("/modules/contact/new")}
-                    className={`ri-add-fill text-lg ${
-                      isActive("/modules/contact/new") ? "text-white" : ""
-                    }`}
-                  ></i>
+              return (
+                <li key={idx}>
+                  {isSection ? (
+                    <>
+                      <div
+                        className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                          sectionOpen ? "text-white " : "text-[#b0b3b7]"
+                        }`}
+                        onClick={() => toggleSection(menu.Title)}
+                      >
+                        <div className="flex items-center">
+                          <i className={`${menu.icon} mr-3 text-lg`}></i>
+                          <span>{menu.Title}</span>
+                        </div>
+                        {menu.icon_down && (
+                          <i
+                            className={`${
+                              menu.icon_down
+                            } text-lg transition-transform duration-200 ${
+                              sectionOpen ? "rotate-180" : ""
+                            }`}
+                          ></i>
+                        )}
+                      </div>
+                      {sectionOpen && (
+                        <ul className="text-[#b0b3b7]">
+                          {menu.submenu.map((sub, subIdx) => (
+                            <li
+                              key={subIdx}
+                              className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                                isActive(sub.main_Link)
+                                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                  : "text-[#b0b3b7] border-l-transparent"
+                              }`}
+                            >
+                              <span
+                                onClick={() => router.push(sub.main_Link)}
+                                className={`${
+                                  isActive(sub.main_Link) ? "text-white" : ""
+                                }`}
+                              >
+                                {sub.Title}
+                              </span>
+                              {sub.new_Link && (
+                                <i
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    router.push(sub.new_Link);
+                                  }}
+                                  className={`${sub.icon_New} text-lg ${
+                                    isActive(sub.new_Link) ? "text-white" : ""
+                                  }`}
+                                ></i>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ) : (
+                    <div
+                      onClick={() => router.push(menu.main_Link)}
+                      className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                        activeItem
+                          ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                          : "text-[#b0b3b7] border-l-transparent"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <i
+                          className={`${menu.icon} mr-3 text-lg ${
+                            activeItem ? "text-white" : ""
+                          }`}
+                        ></i>
+                        <span>{menu.Title}</span>
+                      </div>
+                      {menu.new_Link && (
+                        <i
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(menu.new_Link);
+                          }}
+                          className={`${menu.icon_New} text-lg ${
+                            isActive(menu.new_Link) ? "text-white" : ""
+                          }`}
+                        ></i>
+                      )}
+                    </div>
+                  )}
                 </li>
-
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/options")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/options")}
-                    className={`${
-                      isActive("/modules/options") ? "text-white" : ""
-                    }`}
-                  >
-                    Options
-                  </span>
-                </li>
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/tharani")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/tharani")}
-                    className={`${
-                      isActive("/modules/tharani") ? "text-white" : ""
-                    }`}
-                  >
-                    Tharani
-                  </span>
-                </li>
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/sanjith")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/sanjith")}
-                    className={`${
-                      isActive("/modules/sanjith") ? "text-white" : ""
-                    }`}
-                  >
-                    sanjith
-                  </span>
-                </li>
-
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/aishvarya")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/aishvarya")}
-                    className={`${
-                      isActive("/modules/aishvarya") ? "text-white" : ""
-                    }`}
-                  >
-                    aishvarya
-                  </span>
-                </li>
-                <li
-                  className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                    isActive("/modules/sukumar")
-                      ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                      : "text-[#b0b3b7] border-l-transparent"
-                  }`}
-                >
-                  <span
-                    onClick={() => router.push("/modules/sukumar")}
-                    className={`${
-                      isActive("/modules/sukumar") ? "text-white" : ""
-                    }`}
-                  >
-                    Sukumar
-                  </span>
-                </li>
-              </ul>
-            )}
-
-            <li
-              onClick={() => router.push("/modules/complaint")}
-              className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                isActive("/modules/complaint")
-                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                  : "text-[#b0b3b7] border-l-transparent"
-              }`}
-            >
-              <div className="flex items-center">
-                <i
-                  className={`ri-file-edit-line mr-3 text-lg ${
-                    isActive("/modules/complaint") ? "text-white" : ""
-                  }`}
-                ></i>
-                <span>Complaint List</span>
-              </div>
-            </li>
-
-            <li
-              onClick={() => router.push("/modules/service")}
-              className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                isActive("/modules/service")
-                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                  : "text-[#b0b3b7] border-l-transparent"
-              }`}
-            >
-              <div className="flex items-center">
-                <i
-                  className={`ri-tools-fill mr-3 text-lg ${
-                    isActive("/modules/service") ? "text-white" : ""
-                  }`}
-                ></i>
-                <span>Service List</span>
-              </div>
-            </li>
-
-            <li
-              onClick={() => router.push("/modules/report/new")}
-              className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                isActive("/modules/report/new")
-                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                  : "text-[#b0b3b7] border-l-transparent"
-              }`}
-            >
-              <div className="flex items-center">
-                <i
-                  className={`ri-file-chart-line mr-3 text-lg ${
-                    isActive("/modules/report/new") ? "text-white" : ""
-                  }`}
-                ></i>
-                <span>Report</span>
-              </div>
-            </li>
-
-            <li
-              onClick={() => router.push("/modules/profile")}
-              className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                isActive("/modules/profile")
-                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                  : "text-[#b0b3b7] border-l-transparent"
-              }`}
-            >
-              <div className="flex items-center">
-                <i
-                  className={`ri-user-line mr-3 text-lg ${
-                    isActive("/modules/profile") ? "text-white" : ""
-                  }`}
-                ></i>
-                <span>Profile Setting</span>
-              </div>
-            </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -306,221 +187,98 @@ export default function Sidebar() {
     );
   }
 
-  // Tablet/Mobile Sidebar (compact)
+  // MOBILE/TABLET SIDEBAR
   return (
-    <div className="w-[60px] bg-[#212934] shadow-md relative h-full">
+    <div ref={sidebarRef} className="w-[60px] bg-[#212934] shadow-md relative h-full">
       <div className="px-0 py-1.5 flex justify-center">
-        <img src="/images/tab-logo.png" alt="InfoGreen Logo" className="h-9" />
+        <img src="/images/tab-logo.png" alt="Logo" className="h-9" />
       </div>
 
       <nav className="py-0">
         <ul>
-          <li
-            className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5 hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isSectionActive([
-                "/modules/vehicle",
-                "/modules/contact",
-                "/modules/options",
-              ])
-                ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                : "text-[#b0b3b7]  border-l-transparent"
-            }`}
-            onMouseEnter={() => setHoveredMenu("master")}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            <div className="flex items-center">
-              <i
-                className={`ri-dashboard-line text-lg ${
-                  isSectionActive([
-                    "/modules/vehicle",
-                    "/modules/contact",
-                    "/modules/options",
-                  ])
-                    ? "text-white"
-                    : ""
+          {sideMenuBar.map((menu, idx) => {
+            const isSection = menu.submenu && menu.submenu.length > 0;
+            const activeSection =
+              isSection && isSectionActive(menu.submenu || []);
+            const activeItem = !isSection && isActive(menu.main_Link);
+
+            return (
+              <li
+                key={idx}
+                className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5 hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                  activeSection || activeItem
+                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                    : "text-[#b0b3b7] border-l-transparent"
                 }`}
-              ></i>
-            </div>
-
-            {hoveredMenu === "master" && (
-              <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white">
-                <ul>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/contact/new")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
-                        : "border-l-transparent"
+                
+                onClick={() => setHoveredMenu(menu.Title)}
+              >
+                <div className="flex items-center">
+                  <i
+                    className={`${menu.icon} text-lg ${
+                      activeSection || activeItem ? "text-white" : ""
                     }`}
-                    onClick={() => router.push("/modules/contact/new")}
-                  >
-                    <i className="ri-add-line text-[16px]"></i> New Contact
-                  </li>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/contact/list")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/contact/list")}
-                  >
-                    <i className="ri-list-unordered text-[16px]"></i> Contact
-                    List
-                  </li>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/options")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/options")}
-                  >
-                    <i className="ri-list-unordered text-[16px]"></i> Options
-                  </li>
-                </ul>
-              </div>
-            )}
-          </li>
+                  ></i>
+                </div>
 
-          <li
-            className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isActive("/modules/complaint")
-                ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                : "text-[#b0b3b7] border-l-transparent"
-            }`}
-            onMouseEnter={() => setHoveredMenu("complaint")}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            <div className="flex items-center">
-              <i
-                className={`ri-file-edit-line text-lg ${
-                  isActive("/modules/complaint") ? "text-white" : ""
-                }`}
-              ></i>
-            </div>
+                {hoveredMenu === menu.Title && (
+                  <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white">
+                    <ul>
+                      {isSection ? (
+                        menu.submenu.map((sub, subIdx) => (
+                          <div key={subIdx}>
+                            {sub.main_Link && (
+                              <li
+                                key={`${subIdx}-main`}
+                                className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                                  isActive(sub.main_Link)
+                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                    : "border-l-transparent"
+                                }`}
+                                onClick={() => router.push(sub.main_Link)}
+                              >
+                                <i
+                                  className={`ri-list-unordered text-[16px]`}
+                                ></i>
+                                {sub.Title} {sub.new_Link && "List"}
+                              </li>
+                            )}
 
-            {hoveredMenu === "complaint" && (
-              <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white text-sm">
-                <ul>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/complaint")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff] "
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/complaint")}
-                  >
-                    <i className="ri-file-edit-line text-[16px]"></i> Complaint
-                    List
-                  </li>
-                </ul>
-              </div>
-            )}
-          </li>
-
-          <li
-            className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isActive("/modules/service")
-                ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                : "text-[#b0b3b7] border-l-transparent"
-            }`}
-            onMouseEnter={() => setHoveredMenu("service")}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            <div className="flex items-center">
-              <i
-                className={`ri-tools-fill text-lg ${
-                  isActive("/modules/service") ? "text-white" : ""
-                }`}
-              ></i>
-            </div>
-
-            {hoveredMenu === "service" && (
-              <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white text-sm">
-                <ul>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/service")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff] "
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/service")}
-                  >
-                    <i className="ri-tools-fill text-[16px]"></i> Service List
-                  </li>
-                </ul>
-              </div>
-            )}
-          </li>
-
-          <li
-            className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isActive("/modules/report/new")
-                ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                : "text-[#b0b3b7] border-l-transparent"
-            }`}
-            onMouseEnter={() => setHoveredMenu("report")}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            <div className="flex items-center">
-              <i
-                className={`ri-file-chart-line text-lg ${
-                  isActive("/modules/report/new") ? "text-white" : ""
-                }`}
-              ></i>
-            </div>
-
-            {hoveredMenu === "report" && (
-              <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white text-sm">
-                <ul>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/report/new")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff] "
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/report/new")}
-                  >
-                    <i className="ri-list-unordered text-[16px]"></i> Report
-                  </li>
-                </ul>
-              </div>
-            )}
-          </li>
-
-          <li
-            className={`relative group menu-item px-4 py-2 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-              isActive("/modules/profile")
-                ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                : "text-[#b0b3b7] border-l-transparent"
-            }`}
-            onMouseEnter={() => setHoveredMenu("profile")}
-            onMouseLeave={() => setHoveredMenu(null)}
-          >
-            <div className="flex items-center">
-              <i
-                className={`ri-user-line text-lg ${
-                  isActive("/modules/profile") ? "text-white" : ""
-                }`}
-              ></i>
-            </div>
-
-            {hoveredMenu === "profile" && (
-              <div className="submenu absolute left-full top-0 ml-2.5 w-56 bg-[#12344d] shadow-[0px_4px_16px_#27313a66] rounded-[0.375rem] z-[1000] text-white text-sm">
-                <ul>
-                  <li
-                    className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                      isActive("/modules/profile")
-                        ? "bg-[#103d5a] border-[#1aed59] text-[#fff] "
-                        : "border-l-transparent"
-                    }`}
-                    onClick={() => router.push("/modules/profile")}
-                  >
-                    <i className="ri-user-line text-[16px]"></i> Profile setting
-                  </li>
-                </ul>
-              </div>
-            )}
-          </li>
+                            {sub.new_Link && sub.main_Link && (
+                              <li
+                                key={`${subIdx}-new`}
+                                className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                                  isActive(sub.new_Link)
+                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                    : "border-l-transparent"
+                                }`}
+                                onClick={() => router.push(sub.new_Link)}
+                              >
+                                <i className={`ri-add-line text-[16px]`}></i>
+                                New {sub.Title}
+                              </li>
+                            )}
+                          </div>
+                        ))
+                      ) : (
+                        <li
+                          className={`px-3 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center gap-2 cursor-pointer ${
+                            isActive(menu.main_Link)
+                              ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                              : "border-l-transparent"
+                          }`}
+                          onClick={() => router.push(menu.main_Link)}
+                        >
+                          <i className={`${menu.icon} text-[16px]`}></i>
+                          {menu.Title}
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
