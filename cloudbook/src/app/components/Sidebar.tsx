@@ -177,7 +177,7 @@ export default function Sidebar() {
                     onClick={() => router.push('/modules/sukumar')}
                     className={`${isActive('/modules/sukumar') ? 'text-white' : ''}`}
                   >
-                    sukumar
+                    Sukumar
                   </span>
                 </li>
               </ul>
