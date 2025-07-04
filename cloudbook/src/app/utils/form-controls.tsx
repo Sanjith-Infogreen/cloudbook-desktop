@@ -57,19 +57,19 @@ export const RadioGroup = ({
 
   return (
     <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})}>
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="flex flex-wrap items-center space-x-6 space-y-3">
         {options.map((option) => (
           <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
             <input
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500 rounded-full"
+              className="form-radio cursor-pointer"
               checked={selectedValue === option.value}
               onChange={handleChange}
               {...props}
             />
-            <span className="ml-2 text-gray-700">{option.label}</span>
+            <span className="ml-1.5 text-gray-700">{option.label}</span>
           </label>
         ))}
       </div>
