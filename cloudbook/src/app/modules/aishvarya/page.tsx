@@ -79,13 +79,18 @@ const Page: React.FC = () => {
 
         <div>
           <label className="block text-sm font-medium mb-1">Features</label>
-          <CheckboxGroup
-             name="features_AC" 
-             value="AC"  
-             label="Air Conditioning (AC)"  
-             defaultChecked={form.features.includes("AC")}
-           
-          />
+            <CheckboxGroup
+        name="features_Heating"
+        value="Heating"
+        label="Heating"
+        checked={form.features.includes("Heating")}
+        onChange={(e) => {
+          const newFeatures = e.target.checked
+            ? [...form.features, "Heating"]
+            : form.features.filter((f) => f !== "Heating");
+          setForm((prev) => ({ ...prev, features: newFeatures }));
+        }}
+      />
           <label>AC</label>
         </div>
 
