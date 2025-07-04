@@ -251,5 +251,42 @@
       "new_Link": "",
       "order": 11
     }
-  ]
+  ],
+"mockMonthlyReportData" : [
+  { "id": 1, "month": "January", "totalLeaves": 10, "approvedLeaves": 7, "pendingLeaves": 2, "rejectedLeaves": 1 },
+  { "id": 2, "month": "February", "totalLeaves": 8, "approvedLeaves": 5, "pendingLeaves": 2, "rejectedLeaves": 1 },
+  { "id": 3, "month": "March", "totalLeaves": 12, "approvedLeaves": 9, "pendingLeaves": 2, "rejectedLeaves": 1 },
+  { "id": 4, "month": "April", "totalLeaves": 15, "approvedLeaves": 10, "pendingLeaves": 3, "rejectedLeaves": 2 },
+  { "id": 5, "month": "May", "totalLeaves": 20, "approvedLeaves": 15, "pendingLeaves": 3, "rejectedLeaves": 2 },
+  { "id": 6, "month": "June", "totalLeaves": 18, "approvedLeaves": 12, "pendingLeaves": 4, "rejectedLeaves": 2 },
+  { "id": 7, "month": "July", "totalLeaves": 22, "approvedLeaves": 16, "pendingLeaves": 4, "rejectedLeaves": 2 },
+  { "id": 8, "month": "August", "totalLeaves": 25, "approvedLeaves": 18, "pendingLeaves": 5, "rejectedLeaves": 2 },
+  { "id": 9, "month": "September", "totalLeaves": 30, "approvedLeaves": 20, "pendingLeaves": 7, "rejectedLeaves": 3 },
+  { "id": 10, "month": "October", "totalLeaves": 28, "approvedLeaves": 19, "pendingLeaves": 6, "rejectedLeaves": 3 },
+  { "id": 11, "month": "November", "totalLeaves": 26, "approvedLeaves": 17, "pendingLeaves": 5, "rejectedLeaves": 4 },
+  { "id": 12, "month": "December", "totalLeaves": 24, "approvedLeaves": 16, "pendingLeaves": 4, "rejectedLeaves": 4 }
+  
+  
+],
+
+ "mockLeaveReportData" :[
+  { "id": 1, "employeeName": "Kumar", "leaveType": "Casual Leave", "fromDate": "2023-10-01", "toDate": "2023-10-03", "reason": "Personal Work", "status": "Approved" },
+  { "id": 2, "employeeName": "Selvam", "leaveType": "Sick Leave", "fromDate": "2023-10-05", "toDate": "2023-10-07", "reason": "Fever", "status": "Pending" }, 
+  { "id": 3, "employeeName": "Rani", "leaveType": "Annual Leave", "fromDate": "2023-10-10", "toDate": "2023-10-15", "reason": "Vacation", "status": "Rejected" },
+  { "id": 4, "employeeName": "Sabari", "leaveType": "Casual Leave", "fromDate": "2023-10-20", "toDate": "2023-10-22", "reason": "Family Function", "status": "Approved" },
+  { "id": 5, "employeeName": "Sri", "leaveType": "Sick Leave", "fromDate": "2023-10-25", "toDate": "2023-10-27", "reason": "Cold and Cough", "status": "Pending" },
+  { "id": 6, "employeeName": "Vel", "leaveType": "Annual Leave", "fromDate": "2023-11-01", "toDate": "2023-11-05", "reason": "Wedding Ceremony", "status": "Approved" },
+  { "id": 7, "employeeName": "Shree", "leaveType": "Casual Leave", "fromDate": "2023-11-10", "toDate": "2023-11-12", "reason": "Urgent Work", "status": "Rejected" },
+  { "id": 8, "employeeName": "Sundar", "leaveType": "Sick Leave", "fromDate": "2023-11-15", "toDate": "2023-11-17", "reason": "Stomach Pain", "status": "Pending" },
+  { "id": 9, "employeeName": "Anbu", "leaveType": "Annual Leave", "fromDate": "2023-11-20", "toDate": "2023-11-25", "reason": "Family Trip", "status": "Approved" },
+  { "id": 10, "employeeName": "Gopi", "leaveType": "Casual Leave", "fromDate": "2023-11-30", "toDate": "2023-12-02", "reason": "Personal Reasons", "status": "Rejected" },
+  { "id": 11, "employeeName": "Senthil", "leaveType": "Sick Leave", "fromDate": "2023-12-05", "toDate": "2023-12-07", "reason": "Headache", "status": "Pending" },
+  { "id": 12, "employeeName": "Lakshmi", "leaveType": "Annual Leave", "fromDate": "2023-12-10", "toDate": "2023-12-15", "reason": "Religious Festival", "status": "Approved" },
+  { "id": 13, "employeeName": "Maruthi", "leaveType": "Casual Leave", "fromDate": "2023-12-20", "toDate": "2023-12-22", "reason": "House Renovation", "status": "Rejected" },
+  { "id": 14, "employeeName": "Bala", "leaveType": "Sick Leave", "fromDate": "2023-12-25", "toDate": "2023-12-27", "reason": "Back Pain", "status": "Pending" },
+  { "id": 15, "employeeName": "Kumar", "leaveType": "Casual Leave", "fromDate": "2023-10-01", "toDate": "2023-10-03", "reason": "Personal Work", "status": "Approved" },
+  { "id": 16, "employeeName": "Selvam", "leaveType": "Sick Leave", "fromDate": "2023-10-05", "toDate": "2023-10-07", "reason": "Fever", "status": "Pending" }, 
+  { "id": 17, "employeeName": "Rani", "leaveType": "Annual Leave", "fromDate": "2023-10-10", "toDate": "2023-10-15", "reason": "Vacation", "status": "Rejected" },
+  { "id": 18, "employeeName": "Sabari", "leaveType": "Casual Leave", "fromDate": "2023-10-20", "toDate": "2023-10-22", "reason": "Family Function", "status": "Approved" }
+]
 }
