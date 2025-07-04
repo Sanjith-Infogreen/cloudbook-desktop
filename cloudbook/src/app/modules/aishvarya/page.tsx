@@ -80,15 +80,11 @@ const Page: React.FC = () => {
         <div>
           <label className="block text-sm font-medium mb-1">Features</label>
           <CheckboxGroup
-            name="features"
-            options={[
-              { value: "AC"} 
-             
-            ]}
-            defaultValues={form.features}
-            onChange={(values) =>
-              setForm((prev) => ({ ...prev, features: values }))
-            }
+             name="features_AC" 
+             value="AC"  
+             label="Air Conditioning (AC)"  
+             defaultChecked={form.features.includes("AC")}
+           
           />
           <label>AC</label>
         </div>

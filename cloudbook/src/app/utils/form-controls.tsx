@@ -80,50 +80,42 @@ export const RadioGroup = ({
 
 export const CheckboxGroup = ({
   name,
-  options,
-  defaultValues = [],
+  value, // The single value this checkbox represents
+  label, // Optional: for displaying a label next to the checkbox
+  defaultChecked = false, // Use defaultChecked for initial state
   onChange: externalOnChange,
   ...props
 }: {
   name: string;
-  options: { value: any }[];
-  defaultValues?: string[];
-  onChange?: (values: string[]) => void;
+  value: string;
+  label?: string;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
   [key: string]: any;
 }) => {
-  // Initialize state directly with defaultValues.
-  // This value will only be used on the first render.
-  const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues);
+  // Initialize state directly with defaultChecked.
+  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    const newSelected = event.target.checked
-      ? [...selectedValues, value]
-      : selectedValues.filter((v) => v !== value);
-
-    setSelectedValues(newSelected);
-    if (externalOnChange) externalOnChange(newSelected);
+    const checked = event.target.checked;
+    setIsChecked(checked);
+    if (externalOnChange) externalOnChange(checked);
   };
 
   return (
-    <div className="flex flex-wrap gap-4" {...props}>
-      {options.map((option) => (
-        <input
-          key={option.value}
-          type="checkbox"
-          name={name}
-          value={option.value}
-          className="form-checkbox"
-          checked={selectedValues.includes(option.value)}
-          onChange={handleChange}
-         
-        />
-
-      ))}
-    </div>
+    <label className="inline-flex items-center" {...props}>
+      <input
+        type="checkbox"
+        name={name}
+        value={value}
+        className="form-checkbox"
+        checked={isChecked}
+        onChange={handleChange}
+      />
+      {label && <span className="ml-2">{label}</span>}
+    </label>
   );
 };
-
 // Toggle Component
 export const Toggle = ({
   name,
