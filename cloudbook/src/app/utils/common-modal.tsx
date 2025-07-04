@@ -307,7 +307,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
                             className="mr-3"
                             options={[{ value: "selectAll" }]}
                             defaultValues={allRowsSelected ? ["selectAll"] : []}
-                            onChange={handleSelectAllChange}
+                            value="AC" 
                           />
                         </th>
                         <th className="th-cell w-[10%] text-left">
@@ -344,9 +344,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
                               defaultValues={
                                 row.isSelected ? [String(row.id)] : []
                               }
-                              onChange={(values) =>
-                                handleRowCheckboxChange(row.id, values)
-                              }
+                              value="AC" 
                             />
                           </td>
                           <td className="td-cell w-[5%]">
