@@ -64,19 +64,19 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 11px;            
+  width: 6px;            
   height: 11px;        
 }
 
 ::-webkit-scrollbar-track {
-  background: #fff;   
+ 
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #8b8b8b; 
+  background-color: #a5a5a5; 
   border-radius: 10px;
-  border: 2px solid #fff; 
+  
 }
 
 ::-webkit-scrollbar-thumb:hover {

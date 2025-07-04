@@ -57,19 +57,19 @@ export const RadioGroup = ({
 
   return (
     <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})}>
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="flex flex-wrap items-center space-x-6 space-y-3">
         {options.map((option) => (
           <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
             <input
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500 rounded-full"
+              className="form-radio cursor-pointer"
               checked={selectedValue === option.value}
               onChange={handleChange}
               {...props}
             />
-            <span className="ml-2 text-gray-700">{option.label}</span>
+            <span className="ml-1.5 text-gray-700">{option.label}</span>
           </label>
         ))}
       </div>
@@ -80,50 +80,42 @@ export const RadioGroup = ({
 
 export const CheckboxGroup = ({
   name,
-  options,
-  defaultValues = [],
+  value, // The single value this checkbox represents
+  label, // Optional: for displaying a label next to the checkbox
+  defaultChecked = false, // Use defaultChecked for initial state
   onChange: externalOnChange,
   ...props
 }: {
   name: string;
-  options: { value: any }[];
-  defaultValues?: string[];
-  onChange?: (values: string[]) => void;
+  value: string;
+  label?: string;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
   [key: string]: any;
 }) => {
-  // Initialize state directly with defaultValues.
-  // This value will only be used on the first render.
-  const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues);
+  // Initialize state directly with defaultChecked.
+  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    const newSelected = event.target.checked
-      ? [...selectedValues, value]
-      : selectedValues.filter((v) => v !== value);
-
-    setSelectedValues(newSelected);
-    if (externalOnChange) externalOnChange(newSelected);
+    const checked = event.target.checked;
+    setIsChecked(checked);
+    if (externalOnChange) externalOnChange(checked);
   };
 
   return (
-    <div className="flex flex-wrap gap-4" {...props}>
-      {options.map((option) => (
-        <input
-          key={option.value}
-          type="checkbox"
-          name={name}
-          value={option.value}
-          className="form-checkbox"
-          checked={selectedValues.includes(option.value)}
-          onChange={handleChange}
-         
-        />
-
-      ))}
-    </div>
+    <label className="inline-flex items-center" {...props}>
+      <input
+        type="checkbox"
+        name={name}
+        value={value}
+        className="form-checkbox"
+        checked={isChecked}
+        onChange={handleChange}
+      />
+      {label && <span className="ml-2">{label}</span>}
+    </label>
   );
 };
-
 // Toggle Component
 export const Toggle = ({
   name,
