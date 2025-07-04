@@ -207,7 +207,7 @@ const NewPurchase = () => {
                     <Input
                       name="vehicleNumber"
                       placeholder="Enter Vehicle Number"
-                      className="form-control w-full uppercase"
+                      className="form-control w-full all_uppercase"
                     />
                   </FormField>
 
@@ -215,7 +215,7 @@ const NewPurchase = () => {
                     <Input
                       name="dueDays"
                       placeholder="Enter Due Days"
-                      className="form-control w-full capitalize"
+                      className="form-control w-full all_uppercase"
                     />
                   </FormField>
                 </div>
