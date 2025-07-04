@@ -386,24 +386,21 @@ const PurchaseList = () => {
                   <thead className="sticky-table-header">
                     <tr>
                       <th className="th-cell" id="checkboxColumn">
-                        <input
+                        {/* <input
                           type="checkbox"
                           id="selectAll"
                           className="form-check"
                           checked={selectAll}
                           onChange={handleSelectAll}
-                        />
+                        /> */}
 
-                         <CheckboxGroup
-                            name="features"
-                            options={[
-                              { value: "AC"} 
-                             
-                            ]}
-                            onChange={(values: string[]) => {
-                              // handle checkbox group value changes here if needed
-                            }}
-                          />
+                       <CheckboxGroup
+        name="selectall"
+        value="selectAll"
+        
+        checked={selectAll}
+        onChange={handleSelectAll}
+      />
 
                       </th>
                       <th className="th-cell">
@@ -463,12 +460,16 @@ const PurchaseList = () => {
                           }`}
                       >
                         <td className="td-cell">
-                          <input
-                            type="checkbox"
-                            className="form-check"
-                            checked={selectedIds.includes(purchase.id)}
-                            onChange={() => handleCheckboxChange(purchase.id)}
-                          />
+                           <CheckboxGroup
+        name="selectall"
+        value="selectAll"
+        
+        checked={selectedIds.includes(purchase.id)}
+        onChange={() => handleCheckboxChange(purchase.id)}
+      />
+
+
+                         
                         </td>
                         <td className="td-cell">
                           <span className="float-left">{index + 1}</span>
