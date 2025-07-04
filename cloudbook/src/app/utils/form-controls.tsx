@@ -64,7 +64,7 @@ export const RadioGroup = ({
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500 rounded-full"
+              className="form-radio "
               checked={selectedValue === option.value}
               onChange={handleChange}
               {...props}

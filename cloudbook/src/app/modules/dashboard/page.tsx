@@ -1,7 +1,7 @@
 // components/Dashboard.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface DashboardProps {
   mainContentHTML?: string;
@@ -17,6 +17,14 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [pages, setPages] = useState<string[]>([]); // You'll populate this from data
   const [recentSearches, setRecentSearches] = useState<string[]>([]); // You'll populate this from data
   const [modals, setModals] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (isDropdownOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isDropdownOpen]);
+
   useEffect(() => {
     setPages([
       "Contact",
@@ -45,9 +53,10 @@ const Dashboard: React.FC<DashboardProps> = ({
   }, []);
 
   const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.toLowerCase();
-    // In a real application, you'd filter your data based on searchTerm
-    console.log("Searching for:", searchTerm);
+    setSearchTerm(event.target.value);
+  };
+  const clearSearch = () => {
+    setSearchTerm("");
   };
 
   return (
@@ -62,29 +71,42 @@ const Dashboard: React.FC<DashboardProps> = ({
 
           <div
             id="dropdownMenu"
-            className="fixed left-[200px] right-[60px] top-[10px] bg-white border border-gray-300 rounded-md shadow-lg z-30"
+            className="fixed left-[220px] right-[20px] top-[10px] bg-white border border-gray-300 rounded-md shadow-lg z-30"
           >
             <div className="bg-white mt-2">
-              <div className="relative mb-0 p-2 rounded-md">
-                <div className="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none">
-                  <i className="ri-search-line text-[#59636e] text-[0.875rem]"></i>
+              <div className="relative p-2 rounded-md">
+                {/* Search Icon */}
+                <div className="absolute top-1/2 left-5 -translate-y-1/2 flex items-center pointer-events-none">
+                  <i className="ri-search-line text-[#59636e] text-base"></i>
                 </div>
+
+                {/* Input Field */}
                 <input
-                  type="search"
+                  ref={inputRef}
                   id="searchInput"
-                  className="w-full p-2 pl-10 text-sm text-gray-900 border border-[#009333] rounded-lg"
-                  placeholder="Search here..."
+                  value={searchTerm}
                   onChange={handleSearchInput}
+                  className="w-full h-10 pl-9 pr-8 text-sm text-gray-900 border-2 border-[#009333] rounded-sm focus:outline-none  "
+                  placeholder="Search here..."
                 />
+
+                {/* Clear Icon */}
+                {searchTerm && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500 hover:text-gray-700"
+                  >
+                    <i className="ri-close-circle-fill text-lg mr-2"></i>
+                  </button>
+                )}
               </div>
 
               {/* Pages Section */}
-              <div className="p-2 pl-0 border-b border-[#DEE2E6] max-h-[300px]  overflow-y-scroll">
-              
+              <div className=" pl-0 border-b border-[#DEE2E6] max-h-[300px]  overflow-y-scroll">
                 <h2 className="text-[12px] font-semibold text-[#59636E] ml-[8px] p-[8px]">
                   Pages
                 </h2>
-                <ul className="ml-[8px]">
+                <ul className="ml-[6px] mb-1">
                   {pages.map((page, index) => (
                     <li
                       key={index}
@@ -94,16 +116,18 @@ const Dashboard: React.FC<DashboardProps> = ({
                         <i className="ri-file-line text-gray-500 mr-2"></i>
                         {page}
                       </div>
-                      <span className="text-[#7b838c] text-[12px]">Jump to</span>
+                      <span className="text-[#59636E] text-[14px]">
+                        Jump to
+                      </span>
                     </li>
                   ))}
                 </ul>
-
+                <div className="border-b border-[#DEE2E6] p-0"></div>
                 {/* Modals Section */}
                 <h2 className="text-[12px]   font-semibold text-[#59636E] ml-[8px] p-[8px]">
                   Modals
                 </h2>
-                <ul className="ml-[8px]">
+                <ul className="ml-[6px] mb-1">
                   {modals.map((modal, index) => (
                     <li
                       key={index}
@@ -113,21 +137,20 @@ const Dashboard: React.FC<DashboardProps> = ({
                         <i className="ri-file-line text-gray-500 mr-2"></i>
                         {modal}
                       </div>
-                      <span className="text-[#7b838c] text-[12px]">Jump to</span>
+                      <span className="text-[#59636E] text-[14px]">
+                        Jump to
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Recent Searches Section */}
-              <div className="mb-3 border-b-1 border-b-[#DEE2E6]">
+              <div className="mb-2 border-b border-b-[#DEE2E6]">
                 <h2 className="text-[12px]  text-[#59636E] font-semibold ml-[8px] p-[8px]">
                   Recent Searches
                 </h2>
-                <ul
-                  className="mb-3 p-1 mr-3 ml-3"
-                  id="recent-searches-list"
-                >
+                <ul className="mb-1 mr-3 ml-2" id="recent-searches-list">
                   {recentSearches.map((search, index) => (
                     <li
                       key={index}
@@ -140,11 +163,11 @@ const Dashboard: React.FC<DashboardProps> = ({
               </div>
 
               {/* Footer */}
-              <div className="flex justify-between items-center px-2 mr-3 ml-3 mb-2">
-                <button className="text-[12px] font-semibold text-[#0969DA]">
+              <div className="flex justify-between items-center px-4 mb-2">
+                <button className="text-[12px] text-green-500 cursor-pointer">
                   Search by fields
                 </button>
-                <button className="text-[12px] font-semibold text-[#0969DA]">
+                <button className="text-[12px] text-green-500 cursor-pointer">
                   Give Feedback
                 </button>
               </div>
