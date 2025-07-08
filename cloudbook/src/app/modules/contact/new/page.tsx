@@ -42,9 +42,8 @@ interface FormData {
   district: string;
   state: string;
   pincode: string;
-  deliveryAddress: Omit<deliveryDetails, "id">;
-  bankDetails: Omit<BankDetails, "id">;
-  bankList: BankDetails[];
+  deliveryAddress: deliveryDetails[];
+  bankDetails: BankDetails[];
   proofDetails: { aadhaarNumber: string; panNumber: string };
   otherDetails: {
     creditLimit: string;
@@ -113,21 +112,8 @@ export default function NewContact() {
     district: "",
     state: "",
     pincode: "",
-    deliveryAddress: {
-      addressLine1: "",
-      addressLine2: "",
-      district: "",
-      state: "",
-      pincode: "",
-    },
-    bankDetails: {
-      bankName: "",
-      accountNumber: "",
-      accountName: "",
-      ifscCode: "",
-      branchName: "",
-    },
-    bankList: [],
+    deliveryAddress: [],
+    bankDetails: [],
     otherDetails: {
       creditLimit: "",
       status: false,
@@ -137,12 +123,26 @@ export default function NewContact() {
   const [bankIdCounter, setBankIdCounter] = useState<number>(1);
   const [bankInputError, setBankInputError] = useState<string>("");
   const [editCustomerId, setEditCustomerId] = useState<number | null>(null);
-  const [deliveryAddressList, setDeliveryAddressList] = useState<
-    deliveryDetails[]
-  >([]);
+ 
   const [addressIdCounter, setAddressCounter] = useState<number>(1);
   const [addressInputError, setAddressInputError] = useState<string>("");
+  const [tempAddress, setTempAddress] = useState<deliveryDetails>({
+    id:0,
+    addressLine1: "",
+    addressLine2: "",
+    district: "",
+    state: "",
+    pincode: "",
+  });
 
+  const [tempBank, setTempBank] = useState<BankDetails>({
+    id:0,
+    bankName: "",
+    accountNumber: "",
+    accountName: "",
+    ifscCode: "",
+    branchName: "",
+  });
 
   const fetchCustomerData = async (id: number) => {};
   useEffect(() => {
@@ -163,21 +163,9 @@ export default function NewContact() {
         district: "",
         state: "",
         pincode: "",
-        deliveryAddress: {
-          addressLine1: "",
-          addressLine2: "",
-          district: "",
-          state: "",
-          pincode: "",
-        },
-        bankDetails: {
-          bankName: "",
-          accountNumber: "",
-          accountName: "",
-          ifscCode: "",
-          branchName: "",
-        },
-        bankList: [],
+        deliveryAddress: [],
+        bankDetails: [],
+       
         otherDetails: {
           creditLimit: "",
           status: false,
@@ -185,9 +173,9 @@ export default function NewContact() {
         proofDetails: { aadhaarNumber: "", panNumber: "" },
       });
       setBankIdCounter(1);
-      setAddressCounter(1)
+      setAddressCounter(1);
       setBankInputError("");
-      setAddressInputError("")
+      setAddressInputError("");
       setActiveTab("Delivery_details");
       setShowModal(true);
       setCustomerType("");
@@ -221,23 +209,18 @@ export default function NewContact() {
       setShowModal(false);
     }
   };
-const handleGroupChange =(value: string | string[] | null)=>{
+  const handleGroupChange = (value: string | string[] | null) => {
     setFormData((prev) => ({
       ...prev,
-      group:value as string
-      
+      group: value as string,
     }));
-}
+  };
   const handleBankChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setTempBank((prev) => ({
       ...prev,
-      bankDetails: {
-        ...prev.bankDetails,
-        [name]: name === "accountNumber" ? value.replace(/[^0-9]/g, "") : value,
-      },
+      [name]: name === "accountNumber" ? value.replace(/[^0-9]/g, "") : value,
     }));
-    setBankInputError("");
   };
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -258,15 +241,14 @@ const handleGroupChange =(value: string | string[] | null)=>{
     }));
   };
   const handleDeliverDetailsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
+    const { name, value } = e.target;
+    setTempAddress((prev) => ({
       ...prev,
-      deliveryAddress: {
-        ...prev.deliveryAddress,
-        [e.target.name]: e.target.value,
-      },
+      [name]: value,
     }));
   };
-const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
+
+  const handleOtherDetailsChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       otherDetails: {
@@ -282,119 +264,109 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
     }));
   };
   const handleTabStateChange = (value: string | string[] | null) => {
-    setFormData((prev) => ({
-      ...prev,
-      deliveryAddress: {
-        ...prev.deliveryAddress,
-        state: value as string,
-      },
-    }));
+    setTempAddress((pre)=>({
+        ...pre,
+        state:value as string
+    }))
   };
 
   const handleAddAddress = () => {
-    const { addressLine1, addressLine2, district, state, pincode } =
-      formData.deliveryAddress;
-    if (addressLine1 && district && state && pincode) {
-      const newAddress: deliveryDetails = {
-        id: addressIdCounter,
-        addressLine1,
-        addressLine2,
-        district,
-        state,
-        pincode,
-      };
-      setDeliveryAddressList((prev) => [...prev, newAddress]);
-      setAddressCounter((prev) => prev + 1);
+  const { addressLine1, district, state, pincode } = tempAddress;
+  if (addressLine1 && district && state && pincode) {
+    const id = tempAddress.id || addressIdCounter;
 
-      // Clear form inputs
-      setFormData((prev) => ({
+    setFormData((prev) => {
+      const existingIndex = prev.deliveryAddress.findIndex((a) => a.id === id);
+      const newList =
+        existingIndex !== -1
+          ? prev.deliveryAddress.map((a) =>
+              a.id === id ? { ...tempAddress, id } : a
+            )
+          : [...prev.deliveryAddress, { ...tempAddress, id }];
+
+      return {
         ...prev,
-        deliveryAddress: {
-          addressLine1: "",
-          addressLine2: "",
-          district: "",
-          state: "",
-          pincode: "",
-        },
-      }));
-      setAddressInputError("")
-    } else {
-      setAddressInputError('Please fill all fields before clicking "Add Address".')
-    }
-  };
+        deliveryAddress: newList,
+      };
+    });
+
+    if (!tempAddress.id) setAddressCounter((prev) => prev + 1);
+
+    setTempAddress({
+      id: 0,
+      addressLine1: "",
+      addressLine2: "",
+      district: "",
+      state: "",
+      pincode: "",
+    });
+
+    setAddressInputError("");
+  } else {
+    setAddressInputError("Please fill all fields before clicking 'Add Address'.");
+  }
+};
+
 
   const handleEditDeliveryAddress = (id: number) => {
-    const toEdit = deliveryAddressList.find((item) => item.id === id);
-    if (toEdit) {
-      setFormData((prev) => ({
-        ...prev,
-        deliveryAddress: {
-          addressLine1: toEdit.addressLine1,
-          addressLine2: toEdit.addressLine2,
-          district: toEdit.district,
-          state: toEdit.state,
-          pincode: toEdit.pincode,
-        },
-      }));
-      setDeliveryAddressList((prev) => prev.filter((item) => item.id !== id));
-    }
-  };
+  const addressToEdit = formData.deliveryAddress.find((a) => a.id === id);
+  if (addressToEdit) setTempAddress({ ...addressToEdit });
+};
 
-  const handleRemoveDeliveryAddress = (id: number) => {
-    setDeliveryAddressList((prev) => prev.filter((item) => item.id !== id));
-  };
+ const handleRemoveDeliveryAddress = (id: number) => {
+  setFormData((prev) => ({
+    ...prev,
+    deliveryAddress: prev.deliveryAddress.filter((a) => a.id !== id),
+  }));
+};
 
   const handleAddBank = () => {
-    const { bankName, accountNumber, accountName, ifscCode, branchName } =
-      formData.bankDetails;
-    if (bankName && accountNumber && accountName && ifscCode && branchName) {
-      const newBank: BankDetails = {
-        id: bankIdCounter,
-        bankName,
-        accountNumber,
-        accountName,
-        ifscCode,
-        branchName,
+  const { bankName, accountNumber, accountName, ifscCode, branchName } =
+    tempBank;
+  if (bankName && accountNumber && accountName && ifscCode && branchName) {
+    const id = tempBank.id || bankIdCounter;
+
+    setFormData((prev) => {
+      const existingIndex = prev.bankDetails.findIndex((b) => b.id === id);
+      const newList =
+        existingIndex !== -1
+          ? prev.bankDetails.map((b) =>
+              b.id === id ? { ...tempBank, id } : b
+            )
+          : [...prev.bankDetails, { ...tempBank, id }];
+
+      return {
+        ...prev,
+        bankDetails: newList,
       };
-      setFormData((prev) => ({
-        ...prev,
-        bankList: [...prev.bankList, newBank],
-      }));
-      setBankIdCounter((prev) => prev + 1);
-      setFormData((prev) => ({
-        ...prev,
-        bankDetails: {
-          bankName: "",
-          accountNumber: "",
-          accountName: "",
-          ifscCode: "",
-          branchName: "",
-        },
-      }));
-      setBankInputError("");
-    } else {
-      setBankInputError(
-        'Please fill all bank details before clicking "Add Bank".'
-      );
-    }
-  };
-  const handleEditBank = (id: number) => {
-    const bankToEdit = formData.bankList.find((b) => b.id === id);
-    if (bankToEdit) {
-      const { id: bankId, ...bankWithoutId } = bankToEdit;
-      setFormData((prev) => ({
-        ...prev,
-        bankDetails: bankWithoutId,
-        bankList: prev.bankList.filter((b) => b.id !== id),
-      }));
-    }
-  };
-  const handleDeleteBank = (id: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      bankList: prev.bankList.filter((b) => b.id !== id),
-    }));
-  };
+    });
+
+    if (!tempBank.id) setBankIdCounter((prev) => prev + 1);
+
+    setTempBank({
+      id: 0,
+      bankName: "",
+      accountNumber: "",
+      accountName: "",
+      ifscCode: "",
+      branchName: "",
+    });
+
+    setBankInputError("");
+  } else {
+    setBankInputError("Please fill all bank details before clicking 'Add Bank'.");
+  }
+};
+ const handleEditBank = (id: number) => {
+  const bankToEdit = formData.bankDetails.find((b) => b.id === id);
+  if (bankToEdit) setTempBank({ ...bankToEdit });
+};
+ const handleDeleteBank = (id: number) => {
+  setFormData((prev) => ({
+    ...prev,
+    bankDetails: prev.bankDetails.filter((b) => b.id !== id),
+  }));
+};
   const handleCustomerType = (type: string) => {
     setCustomerType(type);
     type === "non-gst" && setShowModal(false);
@@ -408,7 +380,6 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log(formData);
-    
   };
   const renderTabContent = () => {
     switch (activeTab) {
@@ -425,7 +396,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="addressLine1"
                     className="form-control alphanumeric capitalize"
-                    value={formData.deliveryAddress.addressLine1}
+                    value={tempAddress.addressLine1}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter AddressLine1"
                   />
@@ -434,7 +405,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="addressLine2"
                     className="form-control alphanumeric capitalize"
-                    value={formData.deliveryAddress.addressLine2}
+                    value={tempAddress.addressLine2}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter AddressLine2"
                   />
@@ -443,7 +414,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="district"
                     className="form-control alphabet_only capitalize"
-                    value={formData.deliveryAddress.district}
+                    value={tempAddress.district}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter district"
                     data-validate="required"
@@ -456,14 +427,14 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     placeholder="Select State"
                     searchable
                     onChange={handleTabStateChange}
-                    initialValue={formData.deliveryAddress.state}
+                    initialValue={tempAddress.state}
                   />
                 </FormField>
                 <FormField label="Pincode" required htmlFor="pincode">
                   <Input
                     name="pincode"
                     className="form-control only_number no_space"
-                    value={formData.deliveryAddress.pincode}
+                    value={tempAddress.pincode}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter Pincode"
                     data-validate="required"
@@ -471,7 +442,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   />
                 </FormField>
                 <FormField label="">
-                    {addressInputError && (
+                  {addressInputError && (
                     <div className="text-red-500 text-sm mt-2 text-start">
                       {addressInputError}
                     </div>
@@ -488,7 +459,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                 </FormField>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
-                {deliveryAddressList.map((addr, idx) => (
+                {formData.deliveryAddress.map((addr, idx) => (
                   <div key={addr.id} className="border rounded p-4 shadow-sm">
                     <div className="mb-2 border-b border-gray-200">
                       <h4 className="text-gray-700 font-medium ">
@@ -505,13 +476,15 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                       Pincode: {addr.pincode}
                     </div>
                     <div className="pt-2 text-sm  text-blue-600 flex gap-2">
-                      <button className="cursor-pointer"
+                      <button
+                        className="cursor-pointer"
                         onClick={() => handleEditDeliveryAddress(addr.id)}
                       >
                         Edit
                       </button>
                       <span>|</span>
-                      <button className="cursor-pointer"
+                      <button
+                        className="cursor-pointer"
                         onClick={() => handleRemoveDeliveryAddress(addr.id)}
                       >
                         Remove
@@ -533,7 +506,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     <Input
                       type="text"
                       name="accountName"
-                      value={formData.bankDetails.accountName}
+                      value={tempBank.accountName}
                       onChange={handleBankChange}
                       placeholder="Enter Account Name"
                       className="alphabet_only capitalize"
@@ -544,7 +517,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     <Input
                       name="accountNumber"
                       type="text"
-                      value={formData.bankDetails.accountNumber}
+                      value={tempBank.accountNumber}
                       onChange={handleBankChange}
                       className="only_number no_space"
                       placeholder="Enter Account Number"
@@ -555,7 +528,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     <Input
                       name="ifscCode"
                       type="text"
-                      value={formData.bankDetails.ifscCode}
+                      value={tempBank.ifscCode}
                       onChange={handleBankChange}
                       placeholder="Enter IFSC Code"
                       className="alphanumeric all_uppercase no_space"
@@ -566,7 +539,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     <Input
                       name="bankName"
                       type="text"
-                      value={formData.bankDetails.bankName}
+                      value={tempBank.bankName}
                       onChange={handleBankChange}
                       placeholder="Enter Bank Name"
                       className="alphabet_only capitalize"
@@ -577,7 +550,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     <Input
                       name="branchName"
                       type="text"
-                      value={formData.bankDetails.branchName}
+                      value={tempBank.branchName}
                       onChange={handleBankChange}
                       placeholder="Enter Branch Name"
                       className="alphabet_only capitalize"
@@ -585,11 +558,11 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     />
                   </FormField>
                   <FormField label="">
-                  {bankInputError && (
-                    <div className="text-red-500 text-sm mt-2 text-start">
-                      {bankInputError}
-                    </div>
-                  )}
+                    {bankInputError && (
+                      <div className="text-red-500 text-sm mt-2 text-start">
+                        {bankInputError}
+                      </div>
+                    )}
                   </FormField>
                   <FormField label="">
                     <button
@@ -616,7 +589,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                     </tr>
                   </thead>
                   <tbody className="text-[#000000]">
-                    {formData.bankList.map((bank, index) => (
+                    {formData.bankDetails.map((bank, index) => (
                       <tr key={bank.id}>
                         <td className="px-3 py-2">{index + 1}</td>
                         <td className="px-3 py-2">{bank.accountName}</td>
@@ -642,7 +615,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                         </td>
                       </tr>
                     ))}
-                    {formData.bankList.length === 0 && (
+                    {formData.bankDetails.length === 0 && (
                       <tr>
                         <td
                           colSpan={7}
@@ -731,7 +704,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="addressLine1"
                     className="form-control alphanumeric capitalize"
-                    value={formData.deliveryAddress.addressLine1}
+                    value={tempAddress.addressLine1}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter AddressLine1"
                   />
@@ -740,7 +713,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="addressLine2"
                     className="form-control alphanumeric capitalize"
-                    value={formData.deliveryAddress.addressLine2}
+                    value={tempAddress.addressLine2}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter AddressLine2"
                   />
@@ -749,7 +722,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="district"
                     className="form-control alphabet_only capitalize"
-                    value={formData.deliveryAddress.district}
+                    value={tempAddress.district}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter district"
                     data-validate="required"
@@ -768,7 +741,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   <Input
                     name="pincode"
                     className="form-control only_number no_space"
-                    value={formData.deliveryAddress.pincode}
+                    value={tempAddress.pincode}
                     onChange={handleDeliverDetailsChange}
                     placeholder="Enter Pincode"
                     data-validate="required"
@@ -776,7 +749,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                   />
                 </FormField>
                 <FormField label="">
-                    {addressInputError && (
+                  {addressInputError && (
                     <div className="text-red-500 text-sm mt-2 text-start">
                       {addressInputError}
                     </div>
@@ -793,7 +766,7 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                 </FormField>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
-                {deliveryAddressList.map((addr, idx) => (
+                {formData.deliveryAddress.map((addr, idx) => (
                   <div key={addr.id} className="border rounded p-4 shadow-sm">
                     <div className="mb-2 border-b border-gray-200">
                       <h4 className="text-gray-700 font-medium ">
@@ -810,13 +783,15 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                       Pincode: {addr.pincode}
                     </div>
                     <div className="pt-2 text-sm  text-blue-600 flex gap-2">
-                      <button className="cursor-pointer"
+                      <button
+                        className="cursor-pointer"
                         onClick={() => handleEditDeliveryAddress(addr.id)}
                       >
                         Edit
                       </button>
                       <span>|</span>
-                      <button className="cursor-pointer"
+                      <button
+                        className="cursor-pointer"
                         onClick={() => handleRemoveDeliveryAddress(addr.id)}
                       >
                         Remove
@@ -877,10 +852,12 @@ const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
                         { value: "customer", label: "Sundry creditors" },
                         { value: "supplier", label: "Sundry debtors" },
                       ]}
-                      onChange={(e)=>setFormData((pre)=>({
-                        ...pre,
-                        contactType:e.target.value
-                      }))}
+                      onChange={(e) =>
+                        setFormData((pre) => ({
+                          ...pre,
+                          contactType: e.target.value,
+                        }))
+                      }
                     />
                   </FormField>
                   <FormField label="Group" htmlFor="group">
