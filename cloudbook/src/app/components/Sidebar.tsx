@@ -218,14 +218,14 @@ export default function Sidebar() {
                 {" "}
                 {/* Added overflow-hidden */}
                 <img
-                  src="/images/profile-pic.png"
+                  src="/images/profile-pic.jpg"
                   alt="User Image"
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
             <div className="text-[#b0b3b7]">
-              <div className="font-semibold text-[15px]">Emily Clark</div>
+              <div className="font-semibold text-[15px]">Emma Stone</div>
               <div className="text-xs">Admin</div>
             </div>
             <div className="ml-auto">
