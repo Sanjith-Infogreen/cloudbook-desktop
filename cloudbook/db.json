@@ -288,5 +288,67 @@
   { "id": 16, "employeeName": "Selvam", "leaveType": "Sick Leave", "fromDate": "2023-10-05", "toDate": "2023-10-07", "reason": "Fever", "status": "Pending" }, 
   { "id": 17, "employeeName": "Rani", "leaveType": "Annual Leave", "fromDate": "2023-10-10", "toDate": "2023-10-15", "reason": "Vacation", "status": "Rejected" },
   { "id": 18, "employeeName": "Sabari", "leaveType": "Casual Leave", "fromDate": "2023-10-20", "toDate": "2023-10-22", "reason": "Family Function", "status": "Approved" }
-]
+],
+
+ 
+ 
+  "customerLedger": [
+    { "id": 1, "name": "Alpha Enterprises", "remarks": "Regular customer" },
+    { "id": 2, "name": "Beta Solutions", "remarks": "New client, follow up" } 
+  ],
+  "productLedger": [
+    { "id": 1, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 2, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 3, "name": "Product C", "remarks": "In stock" },
+    { "id": 4, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 5, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 6, "name": "Product C", "remarks": "In stock" },
+    { "id": 7, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 8, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 29, "name": "Product C", "remarks": "In stock" },
+    { "id": 130, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 11, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 12, "name": "Product C", "remarks": "In stock" },
+    { "id": 34, "name": "Product C", "remarks": "In stock" },
+    { "id": 401, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 501, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 601, "name": "Product C", "remarks": "In stock" },
+    { "id": 73, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 801, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 9, "name": "Product C", "remarks": "In stock" },
+    { "id": 10, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 1101, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 122, "name": "Product C", "remarks": "In stock" },
+    { "id": 13, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 22, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 33, "name": "Product C", "remarks": "In stock" },
+    { "id": 44, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 275, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 46, "name": "Product C", "remarks": "In stock" },
+    { "id": 76, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 1301, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 2201, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 3301, "name": "Product C", "remarks": "In stock" },
+    { "id": 4401, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 25, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 4601, "name": "Product C", "remarks": "In stock" },
+    { "id": 7601, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 48, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 92, "name": "Product C", "remarks": "In stock" },
+    { "id": 410, "name": "Product A", "remarks": "Electronics category" },
+    { "id": 151, "name": "Product B", "remarks": "Home goods category" },
+    { "id": 142, "name": "Product C", "remarks": "In stock" }
+  ],
+  "unitLedger": [
+    { "id": 1, "name": "Pieces", "remarks": "Standard unit" },
+    { "id": 2, "name": "Kilograms", "remarks": "Weight unit" } 
+  ],
+  "bankAccounts": [
+    { "id": 1, "name": "Main Savings Account", "remarks": "Primary operational account" },
+    { "id": 2, "name": "Petty Cash Account", "remarks": "For small expenses" } 
+  ],
+  "expenseLedger": [
+    { "id": 1, "name": "Office Supplies", "remarks": "Monthly expenditure" },
+    { "id": 2, "name": "Travel Expenses", "remarks": "Business travel related" } 
+  ]
 }
