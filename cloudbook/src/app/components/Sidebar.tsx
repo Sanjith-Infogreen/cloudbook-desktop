@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { Toggle } from "@/app/utils/form-controls";
 
 export default function Sidebar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -12,6 +13,7 @@ export default function Sidebar() {
     {}
   );
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
   const router = useRouter();
   const pathname = usePathname();
   const sideMenuBar = useSelector(
@@ -23,7 +25,7 @@ export default function Sidebar() {
       setIsMobile(window.innerWidth <= 1024);
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutsideSidebar = (event: MouseEvent) => {
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target as Node)
@@ -32,24 +34,32 @@ export default function Sidebar() {
       }
     };
 
-    // Run initial screen size check
-    checkScreenSize();
+    const handleClickOutsideDropdown = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        // Ensure click is not on the toggle icon itself
+        !(event.target as HTMLElement).closest(".ri-expand-up-down-fill")
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
     // Run initial screen size check
     checkScreenSize();
 
-    // Attach both listeners
+    // Attach all listeners
     window.addEventListener("resize", checkScreenSize);
-    document.addEventListener("mousedown", handleClickOutside);
-    // Attach both listeners
-    window.addEventListener("resize", checkScreenSize);
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutsideSidebar);
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
 
-    // Cleanup both listeners
+    // Cleanup all listeners
     return () => {
       window.removeEventListener("resize", checkScreenSize);
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutsideSidebar);
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
 
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
@@ -74,8 +84,9 @@ export default function Sidebar() {
       ...prev,
       [title]: !currentOpen, // flip based on current resolved open state
     }));
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -84,204 +95,235 @@ export default function Sidebar() {
   // DESKTOP SIDEBAR
   if (!isMobile) {
     return (
-      <div
-        ref={sidebarRef}
-        className="w-[200px] bg-[#212934] shadow-md relative h-full"
-      >
-        <div className="px-0 pt-1 pb-0 flex justify-center">
-          <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
-        </div>
+      <>
+        <div
+          ref={sidebarRef}
+          className="w-[200px] bg-[#212934] shadow-md relative h-full"
+        >
+          <div className="px-0 pt-1 pb-0 flex justify-center">
+            <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
+          </div>
 
-        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
-          <ul>
-            {sideMenuBar.map((menu, idx) => {
-              const isSection = menu.submenu && menu.submenu.length > 0;
+          <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto custom-scrollbar">
+            <ul>
+              {sideMenuBar.map((menu, idx) => {
+                const isSection = menu.submenu && menu.submenu.length > 0;
 
-              const hasToggled = menu.Title in openSections;
-              const sectionOpen = hasToggled
-                ? openSections[menu.Title]
-                : isSectionActive(menu.submenu || []);
-              const activeItem = !isSection && isActive(menu.main_Link);
+                const hasToggled = menu.Title in openSections;
+                const sectionOpen = hasToggled
+                  ? openSections[menu.Title]
+                  : isSectionActive(menu.submenu || []);
+                const activeItem = !isSection && isActive(menu.main_Link);
 
-              return (
-                <li key={idx}>
-                  {isSection ? (
-                    <>
+                return (
+                  <li key={idx}>
+                    {isSection ? (
+                      <>
+                        <div
+                          className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                            hasToggled || sectionOpen
+                              ? "text-white "
+                              : "text-[#b0b3b7]"
+                          }`}
+                          onClick={() => toggleSection(menu.Title, sectionOpen)}
+                        >
+                          <div className="flex items-center">
+                            <i className={`${menu.icon} mr-3 text-lg`}></i>
+                            <span>{menu.Title}</span>
+                          </div>
+                          {menu.icon_down && (
+                            <i
+                              className={`${
+                                menu.icon_down
+                              } text-lg transition-transform duration-200 ${
+                                sectionOpen ? "rotate-180" : ""
+                              }`}
+                            ></i>
+                          )}
+                        </div>
+                        {sectionOpen && (
+                          <ul className="text-[#b0b3b7]">
+                            {menu.submenu.map((sub, subIdx) => (
+                              <li
+                                key={subIdx}
+                                className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                                  isActive(sub.main_Link)
+                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                    : "text-[#b0b3b7] border-l-transparent"
+                                }`}
+                              >
+                                <span
+                                  onClick={() => router.push(sub.main_Link)}
+                                  className={`${
+                                    isActive(sub.main_Link) ? "text-white" : ""
+                                  }`}
+                                >
+                                  {sub.Title}
+                                </span>
+                                {sub.new_Link && (
+                                  <i
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      router.push(sub.new_Link);
+                                    }}
+                                    className={`${sub.icon_New} text-lg ${
+                                      isActive(sub.new_Link) ? "text-white" : ""
+                                    }`}
+                                  ></i>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    ) : (
                       <div
-                        className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                          hasToggled || sectionOpen
-                            ? "text-white "
-                            : "text-[#b0b3b7]"
+                        onClick={() => router.push(menu.main_Link)}
+                        className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                          activeItem
+                            ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                            : "text-[#b0b3b7] border-l-transparent"
                         }`}
-                        onClick={() => toggleSection(menu.Title, sectionOpen)}
                       >
                         <div className="flex items-center">
-                          <i className={`${menu.icon} mr-3 text-lg`}></i>
+                          <i
+                            className={`${menu.icon} mr-3 text-lg ${
+                              activeItem ? "text-white" : ""
+                            }`}
+                          ></i>
                           <span>{menu.Title}</span>
                         </div>
-                        {menu.icon_down && (
+                        {menu.new_Link && (
                           <i
-                            className={`${
-                              menu.icon_down
-                            } text-lg transition-transform duration-200 ${
-                              sectionOpen ? "rotate-180" : ""
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(menu.new_Link);
+                            }}
+                            className={`${menu.icon_New} text-lg ${
+                              isActive(menu.new_Link) ? "text-white" : ""
                             }`}
                           ></i>
                         )}
                       </div>
-                      {sectionOpen && (
-                        <ul className="text-[#b0b3b7]">
-                          {menu.submenu.map((sub, subIdx) => (
-                            <li
-                              key={subIdx}
-                              className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                                isActive(sub.main_Link)
-                                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                                  : "text-[#b0b3b7] border-l-transparent"
-                              }`}
-                            >
-                              <span
-                                onClick={() => router.push(sub.main_Link)}
-                                className={`${
-                                  isActive(sub.main_Link) ? "text-white" : ""
-                                }`}
-                              >
-                                {sub.Title}
-                              </span>
-                              {sub.new_Link && (
-                                <i
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    router.push(sub.new_Link);
-                                  }}
-                                  className={`${sub.icon_New} text-lg ${
-                                    isActive(sub.new_Link) ? "text-white" : ""
-                                  }`}
-                                ></i>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </>
-                  ) : (
-                    <div
-                      onClick={() => router.push(menu.main_Link)}
-                      className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                        activeItem
-                          ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                          : "text-[#b0b3b7] border-l-transparent"
-                      }`}
-                    >
-                      <div className="flex items-center">
-                        <i
-                          className={`${menu.icon} mr-3 text-lg ${
-                            activeItem ? "text-white" : ""
-                          }`}
-                        ></i>
-                        <span>{menu.Title}</span>
-                      </div>
-                      {menu.new_Link && (
-                        <i
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(menu.new_Link);
-                          }}
-                          className={`${menu.icon_New} text-lg ${
-                            isActive(menu.new_Link) ? "text-white" : ""
-                          }`}
-                        ></i>
-                      )}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
 
-        <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
-      <div className="mr-2">
-        <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center">
-          <img
-            src="/images/profile-pic.png"
-            alt="User Image"
-            className="w-full h-full object-cover"
-          />
+          <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
+            <div className="mr-2">
+              <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
+                {" "}
+                {/* Added overflow-hidden */}
+                <img
+                  src="/images/profile-pic.png"
+                  alt="User Image"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="text-[#b0b3b7]">
+              <div className="font-semibold text-[15px]">Emily Clark</div>
+              <div className="text-xs">Admin</div>
+            </div>
+            <div className="ml-auto">
+              <i
+                className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"
+                onClick={toggleDropdown}
+              ></i>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="text-[#b0b3b7]">
-        <div className="font-semibold text-[15px]">Emily Clark</div>
-        <div className="text-xs">Admin</div>
-      </div>
-      <div className="ml-auto relative"> {/* Added relative for dropdown positioning */}
-        <i
-          className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"
-          onClick={toggleDropdown}
-        ></i>
-
-     {isDropdownOpen && (
-    <div className="absolute top-[-360px] left-[200%] ml-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50"> {/* Changes here */}
-        {/* User Info Section (similar to the image) */}
-        <div className="px-4 py-3 border-b border-gray-200 flex items-center">
-            <div className="mr-3">
+        {isDropdownOpen && (
+          <div
+            ref={dropdownRef}
+            className="absolute top-[calc(100vh-350px)] left-[200px] ml-2 w-70 bg-white rounded-lg shadow-2xl py-2 z-50"
+          >
+            <div className="px-4 py-1  flex items-center">
+              <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
-                    <img
-                        src="/images/profile-pic.png" // Use Emily Clark's profile pic or a general one
-                        alt="User Profile"
-                        className="w-full h-full object-cover"
-                    />
+                  <img
+                    src="/images/profile-pic.png"
+                    alt="User Profile"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-            </div>
-            <div>
-                <div className="font-semibold text-gray-900 text-base">Emily Clark</div>
-                <div className="text-sm text-gray-500">emily.clark@example.com</div> {/* Add an email */}
+              </div>
+              <div className="flex-1">
+                {/* This makes the info section take full width */}
+                <div className="flex flex-col w-full">
+                  <div className="flex items-center w-full">
+                    <div className="font-semibold text-gray-900 text-[12px]">
+                      Emily Clark
+                      <span className="text-[12px] ml-2 text-gray-500">
+                        @emily
+                      </span>
+                    </div>
+                    <div className="ml-auto px-2  text-[10px] font-bold text-green-700 bg-green-100 rounded-full">
+                      PRO
+                    </div>
+                  </div>
+                  <div className="text-[12px] text-gray-500">
+                    emily.clark@example.com
+                  </div>
+                </div>
+              </div>
             </div>
 
-        </div>
+            {/* Menu Items */}
+            <ul className="py-2">
+              <li className="flex items-center px-4 py-1.5 mb-2 hover:bg-gray-100 cursor-pointer">
+                <i className="ri-moon-line mr-3 text-gray-600 "></i>
 
-        {/* Menu Items */}
-        <ul className="py-2">
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-moon-fill mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Dark Mode</span>
-                <label htmlFor="dark-mode-toggle" className="ml-auto relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="dark-mode-toggle" className="sr-only peer" />
-                    <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <span className="text-[14px] text-gray-800 leading-none">
+                  Dark Mode
+                </span>
+
+                <div className="ml-auto flex items-center">
+                  <Toggle
+                    name="darkMode"
+                    checked={isDarkMode}
+                    onChange={(e) => setIsDarkMode(e.target.checked)}
+                  />
+                </div>
+              </li>
+              <hr className="border-t border-gray-200" />
+
+              <li className="flex items-center px-4 py-1.5 mt-2  hover:bg-gray-100 cursor-pointer">
                 <i className="ri-line-chart-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Activity</span>
-            </li>
-            <li className="flex items-center px-4 py-2 bg-gray-100 cursor-pointer"> {/* Highlighted "Integrations" */}
+                <span className="text-[14px] text-gray-800">Activity</span>
+              </li>
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-grid-fill mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Integrations</span>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <span className="text-[14px] text-gray-800">Integrations</span>
+              </li>
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-settings-3-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Settings</span>
-            </li>
-            <li className="flex items-center px-4 py-2 border-t border-gray-200 mt-2 hover:bg-gray-100 cursor-pointer">
+                <span className="text-[14px] text-gray-800">Settings</span>
+              </li>
+              <hr className="border-t border-gray-200" />
+              <li className="flex items-center px-4 py-1.5  mt-2 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-add-circle-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Add Account</span>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <span className="text-[14px] text-gray-800">Add Account</span>
+              </li>
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-logout-box-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Logout</span>
-            </li>
-        </ul>
+                <span className="text-[14px] text-gray-800">Logout</span>
+              </li>
+            </ul>
 
-        {/* Version and Terms */}
-        <div className="px-4 py-2 text-xs text-gray-400 border-t border-gray-200 mt-2 flex justify-between items-center">
-            <span>v.1.5.69</span>
-            <a href="#" className="text-blue-500 hover:underline">Terms & Conditions</a>
-        </div>
-    </div>
-)}
-      </div>
-    </div>
-      </div>
+            {/* Version and Terms */}
+            <div className="px-4 py-1 text-xs text-gray-400 flex  items-center">
+              <span>v.1.5.69</span>
+              <a href="#" className="text-gray-400 ml-1">
+                Terms & Conditions
+              </a>
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 
@@ -399,7 +441,7 @@ export default function Sidebar() {
 
       <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
         <div className="mr-2">
-          <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center">
+          <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
             <img
               src="/images/profile-pic.png"
               alt="User Image"
