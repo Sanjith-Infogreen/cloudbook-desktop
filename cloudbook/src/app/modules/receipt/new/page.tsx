@@ -326,8 +326,8 @@ const NewReceipt = () => {
                   </FormField>
                 </div>
                 {/* Supplier Details Display */}
-                <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
-                  <div className="bg-white border border-gray-300 rounded-xl shadow-lg p-6 h-[175px] overflow-y-auto transition-all duration-200 hover:shadow-xl">
+                <div className="space-y-4   lg:pr-1">
+                  <div className="bg-white border border-gray-300 rounded-xl   p-6 h-[175px] overflow-y-auto transition-all duration-200  ">
                     {details && Object.keys(details).length > 0 ? (
                       <div className="text-sm">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
@@ -353,7 +353,7 @@ const NewReceipt = () => {
 
                           {/* Address Information */}
                           <div className="space-y-3">
-                            <div className="pb-1 border-b border-gray-100">
+                            <div className="pb-1 border-b border-gray-200">
                               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
                                 Business Address
                               </label>
@@ -411,41 +411,41 @@ const NewReceipt = () => {
             </div>
 
             {/* Bills Table Section */}
-            <div className="h-[calc(100vh-420px)] max=h-[calc(100vh-420px)] overflow-y-auto p-2">
+            <div className="h-[calc(100vh-422px)] max=h-[calc(100vh-422px)] overflow-y-auto pr-5 pl-4">
               <table className="w-full text-sm">
                 <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                   {/* Removed whitespace between <tr> and <th> */}
                   <tr>
                     <th className="p-2 w-[3%]">S.no</th>
                     <th className="p-2 w-[20%]">Date</th>
-                    <th className="p-2 w-[15%]">Bill Number</th>
-                    <th className="p-2 w-[15%]">Purpose</th> {/* New column header */}
+                    <th className="p-2 w-[10%]">Bill Number</th>
+                    <th className="p-2 w-[10%]">Purpose</th> {/* New column header */}
                     <th className="p-2 w-[15%]">Total</th>
-                    <th className="p-2 w-[9%] text-center">Paid</th>
-                    <th className="p-2 w-[7%] text-center">Balance</th>
+                    <th className="p-2 w-[14%] text-center">Paid</th>
+                    <th className="p-2 w-[10%] text-center">Balance</th>
                   </tr>
                 </thead>
                 <tbody id="productTableBody">
                   {bills.length > 0 ? (
                     bills.map((bill, index) => (
                       <tr key={bill.id} className="border-b border-gray-200">
-                        <td className="p-1">{index + 1}</td>
-                        <td className="p-1">{bill.date}</td>
-                        <td className="p-1">{bill.billNumber}</td>
-                        <td className="p-1">{bill.purpose}</td>
-                        <td className="p-1">
+                        <td className="pl-2 py-1">{index + 1}</td>
+                        <td className="pl-2 py-1">{bill.date}</td>
+                        <td className="pl-2 py-1">{bill.billNumber}</td>
+                        <td className="pl-2 py-1">{bill.purpose}</td>
+                        <td className="pl-2 py-1 text-right">
                           {bill.total.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
-                        </td>{/* Consolidated td tags to remove whitespace */}
-                        <td className="p-1 text-center text-[#009333]">
+                        </td> 
+                        <td className="pl-2 py-1 text-right text-[#009333] ">
                           {bill.paid.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
-                        </td>{/* Consolidated td tags to remove whitespace */}
-                        <td className="p-1">
+                        </td> 
+                        <td className="pl-2 py-1">
                           <Input
                             name={`balance-${bill.id}`}
                             placeholder="Enter Balance"
