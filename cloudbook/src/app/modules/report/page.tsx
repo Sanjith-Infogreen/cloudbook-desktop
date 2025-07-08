@@ -14,11 +14,48 @@ const ReportsPage = () => {
 
   const reportCategories = [
     {
-      title: "Leave",
+      title: "Product",
       items: [
-        { name: "Monthly Report", icon: "ri-file-list-line" },
-        { name: "Leave Report", icon: "ri-file-list-line" },
+        { name: "Product Sales Report", icon: "ri-file-list-line" },
+        { name: "Stock Value Report", icon: "ri-file-list-line" },
+        { name: "Sales Profit Report", icon: "ri-file-list-line" },
       ],
+    },
+    {
+      title: "Outstanding",
+      items: [
+        { name: "Customer Balance", icon: "ri-file-list-line" },
+        { name: "Supplier Balance", icon: "ri-file-list-line" },
+        { name: "Statement", icon: "ri-file-list-line" },
+      ],
+    },
+    {
+      title: "Accounts",
+      items: [
+        { name: "Daybook", icon: "ri-file-list-line" },
+        { name: "Cashbook", icon: "ri-file-list-line" },
+        { name: "Trail Balance", icon: "ri-file-list-line" },
+      ],
+    },
+    {
+      title: "GST",
+      items: [
+        { name: "Sales Summary", icon: "ri-file-list-line" },
+        { name: "Supplier Summary", icon: "ri-file-list-line" },
+        { name: "GSTR1", icon: "ri-file-list-line" },
+        { name: "B2B", icon: "ri-file-list-line" },
+        { name: "B2C", icon: "ri-file-list-line" },
+        { name: "Product Sales", icon: "ri-file-list-line" },
+        { name: "Sales Summary", icon: "ri-file-list-line" },
+        { name: "Purchase Summary", icon: "ri-file-list-line" },
+      ],
+    },
+    {
+      title: "Excel Download",
+      items: [
+        { name: "All Sales Excel", icon: "ri-file-list-line" },
+        { name: "All Purchase Excel", icon: "ri-file-list-line" },
+          ],
     },
   ];
 
@@ -107,7 +144,7 @@ const ReportsPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-110px)]">
+          <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-160px)]">
             {filteredCategories.map((category, categoryIndex) => (
               <div key={categoryIndex}>
                 <p
