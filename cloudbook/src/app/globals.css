@@ -134,7 +134,7 @@ input[type="checkbox"] {
   }
 
      .offcanvas-sidebar {
-    @apply relative w-80 mt-[5.4rem] mb-[0.15rem] rounded-tl-[0.375rem] rounded-bl-[0.375rem] bg-white shadow-[0_4px_16px_#27313a66] transform transition-transform duration-300;
+    @apply relative w-80 mt-[5.5rem] mb-[0.15rem] rounded-tl-[0.375rem] rounded-bl-[0.375rem] bg-white shadow-[0_4px_16px_#27313a66] transform transition-transform duration-300;
   }
 
   .btn-sm {
