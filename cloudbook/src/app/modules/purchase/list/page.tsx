@@ -1,16 +1,61 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Layout from "../../../components/Layout";
 import { useRouter } from "next/navigation";
 import FilterSidebar from "@/app/utils/filterSIdebar";
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
+import CustomizeTableContent from "@/app/utils/customizeTableSidebar";
 import {
   Input,
   RadioGroup,
   CheckboxGroup,
   Toggle,
 } from "@/app/utils/form-controls";
+
+
+type SidebarProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+};
+
+function Sidebar({ isOpen, onClose, children }: SidebarProps) {
+  const sidebarRef = useRef<HTMLDivElement>(null); // Create a ref for the sidebar DOM element
+
+  useEffect(() => {
+    // Only add listener if sidebar is open
+    if (isOpen) {
+      const handleClickOutside = (event: MouseEvent) => {
+        // If the click is outside the sidebarRef element, close the sidebar
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+          onClose();
+        }
+      };
+
+      // Add event listener when component mounts or isOpen becomes true
+      document.addEventListener('mousedown', handleClickOutside);
+
+      // Clean up the event listener when component unmounts or isOpen becomes false
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [isOpen, onClose]); // Re-run effect if isOpen or onClose changes
+
+  return (
+    <>
+   
+      <div
+        ref={sidebarRef} 
+        className={`fixed top-0 right-0 offcanvas-sidebar h-[calc(100vh-90px)] z-50 
+          ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+        {children}
+      </div>
+    </>
+  );
+}
 
 // Define tab key types
 type TabKey = "all" | "pending" | "completed" | "cancelled";
@@ -19,6 +64,60 @@ const PurchaseList = () => {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
+
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // Define fields state here, in the parent (CustomizeTableButton)
+  const [fields, setFields] = useState([
+    { id: 'name', label: 'Name', visible: true },
+    { id: 'account', label: 'Account', visible: true },
+    { id: 'jobTitle', label: 'Job title', visible: true },
+    { id: 'email', label: 'Email', visible: true },
+    { id: 'mobile', label: 'Mobile', visible: true },
+    { id: 'status', label: 'Status', visible: true },
+    { id: 'tags', label: 'Tags', visible: true },
+    { id: 'salesOwner', label: 'Sales owner', visible: true },
+    { id: 'facebook', label: 'Facebook', visible: true },
+    { id: 'firstName', label: 'First name', visible: false },
+    { id: 'lastName', label: 'Last name', visible: false },
+    { id: 'workPhone', label: 'Work phone', visible: false },
+    { id: 'totalChatSessions', label: 'Total chat sessions', visible: false },
+    { id: 'firstSeenChat', label: 'First seen on chat', visible: false },
+    { id: 'lastSeenChat', label: 'Last seen on chat', visible: false },
+    { id: 'locale', label: 'Locale', visible: false },
+  ]);
+
+  const openSidebar = () => {
+    setIsSidebarOpen(true);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  // Handle checkbox change - now defined in CustomizeTableButton
+  const handleFieldChange = (id: string | number) => {
+    setFields(
+      fields.map((field) =>
+        field.id === id ? { ...field, visible: !field.visible } : field
+      )
+    );
+  };
+
+  // Handle "Reset to default" - now defined in CustomizeTableButton
+  const handleReset = () => {
+    setFields(
+      fields.map((field) => ({ ...field, visible: ['name', 'account', 'jobTitle', 'email', 'mobile', 'status', 'tags', 'salesOwner', 'facebook'].includes(field.id) }))
+    );
+  };
+
+  // Handle "Apply" button click - now defined in CustomizeTableButton
+  const handleApply = () => {
+    console.log('Applied settings:', fields);
+    closeSidebar(); // Close the sidebar after applying
+  };
+
+
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -216,10 +315,20 @@ const PurchaseList = () => {
             </ul>
 
             <div className="flex items-center flex-shrink-0 ml-auto">
-              <button id="openSidebarCustomize" className="btn-sm btn-hover-ct">
+              <button id="openSidebarCustomize" className="btn-sm btn-hover-ct" onClick={openSidebar}>
                 <i className="ri-equalizer-line mr-1"></i>
                 <span className="text-sm">Customize Table</span>
               </button>
+
+               <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
+        <CustomizeTableContent
+          fields={fields} // Pass fields state
+          onFieldChange={handleFieldChange} // Pass field change handler
+          onReset={handleReset} // Pass reset handler
+          onApply={handleApply} // Pass apply handler
+          onClose={closeSidebar} // Pass close handler (for the header close button and cancel)
+        />
+      </Sidebar>
 
               <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -238,10 +347,10 @@ const PurchaseList = () => {
             </div>
           </div>
 
-          {/* View Mode / Bulk Actions / Search */}
+     
           <div className="flex justify-between items-center px-1.5 py-1.5 bg-[#ebeff3]">
             <div className="flex items-center space-x-2 ml-2">
-              {/* First 3 buttons (shown when no checkbox is selected) */}
+             
               {!selectedIds.length && (
                 <>
                   <button className="btn-sm btn-hover">
@@ -298,7 +407,13 @@ const PurchaseList = () => {
             </div>
 
             <div className="flex items-center relative space-x-2">
-              <input className="form-control !h-[31px]" type="text" placeholder="Enter PO Number" />
+             
+               <Input
+                      name="purchaseSearch"
+                      placeholder="Search here..."
+                      className="!h-[31px] "
+
+                    />
               <button className="btn-sm btn-visible-hover" onClick={handleOpenFilterSidebar}>
                 <i className="ri-sort-desc" ></i>
               </button>
@@ -314,14 +429,14 @@ const PurchaseList = () => {
                 <div className="space-y-4">
                   {/* Single Select Fruit */}
 
-                  
+
 
                   <div>
                     <label className="filter-label">PO Number</label>
                     <Input
                       name="poNumber"
                       placeholder="Enter PO Number"
-                      
+
                     />
                   </div>
 
@@ -335,7 +450,7 @@ const PurchaseList = () => {
                         { value: "Completed", label: "Completed" },
                         { value: "Cancelled", label: "Cancelled" },
                       ]}
-                      
+
                     />
                   </div>
 
@@ -376,7 +491,7 @@ const PurchaseList = () => {
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
               <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50  badge-selected">
-                {selectedIds.length} Purchase Orders selected
+                {selectedIds.length} Purchases selected
               </div>
             )}
 
@@ -386,22 +501,12 @@ const PurchaseList = () => {
                   <thead className="sticky-table-header">
                     <tr>
                       <th className="th-cell" id="checkboxColumn">
-                        {/* <input
-                          type="checkbox"
-                          id="selectAll"
-                          className="form-check"
+                        <CheckboxGroup
+                          name="selectall"
+                          value="selectAll"
                           checked={selectAll}
                           onChange={handleSelectAll}
-                        /> */}
-
-                       <CheckboxGroup
-        name="selectall"
-        value="selectAll"
-        
-        checked={selectAll}
-        onChange={handleSelectAll}
-      />
-
+                        />
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
@@ -460,16 +565,16 @@ const PurchaseList = () => {
                           }`}
                       >
                         <td className="td-cell">
-                           <CheckboxGroup
-        name="selectall"
-        value="selectAll"
-        
-        checked={selectedIds.includes(purchase.id)}
-        onChange={() => handleCheckboxChange(purchase.id)}
-      />
+                          <CheckboxGroup
+                            name="selectall"
+                            value="selectAll"
+
+                            checked={selectedIds.includes(purchase.id)}
+                            onChange={() => handleCheckboxChange(purchase.id)}
+                          />
 
 
-                         
+
                         </td>
                         <td className="td-cell">
                           <span className="float-left">{index + 1}</span>

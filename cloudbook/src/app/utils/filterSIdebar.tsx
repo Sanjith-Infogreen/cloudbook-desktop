@@ -22,7 +22,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
   return (
     <div className={`fixed inset-0 z-50 flex justify-end transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/50" onClick={onClose}></div>
+      <div className="fixed inset-0 " onClick={onClose}></div>
 
       {/* Sidebar */}
       <div className={`offcanvas-sidebar flex flex-col ${isOpen ? "translate-x-0" : "translate-x-full"} `}>
