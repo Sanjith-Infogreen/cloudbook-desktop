@@ -1,17 +1,14 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Layout from "../../components/Layout";
 import MonthlyReport from "./components/MonthlyReport";
 import LeaveReport from "./components/LeaveReport";
-
 const ReportsPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const report = searchParams.get("report");
-
   const reportCategories = [
     {
       title: "Product",
@@ -40,7 +37,7 @@ const ReportsPage = () => {
     {
       title: "GST",
       items: [
-        { name: "Sales Summary", icon: "ri-file-list-line" },
+        { name: "Customer Summary", icon: "ri-file-list-line" },
         { name: "Supplier Summary", icon: "ri-file-list-line" },
         { name: "GSTR1", icon: "ri-file-list-line" },
         { name: "B2B", icon: "ri-file-list-line" },
@@ -58,12 +55,10 @@ const ReportsPage = () => {
           ],
     },
   ];
-
   const initialActiveCategory =
     (category as string) || reportCategories[0].title;
   const initialActiveReport =
     (report as string) || reportCategories[0].items[0].name;
-
   const [searchTerm, setSearchTerm] = useState("");
   const [activeReport, setActiveReport] = useState<string | null>(
     initialActiveReport
@@ -71,7 +66,6 @@ const ReportsPage = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(
     initialActiveCategory
   );
-
   useEffect(() => {
     if (category) {
       setActiveCategory(category);
@@ -89,23 +83,20 @@ const ReportsPage = () => {
       }
     }
   }, [category, report, reportCategories]);
-
   const handleReportClick = (reportName: string, categoryTitle: string) => {
     setActiveReport(reportName);
     setActiveCategory(categoryTitle);
     const newSearchParams = new URLSearchParams();
     newSearchParams.set("category", categoryTitle);
     newSearchParams.set("report", reportName);
-    router.push(`?${newSearchParams.toString()}`); // Corrected: Removed extra arguments
+    router.push(`?${newSearchParams.toString()}`);  
   };
-
   const handleCategoryClick = (categoryTitle: string) => {
     setActiveCategory(categoryTitle);
     const defaultReport =
       reportCategories.find((cat) => cat.title === categoryTitle)?.items[0]
         ?.name || null;
     setActiveReport(defaultReport);
-
     const newSearchParams = new URLSearchParams();
     newSearchParams.set("category", categoryTitle);
     if (defaultReport) {
@@ -121,7 +112,6 @@ const ReportsPage = () => {
       ),
     }))
     .filter((category) => category.items.length > 0);
-
   return (
     <Layout pageTitle="Reports">
       <div className="flex">
@@ -130,7 +120,6 @@ const ReportsPage = () => {
          <div className="mt-2">
            <h1 className="text-[18px] sm:text-[20px] font-medium text-[#009333]">Reports</h1>
          </div>
-
           <div className="relative">
             <div className="flex items-center overflow-hidden ">
               <i className="ri-search-line absolute left-2 text-sm"></i>
@@ -143,7 +132,6 @@ const ReportsPage = () => {
               />
             </div>
           </div>
-
           <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-160px)]">
             {filteredCategories.map((category, categoryIndex) => (
               <div key={categoryIndex}>
@@ -174,7 +162,6 @@ const ReportsPage = () => {
                 </ul>
               </div>
             ))}
-
             {filteredCategories.length === 0 && searchTerm && (
               <div className="text-center text-gray-500 py-4">
                 No reports found matching "{searchTerm}"
@@ -182,23 +169,20 @@ const ReportsPage = () => {
             )}
           </div>
         </aside>
-
         <div className="flex-1">
-          {/* Corrected comparison: activeReport will now be "Trip Summary" */}
+          
           {activeCategory === "Leave" && activeReport === "Monthly Report" && (
             <MonthlyReport
               activeReport={activeReport}
               activeCategory={activeCategory}
             />
           )}
-
           {activeCategory === "Leave" && activeReport === "Leave Report" && (
             <LeaveReport
               activeReport={activeReport}
               activeCategory={activeCategory}
             />
           )}
-
           {!activeReport && (
             <div className="flex-1 flex items-center justify-center text-gray-500 text-lg">
               Select a report from the sidebar to view its content.
@@ -209,5 +193,4 @@ const ReportsPage = () => {
     </Layout>
   );
 };
-
 export default ReportsPage;
