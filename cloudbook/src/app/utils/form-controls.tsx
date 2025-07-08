@@ -8,12 +8,14 @@ export const Input = ({
   placeholder,
   type = "text",
   className = "",
+  readOnly="",
   ...props
 }: {
   name: string;
   placeholder?: string;
   type?: string;
   className?: string;
+  readonly?:boolean;
   [key: string]: any;
 }) => (
   <input
@@ -21,6 +23,7 @@ export const Input = ({
     name={name}
     placeholder={placeholder}
     className={`form-control ${className}`}
+    readOnly={readOnly}
     {...props}
   />
 );

@@ -10,7 +10,7 @@ import {
 import Layout from "../../../components/Layout";
 import useInputValidation from "@/app/utils/inputValidations";
 import DatePicker from "@/app/utils/commonDatepicker";
-import { Input } from "@/app/utils/form-controls";
+import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls";
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
 interface BankDetails {
   id: number;
@@ -20,29 +20,35 @@ interface BankDetails {
   ifscCode: string;
   branchName: string;
 }
-interface FormData {
-  salutation: string;
-  employeeName: string;
-  phoneNumber: string;
-  whatsappNumber: string;
-  familyName: string;
-  dob: string | undefined;
-  gender: string;
-  bloodGroup: string;
+interface deliveryDetails {
+  id: number;
   addressLine1: string;
   addressLine2: string;
-  picturepath: File | null;
-  remarks: string;
+  district: string;
   state: string;
   pincode: string;
+}
+interface FormData {
+  salutation: string;
+  ledgerName: string;
+  contactType: string;
+  group: string;
+  phoneNumber: string;
+  email: string;
+  alternateNumber: string;
+  companyName: string;
+  addressLine1: string;
+  addressLine2: string;
+  district: string;
+  state: string;
+  pincode: string;
+  deliveryAddress: Omit<deliveryDetails, "id">;
   bankDetails: Omit<BankDetails, "id">;
   bankList: BankDetails[];
   proofDetails: { aadhaarNumber: string; panNumber: string };
-  driverDetails: {
-    licenseNumber: string;
-    licenseExpiry: string | undefined;
-    truckNumber: string;
-    licenseIssuedBy: string;
+  otherDetails: {
+    creditLimit: string;
+    status: boolean;
   };
 }
 interface FormFieldProps {
@@ -76,29 +82,44 @@ const FormField = ({
     </div>
   </div>
 );
-export default function NewEmployee() {
-  const [activeTab, setActiveTab] = useState<string>("Bank_details");
+export default function NewContact() {
+  const [activeTab, setActiveTab] = useState<string>("Delivery_details");
   const [showModal, setShowModal] = useState<boolean>(true);
-  const [employeeType, setEmployeeType] = useState<string>(""); // "Staff" or "Driver"
-  const [fileName, setFileName] = useState("No file chosen");
+  const [customerType, setCustomerType] = useState<string>("");
+  const [gstNumber, setGstNumber] = useState("");
+  const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   useInputValidation();
   const stateOptions = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
+  const countryOptions: Option[] = [
+    { value: "usa", label: "United States" },
+    { value: "canada", label: "Canada" },
+    { value: "uk", label: "United Kingdom" },
+    { value: "india", label: "India" },
+    { value: "australia", label: "Australia" },
+    { value: "germany", label: "Germany" },
+  ];
   const [formData, setFormData] = useState<FormData>({
     salutation: "Mr.",
-    employeeName: "",
+    ledgerName: "",
+    contactType: "",
+    group: "",
     phoneNumber: "",
-    whatsappNumber: "",
-    familyName: "",
-    dob: undefined,
-    gender: "",
-    bloodGroup: "",
+    email: "",
+    alternateNumber: "",
+    companyName: "",
     addressLine1: "",
     addressLine2: "",
-    picturepath: null,
-    remarks: "",
+    district: "",
     state: "",
     pincode: "",
+    deliveryAddress: {
+      addressLine1: "",
+      addressLine2: "",
+      district: "",
+      state: "",
+      pincode: "",
+    },
     bankDetails: {
       bankName: "",
       accountNumber: "",
@@ -107,93 +128,48 @@ export default function NewEmployee() {
       branchName: "",
     },
     bankList: [],
-    proofDetails: { aadhaarNumber: "", panNumber: "" },
-    driverDetails: {
-      licenseNumber: "",
-      licenseExpiry: undefined,
-      truckNumber: "",
-      licenseIssuedBy: "",
+    otherDetails: {
+      creditLimit: "",
+      status: false,
     },
+    proofDetails: { aadhaarNumber: "", panNumber: "" },
   });
   const [bankIdCounter, setBankIdCounter] = useState<number>(1);
   const [bankInputError, setBankInputError] = useState<string>("");
-  const [editEmployeeId, setEditEmployeeId] = useState<number | null>(null);
-  const fetchEmployeeData = async (id: number) => {
-    const mockEmployeeData: FormData = {
-      salutation: "Mr.",
-      employeeName: "John Doe",
-      phoneNumber: "9876543210",
-      whatsappNumber: "9876543210",
-      familyName: "Jane Doe",
-      dob: "1990-05-15",
-      gender: "male",
-      bloodGroup: "A+",
-      addressLine1: "123 Main St",
-      addressLine2: "Apt 4B",
-      picturepath: null,
-      remarks: "Good employee",
-      state: "Tamil Nadu",
-      pincode: "600001",
-      bankDetails: {
-        bankName: "",
-        accountNumber: "",
-        accountName: "",
-        ifscCode: "",
-        branchName: "",
-      },
-      bankList: [
-        {
-          id: 1,
-          bankName: "State Bank of India",
-          accountNumber: "1234567890",
-          accountName: "John Doe",
-          ifscCode: "SBIN0000123",
-          branchName: "Chennai Main",
-        },
-      ],
-      proofDetails: { aadhaarNumber: "123456789012", panNumber: "ABCDE1234F" },
-      driverDetails: {
-        licenseNumber: "TN0120200000123",
-        licenseExpiry: "2025-12-31",
-        truckNumber: "TN01A1234",
-        licenseIssuedBy: "RTO Chennai",
-      },
-    };
-    setFormData(mockEmployeeData);
-    setFileName(
-      mockEmployeeData.picturepath
-        ? mockEmployeeData.picturepath.name
-        : "No file chosen"
-    );
-    // If it's a driver, set employee type and switch tab
-    if (mockEmployeeData.driverDetails.licenseNumber) {
-      setEmployeeType("Driver");
-      setActiveTab("Driver_details");
-    } else {
-      setEmployeeType("Staff");
-      setActiveTab("Bank_details");
-    }
-  };
+  const [editCustomerId, setEditCustomerId] = useState<number | null>(null);
+  const [deliveryAddressList, setDeliveryAddressList] = useState<
+    deliveryDetails[]
+  >([]);
+  const [addressIdCounter, setAddressCounter] = useState<number>(1);
+  const [addressInputError, setAddressInputError] = useState<string>("");
+
+
+  const fetchCustomerData = async (id: number) => {};
   useEffect(() => {
-    if (editEmployeeId) {
-      fetchEmployeeData(editEmployeeId);
+    if (editCustomerId) {
+      fetchCustomerData(editCustomerId);
     } else {
-      // Reset form if no edit ID is present (for new employee)
       setFormData({
         salutation: "Mr.",
-        employeeName: "",
+        ledgerName: "",
+        contactType: "",
+        group: "",
         phoneNumber: "",
-        whatsappNumber: "",
-        familyName: "",
-        dob: undefined,
-        gender: "",
-        bloodGroup: "",
+        email: "",
+        alternateNumber: "",
+        companyName: "",
         addressLine1: "",
         addressLine2: "",
-        picturepath: null,
-        remarks: "",
+        district: "",
         state: "",
         pincode: "",
+        deliveryAddress: {
+          addressLine1: "",
+          addressLine2: "",
+          district: "",
+          state: "",
+          pincode: "",
+        },
         bankDetails: {
           bankName: "",
           accountNumber: "",
@@ -202,33 +178,56 @@ export default function NewEmployee() {
           branchName: "",
         },
         bankList: [],
-        proofDetails: { aadhaarNumber: "", panNumber: "" },
-        driverDetails: {
-          licenseNumber: "",
-          licenseExpiry: undefined,
-          truckNumber: "",
-          licenseIssuedBy: "",
+        otherDetails: {
+          creditLimit: "",
+          status: false,
         },
+        proofDetails: { aadhaarNumber: "", panNumber: "" },
       });
       setBankIdCounter(1);
+      setAddressCounter(1)
       setBankInputError("");
-      setFileName("No file chosen");
-      setActiveTab("Bank_details"); // Default to bank details for new
-      setShowModal(true); // Show modal for new employee
-      setEmployeeType(""); // Reset employee type
+      setAddressInputError("")
+      setActiveTab("Delivery_details");
+      setShowModal(true);
+      setCustomerType("");
     }
-  }, [editEmployeeId]);
+  }, [editCustomerId]);
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    setFormData((prev) => ({ ...prev, picturepath: file }));
-    setFileName(file ? file.name : "No file chosen");
+
+  const validateGST = (value: string) => {
+    const gstRegex =
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+    if (!value.trim()) return "GST Number is required";
+    if (!gstRegex.test(value)) return "Invalid GST Number format";
+    return "";
   };
+  const handleGSTChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toUpperCase(); // GST is usually uppercase
+    setGstNumber(value);
+    setError(validateGST(value));
+  };
+  const handleApply = () => {
+    const validationError = validateGST(gstNumber);
+    setError(validationError);
+    if (!validationError) {
+      console.log("Submitting GST:", gstNumber);
+      setGstNumber(gstNumber);
+      setShowModal(false);
+    }
+  };
+const handleGroupChange =(value: string | string[] | null)=>{
+    setFormData((prev) => ({
+      ...prev,
+      group:value as string
+      
+    }));
+}
   const handleBankChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -240,33 +239,111 @@ export default function NewEmployee() {
     }));
     setBankInputError("");
   };
+
+  const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      otherDetails: {
+        ...prev.otherDetails,
+        status: checked,
+      },
+    }));
+  };
+
   const handleProofChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       proofDetails: { ...prev.proofDetails, [e.target.name]: e.target.value },
     }));
   };
-  const handleDriverChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDeliverDetailsChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
-      driverDetails: { ...prev.driverDetails, [e.target.name]: e.target.value },
+      deliveryAddress: {
+        ...prev.deliveryAddress,
+        [e.target.name]: e.target.value,
+      },
     }));
   };
-  const handleDateChange = (
-    date: string | undefined,
-    fieldName: "dob" | "licenseExpiry"
-  ) => {
-    if (fieldName === "dob") {
-      setFormData((prev) => ({ ...prev, dob: date }));
-    } else if (fieldName === "licenseExpiry") {
+const handleOtherDetailsChange= (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      otherDetails: {
+        ...prev.otherDetails,
+        [e.target.name]: e.target.value,
+      },
+    }));
+  };
+  const handleStateChange = (value: string | string[] | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      state: value as string,
+    }));
+  };
+  const handleTabStateChange = (value: string | string[] | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      deliveryAddress: {
+        ...prev.deliveryAddress,
+        state: value as string,
+      },
+    }));
+  };
+
+  const handleAddAddress = () => {
+    const { addressLine1, addressLine2, district, state, pincode } =
+      formData.deliveryAddress;
+    if (addressLine1 && district && state && pincode) {
+      const newAddress: deliveryDetails = {
+        id: addressIdCounter,
+        addressLine1,
+        addressLine2,
+        district,
+        state,
+        pincode,
+      };
+      setDeliveryAddressList((prev) => [...prev, newAddress]);
+      setAddressCounter((prev) => prev + 1);
+
+      // Clear form inputs
       setFormData((prev) => ({
         ...prev,
-        driverDetails: { ...prev.driverDetails, licenseExpiry: date },
+        deliveryAddress: {
+          addressLine1: "",
+          addressLine2: "",
+          district: "",
+          state: "",
+          pincode: "",
+        },
       }));
+      setAddressInputError("")
+    } else {
+      setAddressInputError('Please fill all fields before clicking "Add Address".')
     }
   };
-  const handleSearchableSelectChange = (value: string | string[] | null) => {
+
+  const handleEditDeliveryAddress = (id: number) => {
+    const toEdit = deliveryAddressList.find((item) => item.id === id);
+    if (toEdit) {
+      setFormData((prev) => ({
+        ...prev,
+        deliveryAddress: {
+          addressLine1: toEdit.addressLine1,
+          addressLine2: toEdit.addressLine2,
+          district: toEdit.district,
+          state: toEdit.state,
+          pincode: toEdit.pincode,
+        },
+      }));
+      setDeliveryAddressList((prev) => prev.filter((item) => item.id !== id));
+    }
   };
+
+  const handleRemoveDeliveryAddress = (id: number) => {
+    setDeliveryAddressList((prev) => prev.filter((item) => item.id !== id));
+  };
+
   const handleAddBank = () => {
     const { bankName, accountNumber, accountName, ifscCode, branchName } =
       formData.bankDetails;
@@ -318,27 +395,134 @@ export default function NewEmployee() {
       bankList: prev.bankList.filter((b) => b.id !== id),
     }));
   };
-  const handleEmployeeTypeChange = (type: string) => {
-    setEmployeeType(type);
-    setShowModal(false);
-    if (type === "Staff" && activeTab === "Driver_details") {
-      setActiveTab("Proof_details");
-    }
-    // Set initial tab based on employee type selection
-    setActiveTab(type === "Staff" ? "Proof_details" : "Bank_details");
+  const handleCustomerType = (type: string) => {
+    setCustomerType(type);
+    type === "non-gst" && setShowModal(false);
   };
   const tabs = [
+    { id: "Delivery_details", label: "Delivery Details" },
     { id: "Bank_details", label: "Bank Details" },
+    { id: "Other_details", label: "Other Details" },
     { id: "Proof_details", label: "Proof Details" },
-    ...(employeeType === "Driver"
-      ? [{ id: "Driver_details", label: "Driver Details" }]
-      : []),
   ];
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formData);
+    
   };
   const renderTabContent = () => {
     switch (activeTab) {
+      case "Delivery_details":
+        return (
+          <div id="Delivery_Address">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+              <div className="lg:border-r lg:border-gray-300 lg:pr-4">
+                <FormField
+                  label="Delivery Address"
+                  required
+                  htmlFor="addressLine1"
+                >
+                  <Input
+                    name="addressLine1"
+                    className="form-control alphanumeric capitalize"
+                    value={formData.deliveryAddress.addressLine1}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter AddressLine1"
+                  />
+                </FormField>
+                <FormField label="" htmlFor="addressLine2">
+                  <Input
+                    name="addressLine2"
+                    className="form-control alphanumeric capitalize"
+                    value={formData.deliveryAddress.addressLine2}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter AddressLine2"
+                  />
+                </FormField>
+                <FormField label="District" required htmlFor="district">
+                  <Input
+                    name="district"
+                    className="form-control alphabet_only capitalize"
+                    value={formData.deliveryAddress.district}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter district"
+                    data-validate="required"
+                  />
+                </FormField>
+                <FormField label="State" required htmlFor="state">
+                  <SearchableSelect
+                    name="state"
+                    options={stateOptions}
+                    placeholder="Select State"
+                    searchable
+                    onChange={handleTabStateChange}
+                    initialValue={formData.deliveryAddress.state}
+                  />
+                </FormField>
+                <FormField label="Pincode" required htmlFor="pincode">
+                  <Input
+                    name="pincode"
+                    className="form-control only_number no_space"
+                    value={formData.deliveryAddress.pincode}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter Pincode"
+                    data-validate="required"
+                    maxLength={6}
+                  />
+                </FormField>
+                <FormField label="">
+                    {addressInputError && (
+                    <div className="text-red-500 text-sm mt-2 text-start">
+                      {addressInputError}
+                    </div>
+                  )}
+                </FormField>
+                <FormField label="">
+                  <button
+                    type="button"
+                    onClick={handleAddAddress}
+                    className="btn-sm btn-primary py-2"
+                  >
+                    Add Address
+                  </button>
+                </FormField>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
+                {deliveryAddressList.map((addr, idx) => (
+                  <div key={addr.id} className="border rounded p-4 shadow-sm">
+                    <div className="mb-2 border-b border-gray-200">
+                      <h4 className="text-gray-700 font-medium ">
+                        Address {idx + 1}
+                      </h4>
+                    </div>
+                    <div className="text-sm">
+                      {addr.addressLine1},{" "}
+                      {addr.addressLine2 && `${addr.addressLine2}, `}
+                      {addr.district}
+                      <br />
+                      {addr.state}
+                      <br />
+                      Pincode: {addr.pincode}
+                    </div>
+                    <div className="pt-2 text-sm  text-blue-600 flex gap-2">
+                      <button className="cursor-pointer"
+                        onClick={() => handleEditDeliveryAddress(addr.id)}
+                      >
+                        Edit
+                      </button>
+                      <span>|</span>
+                      <button className="cursor-pointer"
+                        onClick={() => handleRemoveDeliveryAddress(addr.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
       case "Bank_details":
         return (
           <div id="Bank_details_tab_content">
@@ -362,7 +546,7 @@ export default function NewEmployee() {
                       type="text"
                       value={formData.bankDetails.accountNumber}
                       onChange={handleBankChange}
-                      className="only_number"
+                      className="only_number no_space"
                       placeholder="Enter Account Number"
                       maxLength={18}
                     />
@@ -374,7 +558,7 @@ export default function NewEmployee() {
                       value={formData.bankDetails.ifscCode}
                       onChange={handleBankChange}
                       placeholder="Enter IFSC Code"
-                      className="alphanumeric all_uppercase"
+                      className="alphanumeric all_uppercase no_space"
                       maxLength={11}
                     />
                   </FormField>
@@ -400,16 +584,18 @@ export default function NewEmployee() {
                       maxLength={50}
                     />
                   </FormField>
+                  <FormField label="">
                   {bankInputError && (
-                    <div className="text-red-500 text-sm mt-2 text-end">
+                    <div className="text-red-500 text-sm mt-2 text-start">
                       {bankInputError}
                     </div>
                   )}
+                  </FormField>
                   <FormField label="">
                     <button
                       type="button"
                       onClick={handleAddBank}
-                      className="btn-sm btn-primary"
+                      className="btn-sm btn-primary py-2"
                     >
                       Add Bank
                     </button>
@@ -472,54 +658,27 @@ export default function NewEmployee() {
             </div>
           </div>
         );
-      case "Driver_details":
-        if (employeeType !== "Driver") return null;
+
+      case "Other_details":
         return (
-          <div id="Driver_details_tab_content">
+          <div id="Other_details">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
-              <div>
-                <FormField
-                  label="License Number"
-                  required
-                  htmlFor="licenseNumber"
-                >
+              <div className="lg:pr-4">
+                <FormField label="Credit Limit" htmlFor="creditLimit">
                   <Input
-                    name="licenseNumber"
-                    className="form-control alphanumeric all_uppercase"
-                    value={formData.driverDetails.licenseNumber}
-                    onChange={handleDriverChange}
-                    placeholder="Enter License Number"
-                    maxLength={20}
-                    data-validate="required"
+                    name="creditLimit"
+                    className="form-control only_number no_space"
+                    value={formData.otherDetails.creditLimit}
+                    onChange={handleOtherDetailsChange}
+                    placeholder="Enter AddressLine1"
                   />
                 </FormField>
-                <FormField
-                  label="License Expiry Date"
-                  required
-                  htmlFor="licenseExpiry"
-                >
-                  <DatePicker
-                    id="licenseExpiry"
-                    name="licenseExpiry"
-                    selected={formData.driverDetails.licenseExpiry} // Use formData for selected date
-                    onChange={(date) => handleDateChange(date, "licenseExpiry")} // Update via handleDateChange
-                    placeholder="Select date"
-                    className="w-full"
-                  />
-                </FormField>
-                <FormField
-                  label="License Issued By"
-                  required
-                  htmlFor="licenseIssuedBy"
-                >
-                  <Input
-                    name="licenseIssuedBy"
-                    className="form-control alphabet_only capitalize"
-                    value={formData.driverDetails.licenseIssuedBy}
-                    onChange={handleDriverChange}
-                    placeholder="Enter License Issued By"
-                    data-validate="required"
-                    maxLength={50}
+                <FormField label="Status">
+                  <Toggle
+                    name="status"
+                    label="Active"
+                    onChange={handleStatusChange}
+                    checked={formData.otherDetails.status}
                   />
                 </FormField>
               </div>
@@ -527,17 +686,13 @@ export default function NewEmployee() {
             </div>
           </div>
         );
-      default:
-        // This will be "Proof_details" or "Personal_details" if you add a new tab ID
+
+      case "Proof_details":
         return (
           <div id="Proof_details_tab_content">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
-              <div className="space-y-4">
-                <FormField
-                  label="Aadhaar Number"
-                  required
-                  htmlFor="aadhaarNumber"
-                >
+              <div className="  lg:pr-4">
+                <FormField label="Aadhaar Number" htmlFor="aadhaarNumber">
                   <Input
                     name="aadhaarNumber"
                     value={formData.proofDetails.aadhaarNumber}
@@ -548,7 +703,7 @@ export default function NewEmployee() {
                     data-validate="required"
                   />
                 </FormField>
-                <FormField label="PAN Number" required htmlFor="panNumber">
+                <FormField label="PAN Number" htmlFor="panNumber">
                   <Input
                     name="panNumber"
                     value={formData.proofDetails.panNumber}
@@ -563,17 +718,127 @@ export default function NewEmployee() {
             </div>
           </div>
         );
+      default:
+        return (
+          <div id="Delivery_Address">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+              <div className="lg:border-r lg:border-gray-300 lg:pr-4">
+                <FormField
+                  label="Delivery Address"
+                  required
+                  htmlFor="addressLine1"
+                >
+                  <Input
+                    name="addressLine1"
+                    className="form-control alphanumeric capitalize"
+                    value={formData.deliveryAddress.addressLine1}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter AddressLine1"
+                  />
+                </FormField>
+                <FormField label="" htmlFor="addressLine2">
+                  <Input
+                    name="addressLine2"
+                    className="form-control alphanumeric capitalize"
+                    value={formData.deliveryAddress.addressLine2}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter AddressLine2"
+                  />
+                </FormField>
+                <FormField label="District" required htmlFor="district">
+                  <Input
+                    name="district"
+                    className="form-control alphabet_only capitalize"
+                    value={formData.deliveryAddress.district}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter district"
+                    data-validate="required"
+                  />
+                </FormField>
+                <FormField label="State" required htmlFor="state">
+                  <SearchableSelect
+                    name="state"
+                    options={stateOptions}
+                    placeholder="Select State"
+                    searchable
+                    onChange={handleTabStateChange}
+                  />
+                </FormField>
+                <FormField label="Pincode" required htmlFor="pincode">
+                  <Input
+                    name="pincode"
+                    className="form-control only_number no_space"
+                    value={formData.deliveryAddress.pincode}
+                    onChange={handleDeliverDetailsChange}
+                    placeholder="Enter Pincode"
+                    data-validate="required"
+                    maxLength={6}
+                  />
+                </FormField>
+                <FormField label="">
+                    {addressInputError && (
+                    <div className="text-red-500 text-sm mt-2 text-start">
+                      {addressInputError}
+                    </div>
+                  )}
+                </FormField>
+                <FormField label="">
+                  <button
+                    type="button"
+                    onClick={handleAddAddress}
+                    className="btn-sm btn-primary py-2"
+                  >
+                    Add Address
+                  </button>
+                </FormField>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
+                {deliveryAddressList.map((addr, idx) => (
+                  <div key={addr.id} className="border rounded p-4 shadow-sm">
+                    <div className="mb-2 border-b border-gray-200">
+                      <h4 className="text-gray-700 font-medium ">
+                        Address {idx + 1}
+                      </h4>
+                    </div>
+                    <div className="text-sm">
+                      {addr.addressLine1},{" "}
+                      {addr.addressLine2 && `${addr.addressLine2}, `}
+                      {addr.district}
+                      <br />
+                      {addr.state}
+                      <br />
+                      Pincode: {addr.pincode}
+                    </div>
+                    <div className="pt-2 text-sm  text-blue-600 flex gap-2">
+                      <button className="cursor-pointer"
+                        onClick={() => handleEditDeliveryAddress(addr.id)}
+                      >
+                        Edit
+                      </button>
+                      <span>|</span>
+                      <button className="cursor-pointer"
+                        onClick={() => handleRemoveDeliveryAddress(addr.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
     }
   };
   return (
-    <Layout pageTitle="Employee New">
+    <Layout pageTitle="Contact New">
       <div className="min-h-screen">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
               <div className="border-b border-gray-300">
                 <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-2">
-                  <FormField label="Name" required htmlFor="employeeName">
+                  <FormField label="Ledger Name" required htmlFor="ledgerName">
                     <div>
                       <div className="flex gap-2">
                         <select
@@ -588,10 +853,10 @@ export default function NewEmployee() {
                         </select>
                         <Input
                           data-validate="required"
-                          name="employeeName"
+                          name="ledgerName"
                           placeholder="Enter Name"
                           className="form-control lg: w-300 alphabet_only capitalize"
-                          value={formData.employeeName}
+                          value={formData.ledgerName}
                           onChange={handleChange}
                         />
                       </div>
@@ -601,41 +866,33 @@ export default function NewEmployee() {
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-6 px-4 py-6">
                 <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
-                  <FormField label="DOB" required htmlFor="dob">
-                    <DatePicker
-                      id="dob"
-                      name="dob"
-                      selected={formData.dob} // Use formData for selected date
-                      onChange={(date) => handleDateChange(date, "dob")} // Update via handleDateChange
-                      placeholder="Select date"
-                      className="w-full"
+                  <FormField
+                    label="Contact Type"
+                    required
+                    htmlFor="contactType"
+                  >
+                    <RadioGroup
+                      name="contactType"
+                      options={[
+                        { value: "customer", label: "Sundry creditors" },
+                        { value: "supplier", label: "Sundry debtors" },
+                      ]}
+                      onChange={(e)=>setFormData((pre)=>({
+                        ...pre,
+                        contactType:e.target.value
+                      }))}
                     />
                   </FormField>
-                  <FormField label="Gender" required htmlFor="gender">
-                    <select
-                      name="gender"
-                      className="form-control"
-                      data-validate="required"
-                      value={formData.gender}
-                      onChange={handleChange}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </FormField>
-                  <FormField label="Blood Group" required htmlFor="bloodGroup">
-                    <Input
-                      name="bloodGroup"
-                      placeholder="Enter Blood Group"
-                      className="form-control w-full all_uppercase"
-                      data-validate="required"
-                      value={formData.bloodGroup}
-                      onChange={handleChange}
-                      maxLength={3}
+                  <FormField label="Group" htmlFor="group">
+                    <SearchableSelect
+                      name="group"
+                      options={countryOptions}
+                      searchable
+                      multiple={true}
+                      onChange={handleGroupChange}
                     />
                   </FormField>
+
                   <FormField
                     label="Phone Number"
                     required
@@ -651,34 +908,38 @@ export default function NewEmployee() {
                       onChange={handleChange}
                     />
                   </FormField>
-                  <FormField
-                    label="Whatsapp Number"
-                    required
-                    htmlFor="whatsappNumber"
-                  >
+                  <FormField label="Email" htmlFor="email">
                     <Input
-                      name="whatsappNumber"
-                      placeholder="Enter Phone Number"
-                      className="form-control w-full only_number"
-                      data-validate="required"
+                      name="email"
+                      placeholder="Enter Email"
+                      className="form-control w-full"
                       maxLength={10}
-                      value={formData.whatsappNumber}
+                      value={formData.email}
                       onChange={handleChange}
                     />
                   </FormField>
-                  <FormField label="Family Number">
+                  <FormField label="Alternate Number">
                     <Input
-                      name="familyName"
-                      placeholder="Enter Family Phone Number"
+                      name="alternateNumber"
+                      placeholder="Enter Alternate Number"
                       className="form-control w-full only_number"
                       maxLength={10}
-                      value={formData.familyName}
+                      value={formData.alternateNumber}
                       onChange={handleChange}
                     />
                   </FormField>
                 </div>
                 <div className="space-y-4">
-                  <FormField label="Address Line 1">
+                  <FormField label="Company Name" required>
+                    <Input
+                      name="companyName"
+                      placeholder="Enter Company Name"
+                      className="form-control w-full capitalize"
+                      value={formData.companyName}
+                      onChange={handleChange}
+                    />
+                  </FormField>
+                  <FormField label="Billing address" required>
                     <Input
                       name="addressLine1"
                       placeholder="Enter Address Line 1"
@@ -696,71 +957,49 @@ export default function NewEmployee() {
                       onChange={handleChange}
                     />
                   </FormField>
-                  <FormField
-                    label="Picture Path"
-                    required
-                    htmlFor="picturepathInput"
-                  >
-                    <div className="w-full flex-grow flex flex-col">
-                      <div className="flex items-center justify-start gap-3">
-                        <div className="border border-gray-200 rounded-sm px-3 py-1 cursor-pointer">
-                          <label
-                            htmlFor="picturepathInput"
-                            className="flex items-center gap-1 text-[#009333] text-sm cursor-pointer"
-                          >
-                            <i className="ri-upload-2-line text-md"></i>Upload
-                            File
-                          </label>
-                        </div>
-                        <span
-                          id="fileName"
-                          className="text-gray-600 text-sm truncate"
-                        >
-                          {fileName}
-                        </span>
-                      </div>
-                      <input
-                        type="file"
-                        id="picturepathInput"
-                        name="picturepath"
-                        className="hidden"
-                        onChange={handleFileChange}
-                        data-validate="required"
-                      />
-                    </div>
-                  </FormField>
-                  <FormField label="Remarks">
+
+                  <FormField label="District">
                     <Input
-                      name="remarks"
-                      placeholder="Enter Remarks"
+                      name="district"
+                      placeholder="Enter District"
                       className="form-control w-full alphabetnumeric capitalize"
-                      value={formData.remarks}
+                      value={formData.district}
                       onChange={handleChange}
                     />
                   </FormField>
-                  <div>
-                    <FormField label="State" required htmlFor="state">
-                      <SearchableSelect
-                        name="state"
-                        placeholder="Select state"
-                        options={stateOptions}
-                        searchable
-                        data-validate="required"
-                        onChange={handleSearchableSelectChange}
-                        initialValue={formData.state} // Use formData.state here
-                      />
-                    </FormField>
-                    <FormField label="Pincode">
+                  <FormField label="State" required htmlFor="state">
+                    <SearchableSelect
+                      name="state"
+                      placeholder="Select state"
+                      options={stateOptions}
+                      searchable
+                      data-validate="required"
+                      onChange={handleStateChange}
+                      initialValue={formData.state}
+                    />
+                  </FormField>
+                  <FormField label="Pincode">
+                    <Input
+                      name="pincode"
+                      placeholder="Enter Pincode"
+                      className="w-full only_number no_space"
+                      maxLength={6}
+                      value={formData.pincode}
+                      onChange={handleChange}
+                    />
+                  </FormField>
+                  {gstNumber && (
+                    <FormField label="GST Number" required>
                       <Input
-                        name="pincode"
-                        placeholder="Enter Pincode"
-                        className="w-full only_number"
-                        maxLength={6}
-                        value={formData.pincode}
-                        onChange={handleChange}
+                        name="gstNumber"
+                        placeholder="Enter GST Number"
+                        className="w-full form-control alphanumeric no_space all_uppercase"
+                        maxLength={15}
+                        value={gstNumber}
+                        readOnly={true}
                       />
                     </FormField>
-                  </div>
+                  )}
                 </div>
               </div>
               {/* Tab Navigation */}
@@ -800,34 +1039,75 @@ export default function NewEmployee() {
         </footer>
       </div>
       {showModal && (
-        <div className="fixed inset-0 flex items-start justify-center bg-[rgba(0,0,0,0.5)] z-50">
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-[500px] mx-4 mt-10">
-            <div className="text-center p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-start justify-center p-4 z-50">
+          <div className="bg-[#f1eef4] rounded-[40px] border border-white max-w-[470px] w-full text-center mx-4 mt-10 p-4.5">
+            <div className="bg-white rounded-[20px]  p-8 relative max-w-[470px] w-full text-center">
               <div className="flex justify-center items-center mb-5 gap-2">
                 <i className="ri-user-line text-green-600 text-3xl"></i>
                 <h2 className="text-[#000000] text-2xl">
-                  Select Employee Type
+                  Select Customer Type
                 </h2>
               </div>
               <p className="text-md text-gray-600 mb-7">
-                Choose the employee type that best describes your business
+                Choose the customer type that best describes your business
               </p>
               <div className="flex gap-4 justify-center">
                 <button
                   type="button"
-                  onClick={() => handleEmployeeTypeChange("Staff")}
-                  className="employee_type_btn bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2 rounded-md w-full"
+                  onClick={() => handleCustomerType("gst")}
+                  className={`btn-sm  px-4 py-2 w-full ${
+                    customerType === "gst"
+                      ? "bg-[#009333] text-white"
+                      : "bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800"
+                  } `}
                 >
-                  Staff
+                  GST Customer
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleEmployeeTypeChange("Driver")}
-                  className="employee_type_btn bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2 rounded-md w-full"
+                  onClick={() => handleCustomerType("non-gst")}
+                  className="btn-sm bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2  w-full"
                 >
-                  Driver
+                  Non - GST Customer
                 </button>
               </div>
+              {customerType === "gst" && (
+                <div className="mt-3">
+                  <label className="text-sm font-medium mb-1 block text-start">
+                    GST Number:
+                  </label>
+                  <div className="flex flex-col gap-1">
+                    <Input
+                      name="gstNumber"
+                      className={` ${error && "border-red-500"}`}
+                      placeholder="Enter GST Number"
+                      autoComplete="off"
+                      value={gstNumber}
+                      maxLength={15}
+                      onChange={handleGSTChange}
+                    />
+                    {error && (
+                      <div className="text-red-500 text-sm transition-opacity duration-300">
+                        {error}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-4 flex justify-center">
+                    <button
+                      onClick={handleApply}
+                      type="button"
+                      className="btn-sm btn-primary py-2 px-4 "
+                    >
+                      <i
+                        className="ri-checkbox-circle-line text-md mr-1"
+                        aria-hidden="true"
+                      ></i>
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
