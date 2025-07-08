@@ -62,38 +62,34 @@ body {
   border-style: solid;
   border-color: transparent rgb(18, 52, 77) transparent transparent;
 }
-  
-
-/* global.css */
-
-/* Default scrollbar styles for the entire application */
+ 
 ::-webkit-scrollbar {
-  width: 11px;
-  height: 11px;
+  width: 11px;            
+  height: 11px;        
 }
 
 ::-webkit-scrollbar-track {
-  background: #fff; /* Default background for all scrollbar tracks */
+  background: #fff;   
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #8b8b8b;
+  background-color: #8b8b8b; 
   border-radius: 10px;
- 
+  border: 2px solid #fff; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
-/* Specific scrollbar track style for elements with the .custom-scrollbar class */
+ 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #212934; /* Sidebar specific background */
+  background: #212934;  
 }
-
-
-
+.custom-scrollbar::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+   border: 0px solid #ffffff; 
+}
 .border-l-5 {
   border-left-width: 5px;
 }
