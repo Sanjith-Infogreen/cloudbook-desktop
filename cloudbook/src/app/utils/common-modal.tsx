@@ -303,6 +303,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
                       <tr>
                         <th className="th-cell w-[5%] text-left">
  
+ 
                         <CheckboxGroup
         name="features_Heating"
         value="Heating"
@@ -310,6 +311,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
         checked={allRowsSelected}
         onChange={(e) => handleSelectAllChange(e.target.checked ? ["selectAll"] : [])}
       />
+ 
  
                         </th>
                         <th className="th-cell w-[10%] text-left">
