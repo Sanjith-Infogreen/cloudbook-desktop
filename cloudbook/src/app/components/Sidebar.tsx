@@ -86,7 +86,7 @@ export default function Sidebar() {
           <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
         </div>
 
-        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
+        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto custom-scrollbar">
           <ul>
             {sideMenuBar.map((menu, idx) => {
               const isSection = menu.submenu && menu.submenu.length > 0;
@@ -226,7 +226,7 @@ export default function Sidebar() {
         <img src="/images/tab-logo.png" alt="Logo" className="h-9" />
       </div>
 
-      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
+      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto custom-scrollbar">
         <ul>
           {sideMenuBar.map((menu, idx) => {
             const isSection = menu.submenu && menu.submenu.length > 0;
@@ -339,6 +339,14 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+      
+           .custom-scrollbar::-webkit-scrollbar-track {
+          background: #212934 !important; /* This will now apply to the nav with custom-scrollbar class */
+          border-radius: 10px;
+        }
+         
+      `}</style>
     </div>
   );
 }
