@@ -106,19 +106,13 @@ export const CheckboxGroup = ({
   // If uncontrolled, it uses 'defaultChecked' for initial state,
   // and updates via 'handleInternalChange'.
   const [internalChecked, setInternalChecked] = useState<boolean>(defaultChecked);
-
-  // Determine the 'checked' value to pass to the <input>
-  // If controlled, use the 'controlledChecked' prop.
-  // If uncontrolled, use the 'internalChecked' state.
+ 
   const checkboxChecked = isControlled ? controlledChecked : internalChecked;
-
-  // Determine the 'onChange' handler for the <input>
+ 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // If controlled, call the provided 'controlledOnChange' handler
-    if (isControlled && controlledOnChange) {
+     if (isControlled && controlledOnChange) {
       controlledOnChange(event);
     } else {
-      // If uncontrolled, update the internal state
       setInternalChecked(event.target.checked);
     }
   };

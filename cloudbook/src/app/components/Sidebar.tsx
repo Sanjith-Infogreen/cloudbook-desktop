@@ -74,10 +74,10 @@ export default function Sidebar() {
     setHoveredMenu(menu.Title);
   };
 
-  const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (path: string) => pathname === path;
 
   const isSectionActive = (submenu: any[]) =>
-    submenu.some((s) => pathname.startsWith(s.main_Link));
+    submenu.some((s) => pathname === s.main_Link || pathname === s.new_Link);
 
   const toggleSection = (title: string, currentOpen: boolean) =>
     setOpenSections((prev) => ({
@@ -86,6 +86,7 @@ export default function Sidebar() {
     }));
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -104,113 +105,120 @@ export default function Sidebar() {
             <img src="/images/logo.png" alt="Logo" className="w-[120px]" />
           </div>
 
+        <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto custom-scrollbar">
+          <ul>
+            {sideMenuBar.map((menu, idx) => {
+              const isSection = menu.submenu && menu.submenu.length > 0;
           <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
             <ul>
               {sideMenuBar.map((menu, idx) => {
                 const isSection = menu.submenu && menu.submenu.length > 0;
 
-                const hasToggled = menu.Title in openSections;
-                const sectionOpen = hasToggled
-                  ? openSections[menu.Title]
-                  : isSectionActive(menu.submenu || []);
-                const activeItem = !isSection && isActive(menu.main_Link);
+              const hasToggled = menu.Title in openSections;
+              const sectionOpen = hasToggled
+                ? openSections[menu.Title]
+                : isSectionActive(menu.submenu || []);
+              const activeItem =
+                (!isSection && isActive(menu.main_Link)) ||
+                isActive(menu.new_Link);
 
-                return (
-                  <li key={idx}>
-                    {isSection ? (
-                      <>
-                        <div
-                          className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                            hasToggled || sectionOpen
-                              ? "text-white "
-                              : "text-[#b0b3b7]"
-                          }`}
-                          onClick={() => toggleSection(menu.Title, sectionOpen)}
-                        >
-                          <div className="flex items-center">
-                            <i className={`${menu.icon} mr-3 text-lg`}></i>
-                            <span>{menu.Title}</span>
-                          </div>
-                          {menu.icon_down && (
-                            <i
-                              className={`${
-                                menu.icon_down
-                              } text-lg transition-transform duration-200 ${
-                                sectionOpen ? "rotate-180" : ""
-                              }`}
-                            ></i>
-                          )}
-                        </div>
-                        {sectionOpen && (
-                          <ul className="text-[#b0b3b7]">
-                            {menu.submenu.map((sub, subIdx) => (
-                              <li
-                                key={subIdx}
-                                className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                                  isActive(sub.main_Link)
-                                    ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                                    : "text-[#b0b3b7] border-l-transparent"
-                                }`}
-                              >
-                                <span
-                                  onClick={() => router.push(sub.main_Link)}
-                                  className={`${
-                                    isActive(sub.main_Link) ? "text-white" : ""
-                                  }`}
-                                >
-                                  {sub.Title}
-                                </span>
-                                {sub.new_Link && (
-                                  <i
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      router.push(sub.new_Link);
-                                    }}
-                                    className={`${sub.icon_New} text-lg ${
-                                      isActive(sub.new_Link) ? "text-white" : ""
-                                    }`}
-                                  ></i>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </>
-                    ) : (
+              return (
+                <li key={idx}>
+                  {isSection ? (
+                    <>
                       <div
-                        onClick={() => router.push(menu.main_Link)}
-                        className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                          activeItem
-                            ? "bg-[#191f26] border-l-[#1aed59] text-white"
-                            : "text-[#b0b3b7] border-l-transparent"
+                        className={`px-4 py-2 hover:bg-[#191f26] border-l-5 border-l-transparent hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                          hasToggled || sectionOpen
+                            ? "text-white "
+                            : "text-[#b0b3b7]"
                         }`}
+                        onClick={() => toggleSection(menu.Title, sectionOpen)}
                       >
                         <div className="flex items-center">
-                          <i
-                            className={`${menu.icon} mr-3 text-lg ${
-                              activeItem ? "text-white" : ""
-                            }`}
-                          ></i>
+                          <i className={`${menu.icon} mr-3 text-lg`}></i>
                           <span>{menu.Title}</span>
                         </div>
-                        {menu.new_Link && (
+                        {menu.icon_down && (
                           <i
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              router.push(menu.new_Link);
-                            }}
-                            className={`${menu.icon_New} text-lg ${
-                              isActive(menu.new_Link) ? "text-white" : ""
+                            className={`${
+                              menu.icon_down
+                            } text-lg transition-transform duration-200 ${
+                              sectionOpen ? "rotate-180" : ""
                             }`}
                           ></i>
                         )}
                       </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+                      {sectionOpen && (
+                        <ul className="text-[#b0b3b7]">
+                          {menu.submenu.map((sub, subIdx) => (
+                            <li
+                              key={subIdx}
+                              className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                                isActive(sub.main_Link) ||
+                                isActive(sub.new_Link)
+                                  ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                                  : "text-[#b0b3b7] border-l-transparent"
+                              }`}
+                            >
+                              <span
+                                onClick={() => router.push(sub.main_Link)}
+                                className={`${
+                                  isActive(sub.main_Link) ? "text-white" : ""
+                                }`}
+                              >
+                                {sub.Title}
+                              </span>
+                              {sub.new_Link && (
+                                <i
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    router.push(sub.new_Link);
+                                  }}
+                                  className={`${sub.icon_New} text-lg ${
+                                    isActive(sub.new_Link) ? "text-white" : ""
+                                  }`}
+                                ></i>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ) : (
+                    <div
+                      onClick={() => router.push(menu.main_Link)}
+                      className={`px-4 py-2 border-l-5  hover:bg-[#191f26] hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
+                        activeItem
+                          ? "bg-[#191f26] border-l-[#1aed59] text-white"
+                          : "text-[#b0b3b7] border-l-transparent"
+                      }`}
+                    >
+                      <div className="flex items-center">
+                        <i
+                          className={`${menu.icon} mr-3 text-lg ${
+                            activeItem ? "text-white" : ""
+                          }`}
+                        ></i>
+                        <span>{menu.Title}</span>
+                      </div>
+                      {menu.new_Link && (
+                        <i
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(menu.new_Link);
+                          }}
+                          className={`${menu.icon_New} text-lg ${
+                            isActive(menu.new_Link) ? "text-white" : ""
+                          }`}
+                        ></i>
+                      )}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
           <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
             <div className="mr-2">
@@ -335,13 +343,13 @@ export default function Sidebar() {
         <img src="/images/tab-logo.png" alt="Logo" className="h-9" />
       </div>
 
-      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto">
+      <nav className="py-0 max-h-[calc(100vh-105px)] overflow-y-auto custom-scrollbar">
         <ul>
           {sideMenuBar.map((menu, idx) => {
             const isSection = menu.submenu && menu.submenu.length > 0;
             const activeSection =
               isSection && isSectionActive(menu.submenu || []);
-            const activeItem = !isSection && isActive(menu.main_Link);
+            const activeItem = !isSection && isActive(menu.main_Link) || isActive(menu.new_Link);
 
             return (
               <li
@@ -420,17 +428,34 @@ export default function Sidebar() {
                   </div>
                 ))
               ) : (
-                <li
-                  className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                    isActive(currentMenu.main_Link)
-                      ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
-                      : "border-l-transparent"
-                  }`}
-                  onClick={() => router.push(currentMenu.main_Link)}
-                >
-                  <i className={`${currentMenu.icon} text-[16px]`}></i>
-                  {currentMenu.Title}
-                </li>
+                <div>
+                  {currentMenu.main_Link && (
+                    <li
+                      className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
+                        isActive(currentMenu.main_Link)
+                          ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
+                          : "border-l-transparent"
+                      }`}
+                      onClick={() => router.push(currentMenu.main_Link)}
+                    >
+                      <i className={`ri-list-unordered text-[16px]`}></i>
+                      {currentMenu.Title}
+                    </li>
+                  )}
+                  {currentMenu.new_Link && currentMenu.main_Link && (
+                    <li
+                      className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
+                        isActive(currentMenu.new_Link)
+                          ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
+                          : "border-l-transparent"
+                      }`}
+                      onClick={() => router.push(currentMenu.new_Link)}
+                    >
+                      <i className="ri-add-line text-[16px]"></i>
+                      New {currentMenu.Title}
+                    </li>
+                  )}{" "}
+                </div>
               );
             })()}
           </ul>
@@ -448,6 +473,12 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #212934 !important; /* This will now apply to the nav with custom-scrollbar class */
+          border-radius: 10px;
+        }
+      `}</style>
     </div>
   );
 }

@@ -3,10 +3,8 @@
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Layout from "../../../components/Layout";
-
-import { useSearchParams } from "next/navigation";
-import DatePicker from "@/app/utils/commonDatepicker";
-import TableShimmer from "@/app/utils/tableShimmer";
+ 
+import DatePicker from "@/app/utils/commonDatepicker"; 
 import CommonTypeahead from "@/app/utils/commonTypehead";
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead";
