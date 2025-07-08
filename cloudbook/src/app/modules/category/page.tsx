@@ -1,13 +1,10 @@
- "use client";
+"use client";
 
-import { useRef, useState, useEffect, useCallback } from "react"; // Added useCallback
+import { useRef, useState, useEffect, useCallback } from "react";
 import Layout from "../../components/Layout";
 import { Input } from "@/app/utils/form-controls";
 
-// Remove the dummyLedgerData constant from here
-
-// ... (FormField and ToggleSwitch components remain the same) ...
-
+// FormField and ToggleSwitch components remain the same as they were already consistent.
 const FormField = ({
   label,
   required = false,
@@ -72,12 +69,14 @@ const Categories = () => {
     name: "",
     remarks: "",
   });
-  // Initialize ledgerData as an empty object; it will be populated by fetches
   const [ledgerData, setLedgerData] = useState<any>({});
   const [tableData, setTableData] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
   const formRef = useRef<HTMLFormElement>(null);
+
+  // State for the search input
+  const [menuSearchTerm, setMenuSearchTerm] = useState<string>(""); // New state for menu search
 
   const titles: { [key: string]: string } = {
     customerLedger: "Customer Ledger",
@@ -87,36 +86,41 @@ const Categories = () => {
     expenseLedger: "Expense Ledger",
   };
 
+  // Filtered titles based on the search term
+  const filteredTitles = Object.keys(titles).filter((key) =>
+    titles[key].toLowerCase().includes(menuSearchTerm.toLowerCase())
+  );
+
   // Define a base URL for your JSON server
   const BASE_URL = "http://localhost:4000";
 
-  // Use useCallback to memoize fetchData, preventing unnecessary re-creations
-  const fetchData = useCallback(async (ledgerName: string) => {
-    try {
-      const response = await fetch(`${BASE_URL}/${ledgerName}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  const fetchData = useCallback(
+    async (ledgerName: string) => {
+      try {
+        const response = await fetch(`${BASE_URL}/${ledgerName}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setLedgerData((prev: any) => ({
+          ...prev,
+          [ledgerName]: data,
+        }));
+      } catch (error) {
+        console.error(`Error fetching ${ledgerName}:`, error);
       }
-      const data = await response.json();
-      setLedgerData((prev: any) => ({
-        ...prev,
-        [ledgerName]: data,
-      }));
-    } catch (error) {
-      console.error(`Error fetching ${ledgerName}:`, error);
-       
-    }
-  }, []); // Empty dependency array means this function is created once
+    },
+    []
+  );
 
   useEffect(() => {
-    // Fetch data for the initially active ledger or when activeLedger changes
     fetchData(activeLedger);
-    setFormData({ name: "", remarks: "" }); // Clear form on ledger change
-    setEditingId(null); // Clear editing state
-    setFormErrors({}); // Clear errors
-  }, [activeLedger, fetchData]); // Depend on activeLedger and fetchData
+    setFormData({ name: "", remarks: "" });
+    setEditingId(null);
+    setFormErrors({});
+    // No need to clear menuSearchTerm here, it should persist across ledger changes
+  }, [activeLedger, fetchData]);
 
-  // Update tableData when ledgerData for the activeLedger changes
   useEffect(() => {
     setTableData(ledgerData[activeLedger] || []);
   }, [activeLedger, ledgerData]);
@@ -125,6 +129,11 @@ const Categories = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setFormErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  // Handler for menu search input
+  const handleMenuSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMenuSearchTerm(e.target.value);
   };
 
   const validateForm = () => {
@@ -158,15 +167,12 @@ const Categories = () => {
         throw new Error(`Failed to ${editingId ? "update" : "add"} item: ${response.statusText}`);
       }
 
-      // Re-fetch the data for the current ledger after a successful operation
       fetchData(activeLedger);
 
       setFormData({ name: "", remarks: "" });
       setEditingId(null);
-      // showToast("Success", "Data saved successfully!", "success");
     } catch (error) {
       console.error(`Error ${editingId ? "updating" : "adding"} item:`, error);
-      // showToast("Error", "Failed to save data.", "error");
     }
   };
 
@@ -179,18 +185,6 @@ const Categories = () => {
   };
 
   const handleDelete = async (id: number) => {
-    // Uncomment if SweetAlert is used
-    // alertRef.current?.show({
-    //   title: "Are you sure?",
-    //   text: "Do you really want to delete this item? This process cannot be undone.",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes, delete it!",
-    //   cancelButtonText: "No, cancel!",
-    //   confirmButtonColor: "#dc3545",
-    //   cancelButtonColor: "#6c757d",
-    // }).then(async (result: any) => { // Made async here
-    //   if (result.isConfirmed) {
     try {
       const response = await fetch(`${BASE_URL}/${activeLedger}/${id}`, {
         method: "DELETE",
@@ -200,29 +194,24 @@ const Categories = () => {
         throw new Error(`Failed to delete item: ${response.statusText}`);
       }
 
-      // Re-fetch the data for the current ledger after deletion
       fetchData(activeLedger);
 
       setFormData({ name: "", remarks: "" });
       setEditingId(null);
-      // showToast("Deleted!", "Your item has been deleted.", "success");
     } catch (error) {
       console.error("Error deleting item:", error);
-      // showToast("Error", "Failed to delete item.", "error");
     }
-    //   }
-    // });
   };
 
   const handleToggleStatus = async (id: number, currentStatus: boolean) => {
     try {
-      const itemToUpdate = tableData.find(item => item.id === id);
+      const itemToUpdate = tableData.find((item) => item.id === id);
       if (!itemToUpdate) return;
 
       const updatedItem = { ...itemToUpdate, status: !currentStatus };
 
       const response = await fetch(`${BASE_URL}/${activeLedger}/${id}`, {
-        method: "PUT", // Use PUT to update the entire resource
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -233,12 +222,9 @@ const Categories = () => {
         throw new Error(`Failed to update status: ${response.statusText}`);
       }
 
-      // Re-fetch the data to reflect the change
       fetchData(activeLedger);
-      // showToast("Status Updated!", "Item status has been changed.", "info");
     } catch (error) {
       console.error("Error toggling status:", error);
-      // showToast("Error", "Failed to update status.", "error");
     }
   };
 
@@ -247,21 +233,39 @@ const Categories = () => {
       <div className="flex-1">
         <main id="main-content" className="flex-1 overflow-y-auto bg-white">
           <div className="flex">
-            <aside className="w-[230px] h-[calc(100vh-45px)] bg-gray-100 text-gray-800 py-1 px-3 border-r border-gray-300 flex flex-col">
-              <h2 className="text-[20px] text-[#009333] font-semibold mb-3">Categories</h2>
-              <ul className="flex-1 overflow-y-auto pr-1 space-y-1">
-                {Object.keys(titles).map((key) => (
-                  <li
-                    key={key}
-                    className={`p-1 cursor-pointer flex items-center gap-2 ${
-                      activeLedger === key ? "text-[#009333]" : ""
-                    }`}
-                    onClick={() => setActiveLedger(key)}
-                  >
-                    <i className="ri-file-text-line text-lg"></i> {titles[key]}
-                  </li>
-                ))}
-              </ul>
+            <aside className="w-[240px] h-[100vh] bg-[#f8f9fa] border-[#ebeff3] px-3 flex flex-col space-y-4">
+              <div className="mt-2">
+                <h1 className="text-[18px] sm:text-[20px] font-medium text-[#009333]">Categories</h1>
+              </div>
+              <div className="relative ">
+                <div className="flex items-center overflow-hidden ">
+                  <i className="ri-search-line absolute left-2 text-sm"></i>
+                  <Input
+                    type="text"
+                    placeholder="Search here..."
+                    name="menuSearch" // Changed name for clarity
+                    id="menuSearch" // Changed id for clarity
+                    value={menuSearchTerm}
+                    onChange={handleMenuSearchInputChange} // Use the new handler
+                    className="capitalize w-full  pl-7"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-110px)]">
+                <ul className="flex-1 overflow-y-auto pr-1 space-y-1 py-2 ">
+                  {filteredTitles.map((key) => (
+                    <li
+                      key={key}
+                      className={`p-1 cursor-pointer flex items-center gap-2 ${
+                        activeLedger === key ? "bg-[#f0f0f0] text-[#009333] rounded-[5px]" : "hover:bg-gray-100"
+                      }`}
+                      onClick={() => setActiveLedger(key)}
+                    >
+                      <i className="ri-file-text-line"></i> {titles[key]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </aside>
 
             <div className="flex-1 flex flex-col">
@@ -275,12 +279,7 @@ const Categories = () => {
 
               {activeLedger && (
                 <div className="w-full flex justify-center pt-4">
-                  <form
-                    ref={formRef}
-                    onSubmit={handleSubmit}
-                    className="p-4 w-full max-w-2xl"
-                    autoComplete="off"
-                  >
+                  <form ref={formRef} onSubmit={handleSubmit} className="p-4 w-full max-w-2xl" autoComplete="off">
                     <FormField label="Name" required error={formErrors.name} htmlFor="nameInput">
                       <Input
                         name="name"
@@ -315,7 +314,7 @@ const Categories = () => {
               )}
 
               {activeLedger && tableData.length > 0 && (
-                <div className="mx-2 max-h-[calc(100vh-300px)] flex justify-center overflow-hidden rounded-lg bg-white">
+                <div className="mx-2 max-h-[calc(100vh-300px)] flex justify-center overflow-hidden rounded-lg bg-white text-[14px]">
                   <div className="w-full max-w-2xl h-full overflow-y-auto border border-gray-200 rounded-lg shadow-lg">
                     <table className="w-full">
                       <thead className="sticky-table-header bg-gray-100">
@@ -351,7 +350,7 @@ const Categories = () => {
                             </td>
                             <td className="td-cell text-center">
                               <ToggleSwitch
-                                isChecked={item.status !== false} // Default to true if not set
+                                isChecked={item.status !== false}
                                 onChange={(checked) => handleToggleStatus(item.id, item.status)}
                               />
                             </td>
