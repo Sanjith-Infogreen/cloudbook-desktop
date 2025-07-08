@@ -302,13 +302,15 @@ const CommonModal: React.FC<CommonModalProps> = ({
                     <thead className="sticky-table-header">
                       <tr>
                         <th className="th-cell w-[5%] text-left">
-                          <CheckboxGroup
-                            name="selectAll"
-                            className="mr-3"
-                            options={[{ value: "selectAll" }]}
-                            defaultValues={allRowsSelected ? ["selectAll"] : []}
-                            value="AC" 
-                          />
+ 
+                        <CheckboxGroup
+        name="features_Heating"
+        value="Heating"
+        label="Heating"
+        checked={allRowsSelected}
+        onChange={(e) => handleSelectAllChange(e.target.checked ? ["selectAll"] : [])}
+      />
+ 
                         </th>
                         <th className="th-cell w-[10%] text-left">
                           <span>S.No</span>
@@ -338,14 +340,15 @@ const CommonModal: React.FC<CommonModalProps> = ({
                       {tableData.map((row) => (
                         <tr key={row.id} className="tr-hover group">
                           <td className="td-cell w-[5%]">
-                            <CheckboxGroup
-                              name={`rowSelection-${row.id}`}
-                              options={[{ value: String(row.id) }]}
-                              defaultValues={
-                                row.isSelected ? [String(row.id)] : []
-                              }
-                              value="AC" 
-                            />
+ 
+                             <CheckboxGroup
+        name="features_Heating"
+        value="Heating"
+        label="Heating"
+        checked={row.isSelected}
+        onChange={(e) => handleRowCheckboxChange(row.id, e.target.checked ? [String(row.id)] : [])}
+      />
+ 
                           </td>
                           <td className="td-cell w-[5%]">
                             <span className="float-left">{row.sNo}</span>

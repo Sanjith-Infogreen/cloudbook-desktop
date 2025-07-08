@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 
@@ -77,42 +77,61 @@ export const RadioGroup = ({
   );
 };
 
-
 export const CheckboxGroup = ({
   name,
-  value, // The single value this checkbox represents
-  label, // Optional: for displaying a label next to the checkbox
-  defaultChecked = false, // Use defaultChecked for initial state
-  onChange: externalOnChange,
+  value,
+
+  // Make 'checked' and 'onChange' optional
+  checked: controlledChecked, // Rename to avoid conflict with internal state
+  onChange: controlledOnChange, // Rename to avoid conflict with internal handler
+  defaultChecked = false, // Add defaultChecked for uncontrolled behavior
   ...props
 }: {
   name: string;
   value: string;
-  label?: string;
-  defaultChecked?: boolean;
-  onChange?: (checked: boolean) => void;
+
+  checked?: boolean; // Now optional
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Now optional
+  defaultChecked?: boolean; // New optional prop
   [key: string]: any;
 }) => {
-  // Initialize state directly with defaultChecked.
-  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked);
+  // Determine if the component is being used in a controlled manner
+  // It's controlled if 'controlledChecked' (the 'checked' prop) is provided.
+  const isControlled = typeof controlledChecked === 'boolean';
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = event.target.checked;
-    setIsChecked(checked);
-    if (externalOnChange) externalOnChange(checked);
+  // Internal state for uncontrolled usage
+  // If controlled, internal state isn't used for 'checked' value.
+  // If uncontrolled, it uses 'defaultChecked' for initial state,
+  // and updates via 'handleInternalChange'.
+  const [internalChecked, setInternalChecked] = useState<boolean>(defaultChecked);
+
+  // Determine the 'checked' value to pass to the <input>
+  // If controlled, use the 'controlledChecked' prop.
+  // If uncontrolled, use the 'internalChecked' state.
+  const checkboxChecked = isControlled ? controlledChecked : internalChecked;
+
+  // Determine the 'onChange' handler for the <input>
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // If controlled, call the provided 'controlledOnChange' handler
+    if (isControlled && controlledOnChange) {
+      controlledOnChange(event);
+    } else {
+      // If uncontrolled, update the internal state
+      setInternalChecked(event.target.checked);
+    }
   };
 
   return (
-    <label className="inline-flex items-center" {...props}>
+    <label className="inline-flex items-center cursor-pointer" {...props}>
       <input
         type="checkbox"
         name={name}
         value={value}
-        className="form-checkbox"
-        checked={isChecked}
-        onChange={handleChange}
+        className="form-checkbox cursor-pointer"
+        checked={checkboxChecked} // Dynamically determined checked state
+        onChange={handleInputChange} // Dynamically determined change handler
       />
-      {label && <span className="ml-2">{label}</span>}
+
     </label>
   );
 };
@@ -130,21 +149,21 @@ export const Toggle = ({
   label?: string;
   [key: string]: any;
 }) => (
-    <label className="relative inline-flex items-center cursor-pointer">
-      <input
-        type="checkbox"
-        name={name}
-        checked={checked}
-        onChange={onChange}
-        className="sr-only peer" 
-        {...props}
-      />
- 
-      <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors" />
+  <label className="relative inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      className="sr-only peer"
+      {...props}
+    />
 
-    
-      <div className="absolute left-0.5 top-0.2 w-2.5 h-2.5 bg-[#bfbfbf] rounded-full shadow transition-transform peer-checked:translate-x-4 peer-checked:bg-white" />
+    <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors" />
 
-      {label && <span className="ml-3 text-sm font-medium text-gray-900">{label}</span>}
-    </label>
+
+    <div className="absolute left-0.5 top-0.2 w-2.5 h-2.5 bg-[#bfbfbf] rounded-full shadow transition-transform peer-checked:translate-x-4 peer-checked:bg-white" />
+
+    {label && <span className="ml-3 text-sm font-medium text-gray-900">{label}</span>}
+  </label>
 );
