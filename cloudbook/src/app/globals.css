@@ -90,6 +90,11 @@ body {
    border-radius: 10px;
    border: 0px solid #ffffff; 
 }
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;            
+  height: 11px;        
+}
+
 .border-l-5 {
   border-left-width: 5px;
 }
