@@ -239,11 +239,11 @@ export default function Sidebar() {
         {isDropdownOpen && (
           <div
             ref={dropdownRef}
-            className="absolute top-[calc(100vh-350px)] left-[200px] ml-2 w-70 bg-white rounded-lg shadow-2xl py-2 z-50"
+            className="absolute top-[calc(100vh-350px)] h-[340px]  left-[200px] p-2 ml-2 w-75 bg-white rounded-xl shadow-2xl  z-50"
           >
-            <div className="px-4 py-1  flex items-center">
+            <div className="px-3 py-1  flex items-center">
               <div className="mr-3">
-                <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
+                <div className="bg-gray-200 rounded-full w-11 h-11 flex items-center justify-center overflow-hidden">
                   <img
                     src="/images/profile-pic.png"
                     alt="User Profile"
@@ -255,13 +255,13 @@ export default function Sidebar() {
                 {/* This makes the info section take full width */}
                 <div className="flex flex-col w-full">
                   <div className="flex items-center w-full">
-                    <div className="font-semibold text-gray-900 text-[12px]">
+                    <div className="font-semibold text-gray-900 text-[15px]">
                       Emily Clark
                       <span className="text-[12px] ml-2 text-gray-500">
                         @emily
                       </span>
                     </div>
-                    <div className="ml-auto px-2  text-[10px] font-bold text-green-700 bg-green-100 rounded-full">
+                    <div className="ml-auto mt-1.5 px-2 text-[11px] font-bold text-green-700 bg-green-100 rounded-full flex items-center justify-center h-[15px]">
                       PRO
                     </div>
                   </div>
@@ -274,7 +274,7 @@ export default function Sidebar() {
 
             {/* Menu Items */}
             <ul className="py-2">
-              <li className="flex items-center px-4 py-1.5 mb-2 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-moon-line mr-3 text-gray-600 "></i>
 
                 <span className="text-[14px] text-gray-800 leading-none">
@@ -291,33 +291,34 @@ export default function Sidebar() {
               </li>
               <hr className="border-t border-gray-200" />
 
-              <li className="flex items-center px-4 py-1.5 mt-2  hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5 mt-1  hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-line-chart-line mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Activity</span>
               </li>
-              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-grid-fill mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Integrations</span>
               </li>
-              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-settings-3-line mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Settings</span>
               </li>
               <hr className="border-t border-gray-200" />
-              <li className="flex items-center px-4 py-1.5  mt-2 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5  mt-1 hover:bg-gray-100 rounded-md  cursor-pointer">
                 <i className="ri-add-circle-line mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Add Account</span>
               </li>
-              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-2 py-1.5 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-logout-box-line mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Logout</span>
               </li>
             </ul>
 
             {/* Version and Terms */}
-            <div className="px-4 py-1 text-xs text-gray-400 flex  items-center">
+            <div className="px-2 py-1 text-xs text-gray-400 flex items-center ">
               <span>v.1.5.69</span>
-              <a href="#" className="text-gray-400 ml-1">
+              <span className="text-[10px] ml-1">•</span>
+              <a href="#" className="ml-1 text-gray-400 ">
                 Terms & Conditions
               </a>
             </div>
