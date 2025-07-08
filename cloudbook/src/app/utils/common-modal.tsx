@@ -302,6 +302,8 @@ const CommonModal: React.FC<CommonModalProps> = ({
                     <thead className="sticky-table-header">
                       <tr>
                         <th className="th-cell w-[5%] text-left">
+ 
+ 
                         <CheckboxGroup
         name="features_Heating"
         value="Heating"
@@ -309,6 +311,8 @@ const CommonModal: React.FC<CommonModalProps> = ({
         checked={allRowsSelected}
         onChange={(e) => handleSelectAllChange(e.target.checked ? ["selectAll"] : [])}
       />
+ 
+ 
                         </th>
                         <th className="th-cell w-[10%] text-left">
                           <span>S.No</span>
@@ -338,6 +342,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
                       {tableData.map((row) => (
                         <tr key={row.id} className="tr-hover group">
                           <td className="td-cell w-[5%]">
+ 
                              <CheckboxGroup
         name="features_Heating"
         value="Heating"
@@ -345,6 +350,7 @@ const CommonModal: React.FC<CommonModalProps> = ({
         checked={row.isSelected}
         onChange={(e) => handleRowCheckboxChange(row.id, e.target.checked ? [String(row.id)] : [])}
       />
+ 
                           </td>
                           <td className="td-cell w-[5%]">
                             <span className="float-left">{row.sNo}</span>
