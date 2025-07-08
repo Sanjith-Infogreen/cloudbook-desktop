@@ -64,10 +64,10 @@ export default function Sidebar() {
     setHoveredMenu(menu.Title);
   };
 
-  const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (path: string) => pathname === path;
 
   const isSectionActive = (submenu: any[]) =>
-    submenu.some((s) => pathname.startsWith(s.main_Link));
+    submenu.some((s) => pathname === s.main_Link || pathname === s.new_Link);
 
   const toggleSection = (title: string, currentOpen: boolean) =>
     setOpenSections((prev) => ({
@@ -75,7 +75,7 @@ export default function Sidebar() {
       [title]: !currentOpen, // flip based on current resolved open state
     }));
 
-      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -101,7 +101,9 @@ export default function Sidebar() {
               const sectionOpen = hasToggled
                 ? openSections[menu.Title]
                 : isSectionActive(menu.submenu || []);
-              const activeItem = !isSection && isActive(menu.main_Link);
+              const activeItem =
+                (!isSection && isActive(menu.main_Link)) ||
+                isActive(menu.new_Link);
 
               return (
                 <li key={idx}>
@@ -135,7 +137,8 @@ export default function Sidebar() {
                             <li
                               key={subIdx}
                               className={`py-2 pr-4 pl-12 hover:bg-[#191f26] border-l-5  hover:border-l-[#1aed59] flex items-center justify-between cursor-pointer ${
-                                isActive(sub.main_Link)
+                                isActive(sub.main_Link) ||
+                                isActive(sub.new_Link)
                                   ? "bg-[#191f26] border-l-[#1aed59] text-white"
                                   : "text-[#b0b3b7] border-l-transparent"
                               }`}
@@ -201,86 +204,102 @@ export default function Sidebar() {
         </nav>
 
         <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
-      <div className="mr-2">
-        <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center">
-          <img
-            src="/images/profile-pic.png"
-            alt="User Image"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-      <div className="text-[#b0b3b7]">
-        <div className="font-semibold text-[15px]">Emily Clark</div>
-        <div className="text-xs">Admin</div>
-      </div>
-      <div className="ml-auto relative"> {/* Added relative for dropdown positioning */}
-        <i
-          className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"
-          onClick={toggleDropdown}
-        ></i>
-
-     {isDropdownOpen && (
-    <div className="absolute top-[-360px] left-[200%] ml-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50"> {/* Changes here */}
-        {/* User Info Section (similar to the image) */}
-        <div className="px-4 py-3 border-b border-gray-200 flex items-center">
-            <div className="mr-3">
-                <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
-                    <img
+          <div className="mr-2">
+            <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center">
+              <img
+                src="/images/profile-pic.png"
+                alt="User Image"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div className="text-[#b0b3b7]">
+            <div className="font-semibold text-[15px]">Emily Clark</div>
+            <div className="text-xs">Admin</div>
+          </div>
+          <div className="ml-auto relative">
+            {" "}
+            {/* Added relative for dropdown positioning */}
+            <i
+              className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"
+              onClick={toggleDropdown}
+            ></i>
+            {isDropdownOpen && (
+              <div className="absolute top-[-360px] left-[200%] ml-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50">
+                {" "}
+                {/* Changes here */}
+                {/* User Info Section (similar to the image) */}
+                <div className="px-4 py-3 border-b border-gray-200 flex items-center">
+                  <div className="mr-3">
+                    <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
+                      <img
                         src="/images/profile-pic.png" // Use Emily Clark's profile pic or a general one
                         alt="User Profile"
                         className="w-full h-full object-cover"
-                    />
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900 text-base">
+                      Emily Clark
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      emily.clark@example.com
+                    </div>{" "}
+                    {/* Add an email */}
+                  </div>
                 </div>
-            </div>
-            <div>
-                <div className="font-semibold text-gray-900 text-base">Emily Clark</div>
-                <div className="text-sm text-gray-500">emily.clark@example.com</div> {/* Add an email */}
-            </div>
-
+                {/* Menu Items */}
+                <ul className="py-2">
+                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <i className="ri-moon-fill mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Dark Mode</span>
+                    <label
+                      htmlFor="dark-mode-toggle"
+                      className="ml-auto relative inline-flex items-center cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        id="dark-mode-toggle"
+                        className="sr-only peer"
+                      />
+                      <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </li>
+                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <i className="ri-line-chart-line mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Activity</span>
+                  </li>
+                  <li className="flex items-center px-4 py-2 bg-gray-100 cursor-pointer">
+                    {" "}
+                    {/* Highlighted "Integrations" */}
+                    <i className="ri-grid-fill mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Integrations</span>
+                  </li>
+                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <i className="ri-settings-3-line mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Settings</span>
+                  </li>
+                  <li className="flex items-center px-4 py-2 border-t border-gray-200 mt-2 hover:bg-gray-100 cursor-pointer">
+                    <i className="ri-add-circle-line mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Add Account</span>
+                  </li>
+                  <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <i className="ri-logout-box-line mr-3 text-gray-600"></i>
+                    <span className="text-gray-800">Logout</span>
+                  </li>
+                </ul>
+                {/* Version and Terms */}
+                <div className="px-4 py-2 text-xs text-gray-400 border-t border-gray-200 mt-2 flex justify-between items-center">
+                  <span>v.1.5.69</span>
+                  <a href="#" className="text-blue-500 hover:underline">
+                    Terms & Conditions
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-
-        {/* Menu Items */}
-        <ul className="py-2">
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-moon-fill mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Dark Mode</span>
-                <label htmlFor="dark-mode-toggle" className="ml-auto relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="dark-mode-toggle" className="sr-only peer" />
-                    <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:border-gray-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-line-chart-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Activity</span>
-            </li>
-            <li className="flex items-center px-4 py-2 bg-gray-100 cursor-pointer"> {/* Highlighted "Integrations" */}
-                <i className="ri-grid-fill mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Integrations</span>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-settings-3-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Settings</span>
-            </li>
-            <li className="flex items-center px-4 py-2 border-t border-gray-200 mt-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-add-circle-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Add Account</span>
-            </li>
-            <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-logout-box-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Logout</span>
-            </li>
-        </ul>
-
-        {/* Version and Terms */}
-        <div className="px-4 py-2 text-xs text-gray-400 border-t border-gray-200 mt-2 flex justify-between items-center">
-            <span>v.1.5.69</span>
-            <a href="#" className="text-blue-500 hover:underline">Terms & Conditions</a>
-        </div>
-    </div>
-)}
-      </div>
-    </div>
       </div>
     );
   }
@@ -301,7 +320,7 @@ export default function Sidebar() {
             const isSection = menu.submenu && menu.submenu.length > 0;
             const activeSection =
               isSection && isSectionActive(menu.submenu || []);
-            const activeItem = !isSection && isActive(menu.main_Link);
+            const activeItem = !isSection && isActive(menu.main_Link) || isActive(menu.new_Link);
 
             return (
               <li
@@ -380,17 +399,34 @@ export default function Sidebar() {
                   </div>
                 ))
               ) : (
-                <li
-                  className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
-                    isActive(currentMenu.main_Link)
-                      ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
-                      : "border-l-transparent"
-                  }`}
-                  onClick={() => router.push(currentMenu.main_Link)}
-                >
-                  <i className={`${currentMenu.icon} text-[16px]`}></i>
-                  {currentMenu.Title}
-                </li>
+                <div>
+                  {currentMenu.main_Link && (
+                    <li
+                      className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
+                        isActive(currentMenu.main_Link)
+                          ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
+                          : "border-l-transparent"
+                      }`}
+                      onClick={() => router.push(currentMenu.main_Link)}
+                    >
+                      <i className={`ri-list-unordered text-[16px]`}></i>
+                      {currentMenu.Title}
+                    </li>
+                  )}
+                  {currentMenu.new_Link && currentMenu.main_Link && (
+                    <li
+                      className={`px-3 py-2 flex items-center text-white text-[15px] rounded-md hover:bg-[#103d5a] hover:border-l-4 border-l-4  hover:border-[#1aed59] cursor-pointer gap-2 ${
+                        isActive(currentMenu.new_Link)
+                          ? "bg-[#103d5a] border-[#1aed59] text-[#fff]"
+                          : "border-l-transparent"
+                      }`}
+                      onClick={() => router.push(currentMenu.new_Link)}
+                    >
+                      <i className="ri-add-line text-[16px]"></i>
+                      New {currentMenu.Title}
+                    </li>
+                  )}{" "}
+                </div>
               );
             })()}
           </ul>
@@ -409,12 +445,10 @@ export default function Sidebar() {
         </div>
       </div>
       <style jsx global>{`
-      
-           .custom-scrollbar::-webkit-scrollbar-track {
+        .custom-scrollbar::-webkit-scrollbar-track {
           background: #212934 !important; /* This will now apply to the nav with custom-scrollbar class */
           border-radius: 10px;
         }
-         
       `}</style>
     </div>
   );
