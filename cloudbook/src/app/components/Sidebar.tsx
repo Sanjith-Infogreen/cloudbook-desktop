@@ -241,7 +241,7 @@ export default function Sidebar() {
             ref={dropdownRef}
             className="absolute top-[calc(100vh-350px)] h-[340px]  left-[200px] p-2 ml-2 w-75 bg-white rounded-xl shadow-2xl  z-50"
           >
-            <div className="px-3 py-1  flex items-center">
+            <div className="px-2 py-1.5  flex items-center">
               <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-11 h-11 flex items-center justify-center overflow-hidden">
                   <img
@@ -260,14 +260,15 @@ export default function Sidebar() {
                       <span className="text-[12px] ml-2 text-gray-500">
                         @emily
                       </span>
+                       <p className="text-[12px] text-gray-500">
+                    emily.clark@example.com
+                  </p>
                     </div>
-                    <div className="ml-auto mt-1.5 px-2 text-[11px] font-bold text-green-700 bg-green-100 rounded-full flex items-center justify-center h-[15px]">
+                    <div className="ml-auto  px-2 text-[11px] font-bold text-green-700 bg-green-100 rounded-full  ">
                       PRO
                     </div>
                   </div>
-                  <div className="text-[12px] text-gray-500">
-                    emily.clark@example.com
-                  </div>
+                 
                 </div>
               </div>
             </div>
