@@ -13,6 +13,7 @@ export default function Sidebar() {
     {}
   );
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown
   const router = useRouter();
   const pathname = usePathname();
   const sideMenuBar = useSelector(
@@ -24,7 +25,7 @@ export default function Sidebar() {
       setIsMobile(window.innerWidth <= 1024);
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutsideSidebar = (event: MouseEvent) => {
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target as Node)
@@ -33,19 +34,32 @@ export default function Sidebar() {
       }
     };
 
+    const handleClickOutsideDropdown = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        // Ensure click is not on the toggle icon itself
+        !(event.target as HTMLElement).closest(".ri-expand-up-down-fill")
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
     // Run initial screen size check
     checkScreenSize();
 
-    // Attach both listeners
+    // Attach all listeners
     window.addEventListener("resize", checkScreenSize);
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutsideSidebar);
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
 
-    // Cleanup both listeners
+    // Cleanup all listeners
     return () => {
       window.removeEventListener("resize", checkScreenSize);
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutsideSidebar);
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
     };
-  }, []);
+  }, []); // Empty dependency array means this effect runs once on mount and cleans up on unmount
 
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
@@ -82,8 +96,6 @@ export default function Sidebar() {
   if (!isMobile) {
     return (
       <>
-        {" "}
-        {/* Use a fragment to return multiple top-level elements */}
         <div
           ref={sidebarRef}
           className="w-[200px] bg-[#212934] shadow-md relative h-full"
@@ -202,7 +214,9 @@ export default function Sidebar() {
 
           <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
             <div className="mr-2">
-              <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center">
+              <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
+                {" "}
+                {/* Added overflow-hidden */}
                 <img
                   src="/images/profile-pic.png"
                   alt="User Image"
@@ -223,8 +237,10 @@ export default function Sidebar() {
           </div>
         </div>
         {isDropdownOpen && (
-          <div className="absolute top-[calc(100vh-400px)] left-[200px] ml-2 w-80 bg-white rounded-lg shadow-lg py-2 z-50">
-            {/* User Info Section (similar to the image) */}
+          <div
+            ref={dropdownRef}
+            className="absolute top-[calc(100vh-380px)] left-[200px] ml-2 w-70 bg-white rounded-lg shadow-lg py-2 z-50"
+          >
             <div className="px-4 py-1  flex items-center">
               <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
@@ -239,14 +255,17 @@ export default function Sidebar() {
                 {/* This makes the info section take full width */}
                 <div className="flex flex-col w-full">
                   <div className="flex items-center w-full">
-                    <div className="font-semibold text-gray-900 text-base">
+                    <div className="font-semibold text-gray-900 text-[12px]">
                       Emily Clark
+                       <span  className="text-[12px] ml-2 text-gray-500">
+                    @emily
+                  </span>
                     </div>
-                    <div className="ml-auto px-2 py-0.5 text-xs font-bold text-green-700 bg-green-100 rounded-full">
+                    <div className="ml-auto px-2  text-xs font-bold text-green-700 bg-green-100 rounded-full">
                       PRO
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-[12px] text-gray-500">
                     emily.clark@example.com
                   </div>
                 </div>
@@ -255,10 +274,14 @@ export default function Sidebar() {
 
             {/* Menu Items */}
             <ul className="py-2">
-              <li className="flex items-center px-4 py-2 mb-2 hover:bg-gray-100 cursor-pointer">
-                <i className="ri-moon-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Dark Mode</span>
-                <div className="ml-auto">
+              <li className="flex items-center px-4 py-1.5 mb-2 hover:bg-gray-100 cursor-pointer">
+                <i className="ri-moon-line mr-3 text-gray-600 text-[18px]"></i>
+
+                <span className="text-[14px] text-gray-800 leading-none">
+                  Dark Mode
+                </span>
+
+                <div className="ml-auto flex items-center">
                   <Toggle
                     name="darkMode"
                     checked={isDarkMode}
@@ -267,31 +290,30 @@ export default function Sidebar() {
                 </div>
               </li>
 
-              <li className="flex items-center px-4 py-2  border-t border-gray-200 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-4 py-1.5 border-t border-gray-200  hover:bg-gray-100 cursor-pointer">
                 <i className="ri-line-chart-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Activity</span>
+                <span className="text-[14px] text-gray-800">Activity</span>
               </li>
-              <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-grid-fill mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Integrations</span>
+                <span className="text-[14px] text-gray-800">Integrations</span>
               </li>
-              <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-settings-3-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Settings</span>
+                <span className="text-[14px] text-gray-800">Settings</span>
               </li>
-              <li className="flex items-center px-4 py-2 border-t border-gray-200 mt-2 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-4 py-1.5 border-t border-gray-200 mt-2 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-add-circle-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Add Account</span>
+                <span className="text-[14px] text-gray-800">Add Account</span>
               </li>
-              <li className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <li className="flex items-center px-4 py-1.5 hover:bg-gray-100 cursor-pointer">
                 <i className="ri-logout-box-line mr-3 text-gray-600"></i>
-                <span className="text-gray-800">Logout</span>
+                <span className="text-[14px] text-gray-800">Logout</span>
               </li>
             </ul>
 
             {/* Version and Terms */}
-            <div className="px-4 py-2 text-xs text-gray-400 border-t border-gray-200  flex justify-between items-center">
+            <div className="px-4 py-1 text-xs text-gray-400 border-t border-gray-200  flex justify-between items-center">
               <span>v.1.5.69</span>
               <a href="#" className="text-blue-500 ">
                 Terms & Conditions
@@ -417,7 +439,7 @@ export default function Sidebar() {
 
       <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
         <div className="mr-2">
-          <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center">
+          <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
             <img
               src="/images/profile-pic.png"
               alt="User Image"
