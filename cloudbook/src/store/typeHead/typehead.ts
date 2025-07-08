@@ -4,18 +4,20 @@ interface TypeHead {
   id: number;
   name: string;
   description: string;
+  addressLine1: string;
+  addressLine2: string;
+  phoneNumber: string;
+  gstNumber: string;
+  state: string;
+  pincode: string;
 }
-
-
 
 interface TypeHeadState {
   typeHead: TypeHead[];
- 
 }
 
 const initialState: TypeHeadState = {
   typeHead: [],
-  
 };
 
 const typeHeadSlice = createSlice({
@@ -23,16 +25,11 @@ const typeHeadSlice = createSlice({
   initialState,
   reducers: {
     setTypeHead(state, action: PayloadAction<TypeHead[]>) {
-      
       state.typeHead = action.payload;
     },
-    
-    
   },
 });
 
-export const {
-  setTypeHead,
-} = typeHeadSlice.actions;
+export const { setTypeHead } = typeHeadSlice.actions;
 
 export default typeHeadSlice.reducer;

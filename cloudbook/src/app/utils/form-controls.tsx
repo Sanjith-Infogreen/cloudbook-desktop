@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 
@@ -57,19 +57,21 @@ export const RadioGroup = ({
 
   return (
     <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})}>
-      <div className="flex flex-wrap items-center gap-6">
+      <div className="flex flex-wrap items-center space-x-6 ">
         {options.map((option) => (
           <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
             <input
               type="radio"
               name={name}
               value={option.value}
-              className="form-radio "
+ 
+              className="form-radio cursor-pointer"
+ 
               checked={selectedValue === option.value}
               onChange={handleChange}
               {...props}
             />
-            <span className="ml-2 text-gray-700">{option.label}</span>
+            <span className="ml-1.5 text-gray-700">{option.label}</span>
           </label>
         ))}
       </div>
@@ -77,53 +79,64 @@ export const RadioGroup = ({
   );
 };
 
-
 export const CheckboxGroup = ({
   name,
-  options,
-  defaultValues = [],
-  onChange: externalOnChange,
+  value,
+
+  // Make 'checked' and 'onChange' optional
+  checked: controlledChecked, // Rename to avoid conflict with internal state
+  onChange: controlledOnChange, // Rename to avoid conflict with internal handler
+  defaultChecked = false, // Add defaultChecked for uncontrolled behavior
   ...props
 }: {
   name: string;
-  options: { value: any }[];
-  defaultValues?: string[];
-  onChange?: (values: string[]) => void;
+  value: string;
+
+  checked?: boolean; // Now optional
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Now optional
+  defaultChecked?: boolean; // New optional prop
   [key: string]: any;
 }) => {
-  // Initialize state directly with defaultValues.
-  // This value will only be used on the first render.
-  const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues);
+  // Determine if the component is being used in a controlled manner
+  // It's controlled if 'controlledChecked' (the 'checked' prop) is provided.
+  const isControlled = typeof controlledChecked === 'boolean';
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    const newSelected = event.target.checked
-      ? [...selectedValues, value]
-      : selectedValues.filter((v) => v !== value);
+  // Internal state for uncontrolled usage
+  // If controlled, internal state isn't used for 'checked' value.
+  // If uncontrolled, it uses 'defaultChecked' for initial state,
+  // and updates via 'handleInternalChange'.
+  const [internalChecked, setInternalChecked] = useState<boolean>(defaultChecked);
 
-    setSelectedValues(newSelected);
-    if (externalOnChange) externalOnChange(newSelected);
+  // Determine the 'checked' value to pass to the <input>
+  // If controlled, use the 'controlledChecked' prop.
+  // If uncontrolled, use the 'internalChecked' state.
+  const checkboxChecked = isControlled ? controlledChecked : internalChecked;
+
+  // Determine the 'onChange' handler for the <input>
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // If controlled, call the provided 'controlledOnChange' handler
+    if (isControlled && controlledOnChange) {
+      controlledOnChange(event);
+    } else {
+      // If uncontrolled, update the internal state
+      setInternalChecked(event.target.checked);
+    }
   };
 
   return (
-    <div className="flex flex-wrap gap-4" {...props}>
-      {options.map((option) => (
-        <input
-          key={option.value}
-          type="checkbox"
-          name={name}
-          value={option.value}
-          className="form-checkbox"
-          checked={selectedValues.includes(option.value)}
-          onChange={handleChange}
-         
-        />
+    <label className="inline-flex items-center cursor-pointer" {...props}>
+      <input
+        type="checkbox"
+        name={name}
+        value={value}
+        className="form-checkbox cursor-pointer"
+        checked={checkboxChecked} // Dynamically determined checked state
+        onChange={handleInputChange} // Dynamically determined change handler
+      />
 
-      ))}
-    </div>
+    </label>
   );
 };
-
 // Toggle Component
 export const Toggle = ({
   name,
@@ -138,21 +151,21 @@ export const Toggle = ({
   label?: string;
   [key: string]: any;
 }) => (
-    <label className="relative inline-flex items-center cursor-pointer">
-      <input
-        type="checkbox"
-        name={name}
-        checked={checked}
-        onChange={onChange}
-        className="sr-only peer" 
-        {...props}
-      />
- 
-      <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors" />
+  <label className="relative inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      className="sr-only peer"
+      {...props}
+    />
 
-    
-      <div className="absolute left-0.5 top-0.2 w-2.5 h-2.5 bg-[#bfbfbf] rounded-full shadow transition-transform peer-checked:translate-x-4 peer-checked:bg-white" />
+    <div className="w-7.5 h-4 bg-white rounded-full border border-gray-300 peer-checked:bg-[#009333] transition-colors" />
 
-      {label && <span className="ml-3 text-sm font-medium text-gray-900">{label}</span>}
-    </label>
+
+    <div className="absolute left-0.5 top-0.2 w-2.5 h-2.5 bg-[#bfbfbf] rounded-full shadow transition-transform peer-checked:translate-x-4 peer-checked:bg-white" />
+
+    {label && <span className="ml-3 text-sm font-medium text-gray-900">{label}</span>}
+  </label>
 );
