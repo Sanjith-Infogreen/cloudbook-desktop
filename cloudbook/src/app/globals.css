@@ -173,11 +173,14 @@ input[type="checkbox"] {
     @apply px-1 py-[0.075rem] rounded hover:bg-[#dce0e5] cursor-pointer;
   }
 
+ 
+
   .sticky-table-header {
     @apply text-[12px] text-[#475867] text-left bg-white sticky top-0 z-10 shadow-[0_1px_0_0_#ebeff3];
   }
-
-
+  .sticky-table-footer {
+    @apply   text-[#475867] text-left bg-[#ebeff3] sticky bottom-[-1] z-10  ; /* Changed top to bottom */
+  }
 
   .th-cell {
     @apply border-r border-[#ebeff3] p-[0.3rem];
