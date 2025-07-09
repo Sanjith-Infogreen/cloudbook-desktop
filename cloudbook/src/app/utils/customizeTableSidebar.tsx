@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from './form-controls';
 
-/**
- * Renders the content and interactive elements for the "Customize Table" sidebar.
- * It receives the fields data and functions to update them from its parent.
- *
- * @param {object} props - The component props.
- * @param {Array<object>} props.fields - The array of field objects with their visibility status.
- * @param {function} props.onFieldChange - Function to call when a field's visibility checkbox changes.
- * @param {function} props.onReset - Function to call when the "Reset to default" button is clicked.
- * @param {function} props.onApply - Function to call when the "Apply" button is clicked.
- * @param {function} props.onClose - Function to call to close the sidebar (e.g., from header close or cancel button).
- */
+
 interface Field {
-    id: string | number;
+    id: string ;
     label: string;
     visible: boolean;
 }
 
 interface CustomizeTableContentProps {
     fields: Field[];
-    onFieldChange: (id: string | number) => void;
+    onFieldChange: (id: string) => void;
     onReset: () => void;
     onApply: () => void;
     onClose: () => void;  
@@ -28,10 +18,10 @@ interface CustomizeTableContentProps {
 
 function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClose }: CustomizeTableContentProps) {
     const [searchQuery, setSearchQuery] = useState('');
-    // New state to track if changes have been made
+   
     const [hasChanges, setHasChanges] = useState(false);
 
-    // Filter fields based on search query
+   
     const filteredFields = fields.filter((field) =>
         field.label.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -47,19 +37,19 @@ function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClos
       
     }, [fields]); 
 
-    const handleFieldChange = (id: string | number) => {
+    const handleFieldChange = (id: string) => {
         onFieldChange(id);
-        setHasChanges(true); // Set hasChanges to true whenever a field is toggled
+        setHasChanges(true); 
     };
 
     const handleReset = () => {
         onReset();
-        setHasChanges(false); // Reset hasChanges when the reset button is clicked
+        setHasChanges(false); 
     };
 
     const handleApply = () => {
         onApply();
-        setHasChanges(false); // Reset hasChanges when changes are applied
+        setHasChanges(false); 
     };
 
     return (
@@ -107,9 +97,9 @@ function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClos
                                         id={`field-${field.id}`}
                                         checked={field.visible}
                                         onChange={() => handleFieldChange(field.id)}
-                                        className="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 ml-[10px] cursor-pointer"
+                                        className="form-checkbox h-4 w-4  ml-[10px] cursor-pointer"
                                     />
-                                    <label htmlFor={`field-${field.id}`} className="ml-2 text-sm text-[#3c3c3c]">
+                                    <label htmlFor={`field-${field.id}`} className="ml-2 text-sm text-[#3c3c3c] cursor-pointer">
                                         {field.label}
                                     </label>
                                 </div>
@@ -132,9 +122,10 @@ function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClos
                                         id={`field-${field.id}`}
                                         checked={field.visible}
                                         onChange={() => handleFieldChange(field.id)}
-                                        className="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 cursor-pointer"
+                                        className="form-checkbox h-4 w-4  cursor-pointer"
                                     />
-                                    <label htmlFor={`field-${field.id}`} className="ml-2 text-sm text-gray-700">
+                                    
+                                    <label htmlFor={`field-${field.id}`} className="ml-2 text-sm text-[#3c3c3c] cursor-pointer">
                                         {field.label}
                                     </label>
                                 </div>
@@ -148,7 +139,7 @@ function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClos
 
             {/* Footer Buttons */}
             <div className="px-4 py-3 border-t border-gray-200 flex justify-between items-center ">
-                {hasChanges && ( // Conditionally render the button based on `hasChanges` state
+                {hasChanges && ( 
                     <button
                         onClick={handleReset}
                         className="text-sm text-green-600 hover:text-green-800 font-medium transition duration-200 ease-in-out cursor-pointer"
