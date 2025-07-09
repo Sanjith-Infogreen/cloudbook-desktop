@@ -416,36 +416,36 @@ const NewReceipt = () => {
                 <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                   {/* Removed whitespace between <tr> and <th> */}
                   <tr>
-                    <th className="p-2 w-[3%]">S.no</th>
-                    <th className="p-2 w-[20%]">Date</th>
-                    <th className="p-2 w-[10%]">Bill Number</th>
-                    <th className="p-2 w-[10%]">Purpose</th> {/* New column header */}
-                    <th className="p-2 w-[15%]">Total</th>
-                    <th className="p-2 w-[14%] text-center">Paid</th>
-                    <th className="p-2 w-[10%] text-center">Balance</th>
+                    <th  className="th-cell w-[5%]" >S.no</th>
+                    <th  className="th-cell w-[15%]" >Date</th>
+                    <th  className="th-cell  w-[15%] " >Bill Number</th>
+                    <th  className="th-cell  w-[15%]" >Purpose</th> {/* New column header */}
+                    <th  className="th-cell  w-[15%] text-right" >Total</th>
+                    <th  className="th-cell  w-[15%] text-right" >Paid</th>
+                    <th  className="th-cell  w-[20%] text-right"  >Balance</th>
                   </tr>
                 </thead>
                 <tbody id="productTableBody">
                   {bills.length > 0 ? (
                     bills.map((bill, index) => (
                       <tr key={bill.id} className="border-b border-gray-200">
-                        <td className="pl-2 py-1">{index + 1}</td>
-                        <td className="pl-2 py-1">{bill.date}</td>
-                        <td className="pl-2 py-1">{bill.billNumber}</td>
-                        <td className="pl-2 py-1">{bill.purpose}</td>
-                        <td className="pl-2 py-1 text-right">
-                          {bill.total.toLocaleString("en-IN", {
+                        <td  className="td-cell">{index + 1}</td>
+                        <td  className="td-cell">{bill.date}</td>
+                        <td  className="td-cell">{bill.billNumber}</td>
+                        <td  className="td-cell">{bill.purpose}</td>
+                        <td   className="td-cell text-right">
+                          { bill.total.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
                         </td> 
-                        <td className="pl-2 py-1 text-right text-[#009333] ">
-                          {bill.paid.toLocaleString("en-IN", {
+                        <td  className="td-cell text-right text-[#009333]">
+                          { bill.paid.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
                         </td> 
-                        <td className="pl-2 py-1">
+                        <td  className="td-cell">
                           <Input
                             name={`balance-${bill.id}`}
                             placeholder="Enter Balance"
@@ -471,12 +471,12 @@ const NewReceipt = () => {
                   <tfoot className="bg-[#f8f9fa] text-left text-[#12344d] font-bold sticky-table-footer">
                     {/* Removed empty line and consolidated td tags */}
                     <tr>
-                      <td colSpan={4} className="p-2 text-right">Totals:</td><td className="p-2">
+                      <td colSpan={4} className="p-2 text-right">Total:</td><td className="p-2  text-right">
                         {totalSum.toLocaleString("en-IN", {
                           style: "currency",
                           currency: "INR",
                         })}
-                      </td><td className="p-2 text-center">
+                      </td><td className="p-2  text-right">
                         {paidSum.toLocaleString("en-IN", {
                           style: "currency",
                           currency: "INR",

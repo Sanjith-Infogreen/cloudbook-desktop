@@ -34,16 +34,22 @@ export default function Sidebar() {
       }
     };
 
-    const handleClickOutsideDropdown = (event: MouseEvent) => {
+   const handleClickOutsideDropdown = (event: MouseEvent) => {
+      // If the dropdown is open, and the click happened outside the dropdownRef,
+      // and also outside the specific area that triggers the dropdown (the bottom profile div)
+      const profileToggleArea = document.querySelector('.bottom-profile-toggle-area'); // Use a class to identify the toggle div
+
       if (
+        isDropdownOpen && // Only try to close if it's open
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
-        // Ensure click is not on the toggle icon itself
-        !(event.target as HTMLElement).closest(".ri-expand-up-down-fill")
+        profileToggleArea &&
+        !profileToggleArea.contains(event.target as Node) // Ensure the click is not on the toggle area itself
       ) {
         setIsDropdownOpen(false);
       }
     };
+
 
     // Run initial screen size check
     checkScreenSize();
@@ -86,11 +92,13 @@ export default function Sidebar() {
     }));
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+// Add this state to manage the dropdown visibility
+const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+const toggleDropdown = (event: React.MouseEvent) => {
+  event.stopPropagation(); // Crucial for proper toggle behavior
+  setIsDropdownOpen((prev) => !prev);
+};
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
@@ -215,30 +223,32 @@ export default function Sidebar() {
             </ul>
           </nav>
 
-          <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center">
-            <div className="mr-2">
-              <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
-                {" "}
-                {/* Added overflow-hidden */}
-                <img
-                  src="/images/profile-pic.jpg"
-                  alt="User Image"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            <div className="text-[#b0b3b7]">
-              <div className="font-semibold text-[15px]">Emma Stone</div>
-              <div className="text-xs">Admin</div>
-            </div>
-            <div className="ml-auto">
-              <i
-                className="ri-expand-up-down-fill text-[#b0b3b7] text-md cursor-pointer"
-                onClick={toggleDropdown}
-              ></i>
+           <div
+          className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center cursor-pointer" // Added cursor-pointer and onClick
+          onClick={toggleDropdown}
+        >
+          <div className="mr-2">
+            <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
+              {" "}
+              {/* Added overflow-hidden */}
+              <img
+                src="/images/profile-pic.jpg"
+                alt="User Image"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
+          <div className="text-[#b0b3b7]">
+            <div className="font-semibold text-[15px]">Emma Stone</div>
+            <div className="text-xs">Admin</div>
+          </div>
+          <div className="ml-auto">
+            <i
+              className="ri-expand-up-down-fill text-[#b0b3b7] text-md" // Removed onClick here
+            ></i>
+          </div>
         </div>
+      </div>
         {isDropdownOpen && (
           <div
             ref={dropdownRef}
@@ -248,7 +258,7 @@ export default function Sidebar() {
               <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-11 h-11 flex items-center justify-center overflow-hidden">
                   <img
-                    src="/images/profile-pic.png"
+                    src="/images/profile-pic.jpg"
                     alt="User Profile"
                     className="w-full h-full object-cover"
                   />
@@ -259,12 +269,12 @@ export default function Sidebar() {
                 <div className="flex flex-col w-full">
                   <div className="flex items-center w-full">
                     <div className="font-semibold text-gray-900 text-[15px]">
-                      Emily Clark
+                      Emma
                       <span className="text-[12px] ml-2 text-gray-500">
-                        @emily
+                        @emmastone
                       </span>
                       <p className="text-[12px] text-gray-500">
-                        emily.clark@example.com
+                        emily.stone@example.com
                       </p>
                     </div>
                     <div className="ml-auto  px-2 text-[11px] font-bold text-green-700 bg-green-100 rounded-full  ">

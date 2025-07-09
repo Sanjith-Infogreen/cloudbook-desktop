@@ -4,6 +4,7 @@ import sideMenuReducer from './sideMenu/sideMenu'
 import leaveReportReucer from './report/leaveReport'
 import monthlyReportReucer from './report/monthlyReport'
 import ContactReducer from './contact/contact'
+import ProductReducer from './product/product'
 export const store = configureStore({
   reducer: {
     typeHead:typeheadReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
     leaveReport:leaveReportReucer,
     monthlyreport:monthlyReportReucer,
     contact:ContactReducer,
+    product:ProductReducer,
 
 
 
