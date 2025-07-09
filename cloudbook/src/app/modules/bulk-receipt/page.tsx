@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Layout from "../../components/Layout";
@@ -79,7 +79,7 @@ const NewBulkReceipt = () => {
 
   const handleResetFilters = () => {
     console.log('Resetting filters');
-     
+      
   };
   const sampleBills: BillItem[] = [
     {
@@ -376,7 +376,7 @@ const NewBulkReceipt = () => {
             
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
                 <div className="lg:pr-4"></div>
-                <div className="  flex justify-end">
+                <div className="flex justify-end">
                   <FormField label="" className="w-full lg:w-1/2">
                     <DatePicker
                       name="date"
@@ -390,47 +390,44 @@ const NewBulkReceipt = () => {
                     />
                   </FormField>
                   <button className="btn-sm btn-visible-hover" onClick={handleOpenFilterSidebar}>
-                <i className="ri-sort-desc" ></i>
-              </button>
-              <FilterSidebar
-                isOpen={isFilterSidebarOpen}
-                onClose={handleCloseFilterSidebar}
-                onApply={handleApplyFilters}
-                onReset={handleResetFilters}
-                title="Apply Your Filters"
-              >
-                {/* Content to be placed inside the sidebar */}
-                <div className="space-y-1">
-                 
-                  <div>
-                    <label className="filter-label">Area</label>
-                    <Input
-                      name="area"
-                      placeholder="Enter Area"
+                    <i className="ri-sort-desc" ></i>
+                  </button>
+                  <FilterSidebar
+                    isOpen={isFilterSidebarOpen}
+                    onClose={handleCloseFilterSidebar}
+                    onApply={handleApplyFilters}
+                    onReset={handleResetFilters}
+                    title="Apply Your Filters"
+                  >
+                    {/* Content to be placed inside the sidebar */}
+                    <div className="space-y-1">
                       
-                    />
-                  </div>
+                      <div>
+                        <label className="filter-label">Area</label>
+                        <Input
+                          name="area"
+                          placeholder="Enter Area"
+                          
+                        />
+                      </div>
 
-                  
-                   
-
-
-
-
-
-
-
-
-
-                </div>
-              </FilterSidebar>
+                      
+                        {/* Removed commented out Input components for brevity and focus on the fix */}
+                        {/*
+                        <Input
+                          name="someOtherField"
+                          placeholder="Some other field"
+                        />
+                        */}
+                    </div>
+                  </FilterSidebar>
                 </div>
               </div>
             
 
             {/* Bills Table Section */}
             {/* Added relative positioning to the container for sticky footer to work within it */}
-            <div className="h-[calc(100vh-170px)] max-h-[calc(100vh-170px)] overflow-y-auto pr-2 pl-2  mb-2 relative">
+            <div className="h-[calc(100vh-170px)] max-h-[calc(100vh-170px)] overflow-y-auto pr-2 pl-2 mb-2 relative">
               <table className="w-full text-sm">
                 <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                   <tr>
@@ -485,8 +482,6 @@ const NewBulkReceipt = () => {
                   ) : (
                     <tr>
                       <td colSpan={8} className="p-4 text-center text-gray-500">
-                        {" "}
-                        {/* Increased colspan */}
                         Select a supplier to view bills.
                       </td>
                     </tr>
@@ -494,11 +489,9 @@ const NewBulkReceipt = () => {
                 </tbody>
                 {/* Table Footer for Totals */}
                 {bills.length > 0 && (
-                  <tfoot className="bg-[#ebeff3] text-right text-[14px] text-[#212529]   sticky-table-footer">
+                  <tfoot className="bg-[#ebeff3] text-right text-[14px] text-[#212529] sticky-table-footer">
                     <tr>
                       <td colSpan={5} className="p-2 text-right">
-                        {" "}
-                        {/* Increased colspan */}
                         Totals:
                       </td>
                       <td className=" text-right">
