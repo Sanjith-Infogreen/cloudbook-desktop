@@ -135,148 +135,148 @@
       "pincode": "302001"
     }
   ],
- 
-    "sidebarData": [
-      {
-        "icon": "ri-dashboard-line",
-        "Title": "Master",
-        "icon_down": "ri-arrow-down-s-line",
-        "submenu": [
-          {
-            "Title": "Contact",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/contact/list",
-            "new_Link": "/modules/contact/new",
-            "order": 1
-          },
-          {
-            "Title": "Product",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/product/list",
-            "new_Link": "/modules/product/new",
-            "order": 2
-          },
-          {
-            "Title": "Category",
-            "icon_New": "",
-            "main_Link": "/modules/category",
-            "new_Link": "",
-            "order": 3
-          }
-        ],
-        "order": 1,
-        "id": "2ad3"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Sales Order",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/sales-order/list",
-        "new_Link": "/modules/sales-order/new",
-        "order": 2,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Invoice",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/invoice/list",
-        "new_Link": "/modules/invoice/new",
-        "order": 3,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-shopping-cart-line",
-        "Title": "Purchase",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase/list",
-        "new_Link": "/modules/purchase/new",
-        "order": 4,
-        "id": "2b7b"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "Quotation",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/quotation/list",
-        "new_Link": "/modules/quotation/new",
-        "order": 5,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "DC",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/dc/list",
-        "new_Link": "/modules/dc/new",
-        "order": 6,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "Payment",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/payment/list",
-        "new_Link": "/modules/payment/new",
-        "order": 7,
-        "id": "3afc"
-      },
-      {
-        "icon": "ri-money-rupee-circle-line",
-        "Title": "Receipt",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/receipt/list",
-        "new_Link": "/modules/receipt/new",
-        "order": 8,
-        "id": "059e"
-      },
-      {
-        "icon": "ri-calculator-line",
-        "Title": "Expense",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/expense/list",
-        "new_Link": "/modules/expense/new",
-        "order": 9,
-        "id": "aa06"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "P.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase-return/list",
-        "new_Link": "/modules/purchase-return/new",
-        "order": 10,
-        "id": "7b73"
-      },
-      {
-        "icon": "ri-reply-line",
-        "Title": "S.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "modules/sales-return/list",
-        "new_Link": "modules/sales-return/new",
-        "order": 11,
-        "id": "c1fa"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Bulk Receipt",
-        "icon_New": "",
-        "main_Link": "/modules/bulk-receipt",
-        "new_Link": "",
-        "order": 12,
-        "id": "2df5"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Report",
-        "icon_New": "",
-        "main_Link": "/modules/report",
-        "new_Link": "",
-        "order": 13,
-        "id": "2df5"
-      }
-    ],
- 
+
+  "sidebarData": [
+    {
+      "icon": "ri-dashboard-line",
+      "Title": "Master",
+      "icon_down": "ri-arrow-down-s-line",
+      "submenu": [
+        {
+          "Title": "Contact",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/contact/list",
+          "new_Link": "/modules/contact/new",
+          "order": 1
+        },
+        {
+          "Title": "Product",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/product/list",
+          "new_Link": "/modules/product/new",
+          "order": 2
+        },
+        {
+          "Title": "Category",
+          "icon_New": "",
+          "main_Link": "/modules/category",
+          "new_Link": "",
+          "order": 3
+        }
+      ],
+      "order": 1,
+      "id": "2ad3"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Sales Order",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/sales-order/list",
+      "new_Link": "/modules/sales-order/new",
+      "order": 2,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Invoice",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/invoice/list",
+      "new_Link": "/modules/invoice/new",
+      "order": 3,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-shopping-cart-line",
+      "Title": "Purchase",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase/list",
+      "new_Link": "/modules/purchase/new",
+      "order": 4,
+      "id": "2b7b"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "Quotation",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/quotation/list",
+      "new_Link": "/modules/quotation/new",
+      "order": 5,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "DC",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/dc/list",
+      "new_Link": "/modules/dc/new",
+      "order": 6,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "Payment",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/payment/list",
+      "new_Link": "/modules/payment/new",
+      "order": 7,
+      "id": "3afc"
+    },
+    {
+      "icon": "ri-money-rupee-circle-line",
+      "Title": "Receipt",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/receipt/list",
+      "new_Link": "/modules/receipt/new",
+      "order": 8,
+      "id": "059e"
+    },
+    {
+      "icon": "ri-calculator-line",
+      "Title": "Expense",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/expense/list",
+      "new_Link": "/modules/expense/new",
+      "order": 9,
+      "id": "aa06"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "P.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase-return/list",
+      "new_Link": "/modules/purchase-return/new",
+      "order": 10,
+      "id": "7b73"
+    },
+    {
+      "icon": "ri-reply-line",
+      "Title": "S.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "modules/sales-return/list",
+      "new_Link": "modules/sales-return/new",
+      "order": 11,
+      "id": "c1fa"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Bulk Receipt",
+      "icon_New": "",
+      "main_Link": "/modules/bulk-receipt",
+      "new_Link": "",
+      "order": 12,
+      "id": "2df5"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Report",
+      "icon_New": "",
+      "main_Link": "/modules/report",
+      "new_Link": "",
+      "order": 13,
+      "id": "2df5"
+    }
+  ],
+
   "customerLedger": [
     {
       "id": "1",
@@ -538,365 +538,523 @@
       "remarks": "Business travel related"
     }
   ],
- 
 
- 
-    "mockProductSalesReportData": [
-      {
-        "id": 1,
-        "customerName": "John Doe",
-        "address": "Namakkal",
-        "productName": "Paracetamol Tablets",
-        "quantitySold": 5,
-        "saleDate": "2025-07-01",
-        "totalAmount": 150.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 2,
-        "customerName": "Jane Smith",
-        "address": "Trichy",
-        "productName": "Vitamin C Syrup",
-        "quantitySold": 2,
-        "saleDate": "2025-07-05",
-        "totalAmount": 80.00,
-        "status": "Pending"
-      },
-      {
-        "id": 3,
-        "customerName": "Robert Brown",
-        "address": "Salem",
-        "productName": "Cough Syrup",
-        "quantitySold": 3,
-        "saleDate": "2025-07-10",
-        "totalAmount": 120.00,
-        "status": "Cancelled"
-      },
-      {
-        "id": 4,
-        "customerName": "Aravind Kumar",
-        "address": "Coimbatore",
-        "productName": "Antibiotic Ointment",
-        "quantitySold": 1,
-        "saleDate": "2025-07-02",
-        "totalAmount": 75.50,
-        "status": "Delivered"
-      },
-      {
-        "id": 5,
-        "customerName": "Priya Devi",
-        "address": "Madurai",
-        "productName": "Pain Relief Spray",
-        "quantitySold": 2,
-        "saleDate": "2025-07-06",
-        "totalAmount": 90.00,
-        "status": "Pending"
-      },
-      {
-        "id": 6,
-        "customerName": "Suresh Rajan",
-        "address": "Chennai",
-        "productName": "Multivitamin Capsules",
-        "quantitySold": 4,
-        "saleDate": "2025-07-11",
-        "totalAmount": 200.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 7,
-        "customerName": "Meena Kumari",
-        "address": "Vellore",
-        "productName": "Antacid Tablets",
-        "quantitySold": 6,
-        "saleDate": "2025-07-03",
-        "totalAmount": 60.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 8,
-        "customerName": "Ganesh Murugan",
-        "address": "Erode",
-        "productName": "Fever Reducer Syrup",
-        "quantitySold": 1,
-        "saleDate": "2025-07-07",
-        "totalAmount": 45.00,
-        "status": "Pending"
-      },
-      {
-        "id": 9,
-        "customerName": "Shanthi Prakash",
-        "address": "Thanjavur",
-        "productName": "Bandages Pack",
-        "quantitySold": 3,
-        "saleDate": "2025-07-12",
-        "totalAmount": 30.00,
-        "status": "Cancelled"
-      },
-      {
-        "id": 10,
-        "customerName": "Kathir Velu",
-        "address": "Dindigul",
-        "productName": "Allergy Medication",
-        "quantitySold": 2,
-        "saleDate": "2025-07-04",
-        "totalAmount": 110.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 11,
-        "customerName": "Lakshmi Narayanan",
-        "address": "Kanyakumari",
-        "productName": "Digestive Enzymes",
-        "quantitySold": 1,
-        "saleDate": "2025-07-08",
-        "totalAmount": 70.00,
-        "status": "Pending"
-      },
-      {
-        "id": 12,
-        "customerName": "Ramesh Kumar",
-        "address": "Puducherry",
-        "productName": "Topical Cream",
-        "quantitySold": 2,
-        "saleDate": "2025-07-13",
-        "totalAmount": 85.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 13,
-        "customerName": "Deepa Anand",
-        "address": "Nagercoil",
-        "productName": "Eye Drops",
-        "quantitySold": 1,
-        "saleDate": "2025-07-01",
-        "totalAmount": 50.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 14,
-        "customerName": "Kumaravel",
-        "address": "Tirunelveli",
-        "productName": "Hand Sanitizer",
-        "quantitySold": 5,
-        "saleDate": "2025-07-05",
-        "totalAmount": 125.00,
-        "status": "Pending"
-      },
-      {
-        "id": 15,
-        "customerName": "Selvi Rani",
-        "address": "Thiruvannamalai",
-        "productName": "First Aid Kit",
-        "quantitySold": 1,
-        "saleDate": "2025-07-10",
-        "totalAmount": 250.00,
-        "status": "Cancelled"
-      },
-      {
-        "id": 16,
-        "customerName": "Vijayalakshmi",
-        "address": "Cuddalore",
-        "productName": "Orthopedic Belt",
-        "quantitySold": 1,
-        "saleDate": "2025-07-02",
-        "totalAmount": 300.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 17,
-        "customerName": "Mohan Raj",
-        "address": "Karur",
-        "productName": "Blood Pressure Monitor",
-        "quantitySold": 1,
-        "saleDate": "2025-07-06",
-        "totalAmount": 750.00,
-        "status": "Pending"
-      },
-      {
-        "id": 18,
-        "customerName": "Sangeetha Devi",
-        "address": "Ramanathapuram",
-        "productName": "Diabetes Test Strips",
-        "quantitySold": 3,
-        "saleDate": "2025-07-11",
-        "totalAmount": 450.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 19,
-        "customerName": "Prabhu Deva",
-        "address": "Virudhunagar",
-        "productName": "Inhaler",
-        "quantitySold": 1,
-        "saleDate": "2025-07-03",
-        "totalAmount": 200.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 20,
-        "customerName": "Malathi Murugan",
-        "address": "Sivaganga",
-        "productName": "Vapor Rub",
-        "quantitySold": 2,
-        "saleDate": "2025-07-07",
-        "totalAmount": 70.00,
-        "status": "Pending"
-      },
-      {
-        "id": 21,
-        "customerName": "Saravanan",
-        "address": "Theni",
-        "productName": "Multivitamin Gummies",
-        "quantitySold": 3,
-        "saleDate": "2025-07-12",
-        "totalAmount": 180.00,
-        "status": "Cancelled"
-      },
-      {
-        "id": 22,
-        "customerName": "Kavitha",
-        "address": "Thoothukudi",
-        "productName": "Weight Loss Supplement",
-        "quantitySold": 1,
-        "saleDate": "2025-07-04",
-        "totalAmount": 600.00,
-        "status": "Delivered"
-      },
-      {
-        "id": 23,
-        "customerName": "Dinesh Kumar",
-        "address": "Krishnagiri",
-        "productName": "Protein Powder",
-        "quantitySold": 1,
-        "saleDate": "2025-07-08",
-        "totalAmount": 900.00,
-        "status": "Pending"
-      }
-    ],
- 
-  
- 
-  "existingContacts":[
-  {
-    "id": 1,
-    "name": "Arun Kumar",
-    "phoneNumber": "9876543210",
-    "location": "Chennai"
-  },
-  {
-    "id": 2,
-    "name": "Priya Sharma",
-    "phoneNumber": "9123456780",
-    "location": "Bangalore"
-  },
-  {
-    "id": 3,
-    "name": "Ravi Teja",
-    "phoneNumber": "9988776655",
-    "location": "Hyderabad"
-  },
-  {
-    "id": 4,
-    "name": "Meena R",
-    "phoneNumber": "9090909090",
-    "location": "Coimbatore"
-  },
-  {
-    "id": 5,
-    "name": "Suresh Das",
-    "phoneNumber": "8888777766",
-    "location": "Kolkata"
-  },
-  {
-    "id": 6,
-    "name": "Anita Verma",
-    "phoneNumber": "7766554433",
-    "location": "Mumbai"
-  },
-  {
-    "id": 7,
-    "name": "Rajeev Nair",
-    "phoneNumber": "7001234567",
-    "location": "Kochi"
-  },
-  {
-    "id": 8,
-    "name": "Divya Iyer",
-    "phoneNumber": "9443311223",
-    "location": "Madurai"
-  },
-  {
-    "id": 9,
-    "name": "Nikhil B",
-    "phoneNumber": "8080808080",
-    "location": "Pune"
-  },
-  {
-    "id": 10,
-    "name": "Sandhya G",
-    "phoneNumber": "9300456789",
-    "location": "Delhi"
-  },
-  {
-    "id": 11,
-    "name": "Karthik M",
-    "phoneNumber": "9367812345",
-    "location": "Salem"
-  },
-  {
-    "id": 12,
-    "name": "Sneha Reddy",
-    "phoneNumber": "8899776655",
-    "location": "Warangal"
-  },
-  {
-    "id": 13,
-    "name": "Ajay Singh",
-    "phoneNumber": "9811122233",
-    "location": "Noida"
-  },
-  {
-    "id": 14,
-    "name": "Lavanya V",
-    "phoneNumber": "9871234567",
-    "location": "Vellore"
-  },
-  {
-    "id": 15,
-    "name": "Manoj P",
-    "phoneNumber": "9533578642",
-    "location": "Trichy"
-  },
-  {
-    "id": 16,
-    "name": "Deepika N",
-    "phoneNumber": "9944556633",
-    "location": "Thanjavur"
-  },
-  {
-    "id": 17,
-    "name": "Sathish R",
-    "phoneNumber": "9000088899",
-    "location": "Tirunelveli"
-  },
-  {
-    "id": 18,
-    "name": "Anjali C",
-    "phoneNumber": "8907766554",
-    "location": "Erode"
-  },
-  {
-    "id": 19,
-    "name": "Vikram S",
-    "phoneNumber": "8500554477",
-    "location": "Theni"
-  },
-  {
-    "id": 20,
-    "name": "Bhavana L",
-    "phoneNumber": "9321123344",
-    "location": "Nagercoil"
-  }
-]
- 
+  "mockProductSalesReportData": [
+    {
+      "id": 1,
+      "customerName": "John Doe",
+      "address": "Namakkal",
+      "productName": "Paracetamol Tablets",
+      "quantitySold": 5,
+      "saleDate": "2025-07-01",
+      "totalAmount": 150.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 2,
+      "customerName": "Jane Smith",
+      "address": "Trichy",
+      "productName": "Vitamin C Syrup",
+      "quantitySold": 2,
+      "saleDate": "2025-07-05",
+      "totalAmount": 80.0,
+      "status": "Pending"
+    },
+    {
+      "id": 3,
+      "customerName": "Robert Brown",
+      "address": "Salem",
+      "productName": "Cough Syrup",
+      "quantitySold": 3,
+      "saleDate": "2025-07-10",
+      "totalAmount": 120.0,
+      "status": "Cancelled"
+    },
+    {
+      "id": 4,
+      "customerName": "Aravind Kumar",
+      "address": "Coimbatore",
+      "productName": "Antibiotic Ointment",
+      "quantitySold": 1,
+      "saleDate": "2025-07-02",
+      "totalAmount": 75.5,
+      "status": "Delivered"
+    },
+    {
+      "id": 5,
+      "customerName": "Priya Devi",
+      "address": "Madurai",
+      "productName": "Pain Relief Spray",
+      "quantitySold": 2,
+      "saleDate": "2025-07-06",
+      "totalAmount": 90.0,
+      "status": "Pending"
+    },
+    {
+      "id": 6,
+      "customerName": "Suresh Rajan",
+      "address": "Chennai",
+      "productName": "Multivitamin Capsules",
+      "quantitySold": 4,
+      "saleDate": "2025-07-11",
+      "totalAmount": 200.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 7,
+      "customerName": "Meena Kumari",
+      "address": "Vellore",
+      "productName": "Antacid Tablets",
+      "quantitySold": 6,
+      "saleDate": "2025-07-03",
+      "totalAmount": 60.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 8,
+      "customerName": "Ganesh Murugan",
+      "address": "Erode",
+      "productName": "Fever Reducer Syrup",
+      "quantitySold": 1,
+      "saleDate": "2025-07-07",
+      "totalAmount": 45.0,
+      "status": "Pending"
+    },
+    {
+      "id": 9,
+      "customerName": "Shanthi Prakash",
+      "address": "Thanjavur",
+      "productName": "Bandages Pack",
+      "quantitySold": 3,
+      "saleDate": "2025-07-12",
+      "totalAmount": 30.0,
+      "status": "Cancelled"
+    },
+    {
+      "id": 10,
+      "customerName": "Kathir Velu",
+      "address": "Dindigul",
+      "productName": "Allergy Medication",
+      "quantitySold": 2,
+      "saleDate": "2025-07-04",
+      "totalAmount": 110.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 11,
+      "customerName": "Lakshmi Narayanan",
+      "address": "Kanyakumari",
+      "productName": "Digestive Enzymes",
+      "quantitySold": 1,
+      "saleDate": "2025-07-08",
+      "totalAmount": 70.0,
+      "status": "Pending"
+    },
+    {
+      "id": 12,
+      "customerName": "Ramesh Kumar",
+      "address": "Puducherry",
+      "productName": "Topical Cream",
+      "quantitySold": 2,
+      "saleDate": "2025-07-13",
+      "totalAmount": 85.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 13,
+      "customerName": "Deepa Anand",
+      "address": "Nagercoil",
+      "productName": "Eye Drops",
+      "quantitySold": 1,
+      "saleDate": "2025-07-01",
+      "totalAmount": 50.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 14,
+      "customerName": "Kumaravel",
+      "address": "Tirunelveli",
+      "productName": "Hand Sanitizer",
+      "quantitySold": 5,
+      "saleDate": "2025-07-05",
+      "totalAmount": 125.0,
+      "status": "Pending"
+    },
+    {
+      "id": 15,
+      "customerName": "Selvi Rani",
+      "address": "Thiruvannamalai",
+      "productName": "First Aid Kit",
+      "quantitySold": 1,
+      "saleDate": "2025-07-10",
+      "totalAmount": 250.0,
+      "status": "Cancelled"
+    },
+    {
+      "id": 16,
+      "customerName": "Vijayalakshmi",
+      "address": "Cuddalore",
+      "productName": "Orthopedic Belt",
+      "quantitySold": 1,
+      "saleDate": "2025-07-02",
+      "totalAmount": 300.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 17,
+      "customerName": "Mohan Raj",
+      "address": "Karur",
+      "productName": "Blood Pressure Monitor",
+      "quantitySold": 1,
+      "saleDate": "2025-07-06",
+      "totalAmount": 750.0,
+      "status": "Pending"
+    },
+    {
+      "id": 18,
+      "customerName": "Sangeetha Devi",
+      "address": "Ramanathapuram",
+      "productName": "Diabetes Test Strips",
+      "quantitySold": 3,
+      "saleDate": "2025-07-11",
+      "totalAmount": 450.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 19,
+      "customerName": "Prabhu Deva",
+      "address": "Virudhunagar",
+      "productName": "Inhaler",
+      "quantitySold": 1,
+      "saleDate": "2025-07-03",
+      "totalAmount": 200.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 20,
+      "customerName": "Malathi Murugan",
+      "address": "Sivaganga",
+      "productName": "Vapor Rub",
+      "quantitySold": 2,
+      "saleDate": "2025-07-07",
+      "totalAmount": 70.0,
+      "status": "Pending"
+    },
+    {
+      "id": 21,
+      "customerName": "Saravanan",
+      "address": "Theni",
+      "productName": "Multivitamin Gummies",
+      "quantitySold": 3,
+      "saleDate": "2025-07-12",
+      "totalAmount": 180.0,
+      "status": "Cancelled"
+    },
+    {
+      "id": 22,
+      "customerName": "Kavitha",
+      "address": "Thoothukudi",
+      "productName": "Weight Loss Supplement",
+      "quantitySold": 1,
+      "saleDate": "2025-07-04",
+      "totalAmount": 600.0,
+      "status": "Delivered"
+    },
+    {
+      "id": 23,
+      "customerName": "Dinesh Kumar",
+      "address": "Krishnagiri",
+      "productName": "Protein Powder",
+      "quantitySold": 1,
+      "saleDate": "2025-07-08",
+      "totalAmount": 900.0,
+      "status": "Pending"
+    }
+  ],
+
+  "existingContacts": [
+    {
+      "id": 1,
+      "name": "Arun Kumar",
+      "phoneNumber": "9876543210",
+      "location": "Chennai"
+    },
+    {
+      "id": 2,
+      "name": "Priya Sharma",
+      "phoneNumber": "9123456780",
+      "location": "Bangalore"
+    },
+    {
+      "id": 3,
+      "name": "Ravi Teja",
+      "phoneNumber": "9988776655",
+      "location": "Hyderabad"
+    },
+    {
+      "id": 4,
+      "name": "Meena R",
+      "phoneNumber": "9090909090",
+      "location": "Coimbatore"
+    },
+    {
+      "id": 5,
+      "name": "Suresh Das",
+      "phoneNumber": "8888777766",
+      "location": "Kolkata"
+    },
+    {
+      "id": 6,
+      "name": "Anita Verma",
+      "phoneNumber": "7766554433",
+      "location": "Mumbai"
+    },
+    {
+      "id": 7,
+      "name": "Rajeev Nair",
+      "phoneNumber": "7001234567",
+      "location": "Kochi"
+    },
+    {
+      "id": 8,
+      "name": "Divya Iyer",
+      "phoneNumber": "9443311223",
+      "location": "Madurai"
+    },
+    {
+      "id": 9,
+      "name": "Nikhil B",
+      "phoneNumber": "8080808080",
+      "location": "Pune"
+    },
+    {
+      "id": 10,
+      "name": "Sandhya G",
+      "phoneNumber": "9300456789",
+      "location": "Delhi"
+    },
+    {
+      "id": 11,
+      "name": "Karthik M",
+      "phoneNumber": "9367812345",
+      "location": "Salem"
+    },
+    {
+      "id": 12,
+      "name": "Sneha Reddy",
+      "phoneNumber": "8899776655",
+      "location": "Warangal"
+    },
+    {
+      "id": 13,
+      "name": "Ajay Singh",
+      "phoneNumber": "9811122233",
+      "location": "Noida"
+    },
+    {
+      "id": 14,
+      "name": "Lavanya V",
+      "phoneNumber": "9871234567",
+      "location": "Vellore"
+    },
+    {
+      "id": 15,
+      "name": "Manoj P",
+      "phoneNumber": "9533578642",
+      "location": "Trichy"
+    },
+    {
+      "id": 16,
+      "name": "Deepika N",
+      "phoneNumber": "9944556633",
+      "location": "Thanjavur"
+    },
+    {
+      "id": 17,
+      "name": "Sathish R",
+      "phoneNumber": "9000088899",
+      "location": "Tirunelveli"
+    },
+    {
+      "id": 18,
+      "name": "Anjali C",
+      "phoneNumber": "8907766554",
+      "location": "Erode"
+    },
+    {
+      "id": 19,
+      "name": "Vikram S",
+      "phoneNumber": "8500554477",
+      "location": "Theni"
+    },
+    {
+      "id": 20,
+      "name": "Bhavana L",
+      "phoneNumber": "9321123344",
+      "location": "Nagercoil"
+    }
+  ],
+
+  "existingProducts": [
+    {
+      "id": 1,
+      "name": "Toor Dal",
+      "category": "Pulses",
+      "price": 120,
+      "unit": "kg",
+      "stock": 100
+    },
+    {
+      "id": 2,
+      "name": "Urad Dal",
+      "category": "Pulses",
+      "price": 95,
+      "unit": "kg",
+      "stock": 80
+    },
+    {
+      "id": 3,
+      "name": "Moong Dal",
+      "category": "Pulses",
+      "price": 110,
+      "unit": "kg",
+      "stock": 60
+    },
+    {
+      "id": 4,
+      "name": "Chana Dal",
+      "category": "Pulses",
+      "price": 100,
+      "unit": "kg",
+      "stock": 90
+    },
+    {
+      "id": 5,
+      "name": "Basmati Rice",
+      "category": "Grains",
+      "price": 80,
+      "unit": "kg",
+      "stock": 200
+    },
+    {
+      "id": 6,
+      "name": "Idli Rice",
+      "category": "Grains",
+      "price": 60,
+      "unit": "kg",
+      "stock": 150
+    },
+    {
+      "id": 7,
+      "name": "Groundnut Oil",
+      "category": "Oil",
+      "price": 180,
+      "unit": "litre",
+      "stock": 90
+    },
+    {
+      "id": 8,
+      "name": "Sunflower Oil",
+      "category": "Oil",
+      "price": 160,
+      "unit": "litre",
+      "stock": 70
+    },
+    {
+      "id": 9,
+      "name": "Palm Oil",
+      "category": "Oil",
+      "price": 150,
+      "unit": "litre",
+      "stock": 120
+    },
+    {
+      "id": 10,
+      "name": "Parachute Coconut Oil",
+      "category": "Hair Oil",
+      "price": 95,
+      "unit": "500ml",
+      "stock": 60
+    },
+    {
+      "id": 11,
+      "name": "Surf Excel Detergent",
+      "category": "Cleaning",
+      "price": 210,
+      "unit": "1kg",
+      "stock": 40
+    },
+    {
+      "id": 12,
+      "name": "Tide Detergent Powder",
+      "category": "Cleaning",
+      "price": 195,
+      "unit": "1kg",
+      "stock": 50
+    },
+    {
+      "id": 13,
+      "name": "Lifebuoy Soap",
+      "category": "Bath Soap",
+      "price": 35,
+      "unit": "125g",
+      "stock": 300
+    },
+    {
+      "id": 14,
+      "name": "Lux Soap",
+      "category": "Bath Soap",
+      "price": 40,
+      "unit": "150g",
+      "stock": 280
+    },
+    {
+      "id": 15,
+      "name": "Colgate Toothpaste",
+      "category": "Personal Care",
+      "price": 90,
+      "unit": "150g",
+      "stock": 100
+    },
+    {
+      "id": 16,
+      "name": "Pepsodent Toothpaste",
+      "category": "Personal Care",
+      "price": 85,
+      "unit": "150g",
+      "stock": 90
+    },
+    {
+      "id": 17,
+      "name": "Tata Salt",
+      "category": "Spices",
+      "price": 25,
+      "unit": "1kg",
+      "stock": 300
+    },
+    {
+      "id": 18,
+      "name": "Aashirvaad Atta",
+      "category": "Flour",
+      "price": 280,
+      "unit": "5kg",
+      "stock": 75
+    },
+    {
+      "id": 19,
+      "name": "Sugar",
+      "category": "Essentials",
+      "price": 45,
+      "unit": "kg",
+      "stock": 250
+    },
+    {
+      "id": 20,
+      "name": "Turmeric Powder",
+      "category": "Spices",
+      "price": 55,
+      "unit": "250g",
+      "stock": 130
+    }
+  ]
 }
