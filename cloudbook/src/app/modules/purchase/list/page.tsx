@@ -1,55 +1,53 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, RefObject } from "react";
 import Layout from "../../../components/Layout";
 import { useRouter } from "next/navigation";
 import FilterSidebar from "@/app/utils/filterSIdebar";
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
 import CustomizeTableContent from "@/app/utils/customizeTableSidebar";
-import {
-  Input,
-  RadioGroup,
-  CheckboxGroup,
-  Toggle,
-} from "@/app/utils/form-controls";
+import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
+import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 
-type SidebarProps = {
+interface SidebarProps {
+  children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
-};
+  toggleButtonRef: RefObject<HTMLButtonElement | null>;
+}
 
-function Sidebar({ isOpen, onClose, children }: SidebarProps) {
-  const sidebarRef = useRef<HTMLDivElement>(null); // Create a ref for the sidebar DOM element
+function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only add listener if sidebar is open
     if (isOpen) {
       const handleClickOutside = (event: MouseEvent) => {
-        // If the click is outside the sidebarRef element, close the sidebar
+
+        if (toggleButtonRef.current && toggleButtonRef.current.contains(event.target as Node)) {
+          return;
+        }
+
+
         if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
           onClose();
         }
       };
 
-      // Add event listener when component mounts or isOpen becomes true
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
 
-      // Clean up the event listener when component unmounts or isOpen becomes false
       return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener("mousedown", handleClickOutside);
       };
     }
-  }, [isOpen, onClose]); // Re-run effect if isOpen or onClose changes
+  }, [isOpen, onClose, toggleButtonRef]);
 
   return (
     <>
-   
       <div
-        ref={sidebarRef} 
+        ref={sidebarRef}
         className={`fixed top-0 right-0 offcanvas-sidebar h-[calc(100vh-90px)] z-50 
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {children}
       </div>
@@ -57,7 +55,9 @@ function Sidebar({ isOpen, onClose, children }: SidebarProps) {
   );
 }
 
-// Define tab key types
+
+
+
 type TabKey = "all" | "pending" | "completed" | "cancelled";
 
 const PurchaseList = () => {
@@ -65,59 +65,99 @@ const PurchaseList = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
 
+  const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
+  const [isPODropdownOpen, setPODropdownOpen] = useState(false);
+  const viewRef = useRef(null);
+  const poRef = useRef(null);
 
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // Define fields state here, in the parent (CustomizeTableButton)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDelete = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (
+      viewRef.current &&
+      !(viewRef.current as any).contains(e.target)
+    ) {
+      setViewDropdownOpen(false);
+    }
+    if (
+      poRef.current &&
+      !(poRef.current as any).contains(e.target)
+    ) {
+      setPODropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [fields, setFields] = useState([
-    { id: 'name', label: 'Name', visible: true },
-    { id: 'account', label: 'Account', visible: true },
-    { id: 'jobTitle', label: 'Job title', visible: true },
-    { id: 'email', label: 'Email', visible: true },
-    { id: 'mobile', label: 'Mobile', visible: true },
-    { id: 'status', label: 'Status', visible: true },
-    { id: 'tags', label: 'Tags', visible: true },
-    { id: 'salesOwner', label: 'Sales owner', visible: true },
-    { id: 'facebook', label: 'Facebook', visible: true },
-    { id: 'firstName', label: 'First name', visible: false },
-    { id: 'lastName', label: 'Last name', visible: false },
-    { id: 'workPhone', label: 'Work phone', visible: false },
+    { id: "name", label: "Name", visible: true },
+    { id: "account", label: "Account", visible: true },
+    { id: "jobTitle", label: "Job title", visible: true },
+    { id: "email", label: "Email", visible: true },
+    { id: "mobile", label: "Mobile", visible: true },
+    { id: "status", label: "Status", visible: true },
+    { id: "tags", label: "Tags", visible: true },
+    { id: "salesOwner", label: "Sales owner", visible: true },
+    { id: "facebook", label: "Facebook", visible: true },
+    { id: "firstName", label: "First name", visible: false },
+    { id: "lastName", label: "Last name", visible: false },
+    { id: "workPhone", label: "Work phone", visible: false },
     { id: 'totalChatSessions', label: 'Total chat sessions', visible: false },
     { id: 'firstSeenChat', label: 'First seen on chat', visible: false },
     { id: 'lastSeenChat', label: 'Last seen on chat', visible: false },
     { id: 'locale', label: 'Locale', visible: false },
   ]);
 
-  const openSidebar = () => {
-    setIsSidebarOpen(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
   };
 
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
 
-  // Handle checkbox change - now defined in CustomizeTableButton
-  const handleFieldChange = (id: string | number) => {
-    setFields(
-      fields.map((field) =>
+  const handleFieldChange = (id: string) => {
+    setFields((prevFields) =>
+      prevFields.map((field) =>
         field.id === id ? { ...field, visible: !field.visible } : field
       )
     );
   };
 
-  // Handle "Reset to default" - now defined in CustomizeTableButton
   const handleReset = () => {
     setFields(
-      fields.map((field) => ({ ...field, visible: ['name', 'account', 'jobTitle', 'email', 'mobile', 'status', 'tags', 'salesOwner', 'facebook'].includes(field.id) }))
+      fields.map((field) => ({
+        ...field,
+        visible: [
+          "name",
+          "account",
+          "jobTitle",
+          "email",
+          "mobile",
+          "status",
+          "tags",
+          "salesOwner",
+          "facebook",
+        ].includes(field.id),
+      }))
     );
   };
 
-  // Handle "Apply" button click - now defined in CustomizeTableButton
   const handleApply = () => {
-    console.log('Applied settings:', fields);
-    closeSidebar(); // Close the sidebar after applying
+    console.log("Applied settings:", fields);
+    closeSidebar();
   };
-
-
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -129,76 +169,69 @@ const PurchaseList = () => {
     }
   };
 
-
-
   const handleCheckboxChange = (id: number) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
   };
 
-
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
 
   const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']);
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([
+    "india",
+    "canada",
+  ]);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]);
 
   const supplierOptions: Option[] = [
-    { value: 'abc_motors', label: 'ABC Motors Ltd' },
-    { value: 'xyz_auto_parts', label: 'XYZ Auto Parts' },
-    { value: 'chennai_garage_supplies', label: 'Chennai Garage Supplies' },
-    { value: 'south_india_lubricants', label: 'South India Lubricants' },
-    { value: 'madurai_vehicle_parts', label: 'Madurai Vehicle Parts' },
-    { value: 'coimbatore_auto_hub', label: 'Coimbatore Auto Hub' },
-    { value: 'salem_motors', label: 'Salem Motors' },
-    { value: 'trichy_auto_solutions', label: 'Trichy Auto Solutions' },
-    { value: 'erode_vehicle_store', label: 'Erode Vehicle Store' },
-    { value: 'vellore_auto_parts', label: 'Vellore Auto Parts' },
-    { value: 'thanjavur_motors', label: 'Thanjavur Motors' },
-    { value: 'dindigul_auto_center', label: 'Dindigul Auto Center' },
-    { value: 'tirunelveli_parts', label: 'Tirunelveli Parts' },
-    { value: 'kanyakumari_auto', label: 'Kanyakumari Auto' },
-    { value: 'karur_vehicle_hub', label: 'Karur Vehicle Hub' },
-    { value: 'namakkal_motors', label: 'Namakkal Motors' },
-    { value: 'dharmapuri_auto', label: 'Dharmapuri Auto' },
-    { value: 'krishnagiri_parts', label: 'Krishnagiri Parts' },
-    { value: 'hosur_auto_center', label: 'Hosur Auto Center' },
-    { value: 'cuddalore_motors', label: 'Cuddalore Motors' },
-    { value: 'villupuram_auto', label: 'Villupuram Auto' },
-    { value: 'nagapattinam_parts', label: 'Nagapattinam Parts' },
-    { value: 'mayiladuthurai_motors', label: 'Mayiladuthurai Motors' },
-    { value: 'pudukkottai_auto', label: 'Pudukkottai Auto' },
-    { value: 'sivaganga_parts', label: 'Sivaganga Parts' },
-    { value: 'ramanathapuram_motors', label: 'Ramanathapuram Motors' },
-    { value: 'thoothukudi_auto', label: 'Thoothukudi Auto' },
-    { value: 'tirupur_vehicle_hub', label: 'Tirupur Vehicle Hub' },
-    { value: 'nilgiris_auto_parts', label: 'Nilgiris Auto Parts' },
-    { value: 'perambalur_motors', label: 'Perambalur Motors' },
-    { value: 'ariyalur_auto', label: 'Ariyalur Auto' },
-    { value: 'kallakurichi_parts', label: 'Kallakurichi Parts' },
-    { value: 'ranipet_motors', label: 'Ranipet Motors' },
-    { value: 'tirupattur_auto', label: 'Tirupattur Auto' },
-    { value: 'chengalpattu_parts', label: 'Chengalpattu Parts' },
+    { value: "abc_motors", label: "ABC Motors Ltd" },
+    { value: "xyz_auto_parts", label: "XYZ Auto Parts" },
+    { value: "chennai_garage_supplies", label: "Chennai Garage Supplies" },
+    { value: "south_india_lubricants", label: "South India Lubricants" },
+    { value: "madurai_vehicle_parts", label: "Madurai Vehicle Parts" },
+    { value: "coimbatore_auto_hub", label: "Coimbatore Auto Hub" },
+    { value: "salem_motors", label: "Salem Motors" },
+    { value: "trichy_auto_solutions", label: "Trichy Auto Solutions" },
+    { value: "erode_vehicle_store", label: "Erode Vehicle Store" },
+    { value: "vellore_auto_parts", label: "Vellore Auto Parts" },
+    { value: "thanjavur_motors", label: "Thanjavur Motors" },
+    { value: "dindigul_auto_center", label: "Dindigul Auto Center" },
+    { value: "tirunelveli_parts", label: "Tirunelveli Parts" },
+    { value: "kanyakumari_auto", label: "Kanyakumari Auto" },
+    { value: "karur_vehicle_hub", label: "Karur Vehicle Hub" },
+    { value: "namakkal_motors", label: "Namakkal Motors" },
+    { value: "dharmapuri_auto", label: "Dharmapuri Auto" },
+    { value: "krishnagiri_parts", label: "Krishnagiri Parts" },
+    { value: "hosur_auto_center", label: "Hosur Auto Center" },
+    { value: "cuddalore_motors", label: "Cuddalore Motors" },
+    { value: "villupuram_auto", label: "Villupuram Auto" },
+    { value: "nagapattinam_parts", label: "Nagapattinam Parts" },
+    { value: "mayiladuthurai_motors", label: "Mayiladuthurai Motors" },
+    { value: "pudukkottai_auto", label: "Pudukkottai Auto" },
+    { value: "sivaganga_parts", label: "Sivaganga Parts" },
+    { value: "ramanathapuram_motors", label: "Ramanathapuram Motors" },
+    { value: "thoothukudi_auto", label: "Thoothukudi Auto" },
+    { value: "tirupur_vehicle_hub", label: "Tirupur Vehicle Hub" },
+    { value: "nilgiris_auto_parts", label: "Nilgiris Auto Parts" },
+    { value: "perambalur_motors", label: "Perambalur Motors" },
+    { value: "ariyalur_auto", label: "Ariyalur Auto" },
+    { value: "kallakurichi_parts", label: "Kallakurichi Parts" },
+    { value: "ranipet_motors", label: "Ranipet Motors" },
+    { value: "tirupattur_auto", label: "Tirupattur Auto" },
+    { value: "chengalpattu_parts", label: "Chengalpattu Parts" },
   ];
 
-
-
-
-
   const handleSupplierChange = (value: string | string[] | null) => {
-    console.log('Selected Supplier:', value);
+    console.log("Selected Supplier:", value);
     setSelectedSupplier(value as string | null);
   };
 
   const handleAddNewItem = () => {
-    alert('Add New functionality would go here!');
+    alert("Add New functionality would go here!");
   };
 
-
-
-  // Sidebar specific handlers
   const handleOpenFilterSidebar = () => {
     setIsFilterSidebarOpen(true);
   };
@@ -208,29 +241,22 @@ const PurchaseList = () => {
   };
 
   const handleApplyFilters = () => {
-    console.log('Applying filters:', {
+    console.log("Applying filters:", {
       selectedSupplier,
       selectedCountries,
       selectedColor,
       selectedMultiColors,
     });
-    // Here you would typically apply the filters to your data and then close the sidebar
     setIsFilterSidebarOpen(false);
   };
 
   const handleResetFilters = () => {
-    console.log('Resetting filters');
+    console.log("Resetting filters");
     setSelectedSupplier(null);
-    setSelectedCountries([]); // Reset to empty array for multi-select
+    setSelectedCountries([]);
     setSelectedColor(null);
-    setSelectedMultiColors([]); // Reset to empty array for multi-select
-    // Optionally close sidebar after reset, or keep it open for user to re-select
-    // setIsFilterSidebarOpen(false);
+    setSelectedMultiColors([]);
   };
-
-
-
-
 
   const tabs: TabKey[] = ["all", "pending", "completed", "cancelled"];
 
@@ -281,7 +307,10 @@ const PurchaseList = () => {
     { id: 35, poNumber: "PO-2024-035", supplier: "Chengalpattu Parts", orderDate: "12/04/2024", totalAmount: 48000, status: "Completed", deliveryDate: "22/04/2024", category: "Bearings" },
   ];
 
-  const filteredPurchases = activeTab === "all" ? purchases : purchases.filter((p) => p.status.toLowerCase() === activeTab);
+  const filteredPurchases =
+    activeTab === "all"
+      ? purchases
+      : purchases.filter((p) => p.status.toLowerCase() === activeTab);
 
   useEffect(() => {
     setSelectAll(
@@ -299,13 +328,29 @@ const PurchaseList = () => {
             <ul className="flex flex-nowrap text-sm font-medium text-center">
               {tabs.map((tab) => (
                 <li key={tab}>
-                  <button onClick={() => setActiveTab(tab)} className={`tab ${activeTab === tab ? "bg-[#ebeff3] text-[#384551]" : "hover:text-[#6689b8] hover:bg-[#f5f7f9]"}`}>
+                  <button
+                    onClick={() => setActiveTab(tab)}
+                    className={`tab ${activeTab === tab
+                      ? "bg-[#ebeff3] text-[#384551]"
+                      : "hover:text-[#6689b8] hover:bg-[#f5f7f9]"
+                      }`}
+                  >
                     <span className="flex items-center gap-1">
-                      {tab === "all" ? "All Orders" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                      {tab === "all"
+                        ? "All Orders"
+                        : tab.charAt(0).toUpperCase() + tab.slice(1)}
                       {activeTab === tab && (
                         <>
-                          <span className="ml-2 counter-badge">{counts[tab]}</span>
-                          <i className="ri-close-fill font-bold px-1 rounded hover:bg-[#dce0e5]" onClick={(e) => { e.stopPropagation(); setActiveTab("all"); }}></i>
+                          <span className="ml-2 counter-badge">
+                            {counts[tab]}
+                          </span>
+                          <i
+                            className="ri-close-fill font-bold px-1 rounded hover:bg-[#dce0e5]"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveTab("all");
+                            }}
+                          ></i>
                         </>
                       )}
                     </span>
@@ -315,20 +360,30 @@ const PurchaseList = () => {
             </ul>
 
             <div className="flex items-center flex-shrink-0 ml-auto">
-              <button id="openSidebarCustomize" className="btn-sm btn-hover-ct" onClick={openSidebar}>
+              <button
+                id="openSidebarCustomize"
+                ref={toggleButtonRef}
+                className="btn-sm btn-hover-ct"
+                onClick={toggleSidebar}
+              >
                 <i className="ri-equalizer-line mr-1"></i>
                 <span className="text-sm">Customize Table</span>
               </button>
 
-               <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
-        <CustomizeTableContent
-          fields={fields} // Pass fields state
-          onFieldChange={handleFieldChange} // Pass field change handler
-          onReset={handleReset} // Pass reset handler
-          onApply={handleApply} // Pass apply handler
-          onClose={closeSidebar} // Pass close handler (for the header close button and cancel)
-        />
-      </Sidebar>
+              {/* Sidebar component call */}
+              <Sidebar
+                isOpen={isSidebarOpen}
+                onClose={closeSidebar}
+                toggleButtonRef={toggleButtonRef}
+              >
+                <CustomizeTableContent
+                  fields={fields}
+                  onFieldChange={handleFieldChange}
+                  onReset={handleReset}
+                  onApply={handleApply}
+                  onClose={closeSidebar}
+                />
+              </Sidebar>
 
               <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -340,17 +395,18 @@ const PurchaseList = () => {
                 </button>
               </div>
 
-              <button className="btn-sm btn-primary ml-2 text-sm" onClick={() => router.push('/modules/purchase/new')} >
+              <button
+                className="btn-sm btn-primary ml-2 text-sm"
+                onClick={() => router.push("/modules/purchase/new")}
+              >
                 <i className="ri-add-fill mr-1"></i>
                 <span className="text-sm">Add Purchase</span>
               </button>
             </div>
           </div>
 
-     
           <div className="flex justify-between items-center px-1.5 py-1.5 bg-[#ebeff3]">
             <div className="flex items-center space-x-2 ml-2">
-             
               {!selectedIds.length && (
                 <>
                   <button className="btn-sm btn-hover">
@@ -359,10 +415,28 @@ const PurchaseList = () => {
                     <i className="ri-arrow-down-s-line ml-1"></i>
                   </button>
 
-                  <div className="relative inline-block">
-                    <button id="viewModeBtn" className="btn-sm btn-visible-hover">
-                      <i className="ri-layout-5-line"></i>
+                  <div className="relative inline-block" ref={viewRef}>
+                    <button
+                      onClick={() => setViewDropdownOpen(prev => !prev)}
+                      className={`btn-sm btn-visible-hover  ${isViewDropdownOpen ? 'bg-[#c9d1d7] ' : ''
+                        }`}
+                    >
+                      <i className="ri-line-height "></i>
                     </button>
+
+
+                    {isViewDropdownOpen && (
+                      <div className="absolute z-50 mt-1 w-40 bg-white  rounded-sm shadow-[0_4px_16px_#27313a66]">
+                        <ul className="text-sm text-[#12344d] py-2">
+                          <li className="px-4 py-1.5 hover:bg-[#ebeff3] cursor-pointer flex items-center gap-1.5">
+                            <i className="ri-line-height"></i> Compact
+                          </li>
+                          <li className="px-4 py-1.5 hover:bg-[#ebeff3] cursor-pointer flex items-center gap-1.5">
+                            <i className="ri-line-height"></i> Comfortable
+                          </li>
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
                   <button
@@ -394,10 +468,20 @@ const PurchaseList = () => {
                     <i className="ri-arrow-down-line mr-1"></i>
                     Download
                   </button>
-                  <button className="btn-sm btn-hover" id="deleteBtn">
+                  <button className="btn-sm btn-hover" id="deleteBtn" onClick={() => setIsModalOpen(true)}>
                     <i className="ri-delete-bin-6-line mr-1"></i>
                     Delete
                   </button>
+                  <ConfirmationModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    onConfirm={handleDelete}
+                    title="Delete this file?"
+                    message="This file will be permanently deleted from your device and cannot be recovered."
+                    confirmText="Yes, Delete"
+                    cancelText="No, Keep"
+                    iconName="delete"
+                  />
                   <button className="btn-sm btn-visible-hover" id="cancelSelectionBtn" onClick={() => setSelectedIds([])}>
                     <i className="ri-close-line mr-1"></i>
                     Cancel Bulk Actions
@@ -407,15 +491,13 @@ const PurchaseList = () => {
             </div>
 
             <div className="flex items-center relative space-x-2">
-             
-               <Input
-                      name="purchaseSearch"
-                      placeholder="Search here..."
-                      className="!h-[31px] "
-
-                    />
+              <Input
+                name="purchaseSearch"
+                placeholder="Search here..."
+                className="!h-[31px] "
+              />
               <button className="btn-sm btn-visible-hover" onClick={handleOpenFilterSidebar}>
-                <i className="ri-sort-desc" ></i>
+                <i className="ri-filter-3-fill"></i>
               </button>
 
               <FilterSidebar
@@ -427,16 +509,11 @@ const PurchaseList = () => {
               >
                 {/* Content to be placed inside the sidebar */}
                 <div className="space-y-4">
-                  {/* Single Select Fruit */}
-
-
-
                   <div>
                     <label className="filter-label">PO Number</label>
                     <Input
                       name="poNumber"
                       placeholder="Enter PO Number"
-
                     />
                   </div>
 
@@ -450,7 +527,6 @@ const PurchaseList = () => {
                         { value: "Completed", label: "Completed" },
                         { value: "Cancelled", label: "Cancelled" },
                       ]}
-
                     />
                   </div>
 
@@ -468,29 +544,16 @@ const PurchaseList = () => {
                       initialValue={selectedSupplier}
                       onAddNew={handleAddNewItem}
                     />
-
                   </div>
-
-
-
-
-
-
-
-
-
-
                 </div>
               </FilterSidebar>
-
             </div>
           </div>
-
 
           {/* Table */}
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
-              <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50  badge-selected">
+              <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
                 {selectedIds.length} Purchases selected
               </div>
             )}
@@ -513,11 +576,58 @@ const PurchaseList = () => {
                           <span>S.No.</span>
                         </div>
                       </th>
-                      <th className="th-cell">
+
+
+                      <th className="th-cell relative" >
                         <div className="flex justify-between items-center gap-1">
                           <span>PO Number</span>
-                          <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
+                          <i
+                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isPODropdownOpen ? 'bg-[#c9d1d7]' : ''
+                              }`}
+                            onClick={() => setPODropdownOpen(prev => !prev)} ref={poRef}
+                          ></i>
                         </div>
+
+                        {isPODropdownOpen && (
+                          <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
+                            <ul className="text-sm text-[#12344d] font-normal py-1">
+                              <li className="flex items-center  px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-sort-asc mr-2"></i> Sort ascending A → Z
+                              </li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-sort-desc mr-2"></i> Sort descending Z → A
+                              </li>
+                              <li className="border-t border-gray-200 my-1"></li>
+                              <li className="relative flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer group">
+                                <i className="ri-insert-column-right mr-2"></i> Add column to the right
+                                <span className="ml-auto "><i className="ri-arrow-right-s-fill"></i></span>
+
+                              </li>
+                              <li className="relative flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer group">
+                                <i className="ri-insert-column-left mr-2"></i> Add column to the left
+                                <span className="ml-auto "><i className="ri-arrow-right-s-fill"></i></span>
+
+                              </li>
+                              <li className="border-t border-gray-200 my-1"></li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-arrow-left-right-line mr-2"></i> Collapse column
+                              </li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-delete-bin-line mr-2"></i> Remove column
+                              </li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-table-line mr-2"></i> Edit all columns
+                              </li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-pencil-line mr-2"></i> Rename field
+                              </li>
+                              <li className="border-t border-gray-200 my-1"></li>
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                                <i className="ri-filter-3-fill mr-2"></i> Add as filter
+                              </li>
+                            </ul>
+                          </div>
+                        )}
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
@@ -568,13 +678,9 @@ const PurchaseList = () => {
                           <CheckboxGroup
                             name="selectall"
                             value="selectAll"
-
                             checked={selectedIds.includes(purchase.id)}
                             onChange={() => handleCheckboxChange(purchase.id)}
                           />
-
-
-
                         </td>
                         <td className="td-cell">
                           <span className="float-left">{index + 1}</span>
