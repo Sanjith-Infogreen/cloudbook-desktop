@@ -245,7 +245,7 @@ export default function Sidebar() {
               <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-11 h-11 flex items-center justify-center overflow-hidden">
                   <img
-                    src="/images/profile-pic.png"
+                    src="/images/profile-pic.jpg"
                     alt="User Profile"
                     className="w-full h-full object-cover"
                   />
@@ -256,12 +256,12 @@ export default function Sidebar() {
                 <div className="flex flex-col w-full">
                   <div className="flex items-center w-full">
                     <div className="font-semibold text-gray-900 text-[15px]">
-                      Emily Clark
+                      Emma
                       <span className="text-[12px] ml-2 text-gray-500">
-                        @emily
+                        @emmastone
                       </span>
                       <p className="text-[12px] text-gray-500">
-                        emily.clark@example.com
+                        emily.stone@example.com
                       </p>
                     </div>
                     <div className="ml-auto  px-2 text-[11px] font-bold text-green-700 bg-green-100 rounded-full  ">

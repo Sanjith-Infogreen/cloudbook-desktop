@@ -1,15 +1,15 @@
  "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
-import Layout from "../../components/Layout";
+import Layout from "@/app/components/Layout"; // Assuming Layout is in the components folder
 
-import DatePicker from "@/app/utils/commonDatepicker";
+import DatePicker from "@/app/utils/commonDatepicker"; // Corrected path
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
-import { Input } from "@/app/utils/form-controls";
-import useInputValidation from "@/app/utils/inputValidations";
+import { AppDispatch, RootState } from "@/store/store"; // Assuming these paths are correct
+import { Input } from "@/app/utils/form-controls"; // Corrected path
+import useInputValidation from "@/app/utils/inputValidations"; // Corrected path
 
-import FilterSidebar from "@/app/utils/filterSIdebar";
+import FilterSidebar from "@/app/utils/filterSIdebar"; // Corrected path
 
 interface FormFieldProps {
   label: string;
@@ -28,7 +28,7 @@ const FormField = ({
   error,
 }: FormFieldProps) => (
   <div
-    className={`mb-[10px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}
+    className={` flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}
   >
     <label className="form-label w-50">
       {label}
@@ -59,7 +59,7 @@ const NewBulkReceipt = () => {
   useInputValidation(); // Custom hook for input validation
   const [date, setDate] = useState<string | undefined>("01/07/2025");
   const dispatch = useDispatch<AppDispatch>();
-  const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
+  const typeHead = useSelector((state: RootState) => state.typeHead.typeHead); // Assuming this state exists
   const [bills, setBills] = useState<BillItem[]>([]);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -73,11 +73,13 @@ const NewBulkReceipt = () => {
   };
   
   const handleApplyFilters = () => {
-    
+    // Logic to apply filters goes here
+    console.log('Applying filters');
     setIsFilterSidebarOpen(false);
   };
 
   const handleResetFilters = () => {
+    // Logic to reset filters goes here
     console.log('Resetting filters');
       
   };
@@ -369,104 +371,91 @@ const NewBulkReceipt = () => {
   );
 
   return (
-    <Layout pageTitle="Bulk Receipt New">
+    <Layout>
       <div className="flex-1 flex flex-col">
         <main id="main-content" className="flex-1 overflow-y-auto">
           <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-            
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
-                <div className="lg:pr-4"></div>
-                <div className="flex justify-end">
-                  <FormField label="" className="w-full lg:w-1/2">
-                    <DatePicker
-                      name="date"
-                      id="date"
-                      selected={date}
-                      initialDate={date}
-                      onChange={(e) => {
-                        setDate(e);
-                      }}
-                      className="w-full"
-                    />
-                  </FormField>
-                  <button className="btn-sm btn-visible-hover" onClick={handleOpenFilterSidebar}>
-                    <i className="ri-sort-desc" ></i>
-                  </button>
-                  <FilterSidebar
-                    isOpen={isFilterSidebarOpen}
-                    onClose={handleCloseFilterSidebar}
-                    onApply={handleApplyFilters}
-                    onReset={handleResetFilters}
-                    title="Apply Your Filters"
-                  >
-                    {/* Content to be placed inside the sidebar */}
-                    <div className="space-y-1">
-                      
-                      <div>
-                        <label className="filter-label">Area</label>
-                        <Input
-                          name="area"
-                          placeholder="Enter Area"
-                          
-                        />
-                      </div>
-
-                      
-                        {/* Removed commented out Input components for brevity and focus on the fix */}
-                        {/*
-                        <Input
-                          name="someOtherField"
-                          placeholder="Some other field"
-                        />
-                        */}
-                    </div>
-                  </FilterSidebar>
-                </div>
+            {/* Header section with title and date picker */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
+              <div className="lg:pr-4 mt-1">
+                <span className="in-page-title text-lg font-medium text-[#009333]">
+                  Bulk Receipt New
+                </span>
               </div>
-            
+              <div className="flex justify-end">
+                <FormField label="" className="w-full lg:w-1/2">
+                  <DatePicker
+                    name="date"
+                    id="date"
+                    selected={date}
+                    initialDate={date}
+                    onChange={(e) => {
+                      setDate(e);
+                    }}
+                    className="w-full"
+                  />
+                </FormField>
+                <button
+                  className="btn-sm btn-visible-hover ml-3"
+                  onClick={handleOpenFilterSidebar}
+                  type="button"  
+                >
+                  <i className="ri-filter-3-fill"></i>
+                </button>
+                <FilterSidebar
+                  isOpen={isFilterSidebarOpen}
+                  onClose={handleCloseFilterSidebar}
+                  onApply={handleApplyFilters}
+                  onReset={handleResetFilters}
+                  title="Apply Your Filters"
+                >
+                  {/* Content to be placed inside the sidebar */}
+                  <div className="space-y-1">
+                    <div>
+                      <label className="filter-label">Area</label>
+                      <Input
+                        name="area"
+                        placeholder="Enter Area"
+                      />
+                    </div>
+                  </div>
+                </FilterSidebar>
+              </div>
+            </div>
 
-            {/* Bills Table Section */}
-            {/* Added relative positioning to the container for sticky footer to work within it */}
-            <div className="h-[calc(100vh-170px)] max-h-[calc(100vh-170px)] overflow-y-auto pr-2 pl-2 mb-2 relative">
-              <table className="w-full text-sm">
+            {/* Table section */}
+            <div className="h-[calc(100vh-160px)] max-h-[calc(100vh-160px)] overflow-y-auto pr-2 pl-2 mb-2 relative rounded-lg">
+              <table className="w-full text-sm rounded-lg">
                 <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                   <tr>
-                    <th className="p-2 w-[3%]">S.no</th>
-                    <th className="p-2 w-[15%]">Date</th>
-                    <th className="p-2 w-[10%]">Bill Number</th>
-                    <th className="p-2 w-[15%]">Company Name</th>{" "}
-                    {/* Changed column header */}
-                    <th className="p-2 w-[20%]">Address</th>{" "}
-                    {/* New column header */}
-                    <th className="p-2 w-[10%]">Total</th>
-                    <th className="p-2 w-[10%] text-center">Paid</th>
-                    <th className="p-2 w-[10%] text-center">Balance</th>
+                    {/* Ensure no whitespace between <th> tags */}
+                    <th className="th-cell w-[5%]">S.no</th><th className="th-cell w-[8%]">Bill Number</th><th className="th-cell w-[10%]">Date</th><th className="th-cell w-[15%]">Company Name</th><th className="th-cell w-[25%]">Address</th><th className="th-cell w-[12%] text-right">Amount</th><th className="th-cell w-[12%] text-right text-right">Balance</th><th className="last-th-cell w-[13%] text-right">Paid</th>
                   </tr>
                 </thead>
                 <tbody id="productTableBody">
                   {bills.length > 0 ? (
                     bills.map((bill, index) => (
                       <tr key={bill.id} className="border-b border-gray-200">
-                        <td className="pl-2 py-1">{index + 1}</td>
-                        <td className="pl-2 py-1">{bill.date}</td>
-                        <td className="pl-2 py-1">{bill.billNumber}</td>
-                        <td className="pl-2 py-1">{bill.companyName}</td>{" "}
+                        <td className="td-cell">{index + 1}</td>
+                        <td className="td-cell">{bill.billNumber}</td>
+                        <td className="td-cell">{bill.date}</td>
+                        <td className="td-cell">{bill.companyName}</td>{" "}
                         {/* Display companyName */}
-                        <td className="pl-2 py-1">{bill.address}</td>{" "}
+                        <td className="td-cell">{bill.address}</td>{" "}
                         {/* Display address */}
-                        <td className="pl-2 py-1 text-right">
+                        <td className="td-cell text-right">
                           {bill.total.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
                         </td>
-                        <td className="pl-2 py-1 text-right text-[#009333] ">
+                        <td className="td-cell text-right text-[#ed1515]">
                           {bill.paid.toLocaleString("en-IN", {
                             style: "currency",
                             currency: "INR",
                           })}
                         </td>
-                        <td className="pl-2 py-1">
+                        <td className="last-td-cell">
                           <Input
                             name={`balance-${bill.id}`}
                             placeholder="Enter Balance"
@@ -487,30 +476,26 @@ const NewBulkReceipt = () => {
                     </tr>
                   )}
                 </tbody>
-                {/* Table Footer for Totals */}
+              
                 {bills.length > 0 && (
                   <tfoot className="bg-[#ebeff3] text-right text-[14px] text-[#212529] sticky-table-footer">
                     <tr>
-                      <td colSpan={5} className="p-2 text-right">
-                        Totals:
+                      <td colSpan={5} className="p-2 text-right font-bold">
+                        Total:
                       </td>
-                      <td className=" text-right">
+                      <td className="text-right font-bold text-[#2408c4]">
                         {totalSum.toLocaleString("en-IN", {
                           style: "currency",
                           currency: "INR",
                         })}
                       </td>
-                      <td className=" text-right">
+                      <td className="text-right font-bold">
                         {paidSum.toLocaleString("en-IN", {
                           style: "currency",
                           currency: "INR",
                         })}
                       </td>
-                      <td className="p-2 text-right">
-                        {balanceSum.toLocaleString("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        })}
+                      <td className="p-2 text-right"> 
                       </td>
                     </tr>
                   </tfoot>
@@ -520,12 +505,12 @@ const NewBulkReceipt = () => {
           </form>
         </main>
 
-        {/* Footer with Save and Cancel buttons */}
+        {/* Footer with action buttons */}
         <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex justify-start gap-2">
-          <button onClick={handleSubmit} className="btn-sm btn-primary">
+          <button onClick={handleSubmit} className="btn-sm btn-primary" type="submit">
             Save
           </button>
-          <button className="btn-secondary btn-sm">Cancel</button>
+          <button className="btn-secondary btn-sm" type="button">Cancel</button>
         </footer>
       </div>
     </Layout>
