@@ -1,14 +1,44 @@
-"use client";
+ "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Layout from "../../components/Layout";
-import MonthlyReport from "./components/MonthlyReport";
-import LeaveReport from "./components/LeaveReport";
+
+import ProductSalesReport from "./components/ProductSalesReport";
+// import StockValueReport from "./components/StockValueReport";
+// import SalesProfitReport from "./components/SalesProfitReport";
+
+// import CustomerBalanceReport from "./components/CustomerBalanceReport";
+// import SupplierBalanceReport from "./components/SupplierBalanceReport";
+// import StatementReport from "./components/StatementReport";
+
+// import DaybookReport from "./components/DaybookReport";
+// import CashbookReport from "./components/CashbookReport";
+// import TrailBalanceReport from "./components/TrailBalanceReport";
+
+// import CustomerSummaryReport from "./components/CustomerSummaryReport";
+// import SupplierSummaryReport from "./components/SupplierSummaryReport";
+// import GSTR1Report from "./components/GSTR1Report";
+// import B2BReport from "./components/B2BReport";
+// import B2CReport from "./components/B2CReport";
+// import ProductSalesGSTReport from "./components/ProductSalesGSTReport";
+// import SalesSummaryReport from "./components/SalesSummaryReport";
+// import PurchaseSummaryReport from "./components/PurchaseSummaryReport";
+
+// import AllSalesExcelReport from "./components/AllSalesExcelReport";
+// import AllPurchaseExcelReport from "./components/AllPurchaseExcelReport";
+
+// Define the interface for the props that ProductSalesReport expects
+interface ProductSalesReportProps {
+  activeReport: string | null;
+  activeCategory: string | null;
+}
+
 const ReportsPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
   const report = searchParams.get("report");
+
   const reportCategories = [
     {
       title: "Product",
@@ -52,13 +82,15 @@ const ReportsPage = () => {
       items: [
         { name: "All Sales Excel", icon: "ri-file-list-line" },
         { name: "All Purchase Excel", icon: "ri-file-list-line" },
-          ],
+      ],
     },
   ];
+
   const initialActiveCategory =
     (category as string) || reportCategories[0].title;
   const initialActiveReport =
     (report as string) || reportCategories[0].items[0].name;
+
   const [searchTerm, setSearchTerm] = useState("");
   const [activeReport, setActiveReport] = useState<string | null>(
     initialActiveReport
@@ -66,6 +98,7 @@ const ReportsPage = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(
     initialActiveCategory
   );
+
   useEffect(() => {
     if (category) {
       setActiveCategory(category);
@@ -83,14 +116,16 @@ const ReportsPage = () => {
       }
     }
   }, [category, report, reportCategories]);
+
   const handleReportClick = (reportName: string, categoryTitle: string) => {
     setActiveReport(reportName);
     setActiveCategory(categoryTitle);
     const newSearchParams = new URLSearchParams();
     newSearchParams.set("category", categoryTitle);
     newSearchParams.set("report", reportName);
-    router.push(`?${newSearchParams.toString()}`);  
+    router.push(`?${newSearchParams.toString()}`);
   };
+
   const handleCategoryClick = (categoryTitle: string) => {
     setActiveCategory(categoryTitle);
     const defaultReport =
@@ -104,6 +139,7 @@ const ReportsPage = () => {
     }
     router.push(`?${newSearchParams.toString()}`); // Corrected: Removed extra arguments
   };
+
   const filteredCategories = reportCategories
     .map((category) => ({
       ...category,
@@ -112,15 +148,14 @@ const ReportsPage = () => {
       ),
     }))
     .filter((category) => category.items.length > 0);
+
   return (
     <Layout pageTitle="Reports">
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-[240px] h-[100vh] bg-[#f8f9fa] border-[#ebeff3] px-3 flex flex-col space-y-4">
-         <div className="mt-2">
-           <h1 className="text-[18px] sm:text-[20px] font-medium text-[#009333]">Reports</h1>
-         </div>
-          <div className="relative">
+          
+          <div className="relative mt-2">
             <div className="flex items-center overflow-hidden ">
               <i className="ri-search-line absolute left-2 text-sm"></i>
               <input
@@ -170,19 +205,40 @@ const ReportsPage = () => {
           </div>
         </aside>
         <div className="flex-1">
-          
-          {activeCategory === "Leave" && activeReport === "Monthly Report" && (
-            <MonthlyReport
+          {/*
+            Pass activeReport and activeCategory as props to the report components.
+            You'll need to define similar interfaces for all other report components
+            if they also expect these props.
+          */}
+          {activeReport === "Product Sales Report" && (
+            <ProductSalesReport
               activeReport={activeReport}
               activeCategory={activeCategory}
             />
           )}
-          {activeCategory === "Leave" && activeReport === "Leave Report" && (
-            <LeaveReport
-              activeReport={activeReport}
-              activeCategory={activeCategory}
-            />
-          )}
+          {/* {activeReport === "Stock Value Report" && <StockValueReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Sales Profit Report" && <SalesProfitReport activeReport={activeReport} activeCategory={activeCategory} />}
+
+          {activeReport === "Customer Balance" && <CustomerBalanceReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Supplier Balance" && <SupplierBalanceReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Statement" && <StatementReport activeReport={activeReport} activeCategory={activeCategory} />}
+
+          {activeReport === "Daybook" && <DaybookReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Cashbook" && <CashbookReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Trail Balance" && <TrailBalanceReport activeReport={activeReport} activeCategory={activeCategory} />}
+
+          {activeReport === "Customer Summary" && <CustomerSummaryReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Supplier Summary" && <SupplierSummaryReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "GSTR1" && <GSTR1Report activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "B2B" && <B2BReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "B2C" && <B2CReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Product Sales" && <ProductSalesGSTReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Sales Summary" && <SalesSummaryReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "Purchase Summary" && <PurchaseSummaryReport activeReport={activeReport} activeCategory={activeCategory} />}
+
+          {activeReport === "All Sales Excel" && <AllSalesExcelReport activeReport={activeReport} activeCategory={activeCategory} />}
+          {activeReport === "All Purchase Excel" && <AllPurchaseExcelReport activeReport={activeReport} activeCategory={activeCategory} />} */}
+
           {!activeReport && (
             <div className="flex-1 flex items-center justify-center text-gray-500 text-lg">
               Select a report from the sidebar to view its content.
@@ -193,4 +249,5 @@ const ReportsPage = () => {
     </Layout>
   );
 };
+
 export default ReportsPage;
