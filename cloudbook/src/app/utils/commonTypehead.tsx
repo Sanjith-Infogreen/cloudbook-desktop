@@ -24,8 +24,8 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   onSelect,
   onAddNew,
   className = "",
-  searchFields = ['name'],
-  displayField = 'name',
+  searchFields = ["name"],
+  displayField = "name",
   minSearchLength = 3,
   ...props
 }) => {
@@ -36,7 +36,9 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   const [hoveredPosition, setHoveredPosition] = useState({ x: 0, y: 0 });
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [keyboardSelectedIndex, setKeyboardSelectedIndex] = useState(-1);
-  const [navigationMode, setNavigationMode] = useState<'mouse' | 'keyboard'>('mouse');
+  const [navigationMode, setNavigationMode] = useState<"mouse" | "keyboard">(
+    "mouse"
+  );
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -47,16 +49,19 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   const filterData = (term: string) => {
     if (!term.trim()) return [];
 
-    const searchTerms = term.toLowerCase().split(' ').filter((t: string) => t.length > 0);
+    const searchTerms = term
+      .toLowerCase()
+      .split(" ")
+      .filter((t: string) => t.length > 0);
 
-    return data.filter(item => {
-      return searchFields.some(field => {
-        const fieldValue = item[field]?.toLowerCase() || '';
+    return data.filter((item) => {
+      return searchFields.some((field) => {
+        const fieldValue = item[field]?.toLowerCase() || "";
 
         return searchTerms.every((searchTerm: string) => {
           if (searchTerm.length < minSearchLength) return false;
 
-          const words = fieldValue.split(' ');
+          const words = fieldValue.split(" ");
           return words.some((word: string) => word.startsWith(searchTerm));
         });
       });
@@ -70,7 +75,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
 
   // Get currently highlighted item (either by mouse or keyboard)
   const getCurrentHighlightedItem = () => {
-    if (navigationMode === 'keyboard' && keyboardSelectedIndex >= 0) {
+    if (navigationMode === "keyboard" && keyboardSelectedIndex >= 0) {
       return filteredData[keyboardSelectedIndex];
     }
     return hoveredItem;
@@ -83,7 +88,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
     const dropdownRect = dropdownRef.current.getBoundingClientRect();
     setHoveredPosition({
       x: dropdownRect.right + 10,
-      y: dropdownRect.top + 40
+      y: dropdownRect.top + 40,
     });
   };
 
@@ -104,7 +109,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
 
     // Reset keyboard navigation and hover states when input changes
     setKeyboardSelectedIndex(-1);
-    setNavigationMode('mouse');
+    setNavigationMode("mouse");
 
     // Hide description card immediately if dropdown should close
     if (!shouldOpen) {
@@ -117,35 +122,41 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
     if (!isDropdownOpen || filteredData.length === 0) return;
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
-        setNavigationMode('keyboard');
-        const nextIndex = keyboardSelectedIndex < filteredData.length - 1 ? keyboardSelectedIndex + 1 : 0;
+        setNavigationMode("keyboard");
+        const nextIndex =
+          keyboardSelectedIndex < filteredData.length - 1
+            ? keyboardSelectedIndex + 1
+            : 0;
         setKeyboardSelectedIndex(nextIndex);
         setHoveredItem(filteredData[nextIndex]);
         updateDescriptionPosition();
 
         // Scroll into view
         if (itemRefs.current[nextIndex]) {
-          itemRefs.current[nextIndex]?.scrollIntoView({ block: 'nearest' });
+          itemRefs.current[nextIndex]?.scrollIntoView({ block: "nearest" });
         }
         break;
 
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
-        setNavigationMode('keyboard');
-        const prevIndex = keyboardSelectedIndex > 0 ? keyboardSelectedIndex - 1 : filteredData.length - 1;
+        setNavigationMode("keyboard");
+        const prevIndex =
+          keyboardSelectedIndex > 0
+            ? keyboardSelectedIndex - 1
+            : filteredData.length - 1;
         setKeyboardSelectedIndex(prevIndex);
         setHoveredItem(filteredData[prevIndex]);
         updateDescriptionPosition();
 
         // Scroll into view
         if (itemRefs.current[prevIndex]) {
-          itemRefs.current[prevIndex]?.scrollIntoView({ block: 'nearest' });
+          itemRefs.current[prevIndex]?.scrollIntoView({ block: "nearest" });
         }
         break;
 
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         const itemToSelect = getCurrentHighlightedItem();
         if (itemToSelect) {
@@ -153,7 +164,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
         }
         break;
 
-      case 'Escape':
+      case "Escape":
         setIsDropdownOpen(false);
         setHoveredItem(null);
         setKeyboardSelectedIndex(-1);
@@ -163,13 +174,13 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   };
 
   // Handle item selection
-  const handleItemSelect = (item: any) => {    
+  const handleItemSelect = (item: any) => {
     setSelectedItem(item);
     setSearchTerm(item[displayField]);
     setIsDropdownOpen(false);
     setHoveredItem(null);
     setKeyboardSelectedIndex(-1);
-    setNavigationMode('mouse');
+    setNavigationMode("mouse");
     onSelect?.(item);
   };
 
@@ -180,18 +191,22 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
     setIsDropdownOpen(false);
     setHoveredItem(null);
     setKeyboardSelectedIndex(-1);
-    setNavigationMode('mouse');
+    setNavigationMode("mouse");
     inputRef.current?.focus();
   };
 
   // Handle mouse enter on item
-  const handleMouseEnter = (item: any, index: number, event: React.MouseEvent) => {
+  const handleMouseEnter = (
+    item: any,
+    index: number,
+    event: React.MouseEvent
+  ) => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
 
     // Switch to mouse navigation mode
-    setNavigationMode('mouse');
+    setNavigationMode("mouse");
     setKeyboardSelectedIndex(index);
     updateDescriptionPosition();
     setHoveredItem(item);
@@ -200,7 +215,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   // Handle mouse leave from item
   const handleMouseLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
-      if (navigationMode === 'mouse') {
+      if (navigationMode === "mouse") {
         setHoveredItem(null);
       }
     }, 100);
@@ -214,7 +229,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   };
 
   const handleDescriptionMouseLeave = () => {
-    if (navigationMode === 'mouse') {
+    if (navigationMode === "mouse") {
       setHoveredItem(null);
     }
   };
@@ -222,11 +237,14 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
         setHoveredItem(null);
         setKeyboardSelectedIndex(-1);
-        setNavigationMode('mouse');
+        setNavigationMode("mouse");
 
         // Clear input if it doesn't match a selected item or if no valid selection
         if (!isCurrentInputValid() && searchTerm.trim() !== "") {
@@ -236,8 +254,8 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [searchTerm, selectedItem, isCurrentInputValid, navigationMode]);
 
   // Reset item refs when filtered data changes
@@ -250,7 +268,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
     if (!isDropdownOpen) {
       setHoveredItem(null);
       setKeyboardSelectedIndex(-1);
-      setNavigationMode('mouse');
+      setNavigationMode("mouse");
     }
   }, [isDropdownOpen]);
 
@@ -259,7 +277,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
       {/* Input with Typeahead */}
       <div className="relative">
         <input
-        autoComplete="off"
+          autoComplete="off"
           ref={inputRef}
           type="text"
           name={name}
@@ -272,13 +290,11 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
           {...props}
         />
         <div className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
-          {searchTerm ? (
+          {searchTerm && (
             <i
-              className="ri-close-circle-fill text-gray-600 "
+              className="ri-close-circle-fill text-gray-600"
               onClick={handleClearInput}
             ></i>
-          ) : (
-            <i className="ri-arrow-down-s-line text-gray-600"></i>
           )}
         </div>
       </div>
@@ -292,12 +308,15 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
               filteredData.map((item: any, index: number) => (
                 <div
                   key={item.id}
-                  ref={el => { itemRefs.current[index] = el; }}
+                  ref={(el) => {
+                    itemRefs.current[index] = el;
+                  }}
                   className={`px-3 py-2 cursor-pointer text-sm  ${
-                    (navigationMode === 'keyboard' && keyboardSelectedIndex === index) ||
-                    (navigationMode === 'mouse' && hoveredItem?.id === item.id)
-                      ? 'bg-gray-50 text-[#12375d]  font-[700]'
-                      : 'hover:bg-gray-50 text-gray-700 '
+                    (navigationMode === "keyboard" &&
+                      keyboardSelectedIndex === index) ||
+                    (navigationMode === "mouse" && hoveredItem?.id === item.id)
+                      ? "bg-gray-50 text-[#12375d]  font-[700]"
+                      : "hover:bg-gray-50 text-gray-700 "
                   }`}
                   onClick={() => handleItemSelect(item)}
                   onMouseEnter={(e) => handleMouseEnter(item, index, e)}
@@ -316,7 +335,11 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
           {/* Fixed Add New Button */}
           {onAddNew && (
             <div className="flex justify-between border-t border-gray-200 px-3 py-2 bg-white">
-              <button type="button" onClick={onAddNew} className="flex items-center cursor-pointer gap-1 text-green-600 text-sm ">
+              <button
+                type="button"
+                onClick={onAddNew}
+                className="flex items-center cursor-pointer gap-1 text-green-600 text-sm "
+              >
                 <i className="ri-add-line text-green-600"></i>
                 Add New
               </button>
@@ -339,7 +362,10 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
         >
           <div className="text-sm">
             <div className="font-bold text-[#12375d] mb-1">
-              Name: <span className="font-medium text-[#12375d] mb-1 ms-1">{hoveredItem[displayField]}</span>
+              Name:{" "}
+              <span className="font-medium text-[#12375d] mb-1 ms-1">
+                {hoveredItem[displayField]}
+              </span>
             </div>
             {/* Uncomment if you want to show description
             <div className="text-gray-600 text-xs leading-relaxed">
