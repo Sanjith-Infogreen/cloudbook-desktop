@@ -23,7 +23,7 @@ interface CustomizeTableContentProps {
     onFieldChange: (id: string | number) => void;
     onReset: () => void;
     onApply: () => void;
-    onClose: () => void;
+    onClose: () => void;  
 }
 
 function CustomizeTableContent({ fields, onFieldChange, onReset, onApply, onClose }: CustomizeTableContentProps) {

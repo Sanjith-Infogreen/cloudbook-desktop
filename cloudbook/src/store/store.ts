@@ -3,12 +3,15 @@ import typeheadReducer from './typeHead/typehead';
 import sideMenuReducer from './sideMenu/sideMenu'
 import leaveReportReucer from './report/leaveReport'
 import monthlyReportReucer from './report/monthlyReport'
+import ContactReducer from './contact/contact'
 export const store = configureStore({
   reducer: {
     typeHead:typeheadReducer,
     sideMenu:sideMenuReducer,
     leaveReport:leaveReportReucer,
-    monthlyreport:monthlyReportReucer
+    monthlyreport:monthlyReportReucer,
+    contact:ContactReducer,
+
 
 
 

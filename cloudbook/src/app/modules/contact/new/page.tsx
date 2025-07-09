@@ -12,6 +12,9 @@ import useInputValidation from "@/app/utils/inputValidations";
 import DatePicker from "@/app/utils/commonDatepicker";
 import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls";
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { Contact, setContact } from "@/store/contact/contact";
 interface BankDetails {
   id: number;
   bankName: string;
@@ -42,7 +45,8 @@ interface FormData {
   district: string;
   state: string;
   pincode: string;
-  deliveryAddress: deliveryDetails[];
+  gstNumber: string;
+  deliveryDetails: deliveryDetails[];
   bankDetails: BankDetails[];
   proofDetails: { aadhaarNumber: string; panNumber: string };
   otherDetails: {
@@ -85,7 +89,7 @@ export default function NewContact() {
   const [activeTab, setActiveTab] = useState<string>("Delivery_details");
   const [showModal, setShowModal] = useState<boolean>(true);
   const [customerType, setCustomerType] = useState<string>("");
-  const [gstNumber, setGstNumber] = useState("");
+  const [GstNumber, setGstNumber] = useState("");
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   useInputValidation();
@@ -98,6 +102,10 @@ export default function NewContact() {
     { value: "australia", label: "Australia" },
     { value: "germany", label: "Germany" },
   ];
+  const Contact = useSelector((state: RootState) => state.contact.contact);
+  const [isShown, setIsShown] = useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState<FormData>({
     salutation: "Mr.",
     ledgerName: "",
@@ -112,7 +120,8 @@ export default function NewContact() {
     district: "",
     state: "",
     pincode: "",
-    deliveryAddress: [],
+    gstNumber: "",
+    deliveryDetails: [],
     bankDetails: [],
     otherDetails: {
       creditLimit: "",
@@ -122,12 +131,13 @@ export default function NewContact() {
   });
   const [bankIdCounter, setBankIdCounter] = useState<number>(1);
   const [bankInputError, setBankInputError] = useState<string>("");
-  const [editCustomerId, setEditCustomerId] = useState<number | null>(null);
- 
+  const [filteredContact, setFilterContact] = useState<Contact[]>([]);
   const [addressIdCounter, setAddressCounter] = useState<number>(1);
   const [addressInputError, setAddressInputError] = useState<string>("");
+  const [isCompanyEdited, setIsCompanyEdited] = useState(false);
+
   const [tempAddress, setTempAddress] = useState<deliveryDetails>({
-    id:0,
+    id: 0,
     addressLine1: "",
     addressLine2: "",
     district: "",
@@ -136,7 +146,7 @@ export default function NewContact() {
   });
 
   const [tempBank, setTempBank] = useState<BankDetails>({
-    id:0,
+    id: 0,
     bankName: "",
     accountNumber: "",
     accountName: "",
@@ -144,49 +154,74 @@ export default function NewContact() {
     branchName: "",
   });
 
-  const fetchCustomerData = async (id: number) => {};
-  useEffect(() => {
-    if (editCustomerId) {
-      fetchCustomerData(editCustomerId);
-    } else {
-      setFormData({
-        salutation: "Mr.",
-        ledgerName: "",
-        contactType: "",
-        group: "",
-        phoneNumber: "",
-        email: "",
-        alternateNumber: "",
-        companyName: "",
-        addressLine1: "",
-        addressLine2: "",
-        district: "",
-        state: "",
-        pincode: "",
-        deliveryAddress: [],
-        bankDetails: [],
-       
-        otherDetails: {
-          creditLimit: "",
-          status: false,
-        },
-        proofDetails: { aadhaarNumber: "", panNumber: "" },
-      });
-      setBankIdCounter(1);
-      setAddressCounter(1);
-      setBankInputError("");
-      setAddressInputError("");
-      setActiveTab("Delivery_details");
-      setShowModal(true);
-      setCustomerType("");
+  const fetchCustomerData = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/existingContacts");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      dispatch(setContact(data));
+    } catch (error) {
+      console.error("Fetch error:", error);
     }
-  }, [editCustomerId]);
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    if (Contact.length === 0) fetchCustomerData();
+  }, []);
+
+
+  const filterContact = () => {
+    console.log(Contact);
+
+    const name = formData.ledgerName.trim().toLowerCase();
+    if (name.length < 2) {
+      setFilterContact([]);
+      return;
+    }
+    setIsShown(true);
+    const searchWord = name.split(/\s+/);
+    const filter = Contact.filter((customer: any) => {
+      const custName = customer.name.toLowerCase().split(/\s+/);
+      return searchWord.every((searchWord: string) =>
+        custName.some((newWord: string) =>
+          newWord.startsWith(searchWord.toLowerCase())
+        )
+      );
+    });
+    setFilterContact(filter);
+  };
+
+  const handleChange = (
+  e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+) => {
+  const { name, value } = e.target;
+
+  if (name === "companyName") {
+    setIsCompanyEdited(true); 
+  }
+
+  if (name === "ledgerName") {
+    filterContact();
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+useEffect(() => {
+  if (!isCompanyEdited) {
+    setFormData((prev) => ({
+      ...prev,
+      companyName: prev.ledgerName,
+    }));
+  }
+}, [formData.ledgerName, isCompanyEdited]);
 
   const validateGST = (value: string) => {
     const gstRegex =
@@ -201,11 +236,14 @@ export default function NewContact() {
     setError(validateGST(value));
   };
   const handleApply = () => {
-    const validationError = validateGST(gstNumber);
+    const validationError = validateGST(GstNumber);
     setError(validationError);
     if (!validationError) {
-      console.log("Submitting GST:", gstNumber);
-      setGstNumber(gstNumber);
+      setGstNumber(GstNumber);
+      setFormData((pre) => ({
+        ...pre,
+        gstNumber: GstNumber,
+      }));
       setShowModal(false);
     }
   };
@@ -264,109 +302,114 @@ export default function NewContact() {
     }));
   };
   const handleTabStateChange = (value: string | string[] | null) => {
-    setTempAddress((pre)=>({
-        ...pre,
-        state:value as string
-    }))
+    setTempAddress((pre) => ({
+      ...pre,
+      state: value as string,
+    }));
   };
 
   const handleAddAddress = () => {
-  const { addressLine1, district, state, pincode } = tempAddress;
-  if (addressLine1 && district && state && pincode) {
-    const id = tempAddress.id || addressIdCounter;
+    const { addressLine1, district, state, pincode } = tempAddress;
+    if (addressLine1 && district && state && pincode) {
+      const id = tempAddress.id || addressIdCounter;
 
-    setFormData((prev) => {
-      const existingIndex = prev.deliveryAddress.findIndex((a) => a.id === id);
-      const newList =
-        existingIndex !== -1
-          ? prev.deliveryAddress.map((a) =>
-              a.id === id ? { ...tempAddress, id } : a
-            )
-          : [...prev.deliveryAddress, { ...tempAddress, id }];
+      setFormData((prev) => {
+        const existingIndex = prev.deliveryDetails.findIndex(
+          (a) => a.id === id
+        );
+        const newList =
+          existingIndex !== -1
+            ? prev.deliveryDetails.map((a) =>
+                a.id === id ? { ...tempAddress, id } : a
+              )
+            : [...prev.deliveryDetails, { ...tempAddress, id }];
 
-      return {
-        ...prev,
-        deliveryAddress: newList,
-      };
-    });
+        return {
+          ...prev,
+          deliveryDetails: newList,
+        };
+      });
 
-    if (!tempAddress.id) setAddressCounter((prev) => prev + 1);
+      if (!tempAddress.id) setAddressCounter((prev) => prev + 1);
 
-    setTempAddress({
-      id: 0,
-      addressLine1: "",
-      addressLine2: "",
-      district: "",
-      state: "",
-      pincode: "",
-    });
+      setTempAddress({
+        id: 0,
+        addressLine1: "",
+        addressLine2: "",
+        district: "",
+        state: "",
+        pincode: "",
+      });
 
-    setAddressInputError("");
-  } else {
-    setAddressInputError("Please fill all fields before clicking 'Add Address'.");
-  }
-};
-
+      setAddressInputError("");
+    } else {
+      setAddressInputError(
+        "Please fill all fields before clicking 'Add Address'."
+      );
+    }
+  };
 
   const handleEditDeliveryAddress = (id: number) => {
-  const addressToEdit = formData.deliveryAddress.find((a) => a.id === id);
-  if (addressToEdit) setTempAddress({ ...addressToEdit });
-};
+    const addressToEdit = formData.deliveryDetails.find((a) => a.id === id);
+    if (addressToEdit) setTempAddress({ ...addressToEdit });
+  };
 
- const handleRemoveDeliveryAddress = (id: number) => {
-  setFormData((prev) => ({
-    ...prev,
-    deliveryAddress: prev.deliveryAddress.filter((a) => a.id !== id),
-  }));
-};
+  const handleRemoveDeliveryAddress = (id: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      deliveryDetails: prev.deliveryDetails.filter((a) => a.id !== id),
+    }));
+  };
 
   const handleAddBank = () => {
-  const { bankName, accountNumber, accountName, ifscCode, branchName } =
-    tempBank;
-  if (bankName && accountNumber && accountName && ifscCode && branchName) {
-    const id = tempBank.id || bankIdCounter;
+    const { bankName, accountNumber, accountName, ifscCode, branchName } =
+      tempBank;
+    if (bankName && accountNumber && accountName && ifscCode && branchName) {
+      const id = tempBank.id || bankIdCounter;
 
-    setFormData((prev) => {
-      const existingIndex = prev.bankDetails.findIndex((b) => b.id === id);
-      const newList =
-        existingIndex !== -1
-          ? prev.bankDetails.map((b) =>
-              b.id === id ? { ...tempBank, id } : b
-            )
-          : [...prev.bankDetails, { ...tempBank, id }];
+      setFormData((prev) => {
+        const existingIndex = prev.bankDetails.findIndex((b) => b.id === id);
+        const newList =
+          existingIndex !== -1
+            ? prev.bankDetails.map((b) =>
+                b.id === id ? { ...tempBank, id } : b
+              )
+            : [...prev.bankDetails, { ...tempBank, id }];
 
-      return {
-        ...prev,
-        bankDetails: newList,
-      };
-    });
+        return {
+          ...prev,
+          bankDetails: newList,
+        };
+      });
 
-    if (!tempBank.id) setBankIdCounter((prev) => prev + 1);
+      if (!tempBank.id) setBankIdCounter((prev) => prev + 1);
 
-    setTempBank({
-      id: 0,
-      bankName: "",
-      accountNumber: "",
-      accountName: "",
-      ifscCode: "",
-      branchName: "",
-    });
+      setTempBank({
+        id: 0,
+        bankName: "",
+        accountNumber: "",
+        accountName: "",
+        ifscCode: "",
+        branchName: "",
+      });
 
-    setBankInputError("");
-  } else {
-    setBankInputError("Please fill all bank details before clicking 'Add Bank'.");
-  }
-};
- const handleEditBank = (id: number) => {
-  const bankToEdit = formData.bankDetails.find((b) => b.id === id);
-  if (bankToEdit) setTempBank({ ...bankToEdit });
-};
- const handleDeleteBank = (id: number) => {
-  setFormData((prev) => ({
-    ...prev,
-    bankDetails: prev.bankDetails.filter((b) => b.id !== id),
-  }));
-};
+      setBankInputError("");
+    } else {
+      setBankInputError(
+        "Please fill all bank details before clicking 'Add Bank'."
+      );
+    }
+  };
+  const handleEditBank = (id: number) => {
+    const bankToEdit = formData.bankDetails.find((b) => b.id === id);
+    if (bankToEdit) setTempBank({ ...bankToEdit });
+  };
+  const handleDeleteBank = (id: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      bankDetails: prev.bankDetails.filter((b) => b.id !== id),
+    }));
+  };
   const handleCustomerType = (type: string) => {
     setCustomerType(type);
     type === "non-gst" && setShowModal(false);
@@ -459,7 +502,7 @@ export default function NewContact() {
                 </FormField>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
-                {formData.deliveryAddress.map((addr, idx) => (
+                {formData.deliveryDetails.map((addr, idx) => (
                   <div key={addr.id} className="border rounded p-4 shadow-sm">
                     <div className="mb-2 border-b border-gray-200">
                       <h4 className="text-gray-700 font-medium ">
@@ -510,7 +553,6 @@ export default function NewContact() {
                       onChange={handleBankChange}
                       placeholder="Enter Account Name"
                       className="alphabet_only capitalize"
-                      maxLength={50}
                     />
                   </FormField>
                   <FormField label="Account Number" required>
@@ -543,7 +585,6 @@ export default function NewContact() {
                       onChange={handleBankChange}
                       placeholder="Enter Bank Name"
                       className="alphabet_only capitalize"
-                      maxLength={50}
                     />
                   </FormField>
                   <FormField label="Branch Name" required>
@@ -554,7 +595,6 @@ export default function NewContact() {
                       onChange={handleBankChange}
                       placeholder="Enter Branch Name"
                       className="alphabet_only capitalize"
-                      maxLength={50}
                     />
                   </FormField>
                   <FormField label="">
@@ -682,7 +722,7 @@ export default function NewContact() {
                     value={formData.proofDetails.panNumber}
                     onChange={handleProofChange}
                     placeholder="Enter PAN Number"
-                    className="alphanumeric all_uppercase"
+                    className="alphanumeric all_uppercase no_space"
                     maxLength={10}
                     data-validate="required"
                   />
@@ -766,7 +806,7 @@ export default function NewContact() {
                 </FormField>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 h-[150px]">
-                {formData.deliveryAddress.map((addr, idx) => (
+                {formData.deliveryDetails.map((addr, idx) => (
                   <div key={addr.id} className="border rounded p-4 shadow-sm">
                     <div className="mb-2 border-b border-gray-200">
                       <h4 className="text-gray-700 font-medium ">
@@ -814,7 +854,7 @@ export default function NewContact() {
               <div className="border-b border-gray-300">
                 <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-2">
                   <FormField label="Ledger Name" required htmlFor="ledgerName">
-                    <div>
+                    <div className="relative">
                       <div className="flex gap-2">
                         <select
                           name="salutation"
@@ -830,11 +870,32 @@ export default function NewContact() {
                           data-validate="required"
                           name="ledgerName"
                           placeholder="Enter Name"
-                          className="form-control lg: w-300 alphabet_only capitalize"
+                          className="form-control lg:w-300 alphabet_only capitalize"
                           value={formData.ledgerName}
                           onChange={handleChange}
                         />
                       </div>
+
+                      {/* Suggestion box positioned to the right of the input */}
+                      {isShown &&
+                        filteredContact &&
+                        filteredContact.length > 0 && (
+                          <div className="absolute top-0 left-full ml-2 bg-white border border-gray-200 rounded-sm shadow-lg p-3 z-[60] w-md max-w-md">
+                            <div className="text-sm">
+                              <span className="text-[#009333] font-medium">
+                                Existing Names
+                              </span>
+                              {filteredContact.map((item, id) => (
+                                <div
+                                  key={id}
+                                  className="font-bold text-[#12375d] mb-1 mt-1"
+                                >
+                                  {item.name}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                     </div>
                   </FormField>
                 </div>
@@ -890,7 +951,6 @@ export default function NewContact() {
                       name="email"
                       placeholder="Enter Email"
                       className="form-control w-full"
-                      maxLength={10}
                       value={formData.email}
                       onChange={handleChange}
                     />
@@ -965,14 +1025,14 @@ export default function NewContact() {
                       onChange={handleChange}
                     />
                   </FormField>
-                  {gstNumber && (
+                  {formData.gstNumber && (
                     <FormField label="GST Number" required>
                       <Input
                         name="gstNumber"
                         placeholder="Enter GST Number"
                         className="w-full form-control alphanumeric no_space all_uppercase"
                         maxLength={15}
-                        value={gstNumber}
+                        value={formData.gstNumber}
                         readOnly={true}
                       />
                     </FormField>
@@ -1059,7 +1119,7 @@ export default function NewContact() {
                       className={` ${error && "border-red-500"}`}
                       placeholder="Enter GST Number"
                       autoComplete="off"
-                      value={gstNumber}
+                      value={GstNumber}
                       maxLength={15}
                       onChange={handleGSTChange}
                     />
