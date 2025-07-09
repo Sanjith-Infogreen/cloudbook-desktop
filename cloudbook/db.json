@@ -135,148 +135,148 @@
       "pincode": "302001"
     }
   ],
- 
-    "sidebarData": [
-      {
-        "icon": "ri-dashboard-line",
-        "Title": "Master",
-        "icon_down": "ri-arrow-down-s-line",
-        "submenu": [
-          {
-            "Title": "Contact",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/contact/list",
-            "new_Link": "/modules/contact/new",
-            "order": 1
-          },
-          {
-            "Title": "Product",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/product/list",
-            "new_Link": "/modules/product/new",
-            "order": 2
-          },
-          {
-            "Title": "Category",
-            "icon_New": "",
-            "main_Link": "/modules/category",
-            "new_Link": "",
-            "order": 3
-          }
-        ],
-        "order": 1,
-        "id": "2ad3"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Sales Order",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/sales-order/list",
-        "new_Link": "/modules/sales-order/new",
-        "order": 2,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Invoice",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/invoice/list",
-        "new_Link": "/modules/invoice/new",
-        "order": 3,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-shopping-cart-line",
-        "Title": "Purchase",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase/list",
-        "new_Link": "/modules/purchase/new",
-        "order": 4,
-        "id": "2b7b"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "Quotation",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/quotation/list",
-        "new_Link": "/modules/quotation/new",
-        "order": 5,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "DC",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/dc/list",
-        "new_Link": "/modules/dc/new",
-        "order": 6,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "Payment",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/payment/list",
-        "new_Link": "/modules/payment/new",
-        "order": 7,
-        "id": "3afc"
-      },
-      {
-        "icon": "ri-money-rupee-circle-line",
-        "Title": "Receipt",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/receipt/list",
-        "new_Link": "/modules/receipt/new",
-        "order": 8,
-        "id": "059e"
-      },
-      {
-        "icon": "ri-calculator-line",
-        "Title": "Expense",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/expense/list",
-        "new_Link": "/modules/expense/new",
-        "order": 9,
-        "id": "aa06"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "P.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase-return/list",
-        "new_Link": "/modules/purchase-return/new",
-        "order": 10,
-        "id": "7b73"
-      },
-      {
-        "icon": "ri-reply-line",
-        "Title": "S.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "modules/sales-return/list",
-        "new_Link": "modules/sales-return/new",
-        "order": 11,
-        "id": "c1fa"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Bulk Receipt",
-        "icon_New": "",
-        "main_Link": "/modules/bulk-receipt",
-        "new_Link": "",
-        "order": 12,
-        "id": "2df5"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Report",
-        "icon_New": "",
-        "main_Link": "/modules/report",
-        "new_Link": "",
-        "order": 13,
-        "id": "2df5"
-      }
-    ],
- 
+
+  "sidebarData": [
+    {
+      "icon": "ri-dashboard-line",
+      "Title": "Master",
+      "icon_down": "ri-arrow-down-s-line",
+      "submenu": [
+        {
+          "Title": "Contact",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/contact/list",
+          "new_Link": "/modules/contact/new",
+          "order": 1
+        },
+        {
+          "Title": "Product",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/product/list",
+          "new_Link": "/modules/product/new",
+          "order": 2
+        },
+        {
+          "Title": "Category",
+          "icon_New": "",
+          "main_Link": "/modules/category",
+          "new_Link": "",
+          "order": 3
+        }
+      ],
+      "order": 1,
+      "id": "2ad3"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Sales Order",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/sales-order/list",
+      "new_Link": "/modules/sales-order/new",
+      "order": 2,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Invoice",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/invoice/list",
+      "new_Link": "/modules/invoice/new",
+      "order": 3,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-shopping-cart-line",
+      "Title": "Purchase",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase/list",
+      "new_Link": "/modules/purchase/new",
+      "order": 4,
+      "id": "2b7b"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "Quotation",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/quotation/list",
+      "new_Link": "/modules/quotation/new",
+      "order": 5,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "DC",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/dc/list",
+      "new_Link": "/modules/dc/new",
+      "order": 6,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "Payment",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/payment/list",
+      "new_Link": "/modules/payment/new",
+      "order": 7,
+      "id": "3afc"
+    },
+    {
+      "icon": "ri-money-rupee-circle-line",
+      "Title": "Receipt",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/receipt/list",
+      "new_Link": "/modules/receipt/new",
+      "order": 8,
+      "id": "059e"
+    },
+    {
+      "icon": "ri-calculator-line",
+      "Title": "Expense",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/expense/list",
+      "new_Link": "/modules/expense/new",
+      "order": 9,
+      "id": "aa06"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "P.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase-return/list",
+      "new_Link": "/modules/purchase-return/new",
+      "order": 10,
+      "id": "7b73"
+    },
+    {
+      "icon": "ri-reply-line",
+      "Title": "S.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "modules/sales-return/list",
+      "new_Link": "modules/sales-return/new",
+      "order": 11,
+      "id": "c1fa"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Bulk Receipt",
+      "icon_New": "",
+      "main_Link": "/modules/bulk-receipt",
+      "new_Link": "",
+      "order": 12,
+      "id": "2df5"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Report",
+      "icon_New": "",
+      "main_Link": "/modules/report",
+      "new_Link": "",
+      "order": 13,
+      "id": "2df5"
+    }
+  ],
+
   "customerLedger": [
     {
       "id": "1",
@@ -538,8 +538,8 @@
       "remarks": "Business travel related"
     }
   ],
- 
 
+ 
  
     "mockProductSalesReportData": [
       {
@@ -1199,4 +1199,6 @@
     "label": "Pinnacle Health"
   }
 ]
+ 
 }
+ 
