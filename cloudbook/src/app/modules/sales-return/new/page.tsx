@@ -12,7 +12,7 @@ import { Input, Toggle } from "@/app/utils/form-controls"; // Assuming this path
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect"; // Assuming this path is correct
 import useInputValidation from "@/app/utils/inputValidations"; // Assuming this path is correct
 
-// Define the fields for a product in the quotation
+// Define the fields for a product in the sreturn
 type ProductField =
   | "productName"
   | "mrp"
@@ -68,19 +68,19 @@ const FormField = ({
   </div>
 );
 
-// Main Newquotation component
-const Newquotation = () => {
+// Main Newsreturn component
+const Newsreturn = () => {
   useInputValidation(); // Custom hook for input validations
-  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the quotation date
+  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the sreturn date
   const dispatch = useDispatch<AppDispatch>(); // Redux dispatch hook
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead); // Redux selector for typeahead data
-  const [selectedquotationType, setSelectedquotationtype] = useState<
+  const [selectedsreturnType, setSelectedsreturntype] = useState<
     string | null
-  >(null); // State for selected quotation type
+  >(null); // State for selected sreturn type
   const [details, setDetails] = useState<any>(null); // State for supplier details (from typeahead)
 
-  // Options for quotation type dropdown
-  const quotationType: Option[] = [
+  // Options for sreturn type dropdown
+  const sreturnType: Option[] = [
     { value: "cash", label: "Cash" },
     { value: "credit", label: "Credit" },
     { value: "loan", label: "Loan" },
@@ -176,8 +176,8 @@ const Newquotation = () => {
     if (!form) return;
 
     // Extract form values
-    const quotationName =
-      (form.elements.namedItem("quotationName") as HTMLInputElement)?.value ||
+    const sreturnName =
+      (form.elements.namedItem("sreturnName") as HTMLInputElement)?.value ||
       "";
     const vehicleNumber =
       (form.elements.namedItem("vehicleNumber") as HTMLInputElement)?.value ||
@@ -190,12 +190,12 @@ const Newquotation = () => {
       (form.elements.namedItem("e-way bill number") as HTMLInputElement)
         ?.value || "";
     const reference =
-      (form.elements.namedItem("quotationNumber") as HTMLInputElement)?.value ||
+      (form.elements.namedItem("sreturnNumber") as HTMLInputElement)?.value ||
       "";
     const dueDays =
       (form.elements.namedItem("dueDays") as HTMLInputElement)?.value || "";
-    const quotationAddress =
-      (form.elements.namedItem("quotationaddress") as HTMLInputElement)
+    const sreturnAddress =
+      (form.elements.namedItem("sreturnaddress") as HTMLInputElement)
         ?.value || "";
     const state =
       (form.elements.namedItem("state") as HTMLInputElement)?.value || "";
@@ -204,15 +204,15 @@ const Newquotation = () => {
     const fullFormData = {
       supplier: details, // This was from the commented out section, keeping it for now.
       date,
-      quotationType: selectedquotationType, // This was from the commented out section, keeping it for now.
-      quotationName,
+      sreturnType: selectedsreturnType, // This was from the commented out section, keeping it for now.
+      sreturnName,
       vehicleNumber,
       gstNumber,
       phoneNumber,
       ewayBillNumber,
       reference,
       dueDays,
-      quotationAddress,
+      sreturnAddress,
       state,
       productDetails, // Array of product details
     };
@@ -222,9 +222,9 @@ const Newquotation = () => {
     // TODO: send fullFormData to your API here
   };
 
-  // Function to handle quotation type change (from the commented out section)
-  const handlequotationTypeChange = (value: string | string[] | null) => {
-    setSelectedquotationtype(value as string | null);
+  // Function to handle sreturn type change (from the commented out section)
+  const handlesreturnTypeChange = (value: string | string[] | null) => {
+    setSelectedsreturntype(value as string | null);
   };
 
   // Placeholder function for adding new item (from the commented out section)
@@ -257,31 +257,21 @@ const Newquotation = () => {
   };
 
   return (
-    <Layout pageTitle="Quotation New">
+    <Layout pageTitle="S.Return New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              {/* The following section was commented out in the original code,
-                  but its elements (supplier, date, quotationType) are still referenced in handleSubmit.
-                  Leaving it commented out as per original provided code, but noting the discrepancy.
-              <div className="border-b border-gray-200">
+                   <div className="border-b border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
                   <div className=" lg:pr-4">
-                    <FormField label="Supplier Name" required>
-                      <CommonTypeahead
-                        className="capitalize"
-                        name="name"
-                        placeholder="Search Name to select"
-                        data={typeHead}
-                        required={true}
-                        searchFields={["name"]}
-                        displayField="name"
-                        minSearchLength={1}
-                        onAddNew={handleAddNewName}
-                        onSelect={handleNameSelect}
-                      />
-                    </FormField>
+                    <FormField label="Bill type" required>
+                        <Input
+                          name="sreturnName"
+                          placeholder="Enter the Name"
+                          className="form-control w-full alphanumeric all_uppercase no_space"
+                        />
+                      </FormField>
                   </div>
                   <div className="space-y-4 flex justify-end">
                     <FormField label="" className="w-full lg:w-1/2">
@@ -298,15 +288,14 @@ const Newquotation = () => {
                     </FormField>
                   </div>
                 </div>
-              </div> */}
-
-              <div className="px-4 py-6">
+              </div>
+            <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   <div className="space-y-4 lg:border-r lg:border-gray-200 lg:pr-4">
                     <div className="space-y-4">
                       <FormField label="Name" required>
                         <Input
-                          name="quotationName"
+                          name="sreturnName"
                           placeholder="Enter the Name"
                           className="form-control w-full alphanumeric all_uppercase no_space"
                         />
@@ -325,10 +314,10 @@ const Newquotation = () => {
                           className="form-control w-full all_uppercase alphanumeric no_space "
                         />
                       </FormField>
-                      <FormField label="Phone Number" required>
+                      <FormField label="Place" required>
                         <Input
                           name="phoneno"
-                          placeholder="Enter the Phone Number"
+                          placeholder="Enter the Place"
                           className="form-control w-full only_number"
                         />
                       </FormField>
@@ -336,32 +325,26 @@ const Newquotation = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <FormField label="E-way bill Number" required>
+                    <FormField label="Transport Mode" required>
                       <Input
-                        name="e-way bill number"
-                        placeholder="Enter the E-way Bill Number"
+                        name="Transport Mode"
+                        placeholder="Enter the Transport Mode"
                         className="form-control w-full only_number"
                       />
                     </FormField>
 
-                    <FormField label="Reference" required>
+                    <FormField label="Date of Supply" required>
                       <Input
-                        name="Reference"
-                        placeholder="Enter the Reference"
+                        name="Date of supply"
+                        placeholder="Enter the Date of supply"
                         className="form-control w-full alphanumeric all_uppercase no_space"
                       />
                     </FormField>
 
-                    <FormField label="Due Days" required>
-                      <Input
-                        name="dueDays"
-                        placeholder="Enter Due Days"
-                        className="form-control w-full only_number"
-                      />
-                    </FormField>
+                   
                     <FormField label="Address" required>
                       <Input
-                        name="quotationaddress"
+                        name="sreturnaddress"
                         placeholder="Enter the Address"
                         className="form-control w-full alphanumeric all_uppercase no_space"
                       />
@@ -382,7 +365,7 @@ const Newquotation = () => {
                       <tr>
                         <td className="p-2 w-[3%] td-cell">S.no</td>
                         <td className="p-2 w-[25%] td-cell">Product Name</td>
-                        <td className="p-2 w-[10%] td-cell">MRP</td>
+                        <td className="p-2 w-[10%] td-cell">Qty</td>
                         <td className="p-2 w-[10%] td-cell">Qty</td>
                         <td className="p-2 w-[5%] td-cell">Stock</td>
                         <td className="p-2 w-[10%] td-cell">Net Rate</td>
@@ -564,4 +547,4 @@ const Newquotation = () => {
   );
 };
 
-export default Newquotation;
+export default Newsreturn;

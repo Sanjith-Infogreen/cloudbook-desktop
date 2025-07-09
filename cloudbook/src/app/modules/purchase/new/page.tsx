@@ -246,7 +246,7 @@ const NewPurchase = () => {
               </div>
 
               <div className="px-4 py-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
                     <div className="bg-white border border-gray-200 rounded-sm  p-3 h-[175px] overflow-y-auto">
                       {details && Object.keys(details).length > 0 ? (
@@ -289,7 +289,7 @@ const NewPurchase = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-4 ">
                     <FormField label="Purchase Type" required>
                       <SearchableSelect
                         id="purchaseType"
