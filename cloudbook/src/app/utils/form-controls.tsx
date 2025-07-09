@@ -104,10 +104,7 @@ export const CheckboxGroup = ({
   // It's controlled if 'controlledChecked' (the 'checked' prop) is provided.
   const isControlled = typeof controlledChecked === 'boolean';
 
-  // Internal state for uncontrolled usage
-  // If controlled, internal state isn't used for 'checked' value.
-  // If uncontrolled, it uses 'defaultChecked' for initial state,
-  // and updates via 'handleInternalChange'.
+
   const [internalChecked, setInternalChecked] = useState<boolean>(defaultChecked);
  
   const checkboxChecked = isControlled ? controlledChecked : internalChecked;
