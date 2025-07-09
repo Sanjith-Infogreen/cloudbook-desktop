@@ -3,8 +3,8 @@
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Layout from "../../../components/Layout";
- 
-import DatePicker from "@/app/utils/commonDatepicker"; 
+
+import DatePicker from "@/app/utils/commonDatepicker";
 import CommonTypeahead from "@/app/utils/commonTypehead";
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead";
@@ -194,15 +194,15 @@ const NewPurchase = () => {
   };
 
   const productChange = (index: number, item: any) => {
-  setProductDetails((prev) => {
-    const updated = [...prev];
-    updated[index] = {
-      ...updated[index],
-      productName: item?.name || "", // assuming your CommonTypeahead returns {name: "..."}
-    };
-    return updated;
-  });
-};
+    setProductDetails((prev) => {
+      const updated = [...prev];
+      updated[index] = {
+        ...updated[index],
+        productName: item?.name || "", // assuming your CommonTypeahead returns {name: "..."}
+      };
+      return updated;
+    });
+  };
 
   return (
     <Layout pageTitle="Purchase New">
@@ -210,14 +210,14 @@ const NewPurchase = () => {
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              <div className="border-b border-gray-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
+              <div className="border-b border-gray-200">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
                   <div className=" lg:pr-4">
                     <FormField label="Supplier Name" required>
                       <CommonTypeahead
                         className="capitalize"
                         name="name"
-                        placeholder="Enter name"
+                        placeholder="Search Name to select"
                         data={typeHead}
                         required={true}
                         searchFields={["name"]}
@@ -248,7 +248,7 @@ const NewPurchase = () => {
               <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
                   <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
-                    <div className="bg-white border border-gray-200 rounded-sm shadow-md p-3 h-[175px] overflow-y-auto">
+                    <div className="bg-white border border-gray-200 rounded-sm  p-3 h-[175px] overflow-y-auto">
                       {details && Object.keys(details).length > 0 ? (
                         <div className="text-sm text-gray-700 ">
                           {/* Grid for main content */}
@@ -331,37 +331,40 @@ const NewPurchase = () => {
                   Product Details
                 </h2>
                 <div className="max-h-[calc(100vh-520px)]  overflow-y-auto">
-                  <table className="w-full text-sm">
-                    <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
+                  <table className="w-full text-[14px]">
+                    <thead className="bg-[#f8f9fa] text-left text-[14px]  text-[#12344d] sticky-table-header">
                       <tr>
-                        <td className="p-2 w-[3%]">S.no</td>
-                        <td className="p-2 w-[28%]">Product Name</td>
-                        <td className="p-2 w-[15%]">Serial No</td>
-                        <td className="p-2 w-[15%]">Quantity</td>
-                        <td className="p-2 w-[15%] ">
-                          Rate {rateIncTax ? "(Inc tax)" : "(Exc tax)"}
-                          <span className="ms-2">
+                        <td className="p-2 w-[3%] td-cell">S.no</td>
+                        <td className="p-2 w-[25%] td-cell">Product Name</td>
+                        <td className="p-2 w-[15%] td-cell">Serial No</td>
+                        <td className="p-2 w-[10%] td-cell">Quantity</td>
+                        <td className="p-2 w-[15%] td-cell">
+                          <div className="flex  gap-2">
+                            <span className="text-sm font-medium text-gray-700 ">
+                              Rate {rateIncTax ? "(Inc tax)" : "(Exc tax)"}
+                            </span>
                             <Toggle
                               name="rate"
                               checked={rateIncTax}
                               onChange={(e) => setRateIncTax(e.target.checked)}
                             />
-                          </span>
+                          </div>
                         </td>
-                        <td className="p-2 w-[15%]">GST</td>
-                        <td className="p-2 w-[9%] text-center">Total</td>
-                        <td className="p-2 w-[7%] text-center">Action</td>
+
+                        <td className="p-2 w-[10%] td-cell">GST</td>
+                        <td className="p-2 w-[12%] td-cell text-center">Total</td>
+                        <td className="p-2 w-[7%] last-td-cell text-center">Action</td>
                       </tr>
                     </thead>
                     <tbody id="productTableBody">
                       {productDetails.map((product, idx) => (
                         <tr key={idx}>
-                          <td className="p-2 text-center w-[3%]">{idx + 1}</td>
+                          <td className="p-2 text-center w-[3%] td-cell">{idx + 1}</td>
 
-                          <td className="p-2 w-[28%]">
+                          <td className="p-2 w-[25%] td-cell">
                             <CommonTypeahead
                               name={`productName-${idx}`}
-                              placeholder="Enter name"
+                              placeholder="Search Name to Select"
                               data={typeHead}
                               required={true}
                               searchFields={["name"]}
@@ -370,10 +373,9 @@ const NewPurchase = () => {
                               onAddNew={handleAddNewName}
                               onSelect={(item) => productChange(idx, item)}
                             />
-                            
                           </td>
 
-                          <td className="p-2 w-[15%]">
+                          <td className="p-2 w-[15%] td-cell">
                             <Input
                               type="text"
                               name={`serialNo-${idx}`}
@@ -391,7 +393,7 @@ const NewPurchase = () => {
                             />
                           </td>
 
-                          <td className="p-2 w-[15%]">
+                          <td className="p-2 w-[10%] td-cell">
                             <Input
                               type="text"
                               name={`quantity-${idx}`}
@@ -408,7 +410,7 @@ const NewPurchase = () => {
                             />
                           </td>
 
-                          <td className="p-2 w-[15%]">
+                          <td className="p-2 w-[15%] td-cell">
                             {rateIncTax ? (
                               <Input
                                 type="text"
@@ -442,7 +444,7 @@ const NewPurchase = () => {
                             )}
                           </td>
 
-                          <td className="p-2 w-[15%]">
+                          <td className="p-2 w-[10%] td-cell">
                             <Input
                               type="text"
                               name={`gst-${idx}`}
@@ -455,7 +457,7 @@ const NewPurchase = () => {
                             />
                           </td>
 
-                          <td className="p-2 w-[9%] text-right">
+                          <td className="p-2 w-[12%] text-right td-cell">
                             <Input
                               type="text"
                               name={`total-${idx}`}
@@ -466,7 +468,7 @@ const NewPurchase = () => {
                             />
                           </td>
 
-                          <td className="p-2 text-center w-[7%]">
+                          <td className="p-2 text-center w-[7%] last-td-cell">
                             <button
                               type="button"
                               className="text-red-600 delete-row mx-1 cursor-pointer"
