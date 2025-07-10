@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import { useEffect, useState, useRef, RefObject } from "react";
 import Layout from "../../../components/Layout";
 import { useRouter } from "next/navigation";
@@ -9,21 +9,22 @@ import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 // --- Interfaces for fetched data ---
-interface Purchase {
+interface Invoice {
   id: number;
-  poNumber: string;
-  supplier: string;
-  orderDate: string;
+  invoiceNumber: string;
+  customer: string;
+  invoiceDate: string;
+  dueDate: string;
   totalAmount: number;
   status: string;
-  deliveryDate: string;
   category: string;
 }
 
-interface SupplierData {
-  id?: number; 
+interface customerData {
+  id?: number; // Make 'id' optional as it might be missing
   name?: string;
-  supplierName?: string; 
+  customerName?: string; // Add if your user data sometimes uses this
+  // Add other properties if they exist in your user data
 }
 
 interface SidebarProps {
@@ -64,52 +65,51 @@ function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
   );
 }
 
-type TabKey = "all" | "pending" | "completed" | "cancelled";
+type TabKey = "all" | "pending" | "paid" | "overdue";
 
-const PurchaseList = () => {
+const InvoiceList = () => {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
-  const [isPODropdownOpen, setPODropdownOpen] = useState(false);
+  const [isInvoiceDropdownOpen, setInvoiceDropdownOpen] = useState(false);
   const viewRef = useRef(null);
-  const poRef = useRef(null);
+  const invoiceRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // --- State for fetched data ---
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
-  const [supplierOptions, setSupplierOptions] = useState<Option[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [customerOptions, setCustomerOptions] = useState<Option[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchPurchaseData = async () => {
+    const fetchInvoiceData = async () => {
       try {
-        const [purchasesResponse, suppliersResponse] = await Promise.all([
-          fetch("http://localhost:4000/purchases"),
-          fetch("http://localhost:4000/supplierOptions"),
+        const [invoicesResponse, customersResponse] = await Promise.all([
+            fetch("http://localhost:4000/invoices"),
+          fetch("http://localhost:4000/customerOptions"),
         ]);
 
-        if (!purchasesResponse.ok) {
-          throw new Error(`HTTP error! Status: ${purchasesResponse.status} from /purchases`);
+        if (!invoicesResponse.ok) {
+          throw new Error(`HTTP error! Status: ${invoicesResponse.status} from /invoices`);
         }
-        if (!suppliersResponse.ok) {
-          throw new Error(`HTTP error! Status: ${suppliersResponse.status} from /supplierOptions`);
+        if (!customersResponse.ok) {
+          throw new Error(`HTTP error! Status: ${customersResponse.status} from /customerOptions`);
         }
 
-        const purchasesData: Purchase[] = await purchasesResponse.json();
-        
-        const suppliersData: SupplierData[] = await suppliersResponse.json();
+        const invoicesData: Invoice[] = await invoicesResponse.json();
+        const customersData: customerData[] = await customersResponse.json();
 
-        const mappedSupplierOptions: Option[] = suppliersData
-          .filter(supplier => supplier.id !== undefined && supplier.id !== null) // NEW: Filter out items without a valid 'id'
-          .map(supplier => ({
-            value: supplier.id!.toString(), // Use ! (non-null assertion) after filtering
-            label: supplier.supplierName || supplier.name || 'Unknown Supplier', // Handle potentially missing label too
+        const mappedCustomerOptions: Option[] = customersData
+          .filter(customer => customer.id !== undefined && customer.id !== null)
+          .map(customer => ({
+            value: customer.id!.toString(),
+            label: customer.customerName || customer.name || 'Unknown Customer',
           }));
 
-        setPurchases(purchasesData);
-        setSupplierOptions(mappedSupplierOptions);
+        setInvoices(invoicesData);
+        setCustomerOptions(mappedCustomerOptions);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -122,11 +122,11 @@ const PurchaseList = () => {
       }
     };
 
-    fetchPurchaseData();
+    fetchInvoiceData();
   }, []);
 
   const handleDelete = () => {
-    console.log("Deleting purchases with IDs:", selectedIds);
+    console.log("Deleting invoices with IDs:", selectedIds);
     setIsModalOpen(false);
     setSelectedIds([]);
   };
@@ -139,10 +139,10 @@ const PurchaseList = () => {
       setViewDropdownOpen(false);
     }
     if (
-      poRef.current &&
-      !(poRef.current as any).contains(e.target)
+      invoiceRef.current &&
+      !(invoiceRef.current as any).contains(e.target)
     ) {
-      setPODropdownOpen(false);
+      setInvoiceDropdownOpen(false);
     }
   };
 
@@ -154,22 +154,16 @@ const PurchaseList = () => {
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [fields, setFields] = useState([
-    { id: "name", label: "Name", visible: true },
-    { id: "account", label: "Account", visible: true },
-    { id: "jobTitle", label: "Job title", visible: true },
-    { id: "email", label: "Email", visible: true },
-    { id: "mobile", label: "Mobile", visible: true },
+    { id: "invoiceNumber", label: "Invoice Number", visible: true },
+    { id: "customer", label: "Customer", visible: true },
+    { id: "invoiceDate", label: "Invoice Date", visible: true },
+    { id: "dueDate", label: "Due Date", visible: true },
+    { id: "totalAmount", label: "Total Amount", visible: true },
     { id: "status", label: "Status", visible: true },
-    { id: "tags", label: "Tags", visible: true },
-    { id: "salesOwner", label: "Sales owner", visible: true },
-    { id: "facebook", label: "Facebook", visible: true },
-    { id: "firstName", label: "First name", visible: false },
-    { id: "lastName", label: "Last name", visible: false },
-    { id: "workPhone", label: "Work phone", visible: false },
-    { id: 'totalChatSessions', label: 'Total chat sessions', visible: false },
-    { id: 'firstSeenChat', label: 'First seen on chat', visible: false },
-    { id: 'lastSeenChat', label: 'Last seen on chat', visible: false },
-    { id: 'locale', label: 'Locale', visible: false },
+    { id: "category", label: "Category", visible: true },
+    { id: "items", label: "Items", visible: false },
+    { id: "paymentTerms", label: "Payment Terms", visible: false },
+    { id: "notes", label: "Notes", visible: false },
   ]);
 
   const toggleSidebar = () => {
@@ -193,15 +187,13 @@ const PurchaseList = () => {
       fields.map((field) => ({
         ...field,
         visible: [
-          "name",
-          "account",
-          "jobTitle",
-          "email",
-          "mobile",
+          "invoiceNumber",
+          "customer",
+          "invoiceDate",
+          "dueDate",
+          "totalAmount",
           "status",
-          "tags",
-          "salesOwner",
-          "facebook",
+          "category",
         ].includes(field.id),
       }))
     );
@@ -216,7 +208,7 @@ const PurchaseList = () => {
     const checked = e.target.checked;
     setSelectAll(checked);
     if (checked) {
-      setSelectedIds(filteredPurchases.map((p) => p.id));
+      setSelectedIds(filteredInvoices.map((p) => p.id));
     } else {
       setSelectedIds([]);
     }
@@ -229,17 +221,12 @@ const PurchaseList = () => {
   };
 
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
-  const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([
-    "india",
-    "canada",
-  ]);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]);
-
-  const handleSupplierChange = (value: string | string[] | null) => {
-    console.log("Selected Supplier:", value);
-    setSelectedSupplier(value as string | null);
+  const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
+  const [selectedInvoiceStatus, setSelectedInvoiceStatus] = useState<string | null>(null);
+  
+  const handleCustomerChange = (value: string | string[] | null) => {
+    console.log("Selected Customer:", value);
+    setSelectedCustomer(value as string | null);
   };
 
   const handleAddNewItem = () => {
@@ -256,56 +243,52 @@ const PurchaseList = () => {
 
   const handleApplyFilters = () => {
     console.log("Applying filters:", {
-      selectedSupplier,
-      selectedCountries,
-      selectedColor,
-      selectedMultiColors,
+      selectedCustomer,
+      selectedInvoiceStatus,
     });
     setIsFilterSidebarOpen(false);
   };
 
   const handleResetFilters = () => {
     console.log("Resetting filters");
-    setSelectedSupplier(null);
-    setSelectedCountries([]);
-    setSelectedColor(null);
-    setSelectedMultiColors([]);
+    setSelectedCustomer(null);
+    setSelectedInvoiceStatus(null);
   };
 
-  const tabs: TabKey[] = ["all", "pending", "completed", "cancelled"];
+  const tabs: TabKey[] = ["all", "pending", "paid", "overdue"];
 
-  // Calculate counts dynamically based on fetched purchases
+  // Calculate counts dynamically based on fetched invoices
   const counts: Record<TabKey, number> = {
-    all: purchases.length,
-    pending: purchases.filter(p => p.status.toLowerCase() === 'pending').length,
-    completed: purchases.filter(p => p.status.toLowerCase() === 'completed').length,
-    cancelled: purchases.filter(p => p.status.toLowerCase() === 'cancelled').length,
+    all: invoices.length,
+    pending: invoices.filter(p => p.status.toLowerCase() === 'pending').length,
+    paid: invoices.filter(p => p.status.toLowerCase() === 'paid').length,
+    overdue: invoices.filter(p => p.status.toLowerCase() === 'overdue').length,
   };
 
   const router = useRouter();
 
-  const filteredPurchases =
+  const filteredInvoices =
     activeTab === "all"
-      ? purchases
-      : purchases.filter((p) => p.status.toLowerCase() === activeTab);
+      ? invoices
+      : invoices.filter((p) => p.status.toLowerCase() === activeTab);
 
   useEffect(() => {
     setSelectAll(
-      filteredPurchases.length > 0 &&
-      selectedIds.length === filteredPurchases.length
+      filteredInvoices.length > 0 &&
+      selectedIds.length === filteredInvoices.length
     );
-  }, [selectedIds, filteredPurchases]);
+  }, [selectedIds, filteredInvoices]);
 
   if (loading) {
-    return <Layout pageTitle="Purchase List">Loading purchases...</Layout>;
+    return <Layout pageTitle="Invoice List">Loading invoices...</Layout>;
   }
 
   if (error) {
-    return <Layout pageTitle="Purchase List">Error: {error}</Layout>;
+    return <Layout pageTitle="Invoice List">Error: {error}</Layout>;
   }
 
   return (
-    <Layout pageTitle="Purchase List">
+    <Layout pageTitle="Invoice List">
       <main className="flex-1">
         <div className="overflow-y-hidden h-[calc(100vh-103px)]">
           {/* Tabs */}
@@ -322,7 +305,7 @@ const PurchaseList = () => {
                   >
                     <span className="flex items-center gap-1">
                       {tab === "all"
-                        ? "All Orders"
+                        ? "All Invoices"
                         : tab.charAt(0).toUpperCase() + tab.slice(1)}
                       {activeTab === tab && (
                         <>
@@ -370,7 +353,7 @@ const PurchaseList = () => {
               <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-download-line mr-1"></i>
-                  Import Orders
+                  Import Invoices
                 </button>
                 <button className="px-2 border-l border-[#cfd7df] hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-arrow-down-s-line"></i>
@@ -378,10 +361,10 @@ const PurchaseList = () => {
               </div>
               <button
                 className="btn-sm btn-primary ml-2 text-sm"
-                onClick={() => router.push("/modules/purchase/new")}
+                onClick={() => router.push("/modules/invoice/new")}
               >
                 <i className="ri-add-fill mr-1"></i>
-                <span className="text-sm">Add Purchase</span>
+                <span className="text-sm">Add Invoice</span>
               </button>
             </div>
           </div>
@@ -420,7 +403,7 @@ const PurchaseList = () => {
                     id="bulkActionsBtn"
                     onClick={() => {
                       setSelectAll(true);
-                      setSelectedIds(filteredPurchases.map((p) => p.id));
+                      setSelectedIds(filteredInvoices.map((p) => p.id));
                     }}
                   >
                     <i className="ri-stack-fill mr-1"></i>
@@ -466,7 +449,7 @@ const PurchaseList = () => {
             </div>
             <div className="flex items-center relative space-x-2">
               <Input
-                name="purchaseSearch"
+                name="invoiceSearch"
                 placeholder="Search here..."
                 className="!h-[31px] "
               />
@@ -480,13 +463,15 @@ const PurchaseList = () => {
                 onReset={handleResetFilters}
                 title="Apply Your Filters"
               >
+
+                
                 {/* Content to be placed inside the sidebar */}
                 <div className="space-y-4">
                   <div>
-                    <label className="filter-label">PO Number</label>
+                    <label className="filter-label">Invoice Number</label>
                     <Input
-                      name="poNumber"
-                      placeholder="Enter PO Number"
+                      name="invoiceNumber"
+                      placeholder="Enter Invoice Number"
                     />
                   </div>
                   <div>
@@ -496,23 +481,24 @@ const PurchaseList = () => {
                       options={[
                         { value: "All", label: "All" },
                         { value: "Pending", label: "Pending" },
-                        { value: "Completed", label: "Completed" },
-                        { value: "Cancelled", label: "Cancelled" },
+                        { value: "Paid", label: "Paid" },
+                        { value: "Overdue", label: "Overdue" },
                       ]}
+                  
                     />
                   </div>
                   <div>
-                    <label htmlFor="supplier-select" className="filter-label">
-                      Supplier Name
+                    <label htmlFor="customer-select" className="filter-label">
+                      Customer Name
                     </label>
                     <SearchableSelect
-                      id="supplier-select"
-                      name="supplier"
-                      options={supplierOptions} // Using the fetched supplier options here
-                      placeholder="Select Supplier Name"
+                      id="customer-select"
+                      name="customer"
+                      options={customerOptions} // Using the fetched customer options here
+                      placeholder="Select Customer Name"
                       searchable
-                      onChange={handleSupplierChange}
-                      initialValue={selectedSupplier}
+                      onChange={handleCustomerChange}
+                      initialValue={selectedCustomer}
                       onAddNew={handleAddNewItem}
                     />
                   </div>
@@ -524,7 +510,7 @@ const PurchaseList = () => {
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
               <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-                {selectedIds.length} Purchases selected
+                {selectedIds.length} Invoices selected
               </div>
             )}
             <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
@@ -547,14 +533,14 @@ const PurchaseList = () => {
                       </th>
                       <th className="th-cell relative" >
                         <div className="flex justify-between items-center gap-1">
-                          <span>PO Number</span>
+                          <span>Invoice Number</span>
                           <i
-                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isPODropdownOpen ? 'bg-[#c9d1d7]' : ''
+                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isInvoiceDropdownOpen ? 'bg-[#c9d1d7]' : ''
                               }`}
-                            onClick={() => setPODropdownOpen(prev => !prev)} ref={poRef}
+                            onClick={() => setInvoiceDropdownOpen(prev => !prev)} ref={invoiceRef}
                           ></i>
                         </div>
-                        {isPODropdownOpen && (
+                        {isInvoiceDropdownOpen && (
                           <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
                             <ul className="text-sm text-[#12344d] font-normal py-1">
                               <li className="flex items-center  px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -595,13 +581,19 @@ const PurchaseList = () => {
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Supplier Name</span>
+                          <span>Customer Name</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Order Date</span>
+                          <span>Invoice Date</span>
+                          <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
+                        </div>
+                      </th>
+                      <th className="th-cell">
+                        <div className="flex justify-between items-center gap-1">
+                          <span>Due Date</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
@@ -617,12 +609,6 @@ const PurchaseList = () => {
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
-                      <th className="th-cell">
-                        <div className="flex justify-between items-center gap-1">
-                          <span>Delivery Date</span>
-                          <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
-                        </div>
-                      </th>
                       <th className="last-th-cell">
                         <div className="flex justify-between items-center gap-1">
                           <span>Category</span>
@@ -632,18 +618,18 @@ const PurchaseList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredPurchases.map((purchase, index) => (
+                    {filteredInvoices.map((invoice, index) => (
                       <tr
-                        key={purchase.id}
-                        className={`tr-hover group ${selectedIds.includes(purchase.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
+                        key={invoice.id}
+                        className={`tr-hover group ${selectedIds.includes(invoice.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
                           }`}
                       >
                         <td className="td-cell">
                           <CheckboxGroup
                             name="selectall"
                             value="selectAll"
-                            checked={selectedIds.includes(purchase.id)}
-                            onChange={() => handleCheckboxChange(purchase.id)}
+                            checked={selectedIds.includes(invoice.id)}
+                            onChange={() => handleCheckboxChange(invoice.id)}
                           />
                         </td>
                         <td className="td-cell">
@@ -652,20 +638,20 @@ const PurchaseList = () => {
                             <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
                           </span>
                         </td>
-                        <td className="td-cell">{purchase.poNumber}</td>
-                        <td className="td-cell">{purchase.supplier}</td>
-                        <td className="td-cell">{purchase.orderDate}</td>
-                        <td className="td-cell">₹{purchase.totalAmount.toLocaleString()}</td>
+                        <td className="td-cell">{invoice.invoiceNumber}</td>
+                        <td className="td-cell">{invoice.customer}</td>
+                        <td className="td-cell">{invoice.invoiceDate}</td>
+                        <td className="td-cell">{invoice.dueDate}</td>
+                        <td className="td-cell">₹{invoice.totalAmount.toLocaleString()}</td>
                         <td className="td-cell">
-                          <span className={`px-2 py-1 rounded-full text-xs ${purchase.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                              purchase.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+                          <span className={`px-2 py-1 rounded-full text-xs ${invoice.status === 'Paid' ? 'bg-green-100 text-green-800' :
+                              invoice.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
                                 'bg-red-100 text-red-800'
                             }`}>
-                            {purchase.status}
+                            {invoice.status}
                           </span>
                         </td>
-                        <td className="td-cell">{purchase.deliveryDate}</td>
-                        <td className="last-td-cell">{purchase.category}</td>
+                        <td className="last-td-cell">{invoice.category}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -677,11 +663,11 @@ const PurchaseList = () => {
       </main>
       <footer className="footer-list">
         <span className="text-sm">
-          Showing <span className="text-red-600">{filteredPurchases.length}</span> of <span className="text-blue-600">{purchases.length}</span>
+          Showing <span className="text-red-600">{filteredInvoices.length}</span> of <span className="text-blue-600">{invoices.length}</span>
         </span>
       </footer>
     </Layout>
   );
 };
 
-export default PurchaseList;
+export default InvoiceList;

@@ -135,148 +135,148 @@
       "pincode": "302001"
     }
   ],
- 
-    "sidebarData": [
-      {
-        "icon": "ri-dashboard-line",
-        "Title": "Master",
-        "icon_down": "ri-arrow-down-s-line",
-        "submenu": [
-          {
-            "Title": "Contact",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/contact/list",
-            "new_Link": "/modules/contact/new",
-            "order": 1
-          },
-          {
-            "Title": "Product",
-            "icon_New": "ri-add-fill",
-            "main_Link": "/modules/product/list",
-            "new_Link": "/modules/product/new",
-            "order": 2
-          },
-          {
-            "Title": "Category",
-            "icon_New": "",
-            "main_Link": "/modules/category",
-            "new_Link": "",
-            "order": 3
-          }
-        ],
-        "order": 1,
-        "id": "2ad3"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Sales Order",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/sales-order/list",
-        "new_Link": "/modules/sales-order/new",
-        "order": 2,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-file-text-line",
-        "Title": "Invoice",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/invoice/list",
-        "new_Link": "/modules/invoice/new",
-        "order": 3,
-        "id": "775d"
-      },
-      {
-        "icon": "ri-shopping-cart-line",
-        "Title": "Purchase",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase/list",
-        "new_Link": "/modules/purchase/new",
-        "order": 4,
-        "id": "2b7b"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "Quotation",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/quotation/list",
-        "new_Link": "/modules/quotation/new",
-        "order": 5,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-file-list-line",
-        "Title": "DC",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/dc/list",
-        "new_Link": "/modules/dc/new",
-        "order": 6,
-        "id": "4d07"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "Payment",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/payment/list",
-        "new_Link": "/modules/payment/new",
-        "order": 7,
-        "id": "3afc"
-      },
-      {
-        "icon": "ri-money-rupee-circle-line",
-        "Title": "Receipt",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/receipt/list",
-        "new_Link": "/modules/receipt/new",
-        "order": 8,
-        "id": "059e"
-      },
-      {
-        "icon": "ri-calculator-line",
-        "Title": "Expense",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/expense/list",
-        "new_Link": "/modules/expense/new",
-        "order": 9,
-        "id": "aa06"
-      },
-      {
-        "icon": "ri-bank-card-2-line",
-        "Title": "P.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "/modules/purchase-return/list",
-        "new_Link": "/modules/purchase-return/new",
-        "order": 10,
-        "id": "7b73"
-      },
-      {
-        "icon": "ri-reply-line",
-        "Title": "S.Return",
-        "icon_New": "ri-add-fill",
-        "main_Link": "modules/sales-return/list",
-        "new_Link": "modules/sales-return/new",
-        "order": 11,
-        "id": "c1fa"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Bulk Receipt",
-        "icon_New": "",
-        "main_Link": "/modules/bulk-receipt",
-        "new_Link": "",
-        "order": 12,
-        "id": "2df5"
-      },
-      {
-        "icon": "ri-clipboard-line",
-        "Title": "Report",
-        "icon_New": "",
-        "main_Link": "/modules/report",
-        "new_Link": "",
-        "order": 13,
-        "id": "2df5"
-      }
-    ],
- 
+
+  "sidebarData": [
+    {
+      "icon": "ri-dashboard-line",
+      "Title": "Master",
+      "icon_down": "ri-arrow-down-s-line",
+      "submenu": [
+        {
+          "Title": "Contact",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/contact/list",
+          "new_Link": "/modules/contact/new",
+          "order": 1
+        },
+        {
+          "Title": "Product",
+          "icon_New": "ri-add-fill",
+          "main_Link": "/modules/product/list",
+          "new_Link": "/modules/product/new",
+          "order": 2
+        },
+        {
+          "Title": "Category",
+          "icon_New": "",
+          "main_Link": "/modules/category",
+          "new_Link": "",
+          "order": 3
+        }
+      ],
+      "order": 1,
+      "id": "2ad3"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Sales Order",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/sales-order/list",
+      "new_Link": "/modules/sales-order/new",
+      "order": 2,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-file-text-line",
+      "Title": "Invoice",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/invoice/list",
+      "new_Link": "/modules/invoice/new",
+      "order": 3,
+      "id": "775d"
+    },
+    {
+      "icon": "ri-shopping-cart-line",
+      "Title": "Purchase",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase/list",
+      "new_Link": "/modules/purchase/new",
+      "order": 4,
+      "id": "2b7b"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "Quotation",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/quotation/list",
+      "new_Link": "/modules/quotation/new",
+      "order": 5,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-file-list-line",
+      "Title": "DC",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/dc/list",
+      "new_Link": "/modules/dc/new",
+      "order": 6,
+      "id": "4d07"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "Payment",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/payment/list",
+      "new_Link": "/modules/payment/new",
+      "order": 7,
+      "id": "3afc"
+    },
+    {
+      "icon": "ri-money-rupee-circle-line",
+      "Title": "Receipt",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/receipt/list",
+      "new_Link": "/modules/receipt/new",
+      "order": 8,
+      "id": "059e"
+    },
+    {
+      "icon": "ri-calculator-line",
+      "Title": "Expense",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/expense/list",
+      "new_Link": "/modules/expense/new",
+      "order": 9,
+      "id": "aa06"
+    },
+    {
+      "icon": "ri-bank-card-2-line",
+      "Title": "P.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "/modules/purchase-return/list",
+      "new_Link": "/modules/purchase-return/new",
+      "order": 10,
+      "id": "7b73"
+    },
+    {
+      "icon": "ri-reply-line",
+      "Title": "S.Return",
+      "icon_New": "ri-add-fill",
+      "main_Link": "modules/sales-return/list",
+      "new_Link": "modules/sales-return/new",
+      "order": 11,
+      "id": "c1fa"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Bulk Receipt",
+      "icon_New": "",
+      "main_Link": "/modules/bulk-receipt",
+      "new_Link": "",
+      "order": 12,
+      "id": "2df5"
+    },
+    {
+      "icon": "ri-clipboard-line",
+      "Title": "Report",
+      "icon_New": "",
+      "main_Link": "/modules/report",
+      "new_Link": "",
+      "order": 13,
+      "id": "2df5"
+    }
+  ],
+
   "customerLedger": [
     {
       "id": "1",
@@ -538,8 +538,8 @@
       "remarks": "Business travel related"
     }
   ],
- 
 
+ 
  
     "mockProductSalesReportData": [
       {
@@ -897,6 +897,308 @@
     "phoneNumber": "9321123344",
     "location": "Nagercoil"
   }
+],
+ 
+
+
+
+
+
+
+
+  "purchases" : [
+
+  { "id": 1, "poNumber": "PO-2024-001", "supplier": "ABC Motors Ltd", "orderDate": "15/01/2024", "totalAmount": 45000, "status": "Pending", "deliveryDate": "25/01/2024", "category": "Spare Parts" },
+
+  { "id": 2, "poNumber": "PO-2024-002", "supplier": "XYZ Auto Parts", "orderDate": "18/01/2024", "totalAmount": 32000, "status": "Completed", "deliveryDate": "28/01/2024", "category": "Tyres" },
+
+  { "id": 3, "poNumber": "PO-2024-003", "supplier": "Chennai Garage Supplies", "orderDate": "20/01/2024", "totalAmount": 15000, "status": "Pending", "deliveryDate": "30/01/2024", "category": "Tools" },
+
+  { "id": 4, "poNumber": "PO-2024-004", "supplier": "South India Lubricants", "orderDate": "22/01/2024", "totalAmount": 8500, "status": "Completed", "deliveryDate": "02/02/2024", "category": "Oils" },
+
+  { "id": 5, "poNumber": "PO-2024-005", "supplier": "Madurai Vehicle Parts", "orderDate": "25/01/2024", "totalAmount": 67000, "status": "Cancelled", "deliveryDate": "05/02/2024", "category": "Engine Parts" },
+
+  { "id": 6, "poNumber": "PO-2024-006", "supplier": "Coimbatore Auto Hub", "orderDate": "28/01/2024", "totalAmount": 23000, "status": "Pending", "deliveryDate": "08/02/2024", "category": "Accessories" },
+
+  { "id": 7, "poNumber": "PO-2024-007", "supplier": "Salem Motors", "orderDate": "30/01/2024", "totalAmount": 41000, "status": "Completed", "deliveryDate": "10/02/2024", "category": "Brake Parts" },
+
+  { "id": 8, "poNumber": "PO-2024-008", "supplier": "Trichy Auto Solutions", "orderDate": "02/02/2024", "totalAmount": 19000, "status": "Pending", "deliveryDate": "12/02/2024", "category": "Electrical" },
+
+  { "id": 9, "poNumber": "PO-2024-009", "supplier": "Erode Vehicle Store", "orderDate": "05/02/2024", "totalAmount": 35000, "status": "Completed", "deliveryDate": "15/02/2024", "category": "Suspension" },
+
+  { "id": 10, "poNumber": "PO-2024-010", "supplier": "Vellore Auto Parts", "orderDate": "08/02/2024", "totalAmount": 28000, "status": "Pending", "deliveryDate": "18/02/2024", "category": "Filters" },
+
+  { "id": 11, "poNumber": "PO-2024-011", "supplier": "Thanjavur Motors", "orderDate": "10/02/2024", "totalAmount": 52000, "status": "Completed", "deliveryDate": "20/02/2024", "category": "Transmission" },
+
+  { "id": 12, "poNumber": "PO-2024-012", "supplier": "Dindigul Auto Center", "orderDate": "12/02/2024", "totalAmount": 16000, "status": "Pending", "deliveryDate": "22/02/2024", "category": "Cooling System" },
+
+  { "id": 13, "poNumber": "PO-2024-013", "supplier": "Tirunelveli Parts", "orderDate": "15/02/2024", "totalAmount": 39000, "status": "Completed", "deliveryDate": "25/02/2024", "category": "Exhaust System" },
+
+  { "id": 14, "poNumber": "PO-2024-014", "supplier": "Kanyakumari Auto", "orderDate": "18/02/2024", "totalAmount": 21000, "status": "Cancelled", "deliveryDate": "28/02/2024", "category": "Body Parts" },
+
+  { "id": 15, "poNumber": "PO-2024-015", "supplier": "Karur Vehicle Hub", "orderDate": "20/02/2024", "totalAmount": 44000, "status": "Pending", "deliveryDate": "02/03/2024", "category": "Interior" },
+
+  { "id": 16, "poNumber": "PO-2024-016", "supplier": "Namakkal Motors", "orderDate": "22/02/2024", "totalAmount": 31000, "status": "Completed", "deliveryDate": "05/03/2024", "category": "Lighting" },
+
+  { "id": 17, "poNumber": "PO-2024-017", "supplier": "Dharmapuri Auto", "orderDate": "25/02/2024", "totalAmount": 18000, "status": "Pending", "deliveryDate": "08/03/2024", "category": "Safety Equipment" },
+
+  { "id": 18, "poNumber": "PO-2024-018", "supplier": "Krishnagiri Parts", "orderDate": "28/02/2024", "totalAmount": 27000, "status": "Completed", "deliveryDate": "10/03/2024", "category": "Fuel System" },
+
+  { "id": 19, "poNumber": "PO-2024-019", "supplier": "Hosur Auto Center", "orderDate": "02/03/2024", "totalAmount": 36000, "status": "Pending", "deliveryDate": "12/03/2024", "category": "Steering" },
+
+  { "id": 20, "poNumber": "PO-2024-020", "supplier": "Cuddalore Motors", "orderDate": "05/03/2024", "totalAmount": 49000, "status": "Completed", "deliveryDate": "15/03/2024", "category": "Clutch Parts" },
+
+  { "id": 21, "poNumber": "PO-2024-021", "supplier": "Villupuram Auto", "orderDate": "08/03/2024", "totalAmount": 22000, "status": "Cancelled", "deliveryDate": "18/03/2024", "category": "Batteries" },
+
+  { "id": 22, "poNumber": "PO-2024-022", "supplier": "Nagapattinam Parts", "orderDate": "10/03/2024", "totalAmount": 33000, "status": "Pending", "deliveryDate": "20/03/2024", "category": "Radiator" },
+
+  { "id": 23, "poNumber": "PO-2024-023", "supplier": "Mayiladuthurai Motors", "orderDate": "12/03/2024", "totalAmount": 25000, "status": "Completed", "deliveryDate": "22/03/2024", "category": "Alternator" },
+
+  { "id": 24, "poNumber": "PO-2024-024", "supplier": "Pudukkottai Auto", "orderDate": "15/03/2024", "totalAmount": 38000, "status": "Pending", "deliveryDate": "25/03/2024", "category": "Starter Motor" },
+
+  { "id": 25, "poNumber": "PO-2024-025", "supplier": "Sivaganga Parts", "orderDate": "18/03/2024", "totalAmount": 29000, "status": "Completed", "deliveryDate": "28/03/2024", "category": "Air Filter" },
+
+  { "id": 26, "poNumber": "PO-2024-026", "supplier": "Ramanathapuram Motors", "orderDate": "20/03/2024", "totalAmount": 42000, "status": "Pending", "deliveryDate": "30/03/2024", "category": "Shock Absorbers" },
+
+  { "id": 27, "poNumber": "PO-2024-027", "supplier": "Thoothukudi Auto", "orderDate": "22/03/2024", "totalAmount": 17000, "status": "Completed", "deliveryDate": "01/04/2024", "category": "Wipers" },
+
+  { "id": 28, "poNumber": "PO-2024-028", "supplier": "Tirupur Vehicle Hub", "orderDate": "25/03/2024", "totalAmount": 34000, "status": "Pending", "deliveryDate": "05/04/2024", "category": "Mirrors" },
+
+  { "id": 29, "poNumber": "PO-2024-029", "supplier": "Nilgiris Auto Parts", "orderDate": "28/03/2024", "totalAmount": 46000, "status": "Completed", "deliveryDate": "08/04/2024", "category": "Gaskets" },
+
+  { "id": 30, "poNumber": "PO-2024-030", "supplier": "Perambalur Motors", "orderDate": "30/03/2024", "totalAmount": 24000, "status": "Pending", "deliveryDate": "10/04/2024", "category": "Belts" },
+
+  { "id": 31, "poNumber": "PO-2024-031", "supplier": "Ariyalur Auto", "orderDate": "02/04/2024", "totalAmount": 37000, "status": "Completed", "deliveryDate": "12/04/2024", "category": "Hoses" },
+
+  { "id": 32, "poNumber": "PO-2024-032", "supplier": "Kallakurichi Parts", "orderDate": "05/04/2024", "totalAmount": 26000, "status": "Pending", "deliveryDate": "15/04/2024", "category": "Sensors" },
+
+  { "id": 33, "poNumber": "PO-2024-033", "supplier": "Ranipet Motors", "orderDate": "08/04/2024", "totalAmount": 43000, "status": "Completed", "deliveryDate": "18/04/2024", "category": "Valves" },
+
+  { "id": 34, "poNumber": "PO-2024-034", "supplier": "Tirupattur Auto", "orderDate": "10/04/2024", "totalAmount": 30000, "status": "Pending", "deliveryDate": "20/04/2024", "category": "Pistons" },
+
+  { "id": 35, "poNumber": "PO-2024-035", "supplier": "Chengalpattu Parts", "orderDate": "12/04/2024", "totalAmount": 48000, "status": "Completed", "deliveryDate": "22/04/2024", "category": "Bearings" }
+
+ ],
+
+  "supplierOptions":  [
+
+  { "value": "abc_motors", "label": "ABC Motors Ltd" },
+
+  { "value": "xyz_auto_parts", "label": "XYZ Auto Parts" },
+
+  { "value": "chennai_garage_supplies", "label": "Chennai Garage Supplies" },
+
+  { "value": "south_india_lubricants", "label": "South India Lubricants" },
+
+  { "value": "madurai_vehicle_parts", "label": "Madurai Vehicle Parts" },
+
+  { "value": "coimbatore_auto_hub", "label": "Coimbatore Auto Hub" },
+
+  { "value": "salem_motors", "label": "Salem Motors" },
+
+  { "value": "trichy_auto_solutions", "label": "Trichy Auto Solutions" },
+
+  { "value": "erode_vehicle_store", "label": "Erode Vehicle Store" },
+
+  { "value": "vellore_auto_parts", "label": "Vellore Auto Parts" },
+
+  { "value": "thanjavur_motors", "label": "Thanjavur Motors" },
+
+  { "value": "dindigul_auto_center", "label": "Dindigul Auto Center" },
+
+  { "value": "tirunelveli_parts", "label": "Tirunelveli Parts" },
+
+  { "value": "kanyakumari_auto", "label": "Kanyakumari Auto" },
+
+  { "value": "karur_vehicle_hub", "label": "Karur Vehicle Hub" },
+
+  { "value": "namakkal_motors", "label": "Namakkal Motors" },
+
+  { "value": "dharmapuri_auto", "label": "Dharmapuri Auto" },
+
+  { "value": "krishnagiri_parts", "label": "Krishnagiri Parts" },
+
+  { "value": "hosur_auto_center", "label": "Hosur Auto Center" },
+
+  { "value": "cuddalore_motors", "label": "Cuddalore Motors" },
+
+  { "value": "villupuram_auto", "label": "Villupuram Auto" },
+
+  { "value": "nagapattinam_parts", "label": "Nagapattinam Parts" },
+
+  { "value": "mayiladuthurai_motors", "label": "Mayiladuthurai Motors" },
+
+  { "value": "pudukkottai_auto", "label": "Pudukkottai Auto" },
+
+  { "value": "sivaganga_parts", "label": "Sivaganga Parts" },
+
+  { "value": "ramanathapuram_motors", "label": "Ramanathapuram Motors" },
+
+  { "value": "thoothukudi_auto", "label": "Thoothukudi Auto" },
+
+  { "value": "tirupur_vehicle_hub", "label": "Tirupur Vehicle Hub" },
+
+  { "value": "nilgiris_auto_parts", "label": "Nilgiris Auto Parts" },
+
+  { "value": "perambalur_motors", "label": "Perambalur Motors" },
+
+  { "value": "ariyalur_auto", "label": "Ariyalur Auto" },
+
+  { "value": "kallakurichi_parts", "label": "Kallakurichi Parts" },
+
+  { "value": "ranipet_motors", "label": "Ranipet Motors" },
+
+  { "value": "tirupattur_auto", "label": "Tirupattur Auto" },
+
+  { "value": "chengalpattu_parts", "label": "Chengalpattu Parts" }
+
+ ],
+
+ "invoices": [
+  {
+    "id": 1,
+    "invoiceNumber": "INV-2025-001",
+    "customer": "Tech Solutions Inc.",
+    "invoiceDate": "2025-01-15",
+    "dueDate": "2025-02-15",
+    "totalAmount": 1250.75,
+    "status": "Paid",
+    "category": "Software Licenses"
+  },
+  {
+    "id": 2,
+    "invoiceNumber": "INV-2025-002",
+    "customer": "Global Marketing Co.",
+    "invoiceDate": "2025-01-20",
+    "dueDate": "2025-02-20",
+    "totalAmount": 780.00,
+    "status": "Pending",
+    "category": "Consulting Services"
+  },
+  {
+    "id": 3,
+    "invoiceNumber": "INV-2025-003",
+    "customer": "Innovate Designs",
+    "invoiceDate": "2025-02-01",
+    "dueDate": "2025-03-01",
+    "totalAmount": 3500.50,
+    "status": "Overdue",
+    "category": "Web Development"
+  },
+  {
+    "id": 4,
+    "invoiceNumber": "INV-2025-004",
+    "customer": "Apex Industries",
+    "invoiceDate": "2025-02-10",
+    "dueDate": "2025-03-10",
+    "totalAmount": 210.25,
+    "status": "Paid",
+    "category": "Office Supplies"
+  },
+  {
+    "id": 5,
+    "invoiceNumber": "INV-2025-005",
+    "customer": "Quantum Logistics",
+    "invoiceDate": "2025-02-15",
+    "dueDate": "2025-03-15",
+    "totalAmount": 990.00,
+    "status": "Pending",
+    "category": "Shipping Services"
+  },
+  {
+    "id": 6,
+    "invoiceNumber": "INV-2025-006",
+    "customer": "Bright Ideas Ltd.",
+    "invoiceDate": "2025-02-28",
+    "dueDate": "2025-03-28",
+    "totalAmount": 150.00,
+    "status": "Paid",
+    "category": "Graphic Design"
+  },
+  {
+    "id": 7,
+    "invoiceNumber": "INV-2025-007",
+    "customer": "Summit Financial",
+    "invoiceDate": "2025-03-05",
+    "dueDate": "2025-04-05",
+    "totalAmount": 5200.00,
+    "status": "Pending",
+    "category": "Financial Advisory"
+  },
+  {
+    "id": 8,
+    "invoiceNumber": "INV-2025-008",
+    "customer": "Green Earth Solutions",
+    "invoiceDate": "2025-03-10",
+    "dueDate": "2025-04-10",
+    "totalAmount": 890.75,
+    "status": "Overdue",
+    "category": "Environmental Consulting"
+  },
+  {
+    "id": 9,
+    "invoiceNumber": "INV-2025-009",
+    "customer": "Digital Innovations",
+    "invoiceDate": "2025-03-18",
+    "dueDate": "2025-04-18",
+    "totalAmount": 450.00,
+    "status": "Paid",
+    "category": "Digital Marketing"
+  },
+  {
+    "id": 10,
+    "invoiceNumber": "INV-2025-010",
+    "customer": "Pinnacle Health",
+    "invoiceDate": "2025-03-22",
+    "dueDate": "2025-04-22",
+    "totalAmount": 1800.00,
+    "status": "Pending",
+    "category": "Medical Supplies"
+  }
+],
+
+"customerOptions":[
+  {
+    "value": "1",
+    "label": "Tech Solutions Inc."
+  },
+  {
+    "value": "2",
+    "label": "Global Marketing Co."
+  },
+  {
+    "value": "3",
+    "label": "Innovate Designs"
+  },
+  {
+    "value": "4",
+    "label": "Apex Industries"
+  },
+  {
+    "value": "5",
+    "label": "Quantum Logistics"
+  },
+  {
+    "value": "6",
+    "label": "Bright Ideas Ltd."
+  },
+  {
+    "value": "7",
+    "label": "Summit Financial"
+  },
+  {
+    "value": "8",
+    "label": "Green Earth Solutions"
+  },
+  {
+    "value": "9",
+    "label": "Digital Innovations"
+  },
+  {
+    "value": "10",
+    "label": "Pinnacle Health"
+  }
 ]
  
 }
+ 
