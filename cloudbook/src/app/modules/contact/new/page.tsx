@@ -71,9 +71,9 @@ const FormField = ({
   htmlFor,
 }: FormFieldProps) => (
   <div
-    className={`mb-[10px] flex flex-col md:flex-row md:items-start gap-2 md:gap-4 ${className}`}
+    className={`mb-[10px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}
   >
-    <label className="form-label w-50 mt-2" htmlFor={htmlFor}>
+    <label className="form-label w-50" htmlFor={htmlFor}>
       {label}
       {required && <span className="form-required text-red-500">*</span>}{" "}
     </label>
@@ -703,7 +703,6 @@ export default function NewContact() {
                     label="Active"
                     onChange={handleStatusChange}
                     checked={formData.otherDetails.status}
-                    className="mt-2"
                   />
                 </FormField>
               </div>
@@ -926,7 +925,6 @@ export default function NewContact() {
                         { value: "customer", label: "Sundry creditors" },
                         { value: "supplier", label: "Sundry debtors" },
                       ]}
-                      className="mt-2"
                       onChange={(e) =>
                         setFormData((pre) => ({
                           ...pre,

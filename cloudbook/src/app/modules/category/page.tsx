@@ -20,8 +20,8 @@ const FormField = ({
   error?: string;
   htmlFor?: string;
 }) => (
-  <div className={`mb-[10px] flex flex-col md:flex-row md:items-start gap-2 md:gap-4 ${className}`}>
-    <label className="form-label w-50 mt-2" htmlFor={htmlFor}>
+  <div className={`mb-[10px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}>
+    <label className="form-label w-50" htmlFor={htmlFor}>
       {label}
       {required && <span className="form-required text-red-500">*</span>}{" "}
     </label>
