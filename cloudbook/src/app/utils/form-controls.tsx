@@ -59,7 +59,7 @@ export const RadioGroup = ({
   };
 
   return (
-    <div id={id} className="flex flex-col" {...(required ? { "data-validate": "required" } : {})}>
+    <div id={id} className="flex flex-col mt-2" {...(required ? { "data-validate": "required" } : {})}>
       <div className="flex flex-wrap items-center space-x-6 ">
         {options.map((option) => (
           <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
@@ -145,7 +145,7 @@ export const Toggle = ({
   label?: string;
   [key: string]: any;
 }) => (
-  <label className="relative inline-flex items-center cursor-pointer">
+  <label className="relative inline-flex items-center cursor-pointer mt-2">
     <input
       type="checkbox"
       name={name}

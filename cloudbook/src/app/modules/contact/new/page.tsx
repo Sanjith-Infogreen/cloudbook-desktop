@@ -171,8 +171,11 @@ export default function NewContact() {
 
   useEffect(() => {
     if (Contact.length === 0) fetchCustomerData();
+    setFormData((prev) => ({
+      ...prev,
+      salutation: "Mr.",
+    }));
   }, []);
-
 
   const filterContact = () => {
     console.log(Contact);
@@ -196,32 +199,32 @@ export default function NewContact() {
   };
 
   const handleChange = (
-  e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-) => {
-  const { name, value } = e.target;
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
 
-  if (name === "companyName") {
-    setIsCompanyEdited(true); 
-  }
+    if (name === "companyName") {
+      setIsCompanyEdited(true);
+    }
 
-  if (name === "ledgerName") {
-    filterContact();
-  }
+    if (name === "ledgerName") {
+      filterContact();
+    }
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
-
-useEffect(() => {
-  if (!isCompanyEdited) {
     setFormData((prev) => ({
       ...prev,
-      companyName: prev.ledgerName,
+      [name]: value,
     }));
-  }
-}, [formData.ledgerName, isCompanyEdited]);
+  };
+
+  useEffect(() => {
+    if (!isCompanyEdited) {
+      setFormData((prev) => ({
+        ...prev,
+        companyName: prev.ledgerName,
+      }));
+    }
+  }, [formData.ledgerName, isCompanyEdited]);
 
   const validateGST = (value: string) => {
     const gstRegex =
@@ -299,6 +302,14 @@ useEffect(() => {
     setFormData((prev) => ({
       ...prev,
       state: value as string,
+    }));
+  };
+
+
+  const handleSalutationChange = (value: string | string[] | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      salutation: value as string,
     }));
   };
   const handleTabStateChange = (value: string | string[] | null) => {
@@ -429,7 +440,7 @@ useEffect(() => {
       case "Delivery_details":
         return (
           <div id="Delivery_Address">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
               <div className="lg:border-r lg:border-gray-300 lg:pr-4">
                 <FormField
                   label="Delivery Address"
@@ -441,7 +452,7 @@ useEffect(() => {
                     className="form-control alphanumeric capitalize"
                     value={tempAddress.addressLine1}
                     onChange={handleDeliverDetailsChange}
-                    placeholder="Enter AddressLine1"
+                    placeholder="Enter Address Line 1"
                   />
                 </FormField>
                 <FormField label="" htmlFor="addressLine2">
@@ -450,7 +461,7 @@ useEffect(() => {
                     className="form-control alphanumeric capitalize"
                     value={tempAddress.addressLine2}
                     onChange={handleDeliverDetailsChange}
-                    placeholder="Enter AddressLine2"
+                    placeholder="Enter Address Line 2"
                   />
                 </FormField>
                 <FormField label="District" required htmlFor="district">
@@ -542,7 +553,7 @@ useEffect(() => {
       case "Bank_details":
         return (
           <div id="Bank_details_tab_content">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
               <div className="lg:border-r lg:border-gray-300 lg:pr-4">
                 <div>
                   <FormField label="Account Name" required>
@@ -675,7 +686,7 @@ useEffect(() => {
       case "Other_details":
         return (
           <div id="Other_details">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
               <div className="lg:pr-4">
                 <FormField label="Credit Limit" htmlFor="creditLimit">
                   <Input
@@ -683,7 +694,7 @@ useEffect(() => {
                     className="form-control only_number no_space"
                     value={formData.otherDetails.creditLimit}
                     onChange={handleOtherDetailsChange}
-                    placeholder="Enter AddressLine1"
+                    placeholder="Enter Credit Limit"
                   />
                 </FormField>
                 <FormField label="Status">
@@ -703,7 +714,7 @@ useEffect(() => {
       case "Proof_details":
         return (
           <div id="Proof_details_tab_content">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
               <div className="  lg:pr-4">
                 <FormField label="Aadhaar Number" htmlFor="aadhaarNumber">
                   <Input
@@ -734,7 +745,7 @@ useEffect(() => {
       default:
         return (
           <div id="Delivery_Address">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
               <div className="lg:border-r lg:border-gray-300 lg:pr-4">
                 <FormField
                   label="Delivery Address"
@@ -775,6 +786,7 @@ useEffect(() => {
                     placeholder="Select State"
                     searchable
                     onChange={handleTabStateChange}
+                    initialValue={tempAddress.state}
                   />
                 </FormField>
                 <FormField label="Pincode" required htmlFor="pincode">
@@ -853,19 +865,17 @@ useEffect(() => {
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
               <div className="border-b border-gray-300">
                 <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-2">
-                  <FormField label="Ledger Name" required htmlFor="ledgerName">
+                  <FormField label="Ledger Name" required htmlFor="ledgerName" className="!mb-0">
                     <div className="relative">
                       <div className="flex gap-2">
-                        <select
+                        <SearchableSelect
                           name="salutation"
-                          className="form-control w-30"
-                          value={formData.salutation}
-                          onChange={handleChange}
-                        >
-                          <option value="Mr.">Mr.</option>
-                          <option value="Mrs.">Mrs.</option>
-                          <option value="Ms.">Ms.</option>
-                        </select>
+                          placeholder="Select state"
+                          options={[{value:'Mr.',label:'Mr.'},{value:'Mrs.',label:'Mrs.'},{value:'Ms.',label:'Ms.'}]}
+                          data-validate="required"
+                          onChange={handleSalutationChange}
+                          initialValue={formData.salutation}
+                        />
                         <Input
                           data-validate="required"
                           name="ledgerName"
@@ -900,14 +910,16 @@ useEffect(() => {
                   </FormField>
                 </div>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-6 px-4 py-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 px-4 py-4">
                 <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
                   <FormField
                     label="Contact Type"
                     required
                     htmlFor="contactType"
+                    className="!mt-0"
                   >
                     <RadioGroup
+                
                       name="contactType"
                       options={[
                         { value: "customer", label: "Sundry creditors" },
@@ -919,6 +931,7 @@ useEffect(() => {
                           contactType: e.target.value,
                         }))
                       }
+                      
                     />
                   </FormField>
                   <FormField label="Group" htmlFor="group">
@@ -1092,7 +1105,7 @@ useEffect(() => {
                 <button
                   type="button"
                   onClick={() => handleCustomerType("gst")}
-                  className={`btn-sm  px-4 py-2 w-full ${
+                  className={`text-sm cursor-pointer  px-4 py-2 w-full ${
                     customerType === "gst"
                       ? "bg-[#009333] text-white"
                       : "bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800"
@@ -1103,7 +1116,7 @@ useEffect(() => {
                 <button
                   type="button"
                   onClick={() => handleCustomerType("non-gst")}
-                  className="btn-sm bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2  w-full"
+                  className="text-sm cursor-pointer bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2  w-full"
                 >
                   Non - GST Customer
                 </button>
@@ -1111,7 +1124,7 @@ useEffect(() => {
               {customerType === "gst" && (
                 <div className="mt-3">
                   <label className="text-sm font-medium mb-1 block text-start">
-                    GST Number:
+                    GST Number
                   </label>
                   <div className="flex flex-col gap-1">
                     <Input
@@ -1130,17 +1143,13 @@ useEffect(() => {
                     )}
                   </div>
 
-                  <div className="pt-4 flex justify-center">
+                  <div className="mt-4 ">
                     <button
+                      className="btn-sm btn-primary ml-2  py-2 px-4"
                       onClick={handleApply}
-                      type="button"
-                      className="btn-sm btn-primary py-2 px-4 "
                     >
-                      <i
-                        className="ri-checkbox-circle-line text-md mr-1"
-                        aria-hidden="true"
-                      ></i>
-                      Apply
+                      <i className="ri-checkbox-circle-line mr-1 text-[17px]"></i>
+                      <span className="text-[15px]">Apply</span>
                     </button>
                   </div>
                 </div>
