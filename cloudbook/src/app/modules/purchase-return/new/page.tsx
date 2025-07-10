@@ -87,8 +87,8 @@ const FormField = ({
   </div>
 );
 
-// Main NewPurchase component
-const NewPurchase = () => {
+// Main NewPurchaseReturn component
+const NewPurchaseReturn = () => {
   useInputValidation();
   const dispatch = useDispatch<AppDispatch>();
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
@@ -258,12 +258,11 @@ const NewPurchase = () => {
     });
   };
   return (
-    <Layout pageTitle="Purchase New">
+    <Layout pageTitle="New Purchase Return">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
             <form onSubmit={handleSubmit} autoComplete="off">
-              {/* Supplier and Purchase Details Section */}
               <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   {/* Left Column: Supplier Details */}
@@ -358,7 +357,6 @@ const NewPurchase = () => {
                     </FormField>
                   </div>
 
-                  {/* Right Column: Purchase Details */}
                   <div className="space-y-4 ">
                     <div>
                       <span className="text-md">
@@ -671,4 +669,4 @@ const NewPurchase = () => {
   );
 };
 
-export default NewPurchase;
+export default NewPurchaseReturn;
