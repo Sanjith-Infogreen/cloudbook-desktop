@@ -396,6 +396,285 @@ export default function NewProduct() {
                 <table className="w-full text-sm">
                   <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                     <tr>
+                      <th className="p-2 th-cell w-[3%]">S.no</th>
+                      <th className="p-2 th-cell w-[15%]">Unit Name</th>
+                      <th className="p-2 th-cell w-[15%]">Quantity ()</th>
+                      <th className="p-2 th-cell w-[15%]">Remarks</th>
+                      <th className="p-2 last-th-cell w-[7%] text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody">
+                    {UnitDeatils.map((product, idx) => (
+                      <tr key={idx}>
+                        <td className="p-2 td-cell text-start w-[3%]">{idx + 1}</td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <SearchableSelect
+                            name={`unitName-${idx}`}
+                            placeholder="Select Unit"
+                            options={countryOptions}
+                            onChange={(item) => unitDetailsQtyChange(idx, item)}
+                            initialValue={product.unitName}
+                            onAddNew={handleAddNewUnit}
+                          />
+
+                          {/* <CommonTypeahead
+                            name={`productName-${idx}`}
+                            placeholder="Enter name"
+                            data={typeHead}
+                            required={true}
+                            searchFields={["name"]}
+                            displayField="name"
+                            minSearchLength={1}
+                            onAddNew={handleAddNewName}
+                            onSelect={(item) => productChange(idx, item)}
+                          /> */}
+                        </td>
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`quantity-${idx}`}
+                            className="w-full only_number"
+                            placeholder="Enter Quantity"
+                            value={product.quantity}
+                            onChange={(e: any) =>
+                              handleUnitDetailsChange(
+                                idx,
+                                "quantity",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`remarks-${idx}`}
+                            className="w-full "
+                            placeholder="Enter Remarks"
+                            value={product.remarks}
+                            onChange={(e: any) =>
+                              handleUnitDetailsChange(
+                                idx,
+                                "remarks",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td className="p-2 last-td-cell text-center w-[7%]">
+                          <button
+                            type="button"
+                            className="text-red-600 delete-row mx-1 cursor-pointer"
+                            onClick={() => handleUnitDeleteRow(idx)}
+                          >
+                            <i className="ri-delete-bin-line text-[16px]"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <button
+                type="button"
+                onClick={handleUnitAddRow}
+                className="btn-sm btn-primary mt-4"
+              >
+                <i className="ri-add-fill mr-1"></i>
+                <span className="text-sm">Add Row</span>
+              </button>
+            </div>
+          </div>
+        );
+      case "Discount_Details":
+        return (
+          <div id="Bank_details_tab_content">
+            <div className=" px-4 py-2">
+              <div className="max-h-[calc(100vh-600px)] w-[70%] overflow-y-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
+                    <tr>
+                      <th className="p-2 th-cell w-[3%]">S.no</th>
+                      <th className="p-2 th-cell w-[15%]">Unit Name</th>
+                      <th className="p-2 th-cell w-[15%]">Qty.From</th>
+                      <th className="p-2 th-cell w-[15%]">Qty.To</th>
+                      <th className="p-2 th-cell w-[15%]">Discount %</th>
+                      <th className="p-2 th-cell w-[15%]">Cash Discount</th>
+                      <th className="p-2 last-th-cell w-[7%] text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody">
+                    {DiscountDetails.map((product, idx) => (
+                      <tr key={idx}>
+                        <td className="p-2 td-cell text-start w-[3%]">{idx + 1}</td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <SearchableSelect
+                            name={`productName-${idx}`}
+                            placeholder="Select Unit"
+                            options={countryOptions}
+                            onChange={(item) =>
+                              dicountDetailsQtyChange(idx, item)
+                            }
+                            initialValue={product.unitName}
+                            onAddNew={handleAddNewDiscountUnit}
+                          />
+                          {/* <CommonTypeahead
+                            name={`productName-${idx}`}
+                            placeholder="Enter name"
+                            data={typeHead}
+                            required={true}
+                            searchFields={["name"]}
+                            displayField="name"
+                            minSearchLength={1}
+                            onAddNew={handleAddNewName}
+                            onSelect={(item) => dicountDetailsQtyChange(idx, item)}
+                          /> */}
+                        </td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`qtyFrom-${idx}`}
+                            className="w-full only_number"
+                            placeholder="Enter Quantity From"
+                            value={product.qtyFrom}
+                            onChange={(e: any) =>
+                              handleDiscountDetailsChange(
+                                idx,
+                                "qtyFrom",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`qtyTo-${idx}`}
+                            className="w-full only_number"
+                            placeholder="Enter Quantity To"
+                            value={product.qtyTo}
+                            onChange={(e: any) =>
+                              handleDiscountDetailsChange(
+                                idx,
+                                "qtyTo",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`discount-${idx}`}
+                            className="w-full only_number"
+                            placeholder="Enter Discount"
+                            value={product.discount}
+                            onChange={(e: any) =>
+                              handleDiscountDetailsChange(
+                                idx,
+                                "discount",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+                        <td className="p-2 td-cell w-[15%]">
+                          <Input
+                            type="text"
+                            name={`cashDiscount-${idx}`}
+                            className="w-full only_number"
+                            placeholder="Enter Cash Discount"
+                            value={product.cashDiscount}
+                            onChange={(e: any) =>
+                              handleDiscountDetailsChange(
+                                idx,
+                                "cashDiscount",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td className="p-2 last-td-cell text-center w-[7%]">
+                          <button
+                            type="button"
+                            className="text-red-600 delete-row mx-1 cursor-pointer"
+                            onClick={() => handlDiscounteDeleteRow(idx)}
+                          >
+                            <i className="ri-delete-bin-line text-[16px]"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <button
+                type="button"
+                onClick={handleDiscountAddRow}
+                className="btn-sm btn-primary mt-4"
+              >
+                <i className="ri-add-fill mr-1"></i>
+                <span className="text-sm">Add Row</span>
+              </button>
+            </div>
+          </div>
+        );
+
+      case "Other_details":
+        return (
+          <div id="Other_details">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2">
+              <div className="lg:pr-4">
+                <FormField label="Status" htmlFor="status">
+                  <RadioGroup
+                    name="status"
+                    options={[
+                      { value: "active", label: "Active" },
+                      { value: "inActive", label: "Inactive" },
+                    ]}
+                    className="mt-2"
+                    onChange={(e) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        otherDetails: {
+                          ...prev.otherDetails,
+                          status: e.target.value,
+                        },
+                      }));
+                    }}
+                  />
+                </FormField>
+
+                <FormField label="Minimum Stock" htmlFor="minimumStock">
+                  <Input
+                    name="minimumStock"
+                    placeholder="Enter Minimum Stock"
+                    className="form-control w-full only_number"
+                    value={formData.otherDetails.minimumStock}
+                    onChange={handleChange}
+                  />
+                </FormField>
+              </div>
+            </div>
+          </div>
+        );
+
+      default:
+         return (
+          <div id="Unit_Details">
+            <div className=" px-4 py-2">
+              <div className="max-h-[calc(100vh-600px)] w-[70%] overflow-y-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
+                    <tr>
                       <td className="p-2 w-[3%]">S.no</td>
                       <td className="p-2 w-[15%]">Unit Name</td>
                       <td className="p-2 w-[15%]">Quantity ()</td>
@@ -483,191 +762,10 @@ export default function NewProduct() {
                 onClick={handleUnitAddRow}
                 className="btn-sm btn-primary mt-4"
               >
-                Add Row
+               <i className="ri-add-fill mr-1"></i>
+                <span className="text-sm">Add Row</span>
               </button>
             </div>
-          </div>
-        );
-      case "Discount_Details":
-        return (
-          <div id="Bank_details_tab_content">
-            <div className=" px-4 py-2">
-              <div className="max-h-[calc(100vh-600px)] w-[70%] overflow-y-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
-                    <tr>
-                      <td className="p-2 w-[3%]">S.no</td>
-                      <td className="p-2 w-[15%]">Unit Name</td>
-                      <td className="p-2 w-[15%]">Qty.From</td>
-                      <td className="p-2 w-[15%]">Qty.To</td>
-                      <td className="p-2 w-[15%]">Discount %</td>
-                      <td className="p-2 w-[15%]">Cash Discount</td>
-                      <td className="p-2 w-[7%] text-center">Action</td>
-                    </tr>
-                  </thead>
-                  <tbody id="productTableBody">
-                    {DiscountDetails.map((product, idx) => (
-                      <tr key={idx}>
-                        <td className="p-2 text-start w-[3%]">{idx + 1}</td>
-
-                        <td className="p-2 w-[15%]">
-                          <SearchableSelect
-                            name={`productName-${idx}`}
-                            placeholder="Select Unit"
-                            options={countryOptions}
-                            onChange={(item) =>
-                              dicountDetailsQtyChange(idx, item)
-                            }
-                            initialValue={product.unitName}
-                            onAddNew={handleAddNewDiscountUnit}
-                          />
-                          {/* <CommonTypeahead
-                            name={`productName-${idx}`}
-                            placeholder="Enter name"
-                            data={typeHead}
-                            required={true}
-                            searchFields={["name"]}
-                            displayField="name"
-                            minSearchLength={1}
-                            onAddNew={handleAddNewName}
-                            onSelect={(item) => dicountDetailsQtyChange(idx, item)}
-                          /> */}
-                        </td>
-
-                        <td className="p-2 w-[15%]">
-                          <Input
-                            type="text"
-                            name={`qtyFrom-${idx}`}
-                            className="w-full only_number"
-                            placeholder="Enter Quantity From"
-                            value={product.qtyFrom}
-                            onChange={(e: any) =>
-                              handleDiscountDetailsChange(
-                                idx,
-                                "qtyFrom",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-
-                        <td className="p-2 w-[15%]">
-                          <Input
-                            type="text"
-                            name={`qtyTo-${idx}`}
-                            className="w-full only_number"
-                            placeholder="Enter Quantity To"
-                            value={product.qtyTo}
-                            onChange={(e: any) =>
-                              handleDiscountDetailsChange(
-                                idx,
-                                "qtyTo",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-
-                        <td className="p-2 w-[15%]">
-                          <Input
-                            type="text"
-                            name={`discount-${idx}`}
-                            className="w-full only_number"
-                            placeholder="Enter Discount"
-                            value={product.discount}
-                            onChange={(e: any) =>
-                              handleDiscountDetailsChange(
-                                idx,
-                                "discount",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-                        <td className="p-2 w-[15%]">
-                          <Input
-                            type="text"
-                            name={`cashDiscount-${idx}`}
-                            className="w-full only_number"
-                            placeholder="Enter Cash Discount"
-                            value={product.cashDiscount}
-                            onChange={(e: any) =>
-                              handleDiscountDetailsChange(
-                                idx,
-                                "cashDiscount",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </td>
-
-                        <td className="p-2 text-center w-[7%]">
-                          <button
-                            type="button"
-                            className="text-red-600 delete-row mx-1 cursor-pointer"
-                            onClick={() => handlDiscounteDeleteRow(idx)}
-                          >
-                            <i className="ri-delete-bin-line text-[16px]"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <button
-                type="button"
-                onClick={handleDiscountAddRow}
-                className="btn-sm btn-primary mt-4"
-              >
-                Add Row
-              </button>
-            </div>
-          </div>
-        );
-
-      case "Other_details":
-        return (
-          <div id="Other_details">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6">
-              <div className="lg:pr-4">
-                <FormField label="Status" htmlFor="status">
-                  <RadioGroup
-                    name="status"
-                    options={[
-                      { value: "active", label: "Active" },
-                      { value: "inActive", label: "Inactive" },
-                    ]}
-                    onChange={(e) => {
-                      setFormData((prev) => ({
-                        ...prev,
-                        otherDetails: {
-                          ...prev.otherDetails,
-                          status: e.target.value,
-                        },
-                      }));
-                    }}
-                  />
-                </FormField>
-
-                <FormField label="Minimum Stock" htmlFor="minimumStock">
-                  <Input
-                    name="minimumStock"
-                    placeholder="Enter Minimum Stock"
-                    className="form-control w-full only_number"
-                    value={formData.otherDetails.minimumStock}
-                    onChange={handleChange}
-                  />
-                </FormField>
-              </div>
-            </div>
-          </div>
-        );
-
-      default:
-        return (
-          <div id="Unit_Details">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-6"></div>
           </div>
         );
     }
@@ -676,15 +774,16 @@ export default function NewProduct() {
     <Layout pageTitle="Product New">
       <div className="min-h-screen">
         <main id="main-content" className="flex-1">
-          <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)]">
+          <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
               <div className="border-b border-gray-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2 mb-1">
                   <div className="lg:pr-4">
                     <FormField
                       label="Product Name"
                       required
                       htmlFor="productName"
+                      className="!mb-0"
                     >
                       <div className="relative">
                         <Input
@@ -719,7 +818,7 @@ export default function NewProduct() {
                     </FormField>
                   </div>
                   <div className="space-y-4">
-                    <FormField label="Unit" htmlFor="unit" required>
+                    <FormField label="Unit" htmlFor="unit" required className="!mb-0">
                       <SearchableSelect
                         name="unit"
                         options={unit}
@@ -731,7 +830,7 @@ export default function NewProduct() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-6 px-4 py-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 px-4 py-6">
                 <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
                   <FormField label="Group" htmlFor="group" required>
                     <SearchableSelect
@@ -922,7 +1021,7 @@ export default function NewProduct() {
             </form>
           </div>
         </main>
-        <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex justify-start gap-2">
+        <footer className="bg-[#ebeff3] py-3 h-[53.9px] px-4 flex justify-start gap-2">
           <button
             type="submit"
             onClick={handleSubmit as any}

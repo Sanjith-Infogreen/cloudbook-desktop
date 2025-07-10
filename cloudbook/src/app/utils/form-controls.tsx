@@ -35,6 +35,7 @@ export const RadioGroup = ({
   required = false,
   id,
   defaultValue,
+  className,
   onChange: externalOnChange,
   ...props
 }: {
@@ -43,6 +44,7 @@ export const RadioGroup = ({
   required?: boolean;
   id?: string;
   defaultValue?: string;
+  className?:string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   [key: string]: any;
 }) => {
@@ -59,7 +61,7 @@ export const RadioGroup = ({
   };
 
   return (
-    <div id={id} className="flex flex-col mt-2" {...(required ? { "data-validate": "required" } : {})}>
+    <div id={id} className={`flex flex-col ${className}`} {...(required ? { "data-validate": "required" } : {})}>
       <div className="flex flex-wrap items-center space-x-6 ">
         {options.map((option) => (
           <label key={option.value} className="inline-flex items-center text-sm cursor-pointer">
@@ -137,15 +139,17 @@ export const Toggle = ({
   checked,
   onChange,
   label,
+  className,
   ...props
 }: {
   name: string;
   checked: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
+  className?:string
   [key: string]: any;
 }) => (
-  <label className="relative inline-flex items-center cursor-pointer mt-2">
+  <label className={`relative inline-flex items-center cursor-pointer ${className}`}>
     <input
       type="checkbox"
       name={name}

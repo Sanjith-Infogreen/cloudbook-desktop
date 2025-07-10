@@ -703,6 +703,7 @@ export default function NewContact() {
                     label="Active"
                     onChange={handleStatusChange}
                     checked={formData.otherDetails.status}
+                    className="mt-2"
                   />
                 </FormField>
               </div>
@@ -861,10 +862,10 @@ export default function NewContact() {
     <Layout pageTitle="Contact New">
       <div className="min-h-screen">
         <main id="main-content" className="flex-1">
-          <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)]">
+          <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
               <div className="border-b border-gray-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-2">
+                <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-2 mb-1">
                   <FormField label="Ledger Name" required htmlFor="ledgerName" className="!mb-0">
                     <div className="relative">
                       <div className="flex gap-2">
@@ -925,6 +926,7 @@ export default function NewContact() {
                         { value: "customer", label: "Sundry creditors" },
                         { value: "supplier", label: "Sundry debtors" },
                       ]}
+                      className="mt-2"
                       onChange={(e) =>
                         setFormData((pre) => ({
                           ...pre,
@@ -1075,7 +1077,7 @@ export default function NewContact() {
             </form>
           </div>
         </main>
-        <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex justify-start gap-2">
+        <footer className="bg-[#ebeff3] py-3 h-[53.9px] px-4 flex justify-start gap-2">
           <button
             type="submit"
             onClick={handleSubmit as any}

@@ -208,7 +208,7 @@ const NewPurchase = () => {
     <Layout pageTitle="Purchase New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
-          <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)] ">
+          <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
               <div className="border-b border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
@@ -494,7 +494,7 @@ const NewPurchase = () => {
           </div>
         </main>
 
-        <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex justify-start gap-2">
+        <footer className="bg-[#ebeff3] py-3 h-[53.9px] px-4 flex justify-start gap-2">
           <button onClick={handleSubmit} className="btn-sm btn-primary">
             Save
           </button>
