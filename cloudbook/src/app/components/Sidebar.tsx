@@ -36,17 +36,20 @@ export default function Sidebar() {
     
 
 const handleClickOutsideDropdown = (event: MouseEvent) => {
-  const profileToggleArea = document.querySelector('.profile-toggle-area'); // Use the class added in step 1
+      // If the dropdown is open, and the click happened outside the dropdownRef,
+      // and also outside the specific area that triggers the dropdown (the bottom profile div)
+      const profileToggleArea = document.querySelector('.bottom-profile-toggle-area'); // Use a class to identify the toggle div
 
-  if (isDropdownOpen) {
-    const clickedInsideDropdown = dropdownRef.current && dropdownRef.current.contains(event.target as Node);
-    const clickedInsideToggleArea = profileToggleArea && profileToggleArea.contains(event.target as Node);
-
-    if (!clickedInsideDropdown && !clickedInsideToggleArea) {
-      setIsDropdownOpen(false);
-    }
-  }
-};
+      if (
+        isDropdownOpen && // Only try to close if it's open
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        profileToggleArea &&
+        !profileToggleArea.contains(event.target as Node) // Ensure the click is not on the toggle area itself
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
 
 
     // Run initial screen size check
