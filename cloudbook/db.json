@@ -168,7 +168,7 @@
       "id": "2ad3"
     },
     {
-      "icon": "ri-file-text-line",
+      "icon": "ri-survey-line",
       "Title": "Sales Order",
       "icon_New": "ri-add-fill",
       "main_Link": "/modules/salesOrder/list",
@@ -204,7 +204,7 @@
       "id": "4d07"
     },
     {
-      "icon": "ri-file-list-line",
+      "icon": "ri-truck-line",
       "Title": "DC",
       "icon_New": "ri-add-fill",
       "main_Link": "/modules/deliveryChallan/list",
@@ -258,7 +258,7 @@
       "id": "c1fa"
     },
     {
-      "icon": "ri-clipboard-line",
+      "icon": "ri-inbox-unarchive-line",
       "Title": "Bulk Receipt",
       "icon_New": "",
       "main_Link": "/modules/bulk-receipt",
@@ -267,7 +267,7 @@
       "id": "2df5"
     },
     {
-      "icon": "ri-clipboard-line",
+      "icon": "ri-file-list-3-line",
       "Title": "Report",
       "icon_New": "",
       "main_Link": "/modules/report",
