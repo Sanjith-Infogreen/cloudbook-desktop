@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Layout from "../../../components/Layout";
@@ -81,27 +81,27 @@ const NewReceipt = () => {
       date: "01/01/2025",
       billNumber: "B001",
       purpose: "Sales",
-      total: 1500.00,
-      paid: 1000.00,
-      balance: 500.00,
+      total: 1500.0,
+      paid: 1000.0,
+      balance: 500.0,
     },
     {
       id: 2,
       date: "02/15/2025",
       billNumber: "B002",
       purpose: "Delivery",
-      total: 2500.50,
-      paid: 2000.00,
-      balance: 500.50,
+      total: 2500.5,
+      paid: 2000.0,
+      balance: 500.5,
     },
     {
       id: 3,
       date: "03/10/2025",
       billNumber: "B003",
       purpose: "Service",
-      total: 500.00,
-      paid: 500.00,
-      balance: 0.00,
+      total: 500.0,
+      paid: 500.0,
+      balance: 0.0,
     },
   ];
 
@@ -153,10 +153,10 @@ const NewReceipt = () => {
       mode,
       bankAccount,
       amount: parseFloat(amount), // Convert amount to number
-      bills: bills.map(bill => ({
+      bills: bills.map((bill) => ({
         ...bill,
-        balance: parseFloat(bill.balance as string) // Ensure balance is number
-      }))
+        balance: parseFloat(bill.balance as string), // Ensure balance is number
+      })),
     };
 
     console.log("Full Form Data:", fullFormData);
@@ -216,278 +216,289 @@ const NewReceipt = () => {
 
   return (
     <Layout pageTitle="Receipt New">
-      <div className="flex-1 flex flex-col">
-        <main id="main-content" className="flex-1 overflow-y-auto">
-          <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-            {/* Top section: Supplier Name and Date */}
-            <div className="border-b border-gray-300">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 py-2">
-                <div className="lg:pr-4">
-                  <FormField label="Supplier Name" required>
-                    <CommonTypeahead
-                      className="capitalize"
-                      name="supplierName"
-                      placeholder="Enter supplier name"
-                      data={typeHead}
-                      required={true}
-                      searchFields={["name"]}
-                      displayField="name"
-                      minSearchLength={1}
-                      onAddNew={handleAddNewName}
-                      onSelect={handleNameSelect}
-                    />
-                  </FormField>
-                </div>
-                <div className="space-y-4 flex justify-end">
-                  <FormField label="" className="w-full lg:w-1/2">
-                    <DatePicker
-                      name="date"
-                      id="date"
-                      selected={date}
-                      initialDate={date}
-                      onChange={(e) => {
-                        setDate(e);
-                      }}
-                      className="w-full"
-                    />
-                  </FormField>
+      <div className="min-h-screen">
+        <main id="main-content" className="flex-1">
+          <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
+            <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
+              {/* Top section: Supplier Name and Date */}
+              <div className="border-b border-gray-300">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2 mb-1">
+                  <div className="lg:pr-4">
+                    <FormField label="Supplier Name" required className="!mb-0">
+                      <CommonTypeahead
+                        className="capitalize"
+                        name="supplierName"
+                        placeholder="Enter supplier name"
+                        data={typeHead}
+                        required={true}
+                        searchFields={["name"]}
+                        displayField="name"
+                        minSearchLength={1}
+                        onAddNew={handleAddNewName}
+                        onSelect={handleNameSelect}
+                      />
+                    </FormField>
+                  </div>
+                  <div className="space-y-4 flex justify-end">
+                    <FormField label="" className="w-full lg:w-1/2 !mb-0">
+                      <DatePicker
+                        name="date"
+                        id="date"
+                        selected={date}
+                        initialDate={date}
+                        onChange={(e) => {
+                          setDate(e);
+                        }}
+                        className="w-full"
+                      />
+                    </FormField>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Middle section: Remarks, Mode, Bank Account, Amount, and Supplier Details */}
-            <div className="px-4 py-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  {/* New Name Field */}
-                  <FormField label="Name">
-                    <Input
-                      name="receiptName"
-                      placeholder="Enter name"
-                      className="form-control w-full"
-                      value={name}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setName(e.target.value)
-                      }
-                    />
-                  </FormField>
+              {/* Middle section: Remarks, Mode, Bank Account, Amount, and Supplier Details */}
+              <div className="px-4 py-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="space-y-4 lg:pr-4">
+                    {/* New Name Field */}
+                    <FormField label="Name">
+                      <Input
+                        name="receiptName"
+                        placeholder="Enter name"
+                        className="form-control w-full"
+                        value={name}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setName(e.target.value)
+                        }
+                      />
+                    </FormField>
 
-                  {/* New Remarks Field */}
-                  <FormField label="Remarks">
-                    <Input
-                      name="remarks"
-                      placeholder="Enter remarks"
-                      className="form-control w-full"
-                      value={remarks}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setRemarks(e.target.value)
-                      }
-                    />
-                  </FormField>
+                    {/* New Remarks Field */}
+                    <FormField label="Remarks">
+                      <Input
+                        name="remarks"
+                        placeholder="Enter remarks"
+                        className="form-control w-full"
+                        value={remarks}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          setRemarks(e.target.value)
+                        }
+                      />
+                    </FormField>
 
-                  {/* New Mode Field (Radio Buttons) */}
-                  <FormField label="Mode" required>
-                    <div className="flex flex-wrap gap-4">
-                       <RadioGroup
-                                  name="mode"
-                                  options={[
-                                    { value: "cash", label: "Cash" },
-                                    { value: "cheque", label: "Cheque" },
-                                    { value: "neft", label: "NEFT" } 
-                                  ]}
-                                   
-                                />
-                    </div>
-                  </FormField>
+                    {/* New Mode Field (Radio Buttons) */}
+                    <FormField label="Mode" required>
+                      <div className="flex flex-wrap gap-4">
+                        <RadioGroup
+                          name="mode"
+                          options={[
+                            { value: "cash", label: "Cash" },
+                            { value: "cheque", label: "Cheque" },
+                            { value: "neft", label: "NEFT" },
+                          ]}
+                        />
+                      </div>
+                    </FormField>
 
-                   
-                  <FormField label="Bank Account">
-                    <SearchableSelect
-                      id="bankAccount"
-                      name="bankAccount"
-                      options={bankAccountOptions}
-                      placeholder="--Select--"
-                      onChange={handleBankAccountChange}
-                      initialValue={bankAccount}
-                    />
-                  </FormField>
+                    <FormField label="Bank Account">
+                      <SearchableSelect
+                        id="bankAccount"
+                        name="bankAccount"
+                        options={bankAccountOptions}
+                        placeholder="--Select--"
+                        onChange={handleBankAccountChange}
+                        initialValue={bankAccount}
+                      />
+                    </FormField>
 
-                  {/* New Amount Field */}
-                  <FormField label="Amount" required>
-                    <Input
-                      name="amount"
-                      placeholder="Enter Amount"
-                      className="form-control w-full number_with_decimal" // Apply class for styling/validation
-                      value={amount}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        handleNumericInputChange(e.target.value, setAmount)
-                      }
-                    />
-                  </FormField>
-                </div>
-                {/* Supplier Details Display */}
-                <div className="space-y-4   lg:pr-1">
-                  <div className="bg-white border border-gray-300 rounded-xl   p-6 h-[175px] overflow-y-auto transition-all duration-200  ">
-                    {details && Object.keys(details).length > 0 ? (
-                      <div className="text-sm">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
-                          {/* Contact Information */}
-                          <div className="space-y-4">
-                            <div className="group">
-                              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                                Phone Number
-                              </label>
-                              <p className="text-gray-900 font-medium text-base leading-tight">
-                                {details.phoneNumber}
-                              </p>
-                            </div>
-                            <div className="group">
-                              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                                GST Number
-                              </label>
-                              <p className="text-gray-900 font-medium text-base leading-tight">
-                                {details.gstNumber}
-                              </p>
-                            </div>
-                          </div>
-
-                          {/* Address Information */}
-                          <div className="space-y-3">
-                            <div className="pb-1 border-b border-gray-200">
-                              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                                Business Address
-                              </label>
-                            </div>
-                            <div className="space-y-1.5 leading-relaxed">
-                              <p className="text-gray-900 font-medium">
-                                {details.addressLine1}
-                              </p>
-                              {details.addressLine2 && (
-                                <p className="text-gray-900 font-medium">
-                                  {details.addressLine2}
+                    {/* New Amount Field */}
+                    <FormField label="Amount" required>
+                      <Input
+                        name="amount"
+                        placeholder="Enter Amount"
+                        className="form-control w-full number_with_decimal" // Apply class for styling/validation
+                        value={amount}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                          handleNumericInputChange(e.target.value, setAmount)
+                        }
+                      />
+                    </FormField>
+                  </div>
+                  {/* Supplier Details Display */}
+                  <div className="space-y-4   lg:pr-1">
+                    <div className="bg-white border border-gray-300 rounded-xl   p-6 h-[175px] overflow-y-auto transition-all duration-200  ">
+                      {details && Object.keys(details).length > 0 ? (
+                        <div className="text-sm">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+                            {/* Contact Information */}
+                            <div className="space-y-4">
+                              <div className="group">
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                                  Phone Number
+                                </label>
+                                <p className="text-gray-900 font-medium text-base leading-tight">
+                                  {details.phoneNumber}
                                 </p>
-                              )}
-                              <div className="flex items-center space-x-2 text-gray-700">
-                                <span className="font-medium">
-                                  {details.state}
-                                </span>
-                                <span className="text-gray-400">•</span>
-                                <span className="font-medium">
-                                  {details.pincode}
-                                </span>
+                              </div>
+                              <div className="group">
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                                  GST Number
+                                </label>
+                                <p className="text-gray-900 font-medium text-base leading-tight">
+                                  {details.gstNumber}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Address Information */}
+                            <div className="space-y-3">
+                              <div className="pb-1 border-b border-gray-200">
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                                  Business Address
+                                </label>
+                              </div>
+                              <div className="space-y-1.5 leading-relaxed">
+                                <p className="text-gray-900 font-medium">
+                                  {details.addressLine1}
+                                </p>
+                                {details.addressLine2 && (
+                                  <p className="text-gray-900 font-medium">
+                                    {details.addressLine2}
+                                  </p>
+                                )}
+                                <div className="flex items-center space-x-2 text-gray-700">
+                                  <span className="font-medium">
+                                    {details.state}
+                                  </span>
+                                  <span className="text-gray-400">•</span>
+                                  <span className="font-medium">
+                                    {details.pincode}
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col justify-center items-center h-full text-center">
-                        <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                          <svg
-                            className="w-6 h-6 text-gray-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={1.5}
-                              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                            />
-                          </svg>
+                      ) : (
+                        <div className="flex flex-col justify-center items-center h-full text-center">
+                          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3">
+                            <svg
+                              className="w-6 h-6 text-gray-400"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={1.5}
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                              />
+                            </svg>
+                          </div>
+                          <p className="text-gray-500 text-sm font-medium">
+                            No supplier selected
+                          </p>
+                          <p className="text-gray-400 text-xs mt-1">
+                            Select a supplier to view details
+                          </p>
                         </div>
-                        <p className="text-gray-500 text-sm font-medium">
-                          No supplier selected
-                        </p>
-                        <p className="text-gray-400 text-xs mt-1">
-                          Select a supplier to view details
-                        </p>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Bills Table Section */}
-            <div className="h-[calc(100vh-422px)] max=h-[calc(100vh-422px)] overflow-y-auto pr-5 pl-4">
-              <table className="w-full text-sm">
-                <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
-                  {/* Removed whitespace between <tr> and <th> */}
-                  <tr>
-                    <th  className="th-cell w-[5%]" >S.no</th>
-                    <th  className="th-cell w-[15%]" >Date</th>
-                    <th  className="th-cell  w-[15%] " >Bill Number</th>
-                    <th  className="th-cell  w-[15%]" >Purpose</th> {/* New column header */}
-                    <th  className="th-cell  w-[15%] text-right" >Total</th>
-                    <th  className="th-cell  w-[15%] text-right" >Paid</th>
-                    <th  className="th-cell  w-[20%] text-right"  >Balance</th>
-                  </tr>
-                </thead>
-                <tbody id="productTableBody">
-                  {bills.length > 0 ? (
-                    bills.map((bill, index) => (
-                      <tr key={bill.id} className="border-b border-gray-200">
-                        <td  className="td-cell">{index + 1}</td>
-                        <td  className="td-cell">{bill.date}</td>
-                        <td  className="td-cell">{bill.billNumber}</td>
-                        <td  className="td-cell">{bill.purpose}</td>
-                        <td   className="td-cell text-right">
-                          { bill.total.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td> 
-                        <td  className="td-cell text-right text-[#009333]">
-                          { bill.paid.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td> 
-                        <td  className="td-cell">
-                          <Input
-                            name={`balance-${bill.id}`}
-                            placeholder="Enter Balance"
-                            className="form-control number_with_decimal text-right"
-                            value={bill.balance.toString()}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                              handleBillBalanceChange(bill.id, e.target.value)
-                            }
-                          />
+              {/* Bills Table Section */}
+              <div className="h-[calc(100vh-422px)] max=h-[calc(100vh-422px)] overflow-y-auto pr-5 pl-4">
+                <table className="w-full text-sm">
+                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
+                    {/* Removed whitespace between <tr> and <th> */}
+                    <tr>
+                      <th className="th-cell w-[5%]">S.no</th>
+                      <th className="th-cell w-[15%]">Date</th>
+                      <th className="th-cell  w-[15%] ">Bill Number</th>
+                      <th className="th-cell  w-[15%]">Purpose</th>
+                      {/* New column header */}
+                      <th className="th-cell  w-[15%] text-right">Total</th>
+                      <th className="th-cell  w-[15%] text-right">Paid</th>
+                      <th className="th-cell  w-[20%] text-right">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody">
+                    {bills.length > 0 ? (
+                      bills.map((bill, index) => (
+                        <tr key={bill.id} className="border-b border-gray-200">
+                          <td className="td-cell">{index + 1}</td>
+                          <td className="td-cell">{bill.date}</td>
+                          <td className="td-cell">{bill.billNumber}</td>
+                          <td className="td-cell">{bill.purpose}</td>
+                          <td className="td-cell text-right">
+                            {bill.total.toLocaleString("en-IN", {
+                              style: "currency",
+                              currency: "INR",
+                            })}
+                          </td>
+                          <td className="td-cell text-right text-[#009333]">
+                            {bill.paid.toLocaleString("en-IN", {
+                              style: "currency",
+                              currency: "INR",
+                            })}
+                          </td>
+                          <td className="td-cell">
+                            <Input
+                              name={`balance-${bill.id}`}
+                              placeholder="Enter Balance"
+                              className="form-control number_with_decimal text-right"
+                              value={bill.balance.toString()}
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) =>
+                                handleBillBalanceChange(bill.id, e.target.value)
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={7}
+                          className="p-4 text-center text-gray-500"
+                        >
+                          Select a supplier to view bills.
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={7} className="p-4 text-center text-gray-500">
-                        Select a supplier to view bills.
-                      </td>
-                    </tr>
+                    )}
+                  </tbody>
+                  {/* Table Footer for Totals */}
+                  {bills.length > 0 && (
+                    <tfoot className="bg-[#f8f9fa] text-left text-[#12344d] font-bold sticky-table-footer">
+                      {/* Removed empty line and consolidated td tags */}
+                      <tr>
+                        <td colSpan={4} className="p-2 text-right">
+                          Total:
+                        </td>
+                        <td className="p-2  text-right">
+                          {totalSum.toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                          })}
+                        </td>
+                        <td className="p-2  text-right">
+                          {paidSum.toLocaleString("en-IN", {
+                            style: "currency",
+                            currency: "INR",
+                          })}
+                        </td>
+                        <td className="p-2"></td>
+                      </tr>
+                    </tfoot>
                   )}
-                </tbody>
-                {/* Table Footer for Totals */}
-                {bills.length > 0 && (
-                  <tfoot className="bg-[#f8f9fa] text-left text-[#12344d] font-bold sticky-table-footer">
-                    {/* Removed empty line and consolidated td tags */}
-                    <tr>
-                      <td colSpan={4} className="p-2 text-right">Total:</td><td className="p-2  text-right">
-                        {totalSum.toLocaleString("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        })}
-                      </td><td className="p-2  text-right">
-                        {paidSum.toLocaleString("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        })}
-                      </td><td className="p-2"></td>
-                    </tr>
-                  </tfoot>
-                )}
-              </table>
-            </div>
-          </form>
+                </table>
+              </div>
+            </form>
+          </div>
         </main>
 
         {/* Footer with Save and Cancel buttons */}
