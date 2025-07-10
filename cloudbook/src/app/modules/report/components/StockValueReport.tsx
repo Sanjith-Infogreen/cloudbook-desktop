@@ -1,33 +1,120 @@
-// components/Reports/MonthlyReport.tsx
+ // components/Reports/StockValueReport.tsx
 "use client";
 
-import { RadioGroup } from "@/app/utils/form-controls";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react"; 
 
-import { Search } from "lucide-react";
-import SearchableSelect from "@/app/utils/searchableSelect";
 import DatePicker from "@/app/utils/commonDatepicker";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/store/store";
-import { setMonthlyReports } from "@/store/report/monthlyReport";
+import { CheckboxGroup } from "@/app/utils/form-controls";
 
-// Define the MonthlyReport interface as per AllMonthlyReportList
-
-
-interface MonthlyReportProps {
+interface StockValueReportProps {
   activeReport: string | null;
   activeCategory: string | null;
 }
 
-const MonthlyReport: React.FC<MonthlyReportProps> = ({
+// Define the interface for a single item in the Product Sales Report list
+interface StockValueReportItem {
+  id: number;
+  customerName: string;
+  address: string;
+  productName: string;
+  quantitySold: number;
+  saleDate: string;
+  totalAmount: number;
+  status: string;
+}
+
+// --- START: Move ViewModeDropdown outside StockValueReport ---
+const ViewModeDropdown: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="relative inline-block">
+      <button
+        id="viewModeBtn"
+        ref={buttonRef} // Assign ref to the button
+        className="btn-sm !border-transparent !text-[#384551] hover:bg-[#dce0e5] hover:border-[#ebeff3] text-sm"
+        onClick={toggleDropdown}
+        aria-haspopup="true" // Indicate that this button controls a popup
+        aria-expanded={isOpen} // Indicate whether the popup is currently expanded
+      >
+        <i className="ri-layout-5-line"></i>
+      </button>
+
+      {isOpen && (
+        <div
+          ref={dropdownRef} // Assign ref to the dropdown content
+          className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-11"
+          role="menu" // Indicate that this is a menu
+          aria-orientation="vertical"
+          aria-labelledby="viewModeBtn"
+        >
+          <div className="py-1">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+            >
+              Option 1
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+            >
+              Option 2
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              role="menuitem"
+            >
+              Option 3
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+// --- END: Moved ViewModeDropdown outside StockValueReport ---
+
+
+const StockValueReport: React.FC<StockValueReportProps> = ({
   activeReport,
-  activeCategory,
 }) => {
+  // State to hold the fetched product sales report data
+  const [stockValueReport, setStockValueReports] = useState<
+    StockValueReportItem[]
+  >([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const [materialType, setMaterialType] = useState<string>("TapiocaRoot"); // Not used in current display, but kept if needed for filtering
 
   // Filter states
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,41 +123,46 @@ const MonthlyReport: React.FC<MonthlyReportProps> = ({
   const [fromDate, setFromDate] = useState<string | undefined>(undefined);
   const [toDate, setToDate] = useState<string | undefined>(undefined);
 
-   const [includeTimeDetails, setIncludeTimeDetails] = useState(false);
-const dispatch = useDispatch<AppDispatch>();
-  const monthlyreport = useSelector(
-    (state: RootState) => state.monthlyreport.monthlyreport
-  );
-
-  const fetchMonthlyReport = async () => {
+  const fetchProductSalesReport = async () => {
     try {
-      // setLoading(true);
-      // setError(null);
+      setLoading(true); // Set loading to true when fetching starts
+      setError(null); // Clear any previous errors
 
-     const res = await fetch("http://localhost:4000/mockMonthlyReportData");
+      const res = await fetch(
+        "http://localhost:4000/mockProductSalesReportData"
+      );
 
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      const data = await res.json();
-      dispatch(setMonthlyReports(data))
-    } catch (err) {
-      console.error("Error fetching MonthlyReport:", err);
-      setError("Failed to fetch MonthlyReport");
+      const data: StockValueReportItem[] = await res.json();
+      setStockValueReports(data); // Store the fetched data in state
+
+      // Simulate API delay (if needed for testing loading state)
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Apply filters to mockData (This logic would go here if you were filtering client-side)
+    } catch (err: any) {
+      console.error("Error fetching StockValueReport:", err);
+      setError("Failed to fetch StockValueReport: " + err.message);
     } finally {
-      setLoading(false);
+      setLoading(false); // Set loading to false when fetching finishes
     }
   };
 
   useEffect(() => {
-   if(monthlyreport.length === 0) fetchMonthlyReport();
-  }, []); // Refetch when filters change
+    // Only fetch if the stockValueReport array is empty
+    if (stockValueReport.length === 0) {
+      fetchProductSalesReport();
+    }
+  }, [stockValueReport]); // Dependency array includes stockValueReport to prevent infinite loops if data changes
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     setSelectAll(checked);
-    setSelectedIds(checked ? monthlyreport.map((t) => t.id) : []);
+    // Map over the actual data array, not the component name
+    setSelectedIds(checked ? stockValueReport.map((t) => t.id) : []);
   };
 
   const handleCheckboxChange = (id: number) => {
@@ -82,7 +174,8 @@ const dispatch = useDispatch<AppDispatch>();
   const handleRefresh = () => {
     setFilters({}); // Clear filters on refresh
     setLocalFilters({}); // Clear local filters
-    fetchMonthlyReport();
+    setStockValueReports([]); // Clear current data to force refetch
+    fetchProductSalesReport(); // Refetch data
   };
 
   const handleFilterToggle = () => {
@@ -101,6 +194,9 @@ const dispatch = useDispatch<AppDispatch>();
   const handleApplyFilters = () => {
     setFilters(localFilters); // Apply the local filters to the main filters state
     setIsSidebarOpen(false);
+    // You would typically re-fetch or re-filter data here based on the new 'filters' state
+    // For now, we'll just re-fetch the mock data (which doesn't apply filters yet)
+    fetchProductSalesReport();
   };
 
   const handleClearFilters = () => {
@@ -108,18 +204,19 @@ const dispatch = useDispatch<AppDispatch>();
     setLocalFilters(clearedFilters);
     setFilters(clearedFilters);
     setIsSidebarOpen(false); // Close sidebar after clearing
-  };
+    setFromDate(undefined); // Clear date pickers
+    setToDate(undefined);
 
-
-  const handleFilterCheckboxChange = (event: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
-    setIncludeTimeDetails(event.target.checked);
+    fetchProductSalesReport(); // Refetch data after clearing filters
   };
 
   useEffect(() => {
+    // Update selectAll state based on current data and selected IDs
     setSelectAll(
-      monthlyreport.length > 0 && selectedIds.length === monthlyreport.length
+      stockValueReport.length > 0 &&
+        selectedIds.length === stockValueReport.length
     );
-  }, [selectedIds, monthlyreport]);
+  }, [selectedIds, stockValueReport]); // Depend on selectedIds and stockValueReport
 
   if (loading) {
     return (
@@ -128,7 +225,7 @@ const dispatch = useDispatch<AppDispatch>();
           <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
         </div>
         <div className="text-lg font-medium text-gray-700">
-          Loading MonthlyReport List...
+          Loading Product Sales Report...
         </div>
         <div className="text-sm text-gray-500">
           Please wait while we fetch the data
@@ -153,19 +250,23 @@ const dispatch = useDispatch<AppDispatch>();
     );
   }
 
-  if (monthlyreport.length === 0 && Object.keys(filters).length === 0) {
+  // Check if stockValueReport is empty after loading and filtering
+  if (stockValueReport.length === 0 && Object.keys(filters).length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-lg text-gray-500">
-          No MonthlyReport data available.
+          No Product Sales Report data available.
         </div>
       </div>
     );
-  } else if (monthlyreport.length === 0 && Object.keys(filters).length > 0) {
+  } else if (
+    stockValueReport.length === 0 &&
+    Object.keys(filters).length > 0
+  ) {
     return (
       <div className="flex flex-col items-center justify-center h-64">
         <div className="text-lg text-gray-500">
-          No MonthlyReport found matching your filters.
+          No Product Sales Report found matching your filters.
         </div>
         <button
           onClick={handleClearFilters}
@@ -179,7 +280,9 @@ const dispatch = useDispatch<AppDispatch>();
 
   return (
     <main className="flex-1">
-      <h1 className="text-[18px] sm:text-[20px] font-medium text-[#009333] p-2">{activeReport}</h1>
+      <h3 className="text-[16px] p-2 sm:text-[16px] font-medium text-[#009333]">
+        {activeReport}
+      </h3>
 
       {/* Header Section */}
       <div className="flex justify-between items-center px-1.5 py-1.5 bg-[#ebeff3]">
@@ -192,21 +295,16 @@ const dispatch = useDispatch<AppDispatch>();
                 <i className="ri-arrow-down-s-line ml-1"></i>
               </button>
 
-              <div className="relative inline-block">
-                <button
-                  id="viewModeBtn"
-                  className="btn-sm !border-transparent !text-[#384551] hover:bg-[#dce0e5] hover:border-[#ebeff3] text-sm"
-                >
-                  <i className="ri-layout-5-line"></i>
-                </button>
-              </div>
+              {/* Use the standalone ViewModeDropdown component here */}
+              <ViewModeDropdown />
 
               <button
                 className="btn-sm !border-transparent !text-[#384551] hover:bg-[#dce0e5] hover:border-[#ebeff3] text-sm"
                 id="bulkActionsBtn"
                 onClick={() => {
                   setSelectAll(true);
-                  setSelectedIds(monthlyreport.map((t) => t.id));
+                  // Map over the actual data array, not the component name
+                  setSelectedIds(stockValueReport.map((t) => t.id));
                 }}
               >
                 <i className="ri-stack-fill mr-1"></i>
@@ -258,13 +356,14 @@ const dispatch = useDispatch<AppDispatch>();
         </div>
 
         <div className="flex items-center relative space-x-2">
+            
           <input
             className="form-control !h-[31px]"
             type="text"
-            placeholder="Search Month"
-            value={localFilters.vehicleNo || ""}
-            onChange={(e) =>
-              handleLocalFilterChange("vehicleNo", e.target.value)
+            placeholder="Search by Name"  
+            value={localFilters.customerName || ""}  
+            onChange={
+              (e) => handleLocalFilterChange("customerName", e.target.value) 
             }
           />
           <button
@@ -280,7 +379,7 @@ const dispatch = useDispatch<AppDispatch>();
       <div className="bg-[#ebeff3]">
         {selectedIds.length > 1 && (
           <div className="fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-            {selectedIds.length} MonthlyReports selected
+            {selectedIds.length} Product Sales Reports selected
           </div>
         )}
 
@@ -290,10 +389,9 @@ const dispatch = useDispatch<AppDispatch>();
               <thead className="sticky-table-header">
                 <tr>
                   <th className="th-cell" id="checkboxColumn">
-                    <input
-                      type="checkbox"
-                      id="selectAll"
-                      className="form-check"
+                    <CheckboxGroup
+                      name="selectall"
+                      value="selectAll"
                       checked={selectAll}
                       onChange={handleSelectAll}
                     />
@@ -305,53 +403,60 @@ const dispatch = useDispatch<AppDispatch>();
                   </th>
                   <th className="th-cell">
                     <div className="flex justify-between items-center gap-1">
-                      <span>Month</span>
+                      <span>Customer Name</span>
                       <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
                     </div>
                   </th>
                   <th className="th-cell">
                     <div className="flex justify-between items-center gap-1">
-                      <span>Total Leave</span>
+                      <span>Product Name</span>
                       <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
                     </div>
                   </th>
                   <th className="th-cell">
                     <div className="flex justify-between items-center gap-1">
-                      <span>Approved Leave</span>
+                      <span>Quantity</span>
                       <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
                     </div>
                   </th>
 
                   <th className="th-cell">
                     <div className="flex justify-between items-center gap-1">
-                      <span>Pending Leave</span>
+                      <span>Sale Date</span>
                       <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
                     </div>
                   </th>
                   <th className="th-cell">
                     <div className="flex justify-between items-center gap-1">
-                      <span>Rejected Leave</span>
+                      <span>Total Amount</span>
+                      <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
+                    </div>
+                  </th>
+                  <th className="th-cell">
+                    <div className="flex justify-between items-center gap-1">
+                      <span>Status</span>
                       <i className="dropdown-hover ri-arrow-down-s-fill cursor-pointer"></i>
                     </div>
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {monthlyreport.map((payment, index) => (
+                {/* Map over the actual data array, not the component name */}
+                {stockValueReport.map((reportItem, index) => (
                   <tr
-                    key={payment.id}
+                    key={reportItem.id}
                     className={`group hover:bg-[#f5f7f9] text-sm cursor-pointer ${
-                      selectedIds.includes(payment.id)
+                      selectedIds.includes(reportItem.id)
                         ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]"
                         : ""
                     }`}
                   >
                     <td className="td-cell">
-                      <input
-                        type="checkbox"
-                        className="form-check"
-                        checked={selectedIds.includes(payment.id)}
-                        onChange={() => handleCheckboxChange(payment.id)}
+                      <CheckboxGroup
+                        name="selectall"
+                        value="selectAll"
+                        checked={selectedIds.includes(reportItem.id)}
+                        onChange={() => handleCheckboxChange(reportItem.id)}
                       />
                     </td>
                     <td className="td-cell">
@@ -360,11 +465,15 @@ const dispatch = useDispatch<AppDispatch>();
                         <i className="p-1 rounded border border-[#cfd7df] text-[#4d5e6c] ri-pencil-fill opacity-0 group-hover:opacity-100"></i>
                       </span>
                     </td>
-                    <td className="td-cell">{payment.month}</td>
-                    <td className="td-cell">{payment.totalLeaves}</td>
-                    <td className="td-cell">{payment.approvedLeaves}</td>
-                    <td className="td-cell">{payment.pendingLeaves}</td>
-                    <td className="td-cell">{payment.rejectedLeaves}</td>
+                    <td className="td-cell">{reportItem.customerName}</td>
+                    <td className="td-cell">{reportItem.productName}</td>
+                    <td className="td-cell">{reportItem.quantitySold}</td>
+                    <td className="td-cell">{reportItem.saleDate}</td>
+                    <td className="td-cell">
+                      ₹{reportItem.totalAmount.toFixed(2)}
+                    </td>
+
+                    <td className="td-cell">{reportItem.status}</td>
                   </tr>
                 ))}
               </tbody>
@@ -376,8 +485,9 @@ const dispatch = useDispatch<AppDispatch>();
       {/* Footer */}
       <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex items-center justify-start">
         <span className="text-sm">
-          Showing <span className="text-red-600">{monthlyreport.length}</span>{" "}
-          of <span className="text-blue-600">{monthlyreport.length}</span>
+          Showing{" "}
+          <span className="text-red-600">{stockValueReport.length}</span> of{" "}
+          <span className="text-blue-600">{stockValueReport.length}</span>
         </span>
       </footer>
 
@@ -423,7 +533,7 @@ const dispatch = useDispatch<AppDispatch>();
                     selected={fromDate}
                     onChange={setFromDate}
                     // Max date for "From Date" is "To Date" (if set), otherwise no max.
-                    maxDate={toDate}
+                    maxDate={toDate ? new Date(toDate) : undefined} // Ensure Date object is passed
                     className="w-full"
                   />
                 </div>
@@ -436,70 +546,10 @@ const dispatch = useDispatch<AppDispatch>();
                     selected={toDate}
                     onChange={setToDate}
                     // Min date for "To Date" is "From Date" (if set), otherwise no min.
-                    minDate={fromDate}
+                    minDate={fromDate ? new Date(fromDate) : undefined} // Ensure Date object is passed
                     className="w-full"
                   />
                 </div>
-              </div>
-            </div>
-
-           <div className="mb-4">
-              <label className="filter-label">Group</label>
-              <SearchableSelect
-                name="group"
-                options={[]}
-                placeholder="Select Group"
-                initialValue={localFilters.group}
-                onChange={(e)=>setLocalFilters({
-                  ...localFilters,
-                  group: e? e :""
-                })}
-              />
-            </div>
-            <div className="mb-4">
-              <label className="filter-label">Section</label>
-              <SearchableSelect
-                name="section"
-                options={[]}
-                placeholder="Select Section"
-                initialValue={localFilters.section}
-                onChange={(e)=>setLocalFilters({
-                  ...localFilters,
-                  section: e? e :""
-                })}
-              />
-            </div>
-            <div className="mb-4">
-              <label className="filter-label">Report Type</label>
-              <RadioGroup
-                name="materialType"
-                options={[
-                  { value: "sectionWise", label: "Section Wise" },
-                  { value: "employeeWise", label: "Employee Wise" },
-                ]}
-                defaultValue={localFilters.materialType || "sectionWise"}
-               onChange={(e) =>
-                  setLocalFilters({
-                    ...localFilters,
-                    materialType: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <div className="mb-4">
-              <div className="flex items-center">
-                <input
-                type="checkbox"
-                id="includeTimeDetails" // Add an ID to link with the label
-                name="reportType"
-                checked={includeTimeDetails} // Controlled component: checkbox reflects state
-                onChange={handleFilterCheckboxChange}
-                className="mr-2" // Add some margin to the right of the checkbox
-              />
-              <label htmlFor="includeTimeDetails" className="text-center text-sm ">
-                Include time details in report
-              </label>
               </div>
             </div>
           </div>
@@ -518,4 +568,4 @@ const dispatch = useDispatch<AppDispatch>();
   );
 };
 
-export default MonthlyReport;
+export default StockValueReport;

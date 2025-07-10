@@ -494,7 +494,7 @@ const PurchaseList = () => {
                     <RadioGroup
                       name="status"
                       options={[
-                        { value: "All", label: "All" },
+                        
                         { value: "Pending", label: "Pending" },
                         { value: "Completed", label: "Completed" },
                         { value: "Cancelled", label: "Cancelled" },
