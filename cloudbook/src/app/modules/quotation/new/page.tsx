@@ -380,20 +380,20 @@ const Newquotation = () => {
                   <table className="w-full text-[14px]">
                     <thead className="bg-[#f8f9fa] text-left text-[14px] text-[#12344d] sticky-table-header">
                       <tr>
-                        <td className="p-2 w-[3%] td-cell">S.no</td>
-                        <td className="p-2 w-[25%] td-cell">Product Name</td>
-                        <td className="p-2 w-[10%] td-cell">MRP</td>
-                        <td className="p-2 w-[10%] td-cell">Qty</td>
-                        <td className="p-2 w-[5%] td-cell">Stock</td>
-                        <td className="p-2 w-[10%] td-cell">Net Rate</td>
-                        <td className="p-2 w-[8%] td-cell">Less%</td>
-                        <td className="p-2 w-[8%] td-cell text-center">
+                        <td className="p-2 w-[3%] th-cell ">S.no</td>
+                        <td className="p-2 w-[25%]  th-cell ">Product Name</td>
+                        <td className="p-2 w-[10%]  th-cell  ">MRP</td>
+                        <td className="p-2 w-[10%]  th-cell ">Qty</td>
+                        <td className="p-2 w-[5%]  th-cell ">Stock</td>
+                        <td className="p-2 w-[10%]  th-cell ">Net Rate</td>
+                        <td className="p-2 w-[8%]  th-cell ">Less%</td>
+                        <td className="p-2 w-[8%]   th-cell  text-center">
                           Discount
                         </td>
-                        <td className="p-2 w-[10%] td-cell text-center">
+                        <td className="p-2 w-[10%] th-cell text-center">
                           Total
                         </td>
-                        <td className="p-2 w-[5%] last-td-cell text-center">
+                        <td className="p-2 w-[5%] last-th-cell text-center">
                           Action
                         </td>
                       </tr>

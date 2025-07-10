@@ -210,7 +210,7 @@ const NewPurchase = () => {
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              <div className="border-b border-gray-200">
+              {/* <div className="border-b border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
                   <div className=" lg:pr-4">
                     <FormField label="Supplier Name" required>
@@ -243,50 +243,48 @@ const NewPurchase = () => {
                     </FormField>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
-                    <div className="bg-white border border-gray-200 rounded-sm  p-3 h-[175px] overflow-y-auto">
-                      {details && Object.keys(details).length > 0 ? (
-                        <div className="text-sm text-gray-700 ">
-                          {/* Grid for main content */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {/* Address Block */}
-                            <div>
-                              <div>
-                                <strong>Phone Number:</strong>
-                                <p>{details.phoneNumber}</p>
-                              </div>
-                              <div>
-                                <strong>GST Number:</strong>
-                                <p>{details.gstNumber}</p>
-                              </div>
-                            </div>
+                 
+                    <FormField label="Purchase Type" required>
+                      <SearchableSelect
+                        id="purchaseType"
+                        name="purchaseType"
+                        options={purchaseType}
+                        placeholder="Select Purchase Type"
+                        onChange={handlePurchaseTypeChange}
+                        initialValue={selectedPurchaseType}
+                        onAddNew={handleAddNewItem}
+                      />
+                    </FormField>
 
-                            {/* Other Fields Block */}
-                            <div className="space-y-3">
-                              <h3 className="text-base font-semibold text-gray-800 mb-1">
-                                Address
-                              </h3>
-                              <div className="space-y-1">
-                                <div>{details.addressLine1}</div>
-                                <div>{details.addressLine2}</div>
-                                <div>{details.state}</div>
-                                <div>{details.pincode}</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex justify-center items-center h-full">
-                          <p className="text-gray-500 italic text-center">
-                            No supplier selected
-                          </p>
-                        </div>
-                      )}
-                    </div>
+                    <FormField label="Purchase No" required>
+                      <Input
+                        name="purchaseNumber"
+                        placeholder="Enter Purchase Number"
+                        className="form-control w-full alphanumeric all_uppercase no_space"
+                      />
+                    </FormField>
+
+                    <FormField label="Vehicle No" required>
+                      <Input
+                        name="vehicleNumber"
+                        placeholder="Enter Vehicle Number"
+                        className="form-control w-full all_uppercase alphanumeric  no_space "
+                      />
+                    </FormField>
+
+                    <FormField label="Due Days" required>
+                      <Input
+                        name="dueDays"
+                        placeholder="Enter Due Days"
+                        className="form-control w-full only_number"
+                      />
+                    </FormField>
+                
                   </div>
 
                   <div className="space-y-4 ">
