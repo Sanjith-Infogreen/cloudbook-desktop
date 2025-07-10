@@ -252,7 +252,7 @@ const toggleDropdown = (event: React.MouseEvent) => {
         {isDropdownOpen && (
           <div
             ref={dropdownRef}
-            className="absolute top-[calc(100vh-350px)] h-[340px] left-[200px] p-2 ml-2 w-75 bg-white rounded-xl z-50 shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+            className="absolute top-[calc(100vh-350px)] h-[340px] left-[200px] p-2 ml-2 w-75 bg-white rounded-xl z-50 shadow-[0_4px_16px_#27313a66]"
           >
             <div className="px-2 py-1.5  flex items-center">
               <div className="mr-3">
@@ -270,10 +270,10 @@ const toggleDropdown = (event: React.MouseEvent) => {
                   <div className="flex items-center w-full">
                     <div className="font-semibold text-gray-900 text-[15px]">
                       Emma
-                      <span className="text-[12px] ml-2 text-gray-500">
+                      <span className="text-[13px] font-normal  ml-1 text-gray-500">
                         @emmastone
                       </span>
-                      <p className="text-[12px] text-gray-500">
+                      <p className="text-[13px] font-normal text-gray-500">
                         emily.stone@example.com
                       </p>
                     </div>
