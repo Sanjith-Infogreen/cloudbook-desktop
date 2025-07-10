@@ -47,7 +47,7 @@ export default function Header({ pageTitle, onSearchClick }: HeaderProps) {
   }, [onSearchClick]);
 
   return (
-    <header className="bg-[#f8f9fa] shadow-sm flex justify-between items-center p-2 ">
+    <header className="bg-[#f8f9fa] shadow-sm flex justify-between items-center p-2 mb-1">
       <div className="flex-1">
         <span className="in-page-title text-lg font-medium text-[#009333]">
           {pageTitle}
@@ -55,7 +55,7 @@ export default function Header({ pageTitle, onSearchClick }: HeaderProps) {
       </div>
 
       <div
-        className={`relative border border-[#cfd7df] rounded-md px-4 py-1 mr-3 w-[175px] bg-[#FDFEFE] text-[#12375D] text-sm flex items-center cursor-pointer transition-all duration-200 ${
+        className={`relative border border-[#cfd7df] rounded-sm px-4 py-1 mr-3 w-[175px] bg-[#FDFEFE] text-[#12375D] text-sm flex items-center cursor-pointer transition-all duration-200 ${
           searchFocused ? "ring-2 ring-[#009333]" : ""
         }`}
         onClick={() => {
@@ -78,13 +78,13 @@ export default function Header({ pageTitle, onSearchClick }: HeaderProps) {
             }}
           />
         ) : (
-          <span className="pl-2 text-[#12375d]">Click here... or Use /</span>
+          <span className="pl-3 text-[#12375d]">Click here... or Use /</span>
         )}
       </div>
 
       <div className="flex items-center space-x-2">
         <div
-          className="bg-[#16364d] text-white font-bold rounded-md px-1 flex items-center justify-center cursor-pointer text-md hover:bg-[#1a3d56] transition-colors duration-200"
+          className="bg-[#16364d] text-white font-bold rounded-sm px-1 flex items-center justify-center cursor-pointer text-md hover:bg-[#1a3d56] transition-colors duration-200"
           title="Add New"
         >
           <i className="ri-add-line"></i>
