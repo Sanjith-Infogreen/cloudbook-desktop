@@ -1,4 +1,4 @@
- // components/Reports/StockValueReport.tsx
+ // components/Reports/CustomerBalanceReport.tsx
 "use client";
 
 import { useEffect, useState, useRef } from "react"; 
@@ -6,13 +6,13 @@ import { useEffect, useState, useRef } from "react";
 import DatePicker from "@/app/utils/commonDatepicker";
 import { CheckboxGroup } from "@/app/utils/form-controls";
 
-interface StockValueReportProps {
+interface CustomerBalanceReportProps {
   activeReport: string | null;
   activeCategory: string | null;
 }
 
 // Define the interface for a single item in the Product Sales Report list
-interface StockValueReportItem {
+interface CustomerBalanceReportItem {
   id: number;
   customerName: string;
   address: string;
@@ -23,7 +23,7 @@ interface StockValueReportItem {
   status: string;
 }
 
-// --- START: Move ViewModeDropdown outside StockValueReport ---
+// --- START: Move ViewModeDropdown outside CustomerBalanceReport ---
 const ViewModeDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -101,15 +101,15 @@ const ViewModeDropdown: React.FC = () => {
     </div>
   );
 };
-// --- END: Moved ViewModeDropdown outside StockValueReport ---
+// --- END: Moved ViewModeDropdown outside CustomerBalanceReport ---
 
 
-const StockValueReport: React.FC<StockValueReportProps> = ({
+const CustomerBalanceReport: React.FC<CustomerBalanceReportProps> = ({
   activeReport,
 }) => {
   // State to hold the fetched product sales report data
-  const [stockValueReport, setStockValueReports] = useState<
-    StockValueReportItem[]
+  const [customerBalanceReport, setCustomerBalanceReports] = useState<
+    CustomerBalanceReportItem[]
   >([]);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -136,33 +136,33 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
         throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      const data: StockValueReportItem[] = await res.json();
-      setStockValueReports(data); // Store the fetched data in state
+      const data: CustomerBalanceReportItem[] = await res.json();
+      setCustomerBalanceReports(data); // Store the fetched data in state
 
       // Simulate API delay (if needed for testing loading state)
       // await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Apply filters to mockData (This logic would go here if you were filtering client-side)
     } catch (err: any) {
-      console.error("Error fetching StockValueReport:", err);
-      setError("Failed to fetch StockValueReport: " + err.message);
+      console.error("Error fetching CustomerBalanceReport:", err);
+      setError("Failed to fetch CustomerBalanceReport: " + err.message);
     } finally {
       setLoading(false); // Set loading to false when fetching finishes
     }
   };
 
   useEffect(() => {
-    // Only fetch if the stockValueReport array is empty
-    if (stockValueReport.length === 0) {
+    // Only fetch if the customerBalanceReport array is empty
+    if (customerBalanceReport.length === 0) {
       fetchProductSalesReport();
     }
-  }, [stockValueReport]); // Dependency array includes stockValueReport to prevent infinite loops if data changes
+  }, [customerBalanceReport]); // Dependency array includes customerBalanceReport to prevent infinite loops if data changes
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     setSelectAll(checked);
     // Map over the actual data array, not the component name
-    setSelectedIds(checked ? stockValueReport.map((t) => t.id) : []);
+    setSelectedIds(checked ? customerBalanceReport.map((t) => t.id) : []);
   };
 
   const handleCheckboxChange = (id: number) => {
@@ -174,7 +174,7 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
   const handleRefresh = () => {
     setFilters({}); // Clear filters on refresh
     setLocalFilters({}); // Clear local filters
-    setStockValueReports([]); // Clear current data to force refetch
+    setCustomerBalanceReports([]); // Clear current data to force refetch
     fetchProductSalesReport(); // Refetch data
   };
 
@@ -213,10 +213,10 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
   useEffect(() => {
     // Update selectAll state based on current data and selected IDs
     setSelectAll(
-      stockValueReport.length > 0 &&
-        selectedIds.length === stockValueReport.length
+      customerBalanceReport.length > 0 &&
+        selectedIds.length === customerBalanceReport.length
     );
-  }, [selectedIds, stockValueReport]); // Depend on selectedIds and stockValueReport
+  }, [selectedIds, customerBalanceReport]); // Depend on selectedIds and customerBalanceReport
 
   if (loading) {
     return (
@@ -250,8 +250,8 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
     );
   }
 
-  // Check if stockValueReport is empty after loading and filtering
-  if (stockValueReport.length === 0 && Object.keys(filters).length === 0) {
+  // Check if customerBalanceReport is empty after loading and filtering
+  if (customerBalanceReport.length === 0 && Object.keys(filters).length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-lg text-gray-500">
@@ -260,7 +260,7 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
       </div>
     );
   } else if (
-    stockValueReport.length === 0 &&
+    customerBalanceReport.length === 0 &&
     Object.keys(filters).length > 0
   ) {
     return (
@@ -304,7 +304,7 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
                 onClick={() => {
                   setSelectAll(true);
                   // Map over the actual data array, not the component name
-                  setSelectedIds(stockValueReport.map((t) => t.id));
+                  setSelectedIds(customerBalanceReport.map((t) => t.id));
                 }}
               >
                 <i className="ri-stack-fill mr-1"></i>
@@ -442,7 +442,7 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
               </thead>
               <tbody>
                 {/* Map over the actual data array, not the component name */}
-                {stockValueReport.map((reportItem, index) => (
+                {customerBalanceReport.map((reportItem, index) => (
                   <tr
                     key={reportItem.id}
                     className={`group hover:bg-[#f5f7f9] text-sm cursor-pointer ${
@@ -486,8 +486,8 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
       <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex items-center justify-start">
         <span className="text-sm">
           Showing{" "}
-          <span className="text-red-600">{stockValueReport.length}</span> of{" "}
-          <span className="text-blue-600">{stockValueReport.length}</span>
+          <span className="text-red-600">{customerBalanceReport.length}</span> of{" "}
+          <span className="text-blue-600">{customerBalanceReport.length}</span>
         </span>
       </footer>
 
@@ -568,4 +568,4 @@ const StockValueReport: React.FC<StockValueReportProps> = ({
   );
 };
 
-export default StockValueReport;
+export default CustomerBalanceReport;
