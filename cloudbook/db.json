@@ -252,8 +252,8 @@
       "icon": "ri-reply-line",
       "Title": "S.Return",
       "icon_New": "ri-add-fill",
-      "main_Link": "modules/sales-return/list",
-      "new_Link": "modules/sales-return/new",
+      "main_Link": "/modules/sales-return/list",
+      "new_Link": "/modules/sales-return/new",
       "order": 11,
       "id": "c1fa"
     },

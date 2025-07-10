@@ -4,28 +4,28 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Layout from "../../components/Layout";
 
 import ProductSalesReport from "./components/ProductSalesReport";
-// import StockValueReport from "./components/StockValueReport";
-// import SalesProfitReport from "./components/SalesProfitReport";
+import StockValueReport from "./components/StockValueReport";
+import SalesProfitReport from "./components/SalesProfitReport";
 
-// import CustomerBalanceReport from "./components/CustomerBalanceReport";
-// import SupplierBalanceReport from "./components/SupplierBalanceReport";
-// import StatementReport from "./components/StatementReport";
+import CustomerBalanceReport from "./components/CustomerBalanceReport";
+import SupplierBalanceReport from "./components/SupplierBalanceReport";
+import StatementReport from "./components/StatementReport";
 
-// import DaybookReport from "./components/DaybookReport";
-// import CashbookReport from "./components/CashbookReport";
-// import TrailBalanceReport from "./components/TrailBalanceReport";
+import DaybookReport from "./components/DaybookReport";
+import CashbookReport from "./components/CashbookReport";
+import TrailBalanceReport from "./components/TrailBalanceReport";
 
-// import CustomerSummaryReport from "./components/CustomerSummaryReport";
-// import SupplierSummaryReport from "./components/SupplierSummaryReport";
-// import GSTR1Report from "./components/GSTR1Report";
-// import B2BReport from "./components/B2BReport";
-// import B2CReport from "./components/B2CReport";
-// import ProductSalesGSTReport from "./components/ProductSalesGSTReport";
-// import SalesSummaryReport from "./components/SalesSummaryReport";
-// import PurchaseSummaryReport from "./components/PurchaseSummaryReport";
+import CustomerSummaryReport from "./components/CustomerSummaryReport";
+import SupplierSummaryReport from "./components/SupplierSummaryReport";
+import GSTR1Report from "./components/GSTR1Report";
+import B2BReport from "./components/B2BReport";
+import B2CReport from "./components/B2CReport";
+import ProductSalesGSTReport from "./components/ProductSalesGSTReport";
+import SalesSummaryReport from "./components/SalesSummaryReport";
+import PurchaseSummaryReport from "./components/PurchaseSummaryReport";
 
-// import AllSalesExcelReport from "./components/AllSalesExcelReport";
-// import AllPurchaseExcelReport from "./components/AllPurchaseExcelReport";
+import AllSalesExcelReport from "./components/AllSalesExcelReport";
+import AllPurchaseExcelReport from "./components/AllPurchaseExcelReport";
 
 // Define the interface for the props that ProductSalesReport expects
 interface ProductSalesReportProps {
@@ -216,7 +216,15 @@ const ReportsPage = () => {
               activeCategory={activeCategory}
             />
           )}
-          {/* {activeReport === "Stock Value Report" && <StockValueReport activeReport={activeReport} activeCategory={activeCategory} />}
+
+          {activeReport === "Stock Value Report" && (
+            <StockValueReport
+              activeReport={activeReport}
+              activeCategory={activeCategory}
+            />
+          )}
+
+          {activeReport === "Stock Value Report" && <StockValueReport activeReport={activeReport} activeCategory={activeCategory} />}
           {activeReport === "Sales Profit Report" && <SalesProfitReport activeReport={activeReport} activeCategory={activeCategory} />}
 
           {activeReport === "Customer Balance" && <CustomerBalanceReport activeReport={activeReport} activeCategory={activeCategory} />}
@@ -237,7 +245,7 @@ const ReportsPage = () => {
           {activeReport === "Purchase Summary" && <PurchaseSummaryReport activeReport={activeReport} activeCategory={activeCategory} />}
 
           {activeReport === "All Sales Excel" && <AllSalesExcelReport activeReport={activeReport} activeCategory={activeCategory} />}
-          {activeReport === "All Purchase Excel" && <AllPurchaseExcelReport activeReport={activeReport} activeCategory={activeCategory} />} */}
+          {activeReport === "All Purchase Excel" && <AllPurchaseExcelReport activeReport={activeReport} activeCategory={activeCategory} />}
 
           {!activeReport && (
             <div className="flex-1 flex items-center justify-center text-gray-500 text-lg">
