@@ -47,7 +47,7 @@ export default function Header({ pageTitle, onSearchClick }: HeaderProps) {
   }, [onSearchClick]);
 
   return (
-    <header className="bg-[#f8f9fa] shadow-sm flex justify-between items-center p-2">
+    <header className="bg-[#f8f9fa] shadow-sm flex justify-between items-center p-2 ">
       <div className="flex-1">
         <span className="in-page-title text-lg font-medium text-[#009333]">
           {pageTitle}

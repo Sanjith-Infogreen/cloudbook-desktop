@@ -8,11 +8,11 @@ import CommonTypeahead from "@/app/utils/commonTypehead"; // Assuming this path 
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead"; // Assuming this path is correct
 import { AppDispatch, RootState } from "@/store/store"; // Assuming this path is correct
-import { Input, Toggle } from "@/app/utils/form-controls"; // Assuming this path is correct
+import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls"; // Assuming this path is correct
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect"; // Assuming this path is correct
 import useInputValidation from "@/app/utils/inputValidations"; // Assuming this path is correct
 
-// Define the fields for a product in the sreturn
+// Define the fields for a product in the salesreturn
 type ProductField =
   | "productName"
   | "mrp"
@@ -68,19 +68,19 @@ const FormField = ({
   </div>
 );
 
-// Main Newsreturn component
-const Newsreturn = () => {
+// Main Newsalesreturn component
+const Newsalesreturn = () => {
   useInputValidation(); // Custom hook for input validations
-  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the sreturn date
+  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the salesreturn date
   const dispatch = useDispatch<AppDispatch>(); // Redux dispatch hook
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead); // Redux selector for typeahead data
-  const [selectedsreturnType, setSelectedsreturntype] = useState<
+  const [selectedsalesreturnType, setSelectedsalesreturntype] = useState<
     string | null
-  >(null); // State for selected sreturn type
+  >(null); // State for selected salesreturn type
   const [details, setDetails] = useState<any>(null); // State for supplier details (from typeahead)
-
-  // Options for sreturn type dropdown
-  const sreturnType: Option[] = [
+  const [billType, setBillType] = useState<string>("New");
+  // Options for salesreturn type dropdown
+  const salesreturnType: Option[] = [
     { value: "cash", label: "Cash" },
     { value: "credit", label: "Credit" },
     { value: "loan", label: "Loan" },
@@ -176,8 +176,8 @@ const Newsreturn = () => {
     if (!form) return;
 
     // Extract form values
-    const sreturnName =
-      (form.elements.namedItem("sreturnName") as HTMLInputElement)?.value ||
+    const salesreturnName =
+      (form.elements.namedItem("salesreturnName") as HTMLInputElement)?.value ||
       "";
     const vehicleNumber =
       (form.elements.namedItem("vehicleNumber") as HTMLInputElement)?.value ||
@@ -190,12 +190,12 @@ const Newsreturn = () => {
       (form.elements.namedItem("e-way bill number") as HTMLInputElement)
         ?.value || "";
     const reference =
-      (form.elements.namedItem("sreturnNumber") as HTMLInputElement)?.value ||
-      "";
+      (form.elements.namedItem("salesreturnNumber") as HTMLInputElement)
+        ?.value || "";
     const dueDays =
       (form.elements.namedItem("dueDays") as HTMLInputElement)?.value || "";
-    const sreturnAddress =
-      (form.elements.namedItem("sreturnaddress") as HTMLInputElement)
+    const salesreturnAddress =
+      (form.elements.namedItem("salesreturnaddress") as HTMLInputElement)
         ?.value || "";
     const state =
       (form.elements.namedItem("state") as HTMLInputElement)?.value || "";
@@ -204,15 +204,15 @@ const Newsreturn = () => {
     const fullFormData = {
       supplier: details, // This was from the commented out section, keeping it for now.
       date,
-      sreturnType: selectedsreturnType, // This was from the commented out section, keeping it for now.
-      sreturnName,
+      salesreturnType: selectedsalesreturnType, // This was from the commented out section, keeping it for now.
+      salesreturnName,
       vehicleNumber,
       gstNumber,
       phoneNumber,
       ewayBillNumber,
       reference,
       dueDays,
-      sreturnAddress,
+      salesreturnAddress,
       state,
       productDetails, // Array of product details
     };
@@ -222,9 +222,9 @@ const Newsreturn = () => {
     // TODO: send fullFormData to your API here
   };
 
-  // Function to handle sreturn type change (from the commented out section)
-  const handlesreturnTypeChange = (value: string | string[] | null) => {
-    setSelectedsreturntype(value as string | null);
+  // Function to handle salesreturn type change (from the commented out section)
+  const handlesalesreturnTypeChange = (value: string | string[] | null) => {
+    setSelectedsalesreturntype(value as string | null);
   };
 
   // Placeholder function for adding new item (from the commented out section)
@@ -257,21 +257,25 @@ const Newsreturn = () => {
   };
 
   return (
-    <Layout pageTitle="S.Return New">
+    <Layout pageTitle="Sales Return New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-103px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-                   <div className="border-b border-gray-200">
+              <div className="border-b border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
                   <div className=" lg:pr-4">
                     <FormField label="Bill type" required>
-                        <Input
-                          name="sreturnName"
-                          placeholder="Enter the Name"
-                          className="form-control w-full alphanumeric all_uppercase no_space"
-                        />
-                      </FormField>
+                      <RadioGroup
+                        name="billType" // Changed from "owner" to "billType" for clarity
+                        options={[
+                          { value: "Cash", label: "Cash" },
+                          { value: "Credit", label: "Credit" },
+                        ]}
+                        defaultValue={billType}
+                        onChange={(e: any) => setBillType(e.target.value)}
+                      />
+                    </FormField>
                   </div>
                   <div className="space-y-4 flex justify-end">
                     <FormField label="" className="w-full lg:w-1/2">
@@ -289,13 +293,13 @@ const Newsreturn = () => {
                   </div>
                 </div>
               </div>
-            <div className="px-4 py-6">
+              <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   <div className="space-y-4 lg:border-r lg:border-gray-200 lg:pr-4">
                     <div className="space-y-4">
                       <FormField label="Name" required>
                         <Input
-                          name="sreturnName"
+                          name="salesreturnName"
                           placeholder="Enter the Name"
                           className="form-control w-full alphanumeric all_uppercase no_space"
                         />
@@ -341,10 +345,9 @@ const Newsreturn = () => {
                       />
                     </FormField>
 
-                   
                     <FormField label="Address" required>
                       <Input
-                        name="sreturnaddress"
+                        name="salesreturnaddress"
                         placeholder="Enter the Address"
                         className="form-control w-full alphanumeric all_uppercase no_space"
                       />
@@ -358,7 +361,7 @@ const Newsreturn = () => {
                     </FormField>
                   </div>
                 </div>
-               
+
                 <div className="max-h-[calc(100vh-520px)] overflow-y-auto mt-10">
                   <table className="w-full text-[14px]">
                     <thead className="bg-[#f8f9fa] text-left text-[14px] text-[#12344d] sticky-table-header">
@@ -547,4 +550,4 @@ const Newsreturn = () => {
   );
 };
 
-export default Newsreturn;
+export default Newsalesreturn;
