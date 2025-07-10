@@ -1,18 +1,18 @@
 "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
-import Layout from "../../../components/Layout"; // Assuming this path is correct
+import Layout from "../../../components/Layout"; 
 
 import DatePicker from "@/app/utils/commonDatepicker"; // Assuming this path is correct
 import CommonTypeahead from "@/app/utils/commonTypehead"; // Assuming this path is correct
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead"; // Assuming this path is correct
 import { AppDispatch, RootState } from "@/store/store"; // Assuming this path is correct
-import { Input, Toggle } from "@/app/utils/form-controls"; // Assuming this path is correct
+import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls"; // Assuming this path is correct
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect"; // Assuming this path is correct
 import useInputValidation from "@/app/utils/inputValidations"; // Assuming this path is correct
 
-// Define the fields for a product in the sreturn
+// Define the fields for a product in the salesreturn
 type ProductField =
   | "productName"
   | "mrp"
@@ -42,6 +42,7 @@ interface FormFieldProps {
   children: ReactNode;
   className?: string;
   error?: string;
+   htmlFor?: string;
 }
 
 // FormField component for consistent layout of form elements
@@ -51,11 +52,12 @@ const FormField = ({
   children,
   className = "",
   error,
+  htmlFor
 }: FormFieldProps) => (
   <div
     className={`mb-[10px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}
   >
-    <label className="form-label w-50">
+    <label  htmlFor={htmlFor}  className="form-label w-50">
       {label}
       {required && <span className="form-required text-red-500">*</span>}
     </label>
@@ -68,24 +70,50 @@ const FormField = ({
   </div>
 );
 
-// Main Newsreturn component
-const Newsreturn = () => {
+// Main Newsalesreturn component
+const Newsalesreturn = () => {
   useInputValidation(); // Custom hook for input validations
-  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the sreturn date
+  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the salesreturn date
   const dispatch = useDispatch<AppDispatch>(); // Redux dispatch hook
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead); // Redux selector for typeahead data
-  const [selectedsreturnType, setSelectedsreturntype] = useState<
+  const [selectedsalesreturnType, setSelectedsalesreturntype] = useState<
     string | null
-  >(null); // State for selected sreturn type
+  >(null); // State for selected salesreturn type
   const [details, setDetails] = useState<any>(null); // State for supplier details (from typeahead)
-
-  // Options for sreturn type dropdown
-  const sreturnType: Option[] = [
+  const [billType, setBillType] = useState<string>("New");
+  // Options for salesreturn type dropdown
+  const salesreturnType: Option[] = [
     { value: "cash", label: "Cash" },
     { value: "credit", label: "Credit" },
     { value: "loan", label: "Loan" },
   ];
+    const [tempAddress, setTempAddress] = useState({
+    name: "",
+    phoneNumber: "",
+    address: "",
+    state: "",
+    gstNumber: "",
+    place: "",
+    transportMode: "",
+    billNumber: "",
+    vehicleNumber:"",
+  });
+const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
+ const handleTabStateChange = (value: string | string[] | null) => {
+    setTempAddress((prev) => ({
+      ...prev,
+      state: value as string,
+    }));
+  };
 
+  // Handle general input changes for supplier details
+  const handleTempAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTempAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   const formRef = useRef<HTMLFormElement>(null); // Ref for the form element
 
   // State for product details, initialized with one empty row
@@ -169,62 +197,44 @@ const Newsreturn = () => {
   };
 
   // Function to handle form submission
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
 
-    const form = formRef.current;
-    if (!form) return;
+  const form = formRef.current;
+  if (!form) return;
 
-    // Extract form values
-    const sreturnName =
-      (form.elements.namedItem("sreturnName") as HTMLInputElement)?.value ||
-      "";
-    const vehicleNumber =
-      (form.elements.namedItem("vehicleNumber") as HTMLInputElement)?.value ||
-      "";
-    const gstNumber =
-      (form.elements.namedItem("GST") as HTMLInputElement)?.value || "";
-    const phoneNumber =
-      (form.elements.namedItem("phoneno") as HTMLInputElement)?.value || "";
-    const ewayBillNumber =
-      (form.elements.namedItem("e-way bill number") as HTMLInputElement)
-        ?.value || "";
-    const reference =
-      (form.elements.namedItem("sreturnNumber") as HTMLInputElement)?.value ||
-      "";
-    const dueDays =
-      (form.elements.namedItem("dueDays") as HTMLInputElement)?.value || "";
-    const sreturnAddress =
-      (form.elements.namedItem("sreturnaddress") as HTMLInputElement)
-        ?.value || "";
-    const state =
-      (form.elements.namedItem("state") as HTMLInputElement)?.value || "";
+  // Compile all form data
+  const fullFormData = {
+    // Supplier/Customer Details (from the left column in the image)
+    supplier: {
+      name: tempAddress.name || "",
+      phoneNumber: tempAddress.phoneNumber || "",
+      address: tempAddress.address || "",
+      state: tempAddress.state || "",
+      gstNumber: tempAddress.gstNumber || "",
+    },
+    // Purchase/Sales Return Details (from the right column in the image)
+    billNumber: tempAddress.billNumber || "",
+    place: tempAddress.place || "",
+    transportMode: tempAddress.transportMode || "",
+    vehicleNumber: tempAddress.vehicleNumber || "", // Ensure 'vehicleNumber' is correctly used if that's the key in tempAddress
 
-    // Compile all form data
-    const fullFormData = {
-      supplier: details, // This was from the commented out section, keeping it for now.
-      date,
-      sreturnType: selectedsreturnType, // This was from the commented out section, keeping it for now.
-      sreturnName,
-      vehicleNumber,
-      gstNumber,
-      phoneNumber,
-      ewayBillNumber,
-      reference,
-      dueDays,
-      sreturnAddress,
-      state,
-      productDetails, // Array of product details
-    };
+    // Other existing data points
+    date: date, // Assuming 'date' is a state variable
+    salesreturnType: selectedsalesreturnType, // Assuming 'selectedsalesreturnType' is a state variable
+    billType: billType, // Assuming 'billType' is a state variable for the radio group
 
-    console.log("Full Form Data:", fullFormData);
-
-    // TODO: send fullFormData to your API here
+    productDetails: productDetails, // Array of product details
   };
 
-  // Function to handle sreturn type change (from the commented out section)
-  const handlesreturnTypeChange = (value: string | string[] | null) => {
-    setSelectedsreturntype(value as string | null);
+  console.log("Full Form Data:", fullFormData);
+
+  // TODO: send fullFormData to your API here
+};
+
+  // Function to handle salesreturn type change (from the commented out section)
+  const handlesalesreturnTypeChange = (value: string | string[] | null) => {
+    setSelectedsalesreturntype(value as string | null);
   };
 
   // Placeholder function for adding new item (from the commented out section)
@@ -257,21 +267,25 @@ const Newsreturn = () => {
   };
 
   return (
-    <Layout pageTitle="S.Return New">
+    <Layout pageTitle="Sales Return New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-                   <div className="border-b border-gray-200">
+              <div className="border-b border-gray-200">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
                   <div className=" lg:pr-4">
                     <FormField label="Bill type" required>
-                        <Input
-                          name="sreturnName"
-                          placeholder="Enter the Name"
-                          className="form-control w-full alphanumeric all_uppercase no_space"
-                        />
-                      </FormField>
+                      <RadioGroup
+                        name="billType" // Changed from "owner" to "billType" for clarity
+                        options={[
+                          { value: "Cash", label: "Cash" },
+                          { value: "Credit", label: "Credit" },
+                        ]}
+                        defaultValue={billType}
+                        onChange={(e: any) => setBillType(e.target.value)}
+                      />
+                    </FormField>
                   </div>
                   <div className="space-y-4 flex justify-end">
                     <FormField label="" className="w-full lg:w-1/2">
@@ -289,94 +303,130 @@ const Newsreturn = () => {
                   </div>
                 </div>
               </div>
-            <div className="px-4 py-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
-                  <div className="space-y-4 lg:border-r lg:border-gray-200 lg:pr-4">
-                    <div className="space-y-4">
-                      <FormField label="Name" required>
-                        <Input
-                          name="sreturnName"
-                          placeholder="Enter the Name"
-                          className="form-control w-full alphanumeric all_uppercase no_space"
-                        />
-                      </FormField>
-                      <FormField label="Vehicle No" required>
-                        <Input
-                          name="vehicleNumber"
-                          placeholder="Enter Vehicle Number"
-                          className="form-control w-full all_uppercase alphanumeric no_space "
-                        />
-                      </FormField>
-                      <FormField label="GST" required>
-                        <Input
-                          name="GST"
-                          placeholder="Enter GST Number"
-                          className="form-control w-full all_uppercase alphanumeric no_space "
-                        />
-                      </FormField>
-                      <FormField label="Place" required>
-                        <Input
-                          name="phoneno"
-                          placeholder="Enter the Place"
-                          className="form-control w-full only_number"
-                        />
-                      </FormField>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <FormField label="Transport Mode" required>
+              <div className="px-4 py-6">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
+                  {/* Left Column: Supplier Details */}
+                  <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
+                    <FormField label="Name" required htmlFor="name">
                       <Input
-                        name="Transport Mode"
-                        placeholder="Enter the Transport Mode"
-                        className="form-control w-full only_number"
+                        name="name"
+                        placeholder="Enter the Name"
+                        className="form-control w-full alphanumeric all_uppercase no_space"
+                        value={tempAddress.name}
+                        onChange={handleTempAddressChange}
                       />
                     </FormField>
 
-                    <FormField label="Date of Supply" required>
+                    <FormField label="Phone Number" required htmlFor="phoneNumber">
                       <Input
-                        name="Date of supply"
-                        placeholder="Enter the Date of supply"
+                        name="phoneNumber"
+                        placeholder="Enter Phone Number"
+                        className="form-control w-full only_number"
+                        value={tempAddress.phoneNumber}
+                        onChange={handleTempAddressChange}
+                        maxLength={10} // Assuming 10 digit phone number
+                      />
+                    </FormField>
+
+                    <FormField label="Address" required htmlFor="address">
+                      <Input
+                        name="address"
+                        placeholder="Enter the Address"
+                        className="form-control w-full all_uppercase alphanumeric"
+                        value={tempAddress.address}
+                        onChange={handleTempAddressChange}
+                      />
+                    </FormField>
+
+                    <FormField label="State" required htmlFor="state">
+                      <SearchableSelect
+                        name="state"
+                        options={stateOptions}
+                        placeholder="Select State"
+                        searchable
+                        onChange={handleTabStateChange}
+                        initialValue={tempAddress.state}
+                      />
+                    </FormField>
+
+                    <FormField label="GST Number" required htmlFor="gstNumber">
+                      <Input
+                        name="gstNumber"
+                        placeholder="Enter GST Number"
                         className="form-control w-full alphanumeric all_uppercase no_space"
+                        value={tempAddress.gstNumber}
+                        onChange={handleTempAddressChange}
+                        maxLength={15} // Standard GST number length
+                      />
+                    </FormField>
+                  </div>
+
+                  {/* Right Column: Purchase Details */}
+                  <div className="space-y-4 ">
+                   
+
+                    <FormField label="Bill Number" required htmlFor="billNumber">
+                      <Input
+                        name="billNumber"
+                        placeholder="Enter Bill Number"
+                        className="form-control w-full alphanumeric all_uppercase no_space"
+                        value={tempAddress.billNumber}
+                        onChange={handleTempAddressChange}
+                      />
+                    </FormField>
+
+                    <FormField label="Place" required htmlFor="place">
+                      <Input
+                        name="place"
+                        placeholder="Enter Place"
+                        className="form-control w-full all_uppercase alphanumeric"
+                        value={tempAddress.place}
+                        onChange={handleTempAddressChange}
+                      />
+                    </FormField>
+
+                    <FormField label="Transport Mode" required htmlFor="transportMode">
+                      <Input
+                        name="transportMode"
+                        placeholder="Enter Transport Mode"
+                        className="form-control w-full all_uppercase alphanumeric"
+                        value={tempAddress.transportMode}
+                        onChange={handleTempAddressChange}
+                      />
+                    </FormField>
+
+                    <FormField label="Vehicle Number" required htmlFor="vehicleNumber">
+                      <Input
+                        name="vehicleNumber"
+                        placeholder="Enter Vehicle Number"
+                        className="form-control w-full all_uppercase alphanumeric no_space"
+                        value={tempAddress.vehicleNumber}
+                        onChange={handleTempAddressChange}
                       />
                     </FormField>
 
                    
-                    <FormField label="Address" required>
-                      <Input
-                        name="sreturnaddress"
-                        placeholder="Enter the Address"
-                        className="form-control w-full alphanumeric all_uppercase no_space"
-                      />
-                    </FormField>
-                    <FormField label="State" required>
-                      <Input
-                        name="state"
-                        placeholder="Enter State"
-                        className="form-control w-full alphanumeric" // Changed to alphanumeric as states can contain spaces
-                      />
-                    </FormField>
                   </div>
                 </div>
-               
+
                 <div className="max-h-[calc(100vh-520px)] overflow-y-auto mt-10">
                   <table className="w-full text-[14px]">
                     <thead className="bg-[#f8f9fa] text-left text-[14px] text-[#12344d] sticky-table-header">
                       <tr>
-                        <td className="p-2 w-[3%] td-cell">S.no</td>
-                        <td className="p-2 w-[25%] td-cell">Product Name</td>
-                        <td className="p-2 w-[10%] td-cell">Qty</td>
-                        <td className="p-2 w-[10%] td-cell">Qty</td>
-                        <td className="p-2 w-[5%] td-cell">Stock</td>
-                        <td className="p-2 w-[10%] td-cell">Net Rate</td>
-                        <td className="p-2 w-[8%] td-cell">Less%</td>
-                        <td className="p-2 w-[8%] td-cell text-center">
+                        <td className="p-2 w-[3%] th-cell">S.no</td>
+                        <td className="p-2 w-[25%] th-cell">Product Name</td>
+                        <td className="p-2 w-[10%] th-cell">MRP</td>
+                        <td className="p-2 w-[10%] th-cell">Qty</td>
+                        <td className="p-2 w-[5%] th-cell">Stock</td>
+                        <td className="p-2 w-[10%] th-cell">Net Rate</td>
+                        <td className="p-2 w-[8%] th-cell">Less%</td>
+                        <td className="p-2 w-[8%] th-cell text-center">
                           Discount
                         </td>
-                        <td className="p-2 w-[10%] td-cell text-center">
+                        <td className="p-2 w-[10%] th-cell text-center">
                           Total
                         </td>
-                        <td className="p-2 w-[5%] last-td-cell text-center">
+                        <td className="p-2 w-[5%] last-th-cell text-center">
                           Action
                         </td>
                       </tr>
@@ -547,4 +597,4 @@ const Newsreturn = () => {
   );
 };
 
-export default Newsreturn;
+export default Newsalesreturn;

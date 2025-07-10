@@ -33,8 +33,9 @@ export default function Sidebar() {
         setHoveredMenu(null);
       }
     };
+    
 
-   const handleClickOutsideDropdown = (event: MouseEvent) => {
+const handleClickOutsideDropdown = (event: MouseEvent) => {
       // If the dropdown is open, and the click happened outside the dropdownRef,
       // and also outside the specific area that triggers the dropdown (the bottom profile div)
       const profileToggleArea = document.querySelector('.bottom-profile-toggle-area'); // Use a class to identify the toggle div
@@ -90,6 +91,7 @@ export default function Sidebar() {
       ...prev,
       [title]: !currentOpen, // flip based on current resolved open state
     }));
+    
   const [isDarkMode, setIsDarkMode] = useState(false);
 
 // Add this state to manage the dropdown visibility
@@ -229,8 +231,7 @@ const toggleDropdown = (event: React.MouseEvent) => {
         >
           <div className="mr-2">
             <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
-              {" "}
-              {/* Added overflow-hidden */}
+             
               <img
                 src="/images/profile-pic.jpg"
                 alt="User Image"
