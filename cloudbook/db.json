@@ -171,8 +171,8 @@
       "icon": "ri-file-text-line",
       "Title": "Sales Order",
       "icon_New": "ri-add-fill",
-      "main_Link": "/modules/sales-order/list",
-      "new_Link": "/modules/sales-order/new",
+      "main_Link": "/modules/salesOrder/list",
+      "new_Link": "/modules/salesOrder/new",
       "order": 2,
       "id": "775d"
     },
@@ -207,8 +207,8 @@
       "icon": "ri-file-list-line",
       "Title": "DC",
       "icon_New": "ri-add-fill",
-      "main_Link": "/modules/dc/list",
-      "new_Link": "/modules/dc/new",
+      "main_Link": "/modules/deliveryChallan/list",
+      "new_Link": "/modules/deliveryChallan/new",
       "order": 6,
       "id": "4d07"
     },
@@ -243,8 +243,8 @@
       "icon": "ri-bank-card-2-line",
       "Title": "P.Return",
       "icon_New": "ri-add-fill",
-      "main_Link": "/modules/purchase-return/list",
-      "new_Link": "/modules/purchase-return/new",
+      "main_Link": "/modules/purchaseReturn/list",
+      "new_Link": "/modules/purchaseReturn/new",
       "order": 10,
       "id": "7b73"
     },
@@ -252,8 +252,8 @@
       "icon": "ri-reply-line",
       "Title": "S.Return",
       "icon_New": "ri-add-fill",
-      "main_Link": "modules/sales-return/list",
-      "new_Link": "modules/sales-return/new",
+      "main_Link": "/modules/sales-return/list",
+      "new_Link": "/modules/sales-return/new",
       "order": 11,
       "id": "c1fa"
     },
@@ -1516,108 +1516,361 @@
     { "value": "chengalpattu_parts", "label": "Chengalpattu Parts" }
   ],
 
+
   "invoices": [
     {
       "id": 1,
-      "invoiceNumber": "INV-2025-001",
+      "invoiceNumber": "INV-001",
       "customer": "Tech Solutions Inc.",
-      "invoiceDate": "2025-01-15",
-      "dueDate": "2025-02-15",
+      "invoiceDate": "15/01/2025",
+      "dueDate": "15/02/2025",
       "totalAmount": 1250.75,
       "status": "Paid",
       "category": "Software Licenses"
     },
     {
       "id": 2,
-      "invoiceNumber": "INV-2025-002",
+      "invoiceNumber": "INV-002",
       "customer": "Global Marketing Co.",
-      "invoiceDate": "2025-01-20",
-      "dueDate": "2025-02-20",
+      "invoiceDate": "20/01/2025",
+      "dueDate": "20/02/2025",
       "totalAmount": 780.0,
       "status": "Pending",
       "category": "Consulting Services"
     },
     {
       "id": 3,
-      "invoiceNumber": "INV-2025-003",
+      "invoiceNumber": "INV-003",
       "customer": "Innovate Designs",
-      "invoiceDate": "2025-02-01",
-      "dueDate": "2025-03-01",
+      "invoiceDate": "01/02/2025",
+      "dueDate": "01/03/2025",
       "totalAmount": 3500.5,
       "status": "Overdue",
       "category": "Web Development"
     },
     {
       "id": 4,
-      "invoiceNumber": "INV-2025-004",
+      "invoiceNumber": "INV-004",
       "customer": "Apex Industries",
-      "invoiceDate": "2025-02-10",
-      "dueDate": "2025-03-10",
+      "invoiceDate": "10/02/2025",
+      "dueDate": "10/03/2025",
       "totalAmount": 210.25,
       "status": "Paid",
       "category": "Office Supplies"
     },
     {
       "id": 5,
-      "invoiceNumber": "INV-2025-005",
+      "invoiceNumber": "INV-005",
       "customer": "Quantum Logistics",
-      "invoiceDate": "2025-02-15",
-      "dueDate": "2025-03-15",
+      "invoiceDate": "15/02/2025",
+      "dueDate": "15/03/2025",
       "totalAmount": 990.0,
       "status": "Pending",
       "category": "Shipping Services"
     },
     {
       "id": 6,
-      "invoiceNumber": "INV-2025-006",
+      "invoiceNumber": "INV-006",
       "customer": "Bright Ideas Ltd.",
-      "invoiceDate": "2025-02-28",
-      "dueDate": "2025-03-28",
+      "invoiceDate": "28/02/2025",
+      "dueDate": "28/03/2025",
       "totalAmount": 150.0,
       "status": "Paid",
       "category": "Graphic Design"
     },
     {
       "id": 7,
-      "invoiceNumber": "INV-2025-007",
+      "invoiceNumber": "INV-007",
       "customer": "Summit Financial",
-      "invoiceDate": "2025-03-05",
-      "dueDate": "2025-04-05",
+      "invoiceDate": "05/03/2025",
+      "dueDate": "05/04/2025",
       "totalAmount": 5200.0,
       "status": "Pending",
       "category": "Financial Advisory"
     },
     {
       "id": 8,
-      "invoiceNumber": "INV-2025-008",
+      "invoiceNumber": "INV-008",
       "customer": "Green Earth Solutions",
-      "invoiceDate": "2025-03-10",
-      "dueDate": "2025-04-10",
+      "invoiceDate": "10/03/2025",
+      "dueDate": "10/04/2025",
       "totalAmount": 890.75,
       "status": "Overdue",
       "category": "Environmental Consulting"
     },
     {
       "id": 9,
-      "invoiceNumber": "INV-2025-009",
+      "invoiceNumber": "INV-009",
       "customer": "Digital Innovations",
-      "invoiceDate": "2025-03-18",
-      "dueDate": "2025-04-18",
+      "invoiceDate": "18/03/2025",
+      "dueDate": "18/04/2025",
       "totalAmount": 450.0,
       "status": "Paid",
       "category": "Digital Marketing"
     },
     {
       "id": 10,
-      "invoiceNumber": "INV-2025-010",
+      "invoiceNumber": "INV-010",
       "customer": "Pinnacle Health",
-      "invoiceDate": "2025-03-22",
-      "dueDate": "2025-04-22",
+      "invoiceDate": "22/03/2025",
+      "dueDate": "22/04/2025",
       "totalAmount": 1800.0,
       "status": "Pending",
       "category": "Medical Supplies"
+    },
+    {
+      "id": 11,
+      "invoiceNumber": "INV-011",
+      "customer": "Urban Sprout",
+      "invoiceDate": "01/04/2025",
+      "dueDate": "01/05/2025",
+      "totalAmount": 620.0,
+      "status": "Paid",
+      "category": "Agricultural Products"
+    },
+    {
+      "id": 12,
+      "invoiceNumber": "INV-012",
+      "customer": "Future Foods Co.",
+      "invoiceDate": "05/04/2025",
+      "dueDate": "05/05/2025",
+      "totalAmount": 1100.50,
+      "status": "Pending",
+      "category": "Food Distribution"
+    },
+    {
+      "id": 13,
+      "invoiceNumber": "INV-013",
+      "customer": "Connect IT Solutions",
+      "invoiceDate": "12/04/2025",
+      "dueDate": "12/05/2025",
+      "totalAmount": 2800.0,
+      "status": "Overdue",
+      "category": "Network Services"
+    },
+    {
+      "id": 14,
+      "invoiceNumber": "INV-014",
+      "customer": "Creative Media Group",
+      "invoiceDate": "18/04/2025",
+      "dueDate": "18/05/2025",
+      "totalAmount": 750.25,
+      "status": "Paid",
+      "category": "Advertising"
+    },
+    {
+      "id": 15,
+      "invoiceNumber": "INV-015",
+      "customer": "Eco-Friendly Products",
+      "invoiceDate": "25/04/2025",
+      "dueDate": "25/05/2025",
+      "totalAmount": 320.0,
+      "status": "Pending",
+      "category": "Retail"
+    },
+    {
+      "id": 16,
+      "invoiceNumber": "INV-016",
+      "customer": "Dynamic Systems",
+      "invoiceDate": "02/05/2025",
+      "dueDate": "02/06/2025",
+      "totalAmount": 1950.0,
+      "status": "Paid",
+      "category": "IT Support"
+    },
+    {
+      "id": 17,
+      "invoiceNumber": "INV-017",
+      "customer": "Global Trade Corp.",
+      "invoiceDate": "08/05/2025",
+      "dueDate": "08/06/2025",
+      "totalAmount": 4100.0,
+      "status": "Pending",
+      "category": "Logistics"
+    },
+    {
+      "id": 18,
+      "invoiceNumber": "INV-018",
+      "customer": "Precision Engineering",
+      "invoiceDate": "15/05/2025",
+      "dueDate": "15/06/2025",
+      "totalAmount": 6200.75,
+      "status": "Overdue",
+      "category": "Manufacturing"
+    },
+    {
+      "id": 19,
+      "invoiceNumber": "INV-019",
+      "customer": "Bright Horizon Education",
+      "invoiceDate": "20/05/2025",
+      "dueDate": "20/06/2025",
+      "totalAmount": 980.0,
+      "status": "Paid",
+      "category": "Educational Services"
+    },
+    {
+      "id": 20,
+      "invoiceNumber": "INV-020",
+      "customer": "MediCare Solutions",
+      "invoiceDate": "28/05/2025",
+      "dueDate": "28/06/2025",
+      "totalAmount": 2500.0,
+      "status": "Pending",
+      "category": "Healthcare Software"
+    },
+    {
+      "id": 21,
+      "invoiceNumber": "INV-021",
+      "customer": "Innovate Solutions",
+      "invoiceDate": "05/06/2025",
+      "dueDate": "05/07/2025",
+      "totalAmount": 1400.0,
+      "status": "Paid",
+      "category": "Consulting"
+    },
+    {
+      "id": 22,
+      "invoiceNumber": "INV-022",
+      "customer": "Prime Real Estate",
+      "invoiceDate": "10/06/2025",
+      "dueDate": "10/07/2025",
+      "totalAmount": 7500.0,
+      "status": "Pending",
+      "category": "Property Management"
+    },
+    {
+      "id": 23,
+      "invoiceNumber": "INV-023",
+      "customer": "Swift Courier Services",
+      "invoiceDate": "15/06/2025",
+      "dueDate": "15/07/2025",
+      "totalAmount": 480.50,
+      "status": "Overdue",
+      "category": "Delivery Services"
+    },
+    {
+      "id": 24,
+      "invoiceNumber": "INV-024",
+      "customer": "Artisan Crafts Co.",
+      "invoiceDate": "20/06/2025",
+      "dueDate": "20/07/2025",
+      "totalAmount": 310.25,
+      "status": "Paid",
+      "category": "Handicrafts"
+    },
+    {
+      "id": 25,
+      "invoiceNumber": "INV-025",
+      "customer": "Digital Marketing Pro",
+      "invoiceDate": "25/06/2025",
+      "dueDate": "25/07/2025",
+      "totalAmount": 1600.0,
+      "status": "Pending",
+      "category": "SEO Services"
+    },
+    {
+      "id": 26,
+      "invoiceNumber": "INV-026",
+      "customer": "NextGen Technologies",
+      "invoiceDate": "01/07/2025",
+      "dueDate": "01/08/2025",
+      "totalAmount": 5500.0,
+      "status": "Paid",
+      "category": "Software Development"
+    },
+    {
+      "id": 27,
+      "invoiceNumber": "INV-027",
+      "customer": "Elite Fitness Center",
+      "invoiceDate": "05/07/2025",
+      "dueDate": "05/08/2025",
+      "totalAmount": 890.0,
+      "status": "Pending",
+      "category": "Health & Wellness"
+    },
+    {
+      "id": 28,
+      "invoiceNumber": "INV-028",
+      "customer": "Global Sourcing Ltd.",
+      "invoiceDate": "10/07/2025",
+      "dueDate": "10/08/2025",
+      "totalAmount": 3200.75,
+      "status": "Overdue",
+      "category": "Procurement"
+    },
+    {
+      "id": 29,
+      "invoiceNumber": "INV-029",
+      "customer": "Professional Services Inc.",
+      "invoiceDate": "15/07/2025",
+      "dueDate": "15/08/2025",
+      "totalAmount": 1120.0,
+      "status": "Paid",
+      "category": "Legal Services"
+    },
+    {
+      "id": 30,
+      "invoiceNumber": "INV-030",
+      "customer": "Innovative Education",
+      "invoiceDate": "20/07/2025",
+      "dueDate": "20/08/2025",
+      "totalAmount": 1900.0,
+      "status": "Pending",
+      "category": "Online Courses"
+    },
+    {
+      "id": 31,
+      "invoiceNumber": "INV-031",
+      "customer": "Hydro Solutions",
+      "invoiceDate": "25/07/2025",
+      "dueDate": "25/08/2025",
+      "totalAmount": 2700.0,
+      "status": "Paid",
+      "category": "Water Treatment"
+    },
+    {
+      "id": 32,
+      "invoiceNumber": "INV-032",
+      "customer": "Power Grid Innovations",
+      "invoiceDate": "30/07/2025",
+      "dueDate": "30/08/2025",
+      "totalAmount": 8500.0,
+      "status": "Pending",
+      "category": "Energy Solutions"
+    },
+    {
+      "id": 33,
+      "invoiceNumber": "INV-033",
+      "customer": "Travel Dreams Agency",
+      "invoiceDate": "05/08/2025",
+      "dueDate": "05/09/2025",
+      "totalAmount": 650.0,
+      "status": "Overdue",
+      "category": "Tourism"
+    },
+    {
+      "id": 34,
+      "invoiceNumber": "INV-034",
+      "customer": "SecureIT Systems",
+      "invoiceDate": "10/08/2025",
+      "dueDate": "10/09/2025",
+      "totalAmount": 2200.0,
+      "status": "Paid",
+      "category": "Cybersecurity"
+    },
+    {
+      "id": 35,
+      "invoiceNumber": "INV-035",
+      "customer": "Event Management Pro",
+      "invoiceDate": "15/08/2025",
+      "dueDate": "15/09/2025",
+      "totalAmount": 1350.0,
+      "status": "Pending",
+      "category": "Event Planning"
     }
   ],
+
+
 
   "customerOptions": [
     {
@@ -1660,5 +1913,3367 @@
       "value": "10",
       "label": "Pinnacle Health"
     }
-  ]
+  ],
+
+  "quotations": [
+    {
+      "id": 1,
+      "quotationNumber": "QTE-001",
+      "customer": "Alpha Corp",
+      "quotationDate": "01/06/2025",
+      "expiryDate": "15/06/2025",
+      "totalAmount": 15000,
+      "status": "Accepted",
+      "category": "Services"
+    },
+    {
+      "id": 2,
+      "quotationNumber": "QTE-002",
+      "customer": "Beta Solutions",
+      "quotationDate": "05/06/2025",
+      "expiryDate": "20/06/2025",
+      "totalAmount": 22000,
+      "status": "Sent",
+      "category": "Products"
+    },
+    {
+      "id": 3,
+      "quotationNumber": "QTE-003",
+      "customer": "Gamma Innovations",
+      "quotationDate": "10/06/2025",
+      "expiryDate": "25/06/2025",
+      "totalAmount": 8500,
+      "status": "Draft",
+      "category": "Consulting"
+    },
+    {
+      "id": 4,
+      "quotationNumber": "QTE-004",
+      "customer": "Delta Enterprises",
+      "quotationDate": "12/06/2025",
+      "expiryDate": "27/06/2025",
+      "totalAmount": 30000,
+      "status": "Rejected",
+      "category": "Products"
+    },
+    {
+      "id": 5,
+      "quotationNumber": "QTE-005",
+      "customer": "Epsilon Group",
+      "quotationDate": "15/06/2025",
+      "expiryDate": "30/06/2025",
+      "totalAmount": 11200,
+      "status": "Sent",
+      "category": "Services"
+    },
+    {
+      "id": 6,
+      "quotationNumber": "QTE-006",
+      "customer": "Zeta Systems",
+      "quotationDate": "18/06/2025",
+      "expiryDate": "03/07/2025",
+      "totalAmount": 45000,
+      "status": "Accepted",
+      "category": "Consulting"
+    },
+    {
+      "id": 7,
+      "quotationNumber": "QTE-007",
+      "customer": "Eta Solutions",
+      "quotationDate": "20/06/2025",
+      "expiryDate": "05/07/2025",
+      "totalAmount": 7000,
+      "status": "Draft",
+      "category": "Products"
+    },
+    {
+      "id": 8,
+      "quotationNumber": "QTE-008",
+      "customer": "Theta Technologies",
+      "quotationDate": "22/06/2025",
+      "expiryDate": "07/07/2025",
+      "totalAmount": 18000,
+      "status": "Sent",
+      "category": "Services"
+    },
+    {
+      "id": 9,
+      "quotationNumber": "QTE-009",
+      "customer": "Iota Industries",
+      "quotationDate": "25/06/2025",
+      "expiryDate": "10/07/2025",
+      "totalAmount": 9500,
+      "status": "Rejected",
+      "category": "Consulting"
+    },
+    {
+      "id": 10,
+      "quotationNumber": "QTE-010",
+      "customer": "Kappa Corp",
+      "quotationDate": "28/06/2025",
+      "expiryDate": "13/07/2025",
+      "totalAmount": 27000,
+      "status": "Accepted",
+      "category": "Products"
+    },
+    {
+      "id": 11,
+      "quotationNumber": "QTE-011",
+      "customer": "Lambda Ltd.",
+      "quotationDate": "01/07/2025",
+      "expiryDate": "16/07/2025",
+      "totalAmount": 12500,
+      "status": "Sent",
+      "category": "Services"
+    },
+    {
+      "id": 12,
+      "quotationNumber": "QTE-012",
+      "customer": "Mu Marketing",
+      "quotationDate": "03/07/2025",
+      "expiryDate": "18/07/2025",
+      "totalAmount": 5200,
+      "status": "Draft",
+      "category": "Consulting"
+    },
+    {
+      "id": 13,
+      "quotationNumber": "QTE-013",
+      "customer": "Nu Networks",
+      "quotationDate": "06/07/2025",
+      "expiryDate": "21/07/2025",
+      "totalAmount": 33000,
+      "status": "Rejected",
+      "category": "Products"
+    },
+    {
+      "id": 14,
+      "quotationNumber": "QTE-014",
+      "customer": "Xi Xpress",
+      "quotationDate": "08/07/2025",
+      "expiryDate": "23/07/2025",
+      "totalAmount": 9800,
+      "status": "Accepted",
+      "category": "Services"
+    },
+    {
+      "id": 15,
+      "quotationNumber": "QTE-015",
+      "customer": "Omicron Corp",
+      "quotationDate": "11/07/2025",
+      "expiryDate": "26/07/2025",
+      "totalAmount": 19000,
+      "status": "Sent",
+      "category": "Consulting"
+    },
+    {
+      "id": 16,
+      "quotationNumber": "QTE-016",
+      "customer": "Pi Power",
+      "quotationDate": "14/07/2025",
+      "expiryDate": "29/07/2025",
+      "totalAmount": 28000,
+      "status": "Draft",
+      "category": "Products"
+    },
+    {
+      "id": 17,
+      "quotationNumber": "QTE-017",
+      "customer": "Rho Retail",
+      "quotationDate": "17/07/2025",
+      "expiryDate": "01/08/2025",
+      "totalAmount": 6500,
+      "status": "Rejected",
+      "category": "Services"
+    },
+    {
+      "id": 18,
+      "quotationNumber": "QTE-018",
+      "customer": "Sigma Solutions",
+      "quotationDate": "20/07/2025",
+      "expiryDate": "04/08/2025",
+      "totalAmount": 42000,
+      "status": "Accepted",
+      "category": "Consulting"
+    },
+    {
+      "id": 19,
+      "quotationNumber": "QTE-019",
+      "customer": "Tau Tech",
+      "quotationDate": "23/07/2025",
+      "expiryDate": "07/08/2025",
+      "totalAmount": 16000,
+      "status": "Sent",
+      "category": "Products"
+    },
+    {
+      "id": 20,
+      "quotationNumber": "QTE-020",
+      "customer": "Upsilon Utilities",
+      "quotationDate": "26/07/2025",
+      "expiryDate": "10/08/2025",
+      "totalAmount": 9000,
+      "status": "Draft",
+      "category": "Services"
+    },
+    {
+      "id": 21,
+      "quotationNumber": "QTE-021",
+      "customer": "Phi Pharma",
+      "quotationDate": "29/07/2025",
+      "expiryDate": "13/08/2025",
+      "totalAmount": 21000,
+      "status": "Rejected",
+      "category": "Consulting"
+    },
+    {
+      "id": 22,
+      "quotationNumber": "QTE-022",
+      "customer": "Chi Consulting",
+      "quotationDate": "01/08/2025",
+      "expiryDate": "16/08/2025",
+      "totalAmount": 13000,
+      "status": "Accepted",
+      "category": "Services"
+    },
+    {
+      "id": 23,
+      "quotationNumber": "QTE-023",
+      "customer": "Psi Products",
+      "quotationDate": "04/08/2025",
+      "expiryDate": "19/08/2025",
+      "totalAmount": 38000,
+      "status": "Sent",
+      "category": "Products"
+    },
+    {
+      "id": 24,
+      "quotationNumber": "QTE-024",
+      "customer": "Omega Logistics",
+      "quotationDate": "07/08/2025",
+      "expiryDate": "22/08/2025",
+      "totalAmount": 7500,
+      "status": "Draft",
+      "category": "Consulting"
+    },
+    {
+      "id": 25,
+      "quotationNumber": "QTE-025",
+      "customer": "Acme Innovations",
+      "quotationDate": "10/08/2025",
+      "expiryDate": "25/08/2025",
+      "totalAmount": 26000,
+      "status": "Rejected",
+      "category": "Services"
+    },
+    {
+      "id": 26,
+      "quotationNumber": "QTE-026",
+      "customer": "Byte Solutions",
+      "quotationDate": "13/08/2025",
+      "expiryDate": "28/08/2025",
+      "totalAmount": 10500,
+      "status": "Accepted",
+      "category": "Products"
+    },
+    {
+      "id": 27,
+      "quotationNumber": "QTE-027",
+      "customer": "Circuit City",
+      "quotationDate": "16/08/2025",
+      "expiryDate": "31/08/2025",
+      "totalAmount": 48000,
+      "status": "Sent",
+      "category": "Consulting"
+    },
+    {
+      "id": 28,
+      "quotationNumber": "QTE-028",
+      "customer": "Data Dynamics",
+      "quotationDate": "19/08/2025",
+      "expiryDate": "03/09/2025",
+      "totalAmount": 14000,
+      "status": "Draft",
+      "category": "Services"
+    },
+    {
+      "id": 29,
+      "quotationNumber": "QTE-029",
+      "customer": "Electro Ventures",
+      "quotationDate": "22/08/2025",
+      "expiryDate": "06/09/2025",
+      "totalAmount": 7200,
+      "status": "Rejected",
+      "category": "Products"
+    },
+    {
+      "id": 30,
+      "quotationNumber": "QTE-030",
+      "customer": "Fusion Forge",
+      "quotationDate": "25/08/2025",
+      "expiryDate": "09/09/2025",
+      "totalAmount": 31000,
+      "status": "Accepted",
+      "category": "Consulting"
+    },
+    {
+      "id": 31,
+      "quotationNumber": "QTE-031",
+      "customer": "Gigabyte Global",
+      "quotationDate": "28/08/2025",
+      "expiryDate": "12/09/2025",
+      "totalAmount": 17500,
+      "status": "Sent",
+      "category": "Services"
+    },
+    {
+      "id": 32,
+      "quotationNumber": "QTE-032",
+      "customer": "Hyperion Holdings",
+      "quotationDate": "01/09/2025",
+      "expiryDate": "16/09/2025",
+      "totalAmount": 50000,
+      "status": "Draft",
+      "category": "Products"
+    },
+    {
+      "id": 33,
+      "quotationNumber": "QTE-033",
+      "customer": "Infinite Innovations",
+      "quotationDate": "04/09/2025",
+      "expiryDate": "19/09/2025",
+      "totalAmount": 8800,
+      "status": "Rejected",
+      "category": "Consulting"
+    },
+    {
+      "id": 34,
+      "quotationNumber": "QTE-034",
+      "customer": "Juno Junction",
+      "quotationDate": "07/09/2025",
+      "expiryDate": "22/09/2025",
+      "totalAmount": 24000,
+      "status": "Accepted",
+      "category": "Services"
+    },
+    {
+      "id": 35,
+      "quotationNumber": "QTE-035",
+      "customer": "Kinetic Kicks",
+      "quotationDate": "10/09/2025",
+      "expiryDate": "25/09/2025",
+      "totalAmount": 11500,
+      "status": "Sent",
+      "category": "Products"
+    }
+  ],
+    "quotationsCustomerOptions": [
+    { "value": "Alpha Corp", "label": "Alpha Corp" },
+    { "value": "Beta Solutions", "label": "Beta Solutions" },
+    { "value": "Gamma Innovations", "label": "Gamma Innovations" },
+    { "value": "Delta Enterprises", "label": "Delta Enterprises" },
+    { "value": "Epsilon Group", "label": "Epsilon Group" },
+    { "value": "Zeta Systems", "label": "Zeta Systems" },
+    { "value": "Eta Solutions", "label": "Eta Solutions" },
+    { "value": "Theta Technologies", "label": "Theta Technologies" },
+    { "value": "Iota Industries", "label": "Iota Industries" },
+    { "value": "Kappa Corp", "label": "Kappa Corp" }
+  ],
+
+"deliveryChallans": [
+    {
+      "id": 1,
+      "challanNumber": "DC-001",
+      "customer": "ABC Enterprises",
+      "challanDate": "15/05/2024",
+      "deliveryDate": "20/05/2024",
+      "totalAmount": 15000,
+      "status": "Delivered",
+      "category": "Electronics"
+    },
+    {
+      "id": 2,
+      "challanNumber": "DC-002",
+      "customer": "XYZ Solutions",
+      "challanDate": "16/05/2024",
+      "deliveryDate": "22/05/2024",
+      "totalAmount": 22500,
+      "status": "In_Transit",
+      "category": "Home Goods"
+    },
+    {
+      "id": 3,
+      "challanNumber": "DC-003",
+      "customer": "Global Corp",
+      "challanDate": "17/05/2024",
+      "deliveryDate": "25/05/2024",
+      "totalAmount": 8000,
+      "status": "Draft",
+      "category": "Office Supplies"
+    },
+    {
+      "id": 4,
+      "challanNumber": "DC-004",
+      "customer": "Tech Innovators",
+      "challanDate": "18/05/2024",
+      "deliveryDate": "23/05/2024",
+      "totalAmount": 35000,
+      "status": "Delivered",
+      "category": "Machinery"
+    },
+    {
+      "id": 5,
+      "challanNumber": "DC-005",
+      "customer": "Retail Express",
+      "challanDate": "19/05/2024",
+      "deliveryDate": "26/05/2024",
+      "totalAmount": 12000,
+      "status": "Cancelled",
+      "category": "Textiles"
+    },
+    {
+      "id": 6,
+      "challanNumber": "DC-006",
+      "customer": "Innovate Ltd.",
+      "challanDate": "20/05/2024",
+      "deliveryDate": "27/05/2024",
+      "totalAmount": 18000,
+      "status": "In_Transit",
+      "category": "Automotive"
+    },
+    {
+      "id": 7,
+      "challanNumber": "DC-007",
+      "customer": "Dynamic Solutions",
+      "challanDate": "21/05/2024",
+      "deliveryDate": "28/05/2024",
+      "totalAmount": 9500,
+      "status": "Delivered",
+      "category": "Food & Beverage"
+    },
+    {
+      "id": 8,
+      "challanNumber": "DC-008",
+      "customer": "NextGen Systems",
+      "challanDate": "22/05/2024",
+      "deliveryDate": "29/05/2024",
+      "totalAmount": 40000,
+      "status": "Draft",
+      "category": "Construction"
+    },
+    {
+      "id": 9,
+      "challanNumber": "DC-009",
+      "customer": "Precision Tools",
+      "challanDate": "23/05/2024",
+      "deliveryDate": "30/05/2024",
+      "totalAmount": 7500,
+      "status": "Delivered",
+      "category": "Tools"
+    },
+    {
+      "id": 10,
+      "challanNumber": "DC-010",
+      "customer": "Future Tech",
+      "challanDate": "24/05/2024",
+      "deliveryDate": "31/05/2024",
+      "totalAmount": 28000,
+      "status": "In_Transit",
+      "category": "Electronics"
+    },
+    {
+      "id": 11,
+      "challanNumber": "DC-011",
+      "customer": "Green Energy Co.",
+      "challanDate": "25/05/2024",
+      "deliveryDate": "01/06/2024",
+      "totalAmount": 19000,
+      "status": "Delivered",
+      "category": "Renewable Energy"
+    },
+    {
+      "id": 12,
+      "challanNumber": "DC-012",
+      "customer": "Urban Logistics",
+      "challanDate": "26/05/2024",
+      "deliveryDate": "02/06/2024",
+      "totalAmount": 11000,
+      "status": "In_Transit",
+      "category": "Logistics"
+    },
+    {
+      "id": 13,
+      "challanNumber": "DC-013",
+      "customer": "Aqua Pure Water",
+      "challanDate": "27/05/2024",
+      "deliveryDate": "03/06/2024",
+      "totalAmount": 6000,
+      "status": "Draft",
+      "category": "Beverages"
+    },
+    {
+      "id": 14,
+      "challanNumber": "DC-014",
+      "customer": "Summit Builders",
+      "challanDate": "28/05/2024",
+      "deliveryDate": "04/06/2024",
+      "totalAmount": 50000,
+      "status": "Delivered",
+      "category": "Building Materials"
+    },
+    {
+      "id": 15,
+      "challanNumber": "DC-015",
+      "customer": "Fashion Forward",
+      "challanDate": "29/05/2024",
+      "deliveryDate": "05/06/2024",
+      "totalAmount": 9000,
+      "status": "Cancelled",
+      "category": "Apparel"
+    },
+    {
+      "id": 16,
+      "challanNumber": "DC-016",
+      "customer": "MediCorp Supplies",
+      "challanDate": "30/05/2024",
+      "deliveryDate": "06/06/2024",
+      "totalAmount": 25000,
+      "status": "In_Transit",
+      "category": "Medical Supplies"
+    },
+    {
+      "id": 17,
+      "challanNumber": "DC-017",
+      "customer": "EduTech Solutions",
+      "challanDate": "01/06/2024",
+      "deliveryDate": "07/06/2024",
+      "totalAmount": 14000,
+      "status": "Delivered",
+      "category": "Educational Equipment"
+    },
+    {
+      "id": 18,
+      "challanNumber": "DC-018",
+      "customer": "AgriGrow Farms",
+      "challanDate": "02/06/2024",
+      "deliveryDate": "08/06/2024",
+      "totalAmount": 7000,
+      "status": "Draft",
+      "category": "Agricultural Products"
+    },
+    {
+      "id": 19,
+      "challanNumber": "DC-019",
+      "customer": "Home Comforts",
+      "challanDate": "03/06/2024",
+      "deliveryDate": "09/06/2024",
+      "totalAmount": 16000,
+      "status": "Delivered",
+      "category": "Furniture"
+    },
+    {
+      "id": 20,
+      "challanNumber": "DC-020",
+      "customer": "Clean Sweep Services",
+      "challanDate": "04/06/2024",
+      "deliveryDate": "10/06/2024",
+      "totalAmount": 4500,
+      "status": "In_Transit",
+      "category": "Cleaning Supplies"
+    },
+    {
+      "id": 21,
+      "challanNumber": "DC-021",
+      "customer": "Digital Dreams",
+      "challanDate": "05/06/2024",
+      "deliveryDate": "11/06/2024",
+      "totalAmount": 29000,
+      "status": "Delivered",
+      "category": "Software"
+    },
+    {
+      "id": 22,
+      "challanNumber": "DC-022",
+      "customer": "Power Solutions",
+      "challanDate": "06/06/2024",
+      "deliveryDate": "12/06/2024",
+      "totalAmount": 38000,
+      "status": "In_Transit",
+      "category": "Electrical Equipment"
+    },
+    {
+      "id": 23,
+      "challanNumber": "DC-023",
+      "customer": "Artistic Creations",
+      "challanDate": "07/06/2024",
+      "deliveryDate": "13/06/2024",
+      "totalAmount": 5500,
+      "status": "Draft",
+      "category": "Art Supplies"
+    },
+    {
+      "id": 24,
+      "challanNumber": "DC-024",
+      "customer": "Global Food Distributors",
+      "challanDate": "08/06/2024",
+      "deliveryDate": "14/06/2024",
+      "totalAmount": 13000,
+      "status": "Delivered",
+      "category": "Perishables"
+    },
+    {
+      "id": 25,
+      "challanNumber": "DC-025",
+      "customer": "Secure Systems Inc.",
+      "challanDate": "09/06/2024",
+      "deliveryDate": "15/06/2024",
+      "totalAmount": 21000,
+      "status": "Cancelled",
+      "category": "Security Equipment"
+    },
+    {
+      "id": 26,
+      "challanNumber": "DC-026",
+      "customer": "Eco-Friendly Packaging",
+      "challanDate": "10/06/2024",
+      "deliveryDate": "16/06/2024",
+      "totalAmount": 8500,
+      "status": "In_Transit",
+      "category": "Packaging Materials"
+    },
+    {
+      "id": 27,
+      "challanNumber": "DC-027",
+      "customer": "Prime Auto Parts",
+      "challanDate": "11/06/2024",
+      "deliveryDate": "17/06/2024",
+      "totalAmount": 17000,
+      "status": "Delivered",
+      "category": "Automotive Parts"
+    },
+    {
+      "id": 28,
+      "challanNumber": "DC-028",
+      "customer": "Health & Wellness Co.",
+      "challanDate": "12/06/2024",
+      "deliveryDate": "18/06/2024",
+      "totalAmount": 10000,
+      "status": "Draft",
+      "category": "Health Products"
+    },
+    {
+      "id": 29,
+      "challanNumber": "DC-029",
+      "customer": "Construction Pros",
+      "challanDate": "13/06/2024",
+      "deliveryDate": "19/06/2024",
+      "totalAmount": 42000,
+      "status": "Delivered",
+      "category": "Heavy Equipment"
+    },
+    {
+      "id": 30,
+      "challanNumber": "DC-030",
+      "customer": "Office Solutions Hub",
+      "challanDate": "14/06/2024",
+      "deliveryDate": "20/06/2024",
+      "totalAmount": 6500,
+      "status": "In_Transit",
+      "category": "Stationery"
+    },
+    {
+      "id": 31,
+      "challanNumber": "DC-031",
+      "customer": "Tech Gadgets Store",
+      "challanDate": "15/06/2024",
+      "deliveryDate": "21/06/2024",
+      "totalAmount": 23000,
+      "status": "Delivered",
+      "category": "Electronics"
+    },
+    {
+      "id": 32,
+      "challanNumber": "DC-032",
+      "customer": "Garden Essentials",
+      "challanDate": "16/06/2024",
+      "deliveryDate": "22/06/2024",
+      "totalAmount": 5000,
+      "status": "Draft",
+      "category": "Gardening Tools"
+    },
+    {
+      "id": 33,
+      "challanNumber": "DC-033",
+      "customer": "Sports Gear Outlet",
+      "challanDate": "17/06/2024",
+      "deliveryDate": "23/06/2024",
+      "totalAmount": 11500,
+      "status": "In_Transit",
+      "category": "Sporting Goods"
+    },
+    {
+      "id": 34,
+      "challanNumber": "DC-034",
+      "customer": "Pet Care Supplies",
+      "challanDate": "18/06/2024",
+      "deliveryDate": "24/06/2024",
+      "totalAmount": 3000,
+      "status": "Delivered",
+      "category": "Pet Products"
+    },
+    {
+      "id": 35,
+      "challanNumber": "DC-035",
+      "customer": "Music Mania Store",
+      "challanDate": "19/06/2024",
+      "deliveryDate": "25/06/2024",
+      "totalAmount": 18000,
+      "status": "Cancelled",
+      "category": "Musical Instruments"
+    }
+  ],
+
+"deliveryChallanOptions": [
+  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
+  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
+  { "value": "Global Corp", "label": "Global Corp" },
+  { "value": "Tech Innovators", "label": "Tech Innovators" },
+  { "value": "Retail Express", "label": "Retail Express" },
+  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
+  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
+  { "value": "NextGen Systems", "label": "NextGen Systems" },
+  { "value": "Precision Tools", "label": "Precision Tools" },
+  { "value": "Future Tech", "label": "Future Tech" }
+],
+"payments": [
+    {
+      "id": 101,
+      "paymentID": "PAY-001",
+      "customer": "ABC Enterprises",
+      "paymentDate": "01/06/2024",
+      "amount": 15000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 102,
+      "paymentID": "PAY-002",
+      "customer": "XYZ Solutions",
+      "paymentDate": "03/06/2024",
+      "amount": 22500,
+      "method": "Credit Card",
+      "status": "Completed"
+    },
+    {
+      "id": 103,
+      "paymentID": "PAY-003",
+      "customer": "Global Corp",
+      "paymentDate": "05/06/2024",
+      "amount": 8000,
+      "method": "Cash",
+      "status": "Pending"
+    },
+    {
+      "id": 104,
+      "paymentID": "PAY-004",
+      "customer": "Tech Innovators",
+      "paymentDate": "07/06/2024",
+      "amount": 35000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 105,
+      "paymentID": "PAY-005",
+      "customer": "Retail Express",
+      "paymentDate": "09/06/2024",
+      "amount": 12000,
+      "method": "Online Payment",
+      "status": "Failed"
+    },
+    {
+      "id": 106,
+      "paymentID": "PAY-006",
+      "customer": "Innovate Ltd.",
+      "paymentDate": "11/06/2024",
+      "amount": 18000,
+      "method": "Credit Card",
+      "status": "Completed"
+    },
+    {
+      "id": 107,
+      "paymentID": "PAY-007",
+      "customer": "Dynamic Solutions",
+      "paymentDate": "13/06/2024",
+      "amount": 9500,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 108,
+      "paymentID": "PAY-008",
+      "customer": "NextGen Systems",
+      "paymentDate": "15/06/2024",
+      "amount": 40000,
+      "method": "Cash",
+      "status": "Pending"
+    },
+    {
+      "id": 109,
+      "paymentID": "PAY-009",
+      "customer": "Precision Tools",
+      "paymentDate": "17/06/2024",
+      "amount": 7500,
+      "method": "Online Payment",
+      "status": "Completed"
+    },
+    {
+      "id": 110,
+      "paymentID": "PAY-010",
+      "customer": "Future Tech",
+      "paymentDate": "19/06/2024",
+      "amount": 28000,
+      "method": "Credit Card",
+      "status": "Completed"
+    },
+    {
+      "id": 111,
+      "paymentID": "PAY-011",
+      "customer": "Global Marketing Co.",
+      "paymentDate": "21/06/2024",
+      "amount": 11200,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 112,
+      "paymentID": "PAY-012",
+      "customer": "Apex Industries",
+      "paymentDate": "23/06/2024",
+      "amount": 6500,
+      "method": "Online Payment",
+      "status": "Pending"
+    },
+    {
+      "id": 113,
+      "paymentID": "PAY-013",
+      "customer": "Quantum Logistics",
+      "paymentDate": "25/06/2024",
+      "amount": 19000,
+      "method": "Credit Card",
+      "status": "Completed"
+    },
+    {
+      "id": 114,
+      "paymentID": "PAY-014",
+      "customer": "Bright Ideas Ltd.",
+      "paymentDate": "27/06/2024",
+      "amount": 3200,
+      "method": "Cash",
+      "status": "Failed"
+    },
+    {
+      "id": 115,
+      "paymentID": "PAY-015",
+      "customer": "Summit Financial",
+      "paymentDate": "29/06/2024",
+      "amount": 52000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 116,
+      "paymentID": "PAY-016",
+      "customer": "Green Earth Solutions",
+      "paymentDate": "01/07/2024",
+      "amount": 8900,
+      "method": "Online Payment",
+      "status": "Completed"
+    },
+    {
+      "id": 117,
+      "paymentID": "PAY-017",
+      "customer": "Digital Innovations",
+      "paymentDate": "03/07/2024",
+      "amount": 4500,
+      "method": "Credit Card",
+      "status": "Pending"
+    },
+    {
+      "id": 118,
+      "paymentID": "PAY-018",
+      "customer": "Pinnacle Health",
+      "paymentDate": "05/07/2024",
+      "amount": 18000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 119,
+      "paymentID": "PAY-019",
+      "customer": "Urban Sprout",
+      "paymentDate": "07/07/2024",
+      "amount": 6200,
+      "method": "Cash",
+      "status": "Completed"
+    },
+    {
+      "id": 120,
+      "paymentID": "PAY-020",
+      "customer": "Future Foods Co.",
+      "paymentDate": "09/07/2024",
+      "amount": 11000,
+      "method": "Online Payment",
+      "status": "Failed"
+    },
+    {
+      "id": 121,
+      "paymentID": "PAY-021",
+      "customer": "Connect IT Solutions",
+      "paymentDate": "11/07/2024",
+      "amount": 28000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 122,
+      "paymentID": "PAY-022",
+      "customer": "Creative Media Group",
+      "paymentDate": "13/07/2024",
+      "amount": 7500,
+      "method": "Credit Card",
+      "status": "Pending"
+    },
+    {
+      "id": 123,
+      "paymentID": "PAY-023",
+      "customer": "Eco-Friendly Products",
+      "paymentDate": "15/07/2024",
+      "amount": 3200,
+      "method": "Cash",
+      "status": "Completed"
+    },
+    {
+      "id": 124,
+      "paymentID": "PAY-024",
+      "customer": "Dynamic Systems",
+      "paymentDate": "17/07/2024",
+      "amount": 19500,
+      "method": "Online Payment",
+      "status": "Completed"
+    },
+    {
+      "id": 125,
+      "paymentID": "PAY-025",
+      "customer": "Global Trade Corp.",
+      "paymentDate": "19/07/2024",
+      "amount": 41000,
+      "method": "Bank Transfer",
+      "status": "Failed"
+    },
+    {
+      "id": 126,
+      "paymentID": "PAY-026",
+      "customer": "Precision Engineering",
+      "paymentDate": "21/07/2024",
+      "amount": 62000,
+      "method": "Credit Card",
+      "status": "Completed"
+    },
+    {
+      "id": 127,
+      "paymentID": "PAY-027",
+      "customer": "Bright Horizon Education",
+      "paymentDate": "23/07/2024",
+      "amount": 9800,
+      "method": "Cash",
+      "status": "Pending"
+    },
+    {
+      "id": 128,
+      "paymentID": "PAY-028",
+      "customer": "MediCare Solutions",
+      "paymentDate": "25/07/2024",
+      "amount": 25000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 129,
+      "paymentID": "PAY-029",
+      "customer": "Innovate Solutions",
+      "paymentDate": "27/07/2024",
+      "amount": 14000,
+      "method": "Online Payment",
+      "status": "Completed"
+    },
+    {
+      "id": 130,
+      "paymentID": "PAY-030",
+      "customer": "Prime Real Estate",
+      "paymentDate": "29/07/2024",
+      "amount": 75000,
+      "method": "Credit Card",
+      "status": "Failed"
+    },
+    {
+      "id": 131,
+      "paymentID": "PAY-031",
+      "customer": "Swift Courier Services",
+      "paymentDate": "31/07/2024",
+      "amount": 4800,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 132,
+      "paymentID": "PAY-032",
+      "customer": "Artisan Crafts Co.",
+      "paymentDate": "02/08/2024",
+      "amount": 3100,
+      "method": "Cash",
+      "status": "Pending"
+    },
+    {
+      "id": 133,
+      "paymentID": "PAY-033",
+      "customer": "Digital Marketing Pro",
+      "paymentDate": "04/08/2024",
+      "amount": 16000,
+      "method": "Online Payment",
+      "status": "Completed"
+    },
+    {
+      "id": 134,
+      "paymentID": "PAY-034",
+      "customer": "NextGen Technologies",
+      "paymentDate": "06/08/2024",
+      "amount": 55000,
+      "method": "Bank Transfer",
+      "status": "Completed"
+    },
+    {
+      "id": 135,
+      "paymentID": "PAY-035",
+      "customer": "Elite Fitness Center",
+      "paymentDate": "08/08/2024",
+      "amount": 8900,
+      "method": "Credit Card",
+      "status": "Pending"
+    }
+  ],
+"paymentCustomerOptions": [
+  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
+  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
+  { "value": "Global Corp", "label": "Global Corp" },
+  { "value": "Tech Innovators", "label": "Tech Innovators" },
+  { "value": "Retail Express", "label": "Retail Express" },
+  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
+  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
+  { "value": "NextGen Systems", "label": "NextGen Systems" },
+  { "value": "Precision Tools", "label": "Precision Tools" },
+  { "value": "Future Tech", "label": "Future Tech" }
+],
+"receipts": [
+    {
+      "id": 201,
+      "receiptNumber": "REC-001",
+      "customer": "ABC Enterprises",
+      "receiptDate": "01/06/2024",
+      "amountReceived": 15000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 202,
+      "receiptNumber": "REC-002",
+      "customer": "XYZ Solutions",
+      "receiptDate": "03/06/2024",
+      "amountReceived": 10000,
+      "paymentMethod": "Credit Card",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 203,
+      "receiptNumber": "REC-003",
+      "customer": "Global Corp",
+      "receiptDate": "05/06/2024",
+      "amountReceived": 8000,
+      "paymentMethod": "Cash",
+      "status": "Paid"
+    },
+    {
+      "id": 204,
+      "receiptNumber": "REC-004",
+      "customer": "Tech Innovators",
+      "receiptDate": "07/06/2024",
+      "amountReceived": 35000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 205,
+      "receiptNumber": "REC-005",
+      "customer": "Retail Express",
+      "receiptDate": "09/06/2024",
+      "amountReceived": 0,
+      "paymentMethod": "N/A",
+      "status": "Void"
+    },
+    {
+      "id": 206,
+      "receiptNumber": "REC-006",
+      "customer": "Innovate Ltd.",
+      "receiptDate": "11/06/2024",
+      "amountReceived": 18000,
+      "paymentMethod": "Credit Card",
+      "status": "Paid"
+    },
+    {
+      "id": 207,
+      "receiptNumber": "REC-007",
+      "customer": "Dynamic Solutions",
+      "receiptDate": "13/06/2024",
+      "amountReceived": 9500,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 208,
+      "receiptNumber": "REC-008",
+      "customer": "NextGen Systems",
+      "receiptDate": "15/06/2024",
+      "amountReceived": 20000,
+      "paymentMethod": "Cash",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 209,
+      "receiptNumber": "REC-009",
+      "customer": "Precision Tools",
+      "receiptDate": "17/06/2024",
+      "amountReceived": 7500,
+      "paymentMethod": "Online Payment",
+      "status": "Paid"
+    },
+    {
+      "id": 210,
+      "receiptNumber": "REC-010",
+      "customer": "Future Tech",
+      "receiptDate": "19/06/2024",
+      "amountReceived": 28000,
+      "paymentMethod": "Credit Card",
+      "status": "Paid"
+    },
+    {
+      "id": 211,
+      "receiptNumber": "REC-011",
+      "customer": "Global Marketing Co.",
+      "receiptDate": "21/06/2024",
+      "amountReceived": 11200,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 212,
+      "receiptNumber": "REC-012",
+      "customer": "Apex Industries",
+      "receiptDate": "23/06/2024",
+      "amountReceived": 3000,
+      "paymentMethod": "Online Payment",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 213,
+      "receiptNumber": "REC-013",
+      "customer": "Quantum Logistics",
+      "receiptDate": "25/06/2024",
+      "amountReceived": 19000,
+      "paymentMethod": "Credit Card",
+      "status": "Paid"
+    },
+    {
+      "id": 214,
+      "receiptNumber": "REC-014",
+      "customer": "Bright Ideas Ltd.",
+      "receiptDate": "27/06/2024",
+      "amountReceived": 0,
+      "paymentMethod": "N/A",
+      "status": "Void"
+    },
+    {
+      "id": 215,
+      "receiptNumber": "REC-015",
+      "customer": "Summit Financial",
+      "receiptDate": "29/06/2024",
+      "amountReceived": 52000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 216,
+      "receiptNumber": "REC-016",
+      "customer": "Green Earth Solutions",
+      "receiptDate": "01/07/2024",
+      "amountReceived": 8900,
+      "paymentMethod": "Online Payment",
+      "status": "Paid"
+    },
+    {
+      "id": 217,
+      "receiptNumber": "REC-017",
+      "customer": "Digital Innovations",
+      "receiptDate": "03/07/2024",
+      "amountReceived": 2000,
+      "paymentMethod": "Credit Card",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 218,
+      "receiptNumber": "REC-018",
+      "customer": "Pinnacle Health",
+      "receiptDate": "05/07/2024",
+      "amountReceived": 18000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 219,
+      "receiptNumber": "REC-019",
+      "customer": "Urban Sprout",
+      "receiptDate": "07/07/2024",
+      "amountReceived": 6200,
+      "paymentMethod": "Cash",
+      "status": "Paid"
+    },
+    {
+      "id": 220,
+      "receiptNumber": "REC-020",
+      "customer": "Future Foods Co.",
+      "receiptDate": "09/07/2024",
+      "amountReceived": 0,
+      "paymentMethod": "N/A",
+      "status": "Void"
+    },
+    {
+      "id": 221,
+      "receiptNumber": "REC-021",
+      "customer": "Connect IT Solutions",
+      "receiptDate": "11/07/2024",
+      "amountReceived": 28000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 222,
+      "receiptNumber": "REC-022",
+      "customer": "Creative Media Group",
+      "receiptDate": "13/07/2024",
+      "amountReceived": 5000,
+      "paymentMethod": "Credit Card",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 223,
+      "receiptNumber": "REC-023",
+      "customer": "Eco-Friendly Products",
+      "receiptDate": "15/07/2024",
+      "amountReceived": 3200,
+      "paymentMethod": "Cash",
+      "status": "Paid"
+    },
+    {
+      "id": 224,
+      "receiptNumber": "REC-024",
+      "customer": "Dynamic Systems",
+      "receiptDate": "17/07/2024",
+      "amountReceived": 19500,
+      "paymentMethod": "Online Payment",
+      "status": "Paid"
+    },
+    {
+      "id": 225,
+      "receiptNumber": "REC-025",
+      "customer": "Global Trade Corp.",
+      "receiptDate": "19/07/2024",
+      "amountReceived": 0,
+      "paymentMethod": "N/A",
+      "status": "Void"
+    },
+    {
+      "id": 226,
+      "receiptNumber": "REC-026",
+      "customer": "Precision Engineering",
+      "receiptDate": "21/07/2024",
+      "amountReceived": 62000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 227,
+      "receiptNumber": "REC-027",
+      "customer": "Bright Horizon Education",
+      "receiptDate": "23/07/2024",
+      "amountReceived": 4000,
+      "paymentMethod": "Credit Card",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 228,
+      "receiptNumber": "REC-028",
+      "customer": "MediCare Solutions",
+      "receiptDate": "25/07/2024",
+      "amountReceived": 25000,
+      "paymentMethod": "Cash",
+      "status": "Paid"
+    },
+    {
+      "id": 229,
+      "receiptNumber": "REC-029",
+      "customer": "Innovate Solutions",
+      "receiptDate": "27/07/2024",
+      "amountReceived": 14000,
+      "paymentMethod": "Online Payment",
+      "status": "Paid"
+    },
+    {
+      "id": 230,
+      "receiptNumber": "REC-030",
+      "customer": "Prime Real Estate",
+      "receiptDate": "29/07/2024",
+      "amountReceived": 0,
+      "paymentMethod": "N/A",
+      "status": "Void"
+    },
+    {
+      "id": 231,
+      "receiptNumber": "REC-031",
+      "customer": "Swift Courier Services",
+      "receiptDate": "31/07/2024",
+      "amountReceived": 4800,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 232,
+      "receiptNumber": "REC-032",
+      "customer": "Artisan Crafts Co.",
+      "receiptDate": "02/08/2024",
+      "amountReceived": 1500,
+      "paymentMethod": "Credit Card",
+      "status": "Partially_Paid"
+    },
+    {
+      "id": 233,
+      "receiptNumber": "REC-033",
+      "customer": "Digital Marketing Pro",
+      "receiptDate": "04/08/2024",
+      "amountReceived": 16000,
+      "paymentMethod": "Online Payment",
+      "status": "Paid"
+    },
+    {
+      "id": 234,
+      "receiptNumber": "REC-034",
+      "customer": "NextGen Technologies",
+      "receiptDate": "06/08/2024",
+      "amountReceived": 55000,
+      "paymentMethod": "Bank Transfer",
+      "status": "Paid"
+    },
+    {
+      "id": 235,
+      "receiptNumber": "REC-035",
+      "customer": "Elite Fitness Center",
+      "receiptDate": "08/08/2024",
+      "amountReceived": 8900,
+      "paymentMethod": "Cash",
+      "status": "Paid"
+    }
+  ],
+
+"receiptCustomerOptions": [
+  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
+  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
+  { "value": "Global Corp", "label": "Global Corp" },
+  { "value": "Tech Innovators", "label": "Tech Innovators" },
+  { "value": "Retail Express", "label": "Retail Express" },
+  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
+  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
+  { "value": "NextGen Systems", "label": "NextGen Systems" },
+  { "value": "Precision Tools", "label": "Precision Tools" },
+  { "value": "Future Tech", "label": "Future Tech" }
+],
+
+"expenses": [
+    {
+      "id": 301,
+      "expenseID": "EXP-001",
+      "category": "Office Supplies",
+      "vendor": "OfficeMart",
+      "expenseDate": "01/07/2024",
+      "amount": 1250,
+      "status": "Paid"
+    },
+    {
+      "id": 302,
+      "expenseID": "EXP-002",
+      "category": "Travel",
+      "vendor": "GoTravel Agency",
+      "expenseDate": "03/07/2024",
+      "amount": 8500,
+      "status": "Pending"
+    },
+    {
+      "id": 303,
+      "expenseID": "EXP-003",
+      "category": "Utilities",
+      "vendor": "Electricity Board",
+      "expenseDate": "05/07/2024",
+      "amount": 2300,
+      "status": "Paid"
+    },
+    {
+      "id": 304,
+      "expenseID": "EXP-004",
+      "category": "Software Subscriptions",
+      "vendor": "CloudSoft Inc.",
+      "expenseDate": "07/07/2024",
+      "amount": 4999,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 305,
+      "expenseID": "EXP-005",
+      "category": "Marketing",
+      "vendor": "AdBoost Solutions",
+      "expenseDate": "08/07/2024",
+      "amount": 15000,
+      "status": "Paid"
+    },
+    {
+      "id": 306,
+      "expenseID": "EXP-006",
+      "category": "Repairs & Maintenance",
+      "vendor": "FixIt Services",
+      "expenseDate": "09/07/2024",
+      "amount": 3200,
+      "status": "Pending"
+    },
+    {
+      "id": 307,
+      "expenseID": "EXP-007",
+      "category": "Meals & Entertainment",
+      "vendor": "Local Cafe",
+      "expenseDate": "10/07/2024",
+      "amount": 750,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 308,
+      "expenseID": "EXP-008",
+      "category": "Training & Development",
+      "vendor": "SkillUp Academy",
+      "expenseDate": "11/07/2024",
+      "amount": 12000,
+      "status": "Paid"
+    },
+    {
+      "id": 309,
+      "expenseID": "EXP-009",
+      "category": "Communication",
+      "vendor": "Telecom Provider",
+      "expenseDate": "12/07/2024",
+      "amount": 950,
+      "status": "Pending"
+    },
+    {
+      "id": 310,
+      "expenseID": "EXP-010",
+      "category": "Transportation",
+      "vendor": "Cab Service",
+      "expenseDate": "13/07/2024",
+      "amount": 600,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 311,
+      "expenseID": "EXP-011",
+      "category": "Rent",
+      "vendor": "Property Management Co.",
+      "expenseDate": "14/07/2024",
+      "amount": 25000,
+      "status": "Paid"
+    },
+    {
+      "id": 312,
+      "expenseID": "EXP-012",
+      "category": "Salaries",
+      "vendor": "Payroll Services",
+      "expenseDate": "15/07/2024",
+      "amount": 75000,
+      "status": "Paid"
+    },
+    {
+      "id": 313,
+      "expenseID": "EXP-013",
+      "category": "Legal Fees",
+      "vendor": "LawFirm Associates",
+      "expenseDate": "16/07/2024",
+      "amount": 10000,
+      "status": "Pending"
+    },
+    {
+      "id": 314,
+      "expenseID": "EXP-014",
+      "category": "Insurance",
+      "vendor": "SecureLife Insurance",
+      "expenseDate": "17/07/2024",
+      "amount": 5500,
+      "status": "Paid"
+    },
+    {
+      "id": 315,
+      "expenseID": "EXP-015",
+      "category": "Web Hosting",
+      "vendor": "HostFast Services",
+      "expenseDate": "18/07/2024",
+      "amount": 800,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 316,
+      "expenseID": "EXP-016",
+      "category": "Consulting Fees",
+      "vendor": "Expert Advisory",
+      "expenseDate": "19/07/2024",
+      "amount": 20000,
+      "status": "Paid"
+    },
+    {
+      "id": 317,
+      "expenseID": "EXP-017",
+      "category": "Printing & Stationery",
+      "vendor": "PrintHub",
+      "expenseDate": "20/07/2024",
+      "amount": 1500,
+      "status": "Pending"
+    },
+    {
+      "id": 318,
+      "expenseID": "EXP-018",
+      "category": "Vehicle Maintenance",
+      "vendor": "AutoCare Workshop",
+      "expenseDate": "21/07/2024",
+      "amount": 4500,
+      "status": "Paid"
+    },
+    {
+      "id": 319,
+      "expenseID": "EXP-019",
+      "category": "Internet Services",
+      "vendor": "NetConnect",
+      "expenseDate": "22/07/2024",
+      "amount": 1200,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 320,
+      "expenseID": "EXP-020",
+      "category": "Event Management",
+      "vendor": "Celebration Planners",
+      "expenseDate": "23/07/2024",
+      "amount": 30000,
+      "status": "Paid"
+    },
+    {
+      "id": 321,
+      "expenseID": "EXP-021",
+      "category": "Courier Services",
+      "vendor": "Swift Deliveries",
+      "expenseDate": "24/07/2024",
+      "amount": 400,
+      "status": "Paid"
+    },
+    {
+      "id": 322,
+      "expenseID": "EXP-022",
+      "category": "Membership Fees",
+      "vendor": "Chamber of Commerce",
+      "expenseDate": "25/07/2024",
+      "amount": 2500,
+      "status": "Pending"
+    },
+    {
+      "id": 323,
+      "expenseID": "EXP-023",
+      "category": "IT Equipment",
+      "vendor": "CompTech Solutions",
+      "expenseDate": "26/07/2024",
+      "amount": 18000,
+      "status": "Paid"
+    },
+    {
+      "id": 324,
+      "expenseID": "EXP-024",
+      "category": "Bank Charges",
+      "vendor": "First Bank",
+      "expenseDate": "27/07/2024",
+      "amount": 150,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 325,
+      "expenseID": "EXP-025",
+      "category": "Cleaning Services",
+      "vendor": "Sparkle Clean",
+      "expenseDate": "28/07/2024",
+      "amount": 2000,
+      "status": "Paid"
+    },
+    {
+      "id": 326,
+      "expenseID": "EXP-026",
+      "category": "Research & Development",
+      "vendor": "Innovate Lab",
+      "expenseDate": "29/07/2024",
+      "amount": 40000,
+      "status": "Paid"
+    },
+    {
+      "id": 327,
+      "expenseID": "EXP-027",
+      "category": "Photography Services",
+      "vendor": "Pixel Perfect Studio",
+      "expenseDate": "30/07/2024",
+      "amount": 3000,
+      "status": "Pending"
+    },
+    {
+      "id": 328,
+      "expenseID": "EXP-028",
+      "category": "Subscription Services",
+      "vendor": "NewsFeed Premium",
+      "expenseDate": "31/07/2024",
+      "amount": 500,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 329,
+      "expenseID": "EXP-029",
+      "category": "Office Furniture",
+      "vendor": "Furnishings Galore",
+      "expenseDate": "01/08/2024",
+      "amount": 10000,
+      "status": "Paid"
+    },
+    {
+      "id": 330,
+      "expenseID": "EXP-030",
+      "category": "Security Services",
+      "vendor": "SafeGuard Security",
+      "expenseDate": "02/08/2024",
+      "amount": 6000,
+      "status": "Paid"
+    },
+    {
+      "id": 331,
+      "expenseID": "EXP-031",
+      "category": "Software Licenses",
+      "vendor": "Software Solutions",
+      "expenseDate": "03/08/2024",
+      "amount": 7500,
+      "status": "Pending"
+    },
+    {
+      "id": 332,
+      "expenseID": "EXP-032",
+      "category": "Catering",
+      "vendor": "Delicious Bites",
+      "expenseDate": "04/08/2024",
+      "amount": 2800,
+      "status": "Reimbursed"
+    },
+    {
+      "id": 333,
+      "expenseID": "EXP-033",
+      "category": "Employee Welfare",
+      "vendor": "Wellness Hub",
+      "expenseDate": "05/08/2024",
+      "amount": 4000,
+      "status": "Paid"
+    },
+    {
+      "id": 334,
+      "expenseID": "EXP-034",
+      "category": "Professional Development",
+      "vendor": "Growth Workshops",
+      "expenseDate": "06/08/2024",
+      "amount": 9000,
+      "status": "Paid"
+    },
+    {
+      "id": 335,
+      "expenseID": "EXP-035",
+      "category": "Miscellaneous",
+      "vendor": "Various",
+      "expenseDate": "07/08/2024",
+      "amount": 1000,
+      "status": "Pending"
+    }
+  ],
+"vendorOptions":[
+  { "value": "OfficeMart", "label": "OfficeMart" },
+  { "value": "GoTravel Agency", "label": "GoTravel Agency" },
+  { "value": "Electricity Board", "label": "Electricity Board" },
+  { "value": "CloudSoft Inc.", "label": "CloudSoft Inc." },
+  { "value": "AdBoost Solutions", "label": "AdBoost Solutions" },
+  { "value": "FixIt Services", "label": "FixIt Services" },
+  { "value": "Local Cafe", "label": "Local Cafe" },
+  { "value": "SkillUp Academy", "label": "SkillUp Academy" },
+  { "value": "Telecom Provider", "label": "Telecom Provider" },
+  { "value": "Cab Service", "label": "Cab Service" },
+  { "value": "Amazon Web Services", "label": "Amazon Web Services" },
+  { "value": "Google Ads", "label": "Google Ads" },
+  { "value": "Shipping Logistics Pvt Ltd", "label": "Shipping Logistics Pvt Ltd" },
+  { "value": "Maintenance Services India", "label": "Maintenance Services India" }
+],
+"categoryOptions":[
+  { "value": "Office Supplies", "label": "Office Supplies" },
+  { "value": "Travel", "label": "Travel" },
+  { "value": "Utilities", "label": "Utilities" },
+  { "value": "Software Subscriptions", "label": "Software Subscriptions" },
+  { "value": "Marketing", "label": "Marketing" },
+  { "value": "Repairs & Maintenance", "label": "Repairs & Maintenance" },
+  { "value": "Meals & Entertainment", "label": "Meals & Entertainment" },
+  { "value": "Training & Development", "label": "Training & Development" },
+  { "value": "Communication", "label": "Communication" },
+  { "value": "Transportation", "label": "Transportation" },
+  { "value": "Rent", "label": "Rent" },
+  { "value": "Salaries", "label": "Salaries" },
+  { "value": "Freight & Shipping", "label": "Freight & Shipping" },
+  { "value": "Consulting Fees", "label": "Consulting Fees" }
+],
+"purchaseReturns": [
+    {
+      "id": 401,
+      "returnID": "PR-001",
+      "vendor": "OfficeMart",
+      "returnDate": "20/06/2024",
+      "totalAmount": 5000,
+      "status": "Returned",
+      "category": "Office Supplies"
+    },
+    {
+      "id": 402,
+      "returnID": "PR-002",
+      "vendor": "GoTravel Agency",
+      "returnDate": "22/06/2024",
+      "totalAmount": 1500,
+      "status": "Credit_Received",
+      "category": "Travel"
+    },
+    {
+      "id": 403,
+      "returnID": "PR-003",
+      "vendor": "Electricity Board",
+      "returnDate": "25/06/2024",
+      "totalAmount": 0,
+      "status": "Pending",
+      "category": "Utilities"
+    },
+    {
+      "id": 404,
+      "returnID": "PR-004",
+      "vendor": "CloudSoft Inc.",
+      "returnDate": "28/06/2024",
+      "totalAmount": 2000,
+      "status": "Returned",
+      "category": "Software Subscriptions"
+    },
+    {
+      "id": 405,
+      "returnID": "PR-005",
+      "vendor": "AdBoost Solutions",
+      "returnDate": "01/07/2024",
+      "totalAmount": 750,
+      "status": "Credit_Received",
+      "category": "Marketing"
+    },
+    {
+      "id": 406,
+      "returnID": "PR-006",
+      "vendor": "FixIt Services",
+      "returnDate": "03/07/2024",
+      "totalAmount": 1000,
+      "status": "Pending",
+      "category": "Repairs & Maintenance"
+    },
+    {
+      "id": 407,
+      "returnID": "PR-007",
+      "vendor": "Local Cafe",
+      "returnDate": "05/07/2024",
+      "totalAmount": 300,
+      "status": "Returned",
+      "category": "Meals & Entertainment"
+    },
+    {
+      "id": 408,
+      "returnID": "PR-008",
+      "vendor": "SkillUp Academy",
+      "returnDate": "07/07/2024",
+      "totalAmount": 4000,
+      "status": "Credit_Received",
+      "category": "Training & Development"
+    },
+    {
+      "id": 409,
+      "returnID": "PR-009",
+      "vendor": "Telecom Provider",
+      "returnDate": "09/07/2024",
+      "totalAmount": 250,
+      "status": "Pending",
+      "category": "Communication"
+    },
+    {
+      "id": 410,
+      "returnID": "PR-010",
+      "vendor": "Cab Service",
+      "returnDate": "10/07/2024",
+      "totalAmount": 150,
+      "status": "Returned",
+      "category": "Transportation"
+    },
+    {
+      "id": 411,
+      "returnID": "PR-011",
+      "vendor": "Property Management Co.",
+      "returnDate": "12/07/2024",
+      "totalAmount": 2500,
+      "status": "Returned",
+      "category": "Rent"
+    },
+    {
+      "id": 412,
+      "returnID": "PR-012",
+      "vendor": "Payroll Services",
+      "returnDate": "14/07/2024",
+      "totalAmount": 0,
+      "status": "Credit_Received",
+      "category": "Salaries"
+    },
+    {
+      "id": 413,
+      "returnID": "PR-013",
+      "vendor": "LawFirm Associates",
+      "returnDate": "16/07/2024",
+      "totalAmount": 500,
+      "status": "Pending",
+      "category": "Legal Fees"
+    },
+    {
+      "id": 414,
+      "returnID": "PR-014",
+      "vendor": "SecureLife Insurance",
+      "returnDate": "18/07/2024",
+      "totalAmount": 0,
+      "status": "Returned",
+      "category": "Insurance"
+    },
+    {
+      "id": 415,
+      "returnID": "PR-015",
+      "vendor": "HostFast Services",
+      "returnDate": "20/07/2024",
+      "totalAmount": 100,
+      "status": "Credit_Received",
+      "category": "Web Hosting"
+    },
+    {
+      "id": 416,
+      "returnID": "PR-016",
+      "vendor": "Expert Advisory",
+      "returnDate": "22/07/2024",
+      "totalAmount": 2000,
+      "status": "Pending",
+      "category": "Consulting Fees"
+    },
+    {
+      "id": 417,
+      "returnID": "PR-017",
+      "vendor": "PrintHub",
+      "returnDate": "24/07/2024",
+      "totalAmount": 200,
+      "status": "Returned",
+      "category": "Printing & Stationery"
+    },
+    {
+      "id": 418,
+      "returnID": "PR-018",
+      "vendor": "AutoCare Workshop",
+      "returnDate": "26/07/2024",
+      "totalAmount": 700,
+      "status": "Credit_Received",
+      "category": "Vehicle Maintenance"
+    },
+    {
+      "id": 419,
+      "returnID": "PR-019",
+      "vendor": "NetConnect",
+      "returnDate": "28/07/2024",
+      "totalAmount": 50,
+      "status": "Pending",
+      "category": "Internet Services"
+    },
+    {
+      "id": 420,
+      "returnID": "PR-020",
+      "vendor": "Celebration Planners",
+      "returnDate": "30/07/2024",
+      "totalAmount": 5000,
+      "status": "Returned",
+      "category": "Event Management"
+    },
+    {
+      "id": 421,
+      "returnID": "PR-021",
+      "vendor": "Swift Deliveries",
+      "returnDate": "01/08/2024",
+      "totalAmount": 50,
+      "status": "Credit_Received",
+      "category": "Courier Services"
+    },
+    {
+      "id": 422,
+      "returnID": "PR-022",
+      "vendor": "Chamber of Commerce",
+      "returnDate": "03/08/2024",
+      "totalAmount": 0,
+      "status": "Pending",
+      "category": "Membership Fees"
+    },
+    {
+      "id": 423,
+      "returnID": "PR-023",
+      "vendor": "CompTech Solutions",
+      "returnDate": "05/08/2024",
+      "totalAmount": 1000,
+      "status": "Returned",
+      "category": "IT Equipment"
+    },
+    {
+      "id": 424,
+      "returnID": "PR-024",
+      "vendor": "First Bank",
+      "returnDate": "07/08/2024",
+      "totalAmount": 20,
+      "status": "Credit_Received",
+      "category": "Bank Charges"
+    },
+    {
+      "id": 425,
+      "returnID": "PR-025",
+      "vendor": "Sparkle Clean",
+      "returnDate": "09/08/2024",
+      "totalAmount": 100,
+      "status": "Pending",
+      "category": "Cleaning Services"
+    },
+    {
+      "id": 426,
+      "returnID": "PR-026",
+      "vendor": "Innovate Lab",
+      "returnDate": "11/08/2024",
+      "totalAmount": 8000,
+      "status": "Returned",
+      "category": "Research & Development"
+    },
+    {
+      "id": 427,
+      "returnID": "PR-027",
+      "vendor": "Pixel Perfect Studio",
+      "returnDate": "13/08/2024",
+      "totalAmount": 500,
+      "status": "Credit_Received",
+      "category": "Photography Services"
+    },
+    {
+      "id": 428,
+      "returnID": "PR-028",
+      "vendor": "NewsFeed Premium",
+      "returnDate": "15/08/2024",
+      "totalAmount": 100,
+      "status": "Pending",
+      "category": "Subscription Services"
+    },
+    {
+      "id": 429,
+      "returnID": "PR-029",
+      "vendor": "Furnishings Galore",
+      "returnDate": "17/08/2024",
+      "totalAmount": 1500,
+      "status": "Returned",
+      "category": "Office Furniture"
+    },
+    {
+      "id": 430,
+      "returnID": "PR-030",
+      "vendor": "SafeGuard Security",
+      "returnDate": "19/08/2024",
+      "totalAmount": 1000,
+      "status": "Credit_Received",
+      "category": "Security Services"
+    },
+    {
+      "id": 431,
+      "returnID": "PR-031",
+      "vendor": "Software Solutions",
+      "returnDate": "21/08/2024",
+      "totalAmount": 750,
+      "status": "Pending",
+      "category": "Software Licenses"
+    },
+    {
+      "id": 432,
+      "returnID": "PR-032",
+      "vendor": "Delicious Bites",
+      "returnDate": "23/08/2024",
+      "totalAmount": 150,
+      "status": "Returned",
+      "category": "Catering"
+    },
+    {
+      "id": 433,
+      "returnID": "PR-033",
+      "vendor": "Wellness Hub",
+      "returnDate": "25/08/2024",
+      "totalAmount": 200,
+      "status": "Credit_Received",
+      "category": "Employee Welfare"
+    },
+    {
+      "id": 434,
+      "returnID": "PR-034",
+      "vendor": "Growth Workshops",
+      "returnDate": "27/08/2024",
+      "totalAmount": 1000,
+      "status": "Pending",
+      "category": "Professional Development"
+    },
+    {
+      "id": 435,
+      "returnID": "PR-035",
+      "vendor": "Various",
+      "returnDate": "29/08/2024",
+      "totalAmount": 50,
+      "status": "Returned",
+      "category": "Miscellaneous"
+    }
+  ],
+
+"salesReturns": [
+    {
+      "id": 501,
+      "returnID": "SR-001",
+      "customer": "ABC Enterprises",
+      "returnDate": "15/06/2024",
+      "totalAmount": 7500,
+      "status": "Refunded",
+      "category": "Electronics"
+    },
+    {
+      "id": 502,
+      "returnID": "SR-002",
+      "customer": "XYZ Solutions",
+      "returnDate": "18/06/2024",
+      "totalAmount": 2000,
+      "status": "Credit_Issued",
+      "category": "Office Supplies"
+    },
+    {
+      "id": 503,
+      "returnID": "SR-003",
+      "customer": "Global Corp",
+      "returnDate": "20/06/2024",
+      "totalAmount": 0,
+      "status": "Pending",
+      "category": "Software"
+    },
+    {
+      "id": 504,
+      "returnID": "SR-004",
+      "customer": "Tech Innovators",
+      "returnDate": "25/06/2024",
+      "totalAmount": 12000,
+      "status": "Refunded",
+      "category": "Machinery"
+    },
+    {
+      "id": 505,
+      "returnID": "SR-005",
+      "customer": "Retail Express",
+      "returnDate": "28/06/2024",
+      "totalAmount": 500,
+      "status": "Credit_Issued",
+      "category": "Apparel"
+    },
+    {
+      "id": 506,
+      "returnID": "SR-006",
+      "customer": "Innovate Ltd.",
+      "returnDate": "01/07/2024",
+      "totalAmount": 3000,
+      "status": "Pending",
+      "category": "Home Goods"
+    },
+    {
+      "id": 507,
+      "returnID": "SR-007",
+      "customer": "Dynamic Solutions",
+      "returnDate": "03/07/2024",
+      "totalAmount": 1800,
+      "status": "Refunded",
+      "category": "Furniture"
+    },
+    {
+      "id": 508,
+      "returnID": "SR-008",
+      "customer": "NextGen Systems",
+      "returnDate": "05/07/2024",
+      "totalAmount": 6000,
+      "status": "Credit_Issued",
+      "category": "Tools"
+    },
+    {
+      "id": 509,
+      "returnID": "SR-009",
+      "customer": "Precision Tools",
+      "returnDate": "08/07/2024",
+      "totalAmount": 900,
+      "status": "Pending",
+      "category": "Automotive"
+    },
+    {
+      "id": 510,
+      "returnID": "SR-010",
+      "customer": "Future Tech",
+      "returnDate": "10/07/2024",
+      "totalAmount": 4500,
+      "status": "Refunded",
+      "category": "Networking"
+    },
+    {
+      "id": 511,
+      "returnID": "SR-011",
+      "customer": "Green Energy Co.",
+      "returnDate": "12/07/2024",
+      "totalAmount": 1500,
+      "status": "Credit_Issued",
+      "category": "Renewable Energy"
+    },
+    {
+      "id": 512,
+      "returnID": "SR-012",
+      "customer": "Urban Logistics",
+      "returnDate": "14/07/2024",
+      "totalAmount": 700,
+      "status": "Pending",
+      "category": "Logistics"
+    },
+    {
+      "id": 513,
+      "returnID": "SR-013",
+      "customer": "Aqua Pure Water",
+      "returnDate": "16/07/2024",
+      "totalAmount": 250,
+      "status": "Refunded",
+      "category": "Beverages"
+    },
+    {
+      "id": 514,
+      "returnID": "SR-014",
+      "customer": "Summit Builders",
+      "returnDate": "18/07/2024",
+      "totalAmount": 8000,
+      "status": "Credit_Issued",
+      "category": "Building Materials"
+    },
+    {
+      "id": 515,
+      "returnID": "SR-015",
+      "customer": "Fashion Forward",
+      "returnDate": "20/07/2024",
+      "totalAmount": 1200,
+      "status": "Pending",
+      "category": "Apparel"
+    },
+    {
+      "id": 516,
+      "returnID": "SR-016",
+      "customer": "MediCorp Supplies",
+      "returnDate": "22/07/2024",
+      "totalAmount": 3000,
+      "status": "Refunded",
+      "category": "Medical Supplies"
+    },
+    {
+      "id": 517,
+      "returnID": "SR-017",
+      "customer": "EduTech Solutions",
+      "returnDate": "24/07/2024",
+      "totalAmount": 900,
+      "status": "Credit_Issued",
+      "category": "Educational Equipment"
+    },
+    {
+      "id": 518,
+      "returnID": "SR-018",
+      "customer": "AgriGrow Farms",
+      "returnDate": "26/07/2024",
+      "totalAmount": 400,
+      "status": "Pending",
+      "category": "Agricultural Products"
+    },
+    {
+      "id": 519,
+      "returnID": "SR-019",
+      "customer": "Home Comforts",
+      "returnDate": "28/07/2024",
+      "totalAmount": 2500,
+      "status": "Refunded",
+      "category": "Furniture"
+    },
+    {
+      "id": 520,
+      "returnID": "SR-020",
+      "customer": "Clean Sweep Services",
+      "returnDate": "30/07/2024",
+      "totalAmount": 200,
+      "status": "Credit_Issued",
+      "category": "Cleaning Supplies"
+    },
+    {
+      "id": 521,
+      "returnID": "SR-021",
+      "customer": "Digital Dreams",
+      "returnDate": "01/08/2024",
+      "totalAmount": 5000,
+      "status": "Refunded",
+      "category": "Software"
+    },
+    {
+      "id": 522,
+      "returnID": "SR-022",
+      "customer": "Power Solutions",
+      "returnDate": "03/08/2024",
+      "totalAmount": 1000,
+      "status": "Credit_Issued",
+      "category": "Electrical Equipment"
+    },
+    {
+      "id": 523,
+      "returnID": "SR-023",
+      "customer": "Artistic Creations",
+      "returnDate": "05/08/2024",
+      "totalAmount": 150,
+      "status": "Pending",
+      "category": "Art Supplies"
+    },
+    {
+      "id": 524,
+      "returnID": "SR-024",
+      "customer": "Global Food Distributors",
+      "returnDate": "07/08/2024",
+      "totalAmount": 1000,
+      "status": "Refunded",
+      "category": "Perishables"
+    },
+    {
+      "id": 525,
+      "returnID": "SR-025",
+      "customer": "Secure Systems Inc.",
+      "returnDate": "09/08/2024",
+      "totalAmount": 4000,
+      "status": "Credit_Issued",
+      "category": "Security Equipment"
+    },
+    {
+      "id": 526,
+      "returnID": "SR-026",
+      "customer": "Eco-Friendly Packaging",
+      "returnDate": "11/08/2024",
+      "totalAmount": 300,
+      "status": "Pending",
+      "category": "Packaging Materials"
+    },
+    {
+      "id": 527,
+      "returnID": "SR-027",
+      "customer": "Prime Auto Parts",
+      "returnDate": "13/08/2024",
+      "totalAmount": 2000,
+      "status": "Refunded",
+      "category": "Automotive Parts"
+    },
+    {
+      "id": 528,
+      "returnID": "SR-028",
+      "customer": "Health & Wellness Co.",
+      "returnDate": "15/08/2024",
+      "totalAmount": 600,
+      "status": "Credit_Issued",
+      "category": "Health Products"
+    },
+    {
+      "id": 529,
+      "returnID": "SR-029",
+      "customer": "Construction Pros",
+      "returnDate": "17/08/2024",
+      "totalAmount": 9000,
+      "status": "Pending",
+      "category": "Heavy Equipment"
+    },
+    {
+      "id": 530,
+      "returnID": "SR-030",
+      "customer": "Office Solutions Hub",
+      "returnDate": "19/08/2024",
+      "totalAmount": 300,
+      "status": "Refunded",
+      "category": "Stationery"
+    },
+    {
+      "id": 531,
+      "returnID": "SR-031",
+      "customer": "Tech Gadgets Store",
+      "returnDate": "21/08/2024",
+      "totalAmount": 1800,
+      "status": "Credit_Issued",
+      "category": "Electronics"
+    },
+    {
+      "id": 532,
+      "returnID": "SR-032",
+      "customer": "Garden Essentials",
+      "returnDate": "23/08/2024",
+      "totalAmount": 250,
+      "status": "Pending",
+      "category": "Gardening Tools"
+    },
+    {
+      "id": 533,
+      "returnID": "SR-033",
+      "customer": "Sports Gear Outlet",
+      "returnDate": "25/08/2024",
+      "totalAmount": 700,
+      "status": "Refunded",
+      "category": "Sporting Goods"
+    },
+    {
+      "id": 534,
+      "returnID": "SR-034",
+      "customer": "Pet Care Supplies",
+      "returnDate": "27/08/2024",
+      "totalAmount": 150,
+      "status": "Credit_Issued",
+      "category": "Pet Products"
+    },
+    {
+      "id": 535,
+      "returnID": "SR-035",
+      "customer": "Music Mania Store",
+      "returnDate": "29/08/2024",
+      "totalAmount": 2500,
+      "status": "Pending",
+      "category": "Musical Instruments"
+    }
+  ],
+
+"salesOrders": [
+    {
+      "id": 601,
+      "orderID": "SO-001",
+      "customer": "ABC Enterprises",
+      "orderDate": "01/07/2024",
+      "deliveryDate": "10/07/2024",
+      "totalAmount": 25000,
+      "status": "Delivered",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 602,
+      "orderID": "SO-002",
+      "customer": "XYZ Solutions",
+      "orderDate": "02/07/2024",
+      "deliveryDate": "15/07/2024",
+      "totalAmount": 18500,
+      "status": "Shipped",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 603,
+      "orderID": "SO-003",
+      "customer": "Global Corp",
+      "orderDate": "03/07/2024",
+      "deliveryDate": "12/07/2024",
+      "totalAmount": 32000,
+      "status": "Confirmed",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 604,
+      "orderID": "SO-004",
+      "customer": "Tech Innovators",
+      "orderDate": "04/07/2024",
+      "deliveryDate": "20/07/2024",
+      "totalAmount": 12000,
+      "status": "Pending",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 605,
+      "orderID": "SO-005",
+      "customer": "Retail Express",
+      "orderDate": "05/07/2024",
+      "deliveryDate": "08/07/2024",
+      "totalAmount": 7500,
+      "status": "Delivered",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 606,
+      "orderID": "SO-006",
+      "customer": "Innovate Ltd.",
+      "orderDate": "06/07/2024",
+      "deliveryDate": "22/07/2024",
+      "totalAmount": 45000,
+      "status": "Confirmed",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 607,
+      "orderID": "SO-007",
+      "customer": "Dynamic Solutions",
+      "orderDate": "07/07/2024",
+      "deliveryDate": "14/07/2024",
+      "totalAmount": 9800,
+      "status": "Shipped",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 608,
+      "orderID": "SO-008",
+      "customer": "NextGen Systems",
+      "orderDate": "08/07/2024",
+      "deliveryDate": "25/07/2024",
+      "totalAmount": 60000,
+      "status": "Pending",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 609,
+      "orderID": "SO-009",
+      "customer": "Precision Tools",
+      "orderDate": "09/07/2024",
+      "deliveryDate": "11/07/2024",
+      "totalAmount": 3500,
+      "status": "Cancelled",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 610,
+      "orderID": "SO-010",
+      "customer": "Future Tech",
+      "orderDate": "10/07/2024",
+      "deliveryDate": "18/07/2024",
+      "totalAmount": 29000,
+      "status": "Confirmed",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 611,
+      "orderID": "SO-011",
+      "customer": "Green Energy Co.",
+      "orderDate": "11/07/2024",
+      "deliveryDate": "20/07/2024",
+      "totalAmount": 19000,
+      "status": "Shipped",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 612,
+      "orderID": "SO-012",
+      "customer": "Urban Logistics",
+      "orderDate": "12/07/2024",
+      "deliveryDate": "25/07/2024",
+      "totalAmount": 11000,
+      "status": "Pending",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 613,
+      "orderID": "SO-013",
+      "customer": "Aqua Pure Water",
+      "orderDate": "13/07/2024",
+      "deliveryDate": "19/07/2024",
+      "totalAmount": 6000,
+      "status": "Delivered",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 614,
+      "orderID": "SO-014",
+      "customer": "Summit Builders",
+      "orderDate": "14/07/2024",
+      "deliveryDate": "28/07/2024",
+      "totalAmount": 50000,
+      "status": "Confirmed",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 615,
+      "orderID": "SO-015",
+      "customer": "Fashion Forward",
+      "orderDate": "15/07/2024",
+      "deliveryDate": "17/07/2024",
+      "totalAmount": 9000,
+      "status": "Cancelled",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 616,
+      "orderID": "SO-016",
+      "customer": "MediCorp Supplies",
+      "orderDate": "16/07/2024",
+      "deliveryDate": "30/07/2024",
+      "totalAmount": 25000,
+      "status": "Shipped",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 617,
+      "orderID": "SO-017",
+      "customer": "EduTech Solutions",
+      "orderDate": "17/07/2024",
+      "deliveryDate": "24/07/2024",
+      "totalAmount": 14000,
+      "status": "Delivered",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 618,
+      "orderID": "SO-018",
+      "customer": "AgriGrow Farms",
+      "orderDate": "18/07/2024",
+      "deliveryDate": "01/08/2024",
+      "totalAmount": 7000,
+      "status": "Pending",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 619,
+      "orderID": "SO-019",
+      "customer": "Home Comforts",
+      "orderDate": "19/07/2024",
+      "deliveryDate": "26/07/2024",
+      "totalAmount": 16000,
+      "status": "Confirmed",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 620,
+      "orderID": "SO-020",
+      "customer": "Clean Sweep Services",
+      "orderDate": "20/07/2024",
+      "deliveryDate": "29/07/2024",
+      "totalAmount": 4500,
+      "status": "Shipped",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 621,
+      "orderID": "SO-021",
+      "customer": "Digital Dreams",
+      "orderDate": "21/07/2024",
+      "deliveryDate": "05/08/2024",
+      "totalAmount": 29000,
+      "status": "Pending",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 622,
+      "orderID": "SO-022",
+      "customer": "Power Solutions",
+      "orderDate": "22/07/2024",
+      "deliveryDate": "28/07/2024",
+      "totalAmount": 38000,
+      "status": "Delivered",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 623,
+      "orderID": "SO-023",
+      "customer": "Artistic Creations",
+      "orderDate": "23/07/2024",
+      "deliveryDate": "02/08/2024",
+      "totalAmount": 5500,
+      "status": "Confirmed",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 624,
+      "orderID": "SO-024",
+      "customer": "Global Food Distributors",
+      "orderDate": "24/07/2024",
+      "deliveryDate": "07/08/2024",
+      "totalAmount": 13000,
+      "status": "Shipped",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 625,
+      "orderID": "SO-025",
+      "customer": "Secure Systems Inc.",
+      "orderDate": "25/07/2024",
+      "deliveryDate": "27/07/2024",
+      "totalAmount": 21000,
+      "status": "Cancelled",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 626,
+      "orderID": "SO-026",
+      "customer": "Eco-Friendly Packaging",
+      "orderDate": "26/07/2024",
+      "deliveryDate": "10/08/2024",
+      "totalAmount": 8500,
+      "status": "Pending",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 627,
+      "orderID": "SO-027",
+      "customer": "Prime Auto Parts",
+      "orderDate": "27/07/2024",
+      "deliveryDate": "03/08/2024",
+      "totalAmount": 17000,
+      "status": "Delivered",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 628,
+      "orderID": "SO-028",
+      "customer": "Health & Wellness Co.",
+      "orderDate": "28/07/2024",
+      "deliveryDate": "12/08/2024",
+      "totalAmount": 10000,
+      "status": "Confirmed",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 629,
+      "orderID": "SO-029",
+      "customer": "Construction Pros",
+      "orderDate": "29/07/2024",
+      "deliveryDate": "04/08/2024",
+      "totalAmount": 42000,
+      "status": "Shipped",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 630,
+      "orderID": "SO-030",
+      "customer": "Office Solutions Hub",
+      "orderDate": "30/07/2024",
+      "deliveryDate": "15/08/2024",
+      "totalAmount": 6500,
+      "status": "Pending",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 631,
+      "orderID": "SO-031",
+      "customer": "Tech Gadgets Store",
+      "orderDate": "31/07/2024",
+      "deliveryDate": "06/08/2024",
+      "totalAmount": 23000,
+      "status": "Delivered",
+      "salesperson": "Rajesh Kumar"
+    },
+    {
+      "id": 632,
+      "orderID": "SO-032",
+      "customer": "Garden Essentials",
+      "orderDate": "01/08/2024",
+      "deliveryDate": "18/08/2024",
+      "totalAmount": 5000,
+      "status": "Confirmed",
+      "salesperson": "Amit Singh"
+    },
+    {
+      "id": 633,
+      "orderID": "SO-033",
+      "customer": "Sports Gear Outlet",
+      "orderDate": "02/08/2024",
+      "deliveryDate": "09/08/2024",
+      "totalAmount": 11500,
+      "status": "Shipped",
+      "salesperson": "Sonia Gandhi"
+    },
+    {
+      "id": 634,
+      "orderID": "SO-034",
+      "customer": "Pet Care Supplies",
+      "orderDate": "03/08/2024",
+      "deliveryDate": "20/08/2024",
+      "totalAmount": 3000,
+      "status": "Pending",
+      "salesperson": "Priya Sharma"
+    },
+    {
+      "id": 635,
+      "orderID": "SO-035",
+      "customer": "Music Mania Store",
+      "orderDate": "04/08/2024",
+      "deliveryDate": "07/08/2024",
+      "totalAmount": 18000,
+      "status": "Cancelled",
+      "salesperson": "Rajesh Kumar"
+    }
+  ],
+"salespersonOptions":[
+  { "value": "Rajesh Kumar", "label": "Rajesh Kumar" },
+  { "value": "Priya Sharma", "label": "Priya Sharma" },
+  { "value": "Amit Singh", "label": "Amit Singh" },
+  { "value": "Sonia Gandhi", "label": "Sonia Gandhi" },
+  { "value": "Vikram Desai", "label": "Vikram Desai" },
+  { "value": "Deepa Reddy", "label": "Deepa Reddy" }
+],
+"products": [
+    {
+      "id": 701,
+      "productID": "PROD-001",
+      "name": "Laptop Pro X1",
+      "category": "Electronics",
+      "unitPrice": 75000,
+      "stockQuantity": 150,
+      "status": "In Stock"
+    },
+    {
+      "id": 702,
+      "productID": "PROD-002",
+      "name": "Ergonomic Office Chair",
+      "category": "Office Furniture",
+      "unitPrice": 12000,
+      "stockQuantity": 25,
+      "status": "Low Stock"
+    },
+    {
+      "id": 703,
+      "productID": "PROD-003",
+      "name": "Wireless Mouse M300",
+      "category": "Computer Accessories",
+      "unitPrice": 850,
+      "stockQuantity": 0,
+      "status": "Out of Stock"
+    },
+    {
+      "id": 704,
+      "productID": "PROD-004",
+      "name": "4K UHD Monitor 27-inch",
+      "category": "Electronics",
+      "unitPrice": 28000,
+      "stockQuantity": 80,
+      "status": "In Stock"
+    },
+    {
+      "id": 705,
+      "productID": "PROD-005",
+      "name": "Premium Printer Paper (Ream)",
+      "category": "Office Supplies",
+      "unitPrice": 350,
+      "stockQuantity": 10,
+      "status": "Low Stock"
+    },
+    {
+      "id": 706,
+      "productID": "PROD-006",
+      "name": "External SSD 1TB",
+      "category": "Computer Accessories",
+      "unitPrice": 9500,
+      "stockQuantity": 5,
+      "status": "Low Stock"
+    },
+    {
+      "id": 707,
+      "productID": "PROD-007",
+      "name": "Smart Speaker Echo Dot",
+      "category": "Electronics",
+      "unitPrice": 3999,
+      "stockQuantity": 0,
+      "status": "Out of Stock"
+    },
+    {
+      "id": 708,
+      "productID": "PROD-008",
+      "name": "Conference Table 8-seater",
+      "category": "Office Furniture",
+      "unitPrice": 45000,
+      "stockQuantity": 2,
+      "status": "Low Stock"
+    },
+    {
+      "id": 709,
+      "productID": "PROD-009",
+      "name": "USB-C Hub Multi-port",
+      "category": "Computer Accessories",
+      "unitPrice": 1800,
+      "stockQuantity": 70,
+      "status": "In Stock"
+    },
+    {
+      "id": 710,
+      "productID": "PROD-010",
+      "name": "Old Desktop Model 2015",
+      "category": "Electronics",
+      "unitPrice": 5000,
+      "stockQuantity": 0,
+      "status": "Discontinued"
+    },
+    {
+      "id": 711,
+      "productID": "PROD-011",
+      "name": "Webcam HD Pro",
+      "category": "Computer Accessories",
+      "unitPrice": 2500,
+      "stockQuantity": 30,
+      "status": "In Stock"
+    },
+    {
+      "id": 712,
+      "productID": "PROD-012",
+      "name": "Notebook (A4, 200 pages)",
+      "category": "Office Supplies",
+      "unitPrice": 150,
+      "stockQuantity": 150,
+      "status": "In Stock"
+    },
+    {
+      "id": 713,
+      "productID": "PROD-013",
+      "name": "Shredder Office Grade",
+      "category": "Office Equipment",
+      "unitPrice": 8000,
+      "stockQuantity": 3,
+      "status": "Low Stock"
+    },
+    {
+      "id": 714,
+      "productID": "PROD-014",
+      "name": "Projector Mini",
+      "category": "Electronics",
+      "unitPrice": 15000,
+      "stockQuantity": 15,
+      "status": "In Stock"
+    },
+    {
+      "id": 715,
+      "productID": "PROD-015",
+      "name": "Wireless Keyboard",
+      "category": "Computer Accessories",
+      "unitPrice": 1200,
+      "stockQuantity": 40,
+      "status": "In Stock"
+    },
+    {
+      "id": 716,
+      "productID": "PROD-016",
+      "name": "Binder Clips (Box)",
+      "category": "Office Supplies",
+      "unitPrice": 80,
+      "stockQuantity": 200,
+      "status": "In Stock"
+    },
+    {
+      "id": 717,
+      "productID": "PROD-017",
+      "name": "Standing Desk",
+      "category": "Office Furniture",
+      "unitPrice": 22000,
+      "stockQuantity": 7,
+      "status": "Low Stock"
+    },
+    {
+      "id": 718,
+      "productID": "PROD-018",
+      "name": "Gaming Headset",
+      "category": "Electronics",
+      "unitPrice": 6000,
+      "stockQuantity": 0,
+      "status": "Out of Stock"
+    },
+    {
+      "id": 719,
+      "productID": "PROD-019",
+      "name": "External Hard Drive 2TB",
+      "category": "Computer Accessories",
+      "unitPrice": 11000,
+      "stockQuantity": 10,
+      "status": "In Stock"
+    },
+    {
+      "id": 720,
+      "productID": "PROD-020",
+      "name": "Whiteboard (Large)",
+      "category": "Office Equipment",
+      "unitPrice": 3500,
+      "stockQuantity": 5,
+      "status": "Low Stock"
+    },
+    {
+      "id": 721,
+      "productID": "PROD-021",
+      "name": "Smartwatch S2",
+      "category": "Wearable Technology",
+      "unitPrice": 18000,
+      "stockQuantity": 20,
+      "status": "In Stock"
+    },
+    {
+      "id": 722,
+      "productID": "PROD-022",
+      "name": "Portable Bluetooth Speaker",
+      "category": "Audio Devices",
+      "unitPrice": 2500,
+      "stockQuantity": 0,
+      "status": "Out of Stock"
+    },
+    {
+      "id": 723,
+      "productID": "PROD-023",
+      "name": "LED Desk Lamp",
+      "category": "Office Accessories",
+      "unitPrice": 900,
+      "stockQuantity": 50,
+      "status": "In Stock"
+    },
+    {
+      "id": 724,
+      "productID": "PROD-024",
+      "name": "Graphic Tablet",
+      "category": "Computer Accessories",
+      "unitPrice": 14000,
+      "stockQuantity": 8,
+      "status": "Low Stock"
+    },
+    {
+      "id": 725,
+      "productID": "PROD-025",
+      "name": "Security Camera System",
+      "category": "Security Devices",
+      "unitPrice": 35000,
+      "stockQuantity": 4,
+      "status": "In Stock"
+    }
+  ],
+"contacts": [
+    {
+      "id": 801,
+      "contactID": "C-001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "phone": "+919876543210",
+      "company": "ABC Enterprises",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 802,
+      "contactID": "C-002",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "phone": "+919123456789",
+      "company": "XYZ Solutions",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 803,
+      "contactID": "C-003",
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "email": "alice.j@example.com",
+      "phone": "+919988776655",
+      "company": "Global Corp",
+      "type": "Customer",
+      "status": "Lead"
+    },
+    {
+      "id": 804,
+      "contactID": "C-004",
+      "firstName": "Bob",
+      "lastName": "Williams",
+      "email": "bob.w@example.com",
+      "phone": "+918765432109",
+      "company": "Tech Innovators",
+      "type": "Other",
+      "status": "Active"
+    },
+    {
+      "id": 805,
+      "contactID": "C-005",
+      "firstName": "Charlie",
+      "lastName": "Brown",
+      "email": "charlie.b@example.com",
+      "phone": "+917654321098",
+      "company": "Retail Express",
+      "type": "Customer",
+      "status": "Inactive"
+    },
+    {
+      "id": 806,
+      "contactID": "C-006",
+      "firstName": "Diana",
+      "lastName": "Prince",
+      "email": "diana.p@example.com",
+      "phone": "+919012345678",
+      "company": "Innovate Ltd.",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 807,
+      "contactID": "C-007",
+      "firstName": "Eve",
+      "lastName": "Davis",
+      "email": "eve.d@example.com",
+      "phone": "+918123456789",
+      "company": "Dynamic Solutions",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 808,
+      "contactID": "C-008",
+      "firstName": "Frank",
+      "lastName": "Miller",
+      "email": "frank.m@example.com",
+      "phone": "+917012345678",
+      "company": "NextGen Systems",
+      "type": "Other",
+      "status": "Lead"
+    },
+    {
+      "id": 809,
+      "contactID": "C-009",
+      "firstName": "Grace",
+      "lastName": "Wilson",
+      "email": "grace.w@example.com",
+      "phone": "+919998887766",
+      "company": "Precision Tools",
+      "type": "Vendor",
+      "status": "Inactive"
+    },
+    {
+      "id": 810,
+      "contactID": "C-010",
+      "firstName": "Henry",
+      "lastName": "Moore",
+      "email": "henry.m@example.com",
+      "phone": "+919876509876",
+      "company": "Future Tech",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 811,
+      "contactID": "C-011",
+      "firstName": "Isabel",
+      "lastName": "Taylor",
+      "email": "isabel.t@example.com",
+      "phone": "+919234567890",
+      "company": "Green Energy Co.",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 812,
+      "contactID": "C-012",
+      "firstName": "Jack",
+      "lastName": "Anderson",
+      "email": "jack.a@example.com",
+      "phone": "+918345678901",
+      "company": "Urban Logistics",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 813,
+      "contactID": "C-013",
+      "firstName": "Karen",
+      "lastName": "Thomas",
+      "email": "karen.t@example.com",
+      "phone": "+917456789012",
+      "company": "Aqua Pure Water",
+      "type": "Customer",
+      "status": "Lead"
+    },
+    {
+      "id": 814,
+      "contactID": "C-014",
+      "firstName": "Liam",
+      "lastName": "Jackson",
+      "email": "liam.j@example.com",
+      "phone": "+919567890123",
+      "company": "Summit Builders",
+      "type": "Other",
+      "status": "Active"
+    },
+    {
+      "id": 815,
+      "contactID": "C-015",
+      "firstName": "Mia",
+      "lastName": "White",
+      "email": "mia.w@example.com",
+      "phone": "+918678901234",
+      "company": "Fashion Forward",
+      "type": "Customer",
+      "status": "Inactive"
+    },
+    {
+      "id": 816,
+      "contactID": "C-016",
+      "firstName": "Noah",
+      "lastName": "Harris",
+      "email": "noah.h@example.com",
+      "phone": "+917789012345",
+      "company": "MediCorp Supplies",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 817,
+      "contactID": "C-017",
+      "firstName": "Olivia",
+      "lastName": "Martin",
+      "email": "olivia.m@example.com",
+      "phone": "+919890123456",
+      "company": "EduTech Solutions",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 818,
+      "contactID": "C-018",
+      "firstName": "Peter",
+      "lastName": "Garcia",
+      "email": "peter.g@example.com",
+      "phone": "+918901234567",
+      "company": "AgriGrow Farms",
+      "type": "Other",
+      "status": "Lead"
+    },
+    {
+      "id": 819,
+      "contactID": "C-019",
+      "firstName": "Quinn",
+      "lastName": "Martinez",
+      "email": "quinn.m@example.com",
+      "phone": "+917012345678",
+      "company": "Home Comforts",
+      "type": "Vendor",
+      "status": "Inactive"
+    },
+    {
+      "id": 820,
+      "contactID": "C-020",
+      "firstName": "Rachel",
+      "lastName": "Rodriguez",
+      "email": "rachel.r@example.com",
+      "phone": "+919123456789",
+      "company": "Clean Sweep Services",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 821,
+      "contactID": "C-021",
+      "firstName": "Sam",
+      "lastName": "Lee",
+      "email": "sam.l@example.com",
+      "phone": "+919234567890",
+      "company": "Digital Dreams",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 822,
+      "contactID": "C-022",
+      "firstName": "Tina",
+      "lastName": "Hernandez",
+      "email": "tina.h@example.com",
+      "phone": "+918345678901",
+      "company": "Power Solutions",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 823,
+      "contactID": "C-023",
+      "firstName": "Uma",
+      "lastName": "Gonzales",
+      "email": "uma.g@example.com",
+      "phone": "+917456789012",
+      "company": "Artistic Creations",
+      "type": "Customer",
+      "status": "Lead"
+    },
+    {
+      "id": 824,
+      "contactID": "C-024",
+      "firstName": "Victor",
+      "lastName": "Perez",
+      "email": "victor.p@example.com",
+      "phone": "+919567890123",
+      "company": "Global Food Distributors",
+      "type": "Other",
+      "status": "Active"
+    },
+    {
+      "id": 825,
+      "contactID": "C-025",
+      "firstName": "Wendy",
+      "lastName": "Roberts",
+      "email": "wendy.r@example.com",
+      "phone": "+918678901234",
+      "company": "Secure Systems Inc.",
+      "type": "Customer",
+      "status": "Inactive"
+    },
+    {
+      "id": 826,
+      "contactID": "C-026",
+      "firstName": "Xavier",
+      "lastName": "Campbell",
+      "email": "xavier.c@example.com",
+      "phone": "+917789012345",
+      "company": "Eco-Friendly Packaging",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 827,
+      "contactID": "C-027",
+      "firstName": "Yara",
+      "lastName": "Mitchell",
+      "email": "yara.m@example.com",
+      "phone": "+919890123456",
+      "company": "Prime Auto Parts",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 828,
+      "contactID": "C-028",
+      "firstName": "Zack",
+      "lastName": "Ramirez",
+      "email": "zack.r@example.com",
+      "phone": "+918901234567",
+      "company": "Health & Wellness Co.",
+      "type": "Other",
+      "status": "Lead"
+    },
+    {
+      "id": 829,
+      "contactID": "C-029",
+      "firstName": "Anna",
+      "lastName": "Cook",
+      "email": "anna.c@example.com",
+      "phone": "+917012345678",
+      "company": "Construction Pros",
+      "type": "Vendor",
+      "status": "Inactive"
+    },
+    {
+      "id": 830,
+      "contactID": "C-030",
+      "firstName": "Ben",
+      "lastName": "Bell",
+      "email": "ben.b@example.com",
+      "phone": "+919123456789",
+      "company": "Office Solutions Hub",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 831,
+      "contactID": "C-031",
+      "firstName": "Chloe",
+      "lastName": "Flores",
+      "email": "chloe.f@example.com",
+      "phone": "+919234567890",
+      "company": "Tech Gadgets Store",
+      "type": "Customer",
+      "status": "Active"
+    },
+    {
+      "id": 832,
+      "contactID": "C-032",
+      "firstName": "David",
+      "lastName": "Scott",
+      "email": "david.s@example.com",
+      "phone": "+918345678901",
+      "company": "Garden Essentials",
+      "type": "Vendor",
+      "status": "Active"
+    },
+    {
+      "id": 833,
+      "contactID": "C-033",
+      "firstName": "Emily",
+      "lastName": "Green",
+      "email": "emily.g@example.com",
+      "phone": "+917456789012",
+      "company": "Sports Gear Outlet",
+      "type": "Customer",
+      "status": "Lead"
+    },
+    {
+      "id": 834,
+      "contactID": "C-034",
+      "firstName": "Fred",
+      "lastName": "Adams",
+      "email": "fred.a@example.com",
+      "phone": "+919567890123",
+      "company": "Pet Care Supplies",
+      "type": "Other",
+      "status": "Active"
+    },
+    {
+      "id": 835,
+      "contactID": "C-035",
+      "firstName": "Georgia",
+      "lastName": "Baker",
+      "email": "georgia.b@example.com",
+      "phone": "+918678901234",
+      "company": "Music Mania Store",
+      "type": "Customer",
+      "status": "Inactive"
+    }
+  ],
+"companyOptions":[
+  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
+  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
+  { "value": "Global Corp", "label": "Global Corp" },
+  { "value": "Tech Innovators", "label": "Tech Innovators" },
+  { "value": "Retail Express", "label": "Retail Express" },
+  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
+  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
+  { "value": "NextGen Systems", "label": "NextGen Systems" },
+  { "value": "Precision Tools", "label": "Precision Tools" },
+  { "value": "Future Tech", "label": "Future Tech" }
+]
 }
