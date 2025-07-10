@@ -9,17 +9,16 @@ import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 
-interface Invoice {
+interface DeliveryChallan {
   id: number;
-  invoiceNumber: string;
+  challanNumber: string;
   customer: string;
-  invoiceDate: string;
-  dueDate: string;
+  challanDate: string;
+  deliveryDate: string;
   totalAmount: number;
   status: string;
   category: string;
 }
-
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -59,46 +58,44 @@ function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
   );
 }
 
-type TabKey = "all" | "pending" | "paid" | "overdue";
+type TabKey = "all" | "draft" | "delivered" | "in_transit" | "cancelled";
 
-const InvoiceList = () => {
+const DeliveryChallanList = () => {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
-  const [isInvoiceDropdownOpen, setInvoiceDropdownOpen] = useState(false);
+  const [isChallanDropdownOpen, setChallanDropdownOpen] = useState(false);
   const viewRef = useRef(null);
-  const invoiceRef = useRef(null);
+  const challanRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [customerOptions, setCustomerOptions] = useState<Option[]>([]);
+  const [deliveryChallans, setDeliveryChallans] = useState<DeliveryChallan[]>([]);
+  const [deliveryChallanOptions, setdeliveryChallanOptions] = useState<Option[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchInvoiceData = async () => {
+    const fetchDeliveryChallanData = async () => {
       try {
-        const [invoicesResponse, customersResponse] = await Promise.all([
-            fetch("http://localhost:4000/invoices"),
-          fetch("http://localhost:4000/customerOptions"),
+        const [deliveryChallansResponse, customersResponse] = await Promise.all([
+          fetch("http://localhost:4000/deliveryChallans"),
+          fetch("http://localhost:4000/deliveryChallanOptions"),
         ]);
 
-        if (!invoicesResponse.ok) {
-          throw new Error(`HTTP error! Status: ${invoicesResponse.status} from /invoices`);
+        if (!deliveryChallansResponse.ok) {
+          throw new Error(`HTTP error! Status: ${deliveryChallansResponse.status} from /deliveryChallans`);
         }
         if (!customersResponse.ok) {
-          throw new Error(`HTTP error! Status: ${customersResponse.status} from /customerOptions`);
+          throw new Error(`HTTP error! Status: ${customersResponse.status} from /deliveryChallanOptions`);
         }
 
-        const invoicesData: Invoice[] = await invoicesResponse.json();
+        const deliveryChallansData: DeliveryChallan[] = await deliveryChallansResponse.json();
         const customersData: Option[] = await customersResponse.json();
 
-     
-
-        setInvoices(invoicesData);
-        setCustomerOptions(customersData);
+        setDeliveryChallans(deliveryChallansData);
+        setdeliveryChallanOptions(customersData);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -111,27 +108,27 @@ const InvoiceList = () => {
       }
     };
 
-    fetchInvoiceData();
+    fetchDeliveryChallanData();
   }, []);
 
   const handleDelete = () => {
-    console.log("Deleting invoices with IDs:", selectedIds);
+    console.log("Deleting delivery challans with IDs:", selectedIds);
     setIsModalOpen(false);
     setSelectedIds([]);
   };
 
   const handleClickOutside = (e: MouseEvent) => {
     if (
-      viewRef.current && 
+      viewRef.current &&
       !(viewRef.current as any).contains(e.target)
     ) {
       setViewDropdownOpen(false);
     }
     if (
-      invoiceRef.current &&
-      !(invoiceRef.current as any).contains(e.target)
+      challanRef.current &&
+      !(challanRef.current as any).contains(e.target)
     ) {
-      setInvoiceDropdownOpen(false);
+      setChallanDropdownOpen(false);
     }
   };
 
@@ -143,15 +140,15 @@ const InvoiceList = () => {
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [fields, setFields] = useState([
-    { id: "invoiceNumber", label: "Invoice Number", visible: true },
+    { id: "challanNumber", label: "Challan Number", visible: true },
     { id: "customer", label: "Customer", visible: true },
-    { id: "invoiceDate", label: "Invoice Date", visible: true },
-    { id: "dueDate", label: "Due Date", visible: true },
+    { id: "challanDate", label: "Challan Date", visible: true },
+    { id: "deliveryDate", label: "Delivery Date", visible: true },
     { id: "totalAmount", label: "Total Amount", visible: true },
     { id: "status", label: "Status", visible: true },
     { id: "category", label: "Category", visible: true },
     { id: "items", label: "Items", visible: false },
-    { id: "paymentTerms", label: "Payment Terms", visible: false },
+    { id: "deliveryAddress", label: "Delivery Address", visible: false },
     { id: "notes", label: "Notes", visible: false },
   ]);
 
@@ -176,10 +173,10 @@ const InvoiceList = () => {
       fields.map((field) => ({
         ...field,
         visible: [
-          "invoiceNumber",
+          "challanNumber",
           "customer",
-          "invoiceDate",
-          "dueDate",
+          "challanDate",
+          "deliveryDate",
           "totalAmount",
           "status",
           "category",
@@ -197,7 +194,7 @@ const InvoiceList = () => {
     const checked = e.target.checked;
     setSelectAll(checked);
     if (checked) {
-      setSelectedIds(filteredInvoices.map((p) => p.id));
+      setSelectedIds(filteredDeliveryChallans.map((p) => p.id));
     } else {
       setSelectedIds([]);
     }
@@ -211,8 +208,8 @@ const InvoiceList = () => {
 
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
-  const [selectedInvoiceStatus, setSelectedInvoiceStatus] = useState<string | null>(null);
-  
+  const [selectedChallanStatus, setSelectedChallanStatus] = useState<string | null>(null);
+
   const handleCustomerChange = (value: string | string[] | null) => {
     console.log("Selected Customer:", value);
     setSelectedCustomer(value as string | null);
@@ -233,7 +230,7 @@ const InvoiceList = () => {
   const handleApplyFilters = () => {
     console.log("Applying filters:", {
       selectedCustomer,
-      selectedInvoiceStatus,
+      selectedChallanStatus,
     });
     setIsFilterSidebarOpen(false);
   };
@@ -241,43 +238,44 @@ const InvoiceList = () => {
   const handleResetFilters = () => {
     console.log("Resetting filters");
     setSelectedCustomer(null);
-    setSelectedInvoiceStatus(null);
+    setSelectedChallanStatus(null);
   };
 
-  const tabs: TabKey[] = ["all", "pending", "paid", "overdue"];
+  const tabs: TabKey[] = ["all", "draft", "delivered", "in_transit", "cancelled"];
 
- 
+
   const counts: Record<TabKey, number> = {
-    all: invoices.length,
-    pending: invoices.filter(p => p.status.toLowerCase() === 'pending').length,
-    paid: invoices.filter(p => p.status.toLowerCase() === 'paid').length,
-    overdue: invoices.filter(p => p.status.toLowerCase() === 'overdue').length,
+    all: deliveryChallans.length,
+    draft: deliveryChallans.filter(dc => dc.status.toLowerCase() === 'draft').length,
+    delivered: deliveryChallans.filter(dc => dc.status.toLowerCase() === 'delivered').length,
+    in_transit: deliveryChallans.filter(dc => dc.status.toLowerCase() === 'in_transit').length,
+    cancelled: deliveryChallans.filter(dc => dc.status.toLowerCase() === 'cancelled').length,
   };
 
   const router = useRouter();
 
-  const filteredInvoices =
+  const filteredDeliveryChallans =
     activeTab === "all"
-      ? invoices
-      : invoices.filter((p) => p.status.toLowerCase() === activeTab);
+      ? deliveryChallans
+      : deliveryChallans.filter((dc) => dc.status.toLowerCase() === activeTab);
 
   useEffect(() => {
     setSelectAll(
-      filteredInvoices.length > 0 &&
-      selectedIds.length === filteredInvoices.length
+      filteredDeliveryChallans.length > 0 &&
+      selectedIds.length === filteredDeliveryChallans.length
     );
-  }, [selectedIds, filteredInvoices]);
+  }, [selectedIds, filteredDeliveryChallans]);
 
   if (loading) {
-    return <Layout pageTitle="Invoice List">Loading invoices...</Layout>;
+    return <Layout pageTitle="Delivery Challan List">Loading delivery challans...</Layout>;
   }
 
   if (error) {
-    return <Layout pageTitle="Invoice List">Error: {error}</Layout>;
+    return <Layout pageTitle="Delivery Challan List">Error: {error}</Layout>;
   }
 
   return (
-    <Layout pageTitle="Invoice List">
+    <Layout pageTitle="Delivery Challan List">
       <main className="flex-1">
         <div className="overflow-y-hidden h-[calc(100vh-103px)]">
           {/* Tabs */}
@@ -294,8 +292,8 @@ const InvoiceList = () => {
                   >
                     <span className="flex items-center gap-1">
                       {tab === "all"
-                        ? "All Invoices"
-                        : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                        ? "All Delivery Challans"
+                        : tab.charAt(0).toUpperCase() + tab.slice(1).replace('_', ' ')}
                       {activeTab === tab && (
                         <>
                           <span className="ml-2 counter-badge">
@@ -342,7 +340,7 @@ const InvoiceList = () => {
               <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-download-line mr-1"></i>
-                  Import Invoices
+                  Import Delivery Challans
                 </button>
                 <button className="px-2 border-l border-[#cfd7df] hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-arrow-down-s-line"></i>
@@ -350,10 +348,10 @@ const InvoiceList = () => {
               </div>
               <button
                 className="btn-sm btn-primary ml-2 text-sm"
-                onClick={() => router.push("/modules/invoice/new")}
+                onClick={() => router.push("/modules/deliveryChallan/new")}
               >
                 <i className="ri-add-fill mr-1"></i>
-                <span className="text-sm">Add Invoice</span>
+                <span className="text-sm">Add Delivery Challan</span>
               </button>
             </div>
           </div>
@@ -392,7 +390,7 @@ const InvoiceList = () => {
                     id="bulkActionsBtn"
                     onClick={() => {
                       setSelectAll(true);
-                      setSelectedIds(filteredInvoices.map((p) => p.id));
+                      setSelectedIds(filteredDeliveryChallans.map((p) => p.id));
                     }}
                   >
                     <i className="ri-stack-fill mr-1"></i>
@@ -438,7 +436,7 @@ const InvoiceList = () => {
             </div>
             <div className="flex items-center relative space-x-2">
               <Input
-                name="invoiceSearch"
+                name="challanSearch"
                 placeholder="Search here..."
                 className="!h-[31px] "
               />
@@ -452,15 +450,13 @@ const InvoiceList = () => {
                 onReset={handleResetFilters}
                 title="Apply Your Filters"
               >
-
-                
                 {/* Content to be placed inside the sidebar */}
                 <div className="space-y-4">
                   <div>
-                    <label className="filter-label">Invoice Number</label>
+                    <label className="filter-label">Challan Number</label>
                     <Input
-                      name="invoiceNumber"
-                      placeholder="Enter Invoice Number"
+                      name="challanNumber"
+                      placeholder="Enter Challan Number"
                     />
                   </div>
                   <div>
@@ -468,12 +464,12 @@ const InvoiceList = () => {
                     <RadioGroup
                       name="status"
                       options={[
-                       
-                        { value: "Pending", label: "Pending" },
-                        { value: "Paid", label: "Paid" },
-                        { value: "Overdue", label: "Overdue" },
+                        { value: "All", label: "All" },
+                        { value: "Draft", label: "Draft" },
+                        { value: "Delivered", label: "Delivered" },
+                        
                       ]}
-                  
+                      
                     />
                   </div>
                   <div>
@@ -483,7 +479,7 @@ const InvoiceList = () => {
                     <SearchableSelect
                       id="customer-select"
                       name="customer"
-                      options={customerOptions} 
+                      options={deliveryChallanOptions}
                       placeholder="Select Customer Name"
                       searchable
                       onChange={handleCustomerChange}
@@ -499,7 +495,7 @@ const InvoiceList = () => {
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
               <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-                {selectedIds.length} Invoices selected
+                {selectedIds.length} Delivery Challans selected
               </div>
             )}
             <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
@@ -522,17 +518,17 @@ const InvoiceList = () => {
                       </th>
                       <th className="th-cell relative" >
                         <div className="flex justify-between items-center gap-1">
-                          <span>Invoice Number</span>
+                          <span>Challan Number</span>
                           <i
-                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isInvoiceDropdownOpen ? 'bg-[#c9d1d7]' : ''
+                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isChallanDropdownOpen ? 'bg-[#c9d1d7]' : ''
                               }`}
-                            onClick={() => setInvoiceDropdownOpen(prev => !prev)} ref={invoiceRef}
+                            onClick={() => setChallanDropdownOpen(prev => !prev)} ref={challanRef}
                           ></i>
                         </div>
-                        {isInvoiceDropdownOpen && (
+                        {isChallanDropdownOpen && (
                           <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
                             <ul className="text-sm text-[#12344d] font-normal py-1">
-                              <li className="flex items-center  px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                              <li className="flex items-center  px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
                                 <i className="ri-sort-asc mr-2"></i> Sort ascending A → Z
                               </li>
                               <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -576,13 +572,13 @@ const InvoiceList = () => {
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Invoice Date</span>
+                          <span>Challan Date</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Due Date</span>
+                          <span>Delivery Date</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
@@ -607,18 +603,18 @@ const InvoiceList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredInvoices.map((invoice, index) => (
+                    {filteredDeliveryChallans.map((challan, index) => (
                       <tr
-                        key={invoice.id}
-                        className={`tr-hover group ${selectedIds.includes(invoice.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
+                        key={challan.id}
+                        className={`tr-hover group ${selectedIds.includes(challan.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
                           }`}
                       >
                         <td className="td-cell">
                           <CheckboxGroup
                             name="selectall"
                             value="selectAll"
-                            checked={selectedIds.includes(invoice.id)}
-                            onChange={() => handleCheckboxChange(invoice.id)}
+                            checked={selectedIds.includes(challan.id)}
+                            onChange={() => handleCheckboxChange(challan.id)}
                           />
                         </td>
                         <td className="td-cell">
@@ -627,20 +623,21 @@ const InvoiceList = () => {
                             <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
                           </span>
                         </td>
-                        <td className="td-cell">{invoice.invoiceNumber}</td>
-                        <td className="td-cell">{invoice.customer}</td>
-                        <td className="td-cell">{invoice.invoiceDate}</td>
-                        <td className="td-cell">{invoice.dueDate}</td>
-                        <td className="td-cell">₹{invoice.totalAmount.toLocaleString()}</td>
+                        <td className="td-cell">{challan.challanNumber}</td>
+                        <td className="td-cell">{challan.customer}</td>
+                        <td className="td-cell">{challan.challanDate}</td>
+                        <td className="td-cell">{challan.deliveryDate}</td>
+                        <td className="td-cell">₹{challan.totalAmount.toLocaleString()}</td>
                         <td className="td-cell">
-                          <span className={`px-2 py-1 rounded-full text-xs ${invoice.status === 'Paid' ? 'bg-green-100 text-green-800' :
-                              invoice.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-red-100 text-red-800'
+                          <span className={`px-2 py-1 rounded-full text-xs ${challan.status === 'Delivered' ? 'bg-green-100 text-green-800' :
+                              challan.status === 'In_Transit' ? 'bg-blue-100 text-blue-800' :
+                                challan.status === 'Draft' ? 'bg-purple-100 text-gray-800' :
+                                  'bg-red-100 text-red-800'
                             }`}>
-                            {invoice.status}
+                            {challan.status.replace('_', ' ')}
                           </span>
                         </td>
-                        <td className="last-td-cell">{invoice.category}</td>
+                        <td className="last-td-cell">{challan.category}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -652,11 +649,11 @@ const InvoiceList = () => {
       </main>
       <footer className="footer-list">
         <span className="text-sm">
-          Showing <span className="text-red-600">{filteredInvoices.length}</span> of <span className="text-blue-600">{invoices.length}</span>
+          Showing <span className="text-red-600">{filteredDeliveryChallans.length}</span> of <span className="text-blue-600">{deliveryChallans.length}</span>
         </span>
       </footer>
     </Layout>
   );
 };
 
-export default InvoiceList;
+export default DeliveryChallanList;

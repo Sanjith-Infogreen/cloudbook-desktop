@@ -1,63 +1,80 @@
 "use client";
-
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
-import Layout from "../../../components/Layout"; 
-
-import DatePicker from "@/app/utils/commonDatepicker"; // Assuming this path is correct
-import CommonTypeahead from "@/app/utils/commonTypehead"; // Assuming this path is correct
+import Layout from "../../../components/Layout";
+import DatePicker from "@/app/utils/commonDatepicker";
+import CommonTypeahead from "@/app/utils/commonTypehead";
 import { useDispatch, useSelector } from "react-redux";
-import { setTypeHead } from "@/store/typeHead/typehead"; // Assuming this path is correct
-import { AppDispatch, RootState } from "@/store/store"; // Assuming this path is correct
-import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls"; // Assuming this path is correct
-import SearchableSelect, { Option } from "@/app/utils/searchableSelect"; // Assuming this path is correct
-import useInputValidation from "@/app/utils/inputValidations"; // Assuming this path is correct
+import { setTypeHead } from "@/store/typeHead/typehead";
+import { AppDispatch, RootState } from "@/store/store";
+import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls";
+import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
+import useInputValidation from "@/app/utils/inputValidations";
 
-// Define the fields for a product in the salesreturn
+// Define types for product fields
 type ProductField =
   | "productName"
-  | "mrp"
+  | "unit"
+  | "details"
   | "quantity"
-  | "stock" // New field for stock
-  | "netRate" // New field for net rate, replaces 'rate' and 'rateIncTax' for table display/calculation
-  | "less" // New field for less percentage
-  | "discount" // New field for discount
+  | "rate"
+  | "rateIncTax"
+  | "mrp"
+  | "taxable"
+  | "gst"
   | "total";
 
-// Interface for a single product entry
+// Interface for a single product
 interface Product {
   productName: string;
-  mrp: string;
+  unit: string;
+  details: string;
   quantity: string;
-  stock: string;
-  netRate: string;
-  less: string;
-  discount: string;
+  rate: string;
+  rateIncTax: string; // new alternative rate field
+  mrp: string;
+  taxable: string;
+  gst: string;
   total: string;
 }
 
-// Props for the FormField component
+interface FormDataTypes {
+  name: string;
+  phoneNumber: string;
+  shippingAddress1: string;
+  shippingAddress2: string;
+  state: string;
+  gstNumber: string;
+  billType: string;
+  paidAmount: string;
+  place: string;
+  transportMode: string;
+  vehicleNumber: string;
+  pinCode: string;
+  productDetails: Product[];
+}
+// Interface for FormField props
 interface FormFieldProps {
   label: string;
   required?: boolean;
   children: ReactNode;
   className?: string;
   error?: string;
-   htmlFor?: string;
+  htmlFor?: string;
 }
 
-// FormField component for consistent layout of form elements
+// FormField component for consistent layout and error display
 const FormField = ({
   label,
   required = false,
   children,
   className = "",
   error,
-  htmlFor
+  htmlFor,
 }: FormFieldProps) => (
   <div
     className={`mb-[10px] flex flex-col md:flex-row md:items-center gap-2 md:gap-4 ${className}`}
   >
-    <label  htmlFor={htmlFor}  className="form-label w-50">
+    <label htmlFor={htmlFor} className="form-label w-50">
       {label}
       {required && <span className="form-required text-red-500">*</span>}
     </label>
@@ -70,85 +87,84 @@ const FormField = ({
   </div>
 );
 
-// Main Newsalesreturn component
-const Newsalesreturn = () => {
-  useInputValidation(); // Custom hook for input validations
-  const [date, setDate] = useState<string | undefined>("01/07/2025"); // State for the salesreturn date
-  const dispatch = useDispatch<AppDispatch>(); // Redux dispatch hook
-  const typeHead = useSelector((state: RootState) => state.typeHead.typeHead); // Redux selector for typeahead data
-  const [selectedsalesreturnType, setSelectedsalesreturntype] = useState<
-    string | null
-  >(null); // State for selected salesreturn type
-  const [details, setDetails] = useState<any>(null); // State for supplier details (from typeahead)
-  const [billType, setBillType] = useState<string>("New");
-  // Options for salesreturn type dropdown
-  const salesreturnType: Option[] = [
-    { value: "cash", label: "Cash" },
-    { value: "credit", label: "Credit" },
-    { value: "loan", label: "Loan" },
-  ];
-    const [tempAddress, setTempAddress] = useState({
+// Main NewSalesReturn component
+const NewSalesReturn = () => {
+  useInputValidation();
+  const dispatch = useDispatch<AppDispatch>();
+  const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
+  const [formData, setFormData] = useState<FormDataTypes>({
     name: "",
     phoneNumber: "",
-    address: "",
+    shippingAddress1: "",
+    shippingAddress2: "",
     state: "",
     gstNumber: "",
+    billType: "",
+    paidAmount: "",
     place: "",
     transportMode: "",
-    billNumber: "",
-    vehicleNumber:"",
+    vehicleNumber: "",
+    pinCode: "",
+    productDetails: [],
   });
-const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
- const handleTabStateChange = (value: string | string[] | null) => {
-    setTempAddress((prev) => ({
-      ...prev,
-      state: value as string,
-    }));
-  };
 
-  // Handle general input changes for supplier details
-  const handleTempAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setTempAddress((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  const formRef = useRef<HTMLFormElement>(null); // Ref for the form element
+  const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
 
-  // State for product details, initialized with one empty row
-  const [productDetails, setProductDetails] = useState<Product[]>([
+  const [ProductDetails, setProductDetails] = useState<Product[]>([
     {
       productName: "",
-      mrp: "",
+      unit: "",
+      details: "",
       quantity: "",
-      stock: "",
-      netRate: "",
-      less: "",
-      discount: "",
+      rate: "",
+      rateIncTax: "",
+      mrp: "",
+      taxable: "",
+      gst: "",
       total: "",
     },
   ]);
 
   const [rateIncTax, setRateIncTax] = useState(false);
 
+  const handleStateChange = (value: string | string[] | null) => {
+    setFormData((prev) => ({
+      ...prev,
+      state: value as string,
+    }));
+  };
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleAddRow = () => {
     setProductDetails((prev) => [
       ...prev,
       {
         productName: "",
-        mrp: "",
+        unit: "",
+        details: "",
         quantity: "",
-        stock: "",
-        netRate: "",
-        less: "",
-        discount: "",
+        rate: "",
+        rateIncTax: "",
+        mrp: "",
+        taxable: "",
+        gst: "",
         total: "",
       },
     ]);
   };
+  const unit: Option[] = [
+    { value: "case", label: "Case" },
+    { value: "nos", label: "Nos" },
+    { value: "pcs", label: "Pcs" },
+  ];
 
-  // Function to handle changes in product fields and recalculate total
   const handleProductChange = (
     index: number,
     field: ProductField,
@@ -158,29 +174,40 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
       const updated = [...prev];
       updated[index][field] = value;
 
-      if (field === "quantity" || field === "netRate") {
-        const qty = parseFloat(updated[index].quantity) || 0;
-        const netRate = parseFloat(updated[index].netRate) || 0;
-        updated[index].total = (qty * netRate).toFixed(2);
+      // Recalculate total if quantity and rate (or rateIncTax) are present
+      const qty = parseFloat(updated[index].quantity) || 0;
+      let rateToUse = 0;
+
+      if (rateIncTax) {
+        rateToUse = parseFloat(updated[index].rateIncTax) || 0;
+      } else {
+        rateToUse = parseFloat(updated[index].rate) || 0;
       }
+
+      // Calculate total: quantity * rate
+      updated[index].total = (qty * rateToUse).toFixed(2);
 
       return updated;
     });
   };
 
-  // Function to delete a product row
   const handleDeleteRow = (index: number) => {
     setProductDetails((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Effect to fetch typeahead data on component mount if not already present
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      productDetails: ProductDetails,
+    }));
+  }, [ProductDetails]);
+
   useEffect(() => {
     if (typeHead.length === 0) {
       fetchTypeHead();
     }
   }, []);
 
-  // Function to fetch typeahead data from an API
   const fetchTypeHead = async () => {
     try {
       const res = await fetch("http://localhost:4000/typeHeadData");
@@ -196,145 +223,120 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
     }
   };
 
-  // Function to handle form submission
- const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
-
-  const form = formRef.current;
-  if (!form) return;
-
-  // Compile all form data
-  const fullFormData = {
-    // Supplier/Customer Details (from the left column in the image)
-    supplier: {
-      name: tempAddress.name || "",
-      phoneNumber: tempAddress.phoneNumber || "",
-      address: tempAddress.address || "",
-      state: tempAddress.state || "",
-      gstNumber: tempAddress.gstNumber || "",
-    },
-    // Purchase/Sales Return Details (from the right column in the image)
-    billNumber: tempAddress.billNumber || "",
-    place: tempAddress.place || "",
-    transportMode: tempAddress.transportMode || "",
-    vehicleNumber: tempAddress.vehicleNumber || "", // Ensure 'vehicleNumber' is correctly used if that's the key in tempAddress
-
-    // Other existing data points
-    date: date, // Assuming 'date' is a state variable
-    salesreturnType: selectedsalesreturnType, // Assuming 'selectedsalesreturnType' is a state variable
-    billType: billType, // Assuming 'billType' is a state variable for the radio group
-
-    productDetails: productDetails, // Array of product details
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    console.log(formData);
   };
 
-  console.log("Full Form Data:", fullFormData);
-
-  // TODO: send fullFormData to your API here
-};
-
-  // Function to handle salesreturn type change (from the commented out section)
-  const handlesalesreturnTypeChange = (value: string | string[] | null) => {
-    setSelectedsalesreturntype(value as string | null);
-  };
-
-  // Placeholder function for adding new item (from the commented out section)
-  const handleAddNewItem = () => {
-    // alert("Add New functionality would go here!"); // Changed from alert to console.log
-    console.log("Add New functionality would go here!");
-  };
-
-  // Placeholder function for adding new name (from the commented out section)
   const handleAddNewName = () => {
-    console.log("Add new name clicked");
-    // Handle add new logic here
+    console.log("Add new name clicked for product");
   };
 
-  // Function to handle selection of a name from typeahead (from the commented out section)
-  const handleNameSelect = (item: any) => {
-    setDetails(item);
+  const handleAddNewProduct = () => {
+    console.log("Add new name clicked for product");
   };
 
-  // Function to update product name when selected from typeahead
   const productChange = (index: number, item: any) => {
     setProductDetails((prev) => {
       const updated = [...prev];
       updated[index] = {
         ...updated[index],
-        productName: item?.name || "", // assuming your CommonTypeahead returns {name: "..."}
+        productName: item?.name || "",
       };
       return updated;
     });
   };
 
+  const unitChange = (index: number, item: any) => {
+    setProductDetails((prev) => {
+      const updated = [...prev];
+      updated[index] = {
+        ...updated[index],
+        unit: item || "", // assuming your CommonTypeahead returns {name: "..."}
+      };
+      return updated;
+    });
+  };
   return (
-    <Layout pageTitle="Sales Return New">
+    <Layout pageTitle="New Sales Return">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
-            <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              <div className="border-b border-gray-200">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 pt-[10px]">
-                  <div className=" lg:pr-4">
-                    <FormField label="Bill type" required>
-                      <RadioGroup
-                        name="billType" // Changed from "owner" to "billType" for clarity
-                        options={[
-                          { value: "Cash", label: "Cash" },
-                          { value: "Credit", label: "Credit" },
-                        ]}
-                        defaultValue={billType}
-                        onChange={(e: any) => setBillType(e.target.value)}
-                      />
-                    </FormField>
-                  </div>
-                  <div className="space-y-4 flex justify-end">
-                    <FormField label="" className="w-full lg:w-1/2">
-                      <DatePicker
-                        name="date"
-                        id="date"
-                        selected={date}
-                        initialDate={date}
-                        onChange={(e) => {
-                          setDate(e);
-                        }}
-                        className="w-full"
-                      />
-                    </FormField>
-                  </div>
-                </div>
-              </div>
+            <form onSubmit={handleSubmit} autoComplete="off">
               <div className="px-4 py-6">
-               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   {/* Left Column: Supplier Details */}
                   <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
+                    <div>
+                      <span className="text-md">
+                        <u>Billing Details</u>
+                      </span>
+                    </div>
                     <FormField label="Name" required htmlFor="name">
-                      <Input
+                      <CommonTypeahead
                         name="name"
-                        placeholder="Enter the Name"
-                        className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.name}
-                        onChange={handleTempAddressChange}
+                        placeholder="Search Name to Select"
+                        data={typeHead}
+                        required={true}
+                        searchFields={["name"]}
+                        displayField="name"
+                        minSearchLength={1}
+                        onAddNew={handleAddNewName}
+                        onSelect={(item) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: item.name,
+                            shippingAddress1: item.addressLine1 ?? "",
+                            shippingAddress2: item.addressLine2 ?? "",
+                            phoneNumber: item.phoneNumber ?? "",
+                            gstNumber: item.gstNumber ?? "",
+                            state: item.state ?? "",
+                            pinCode: item.pincode ?? "",
+                          }))
+                        }
                       />
                     </FormField>
 
-                    <FormField label="Phone Number" required htmlFor="phoneNumber">
+                    <FormField
+                      label="Phone Number"
+                      required
+                      htmlFor="phoneNumber"
+                    >
                       <Input
                         name="phoneNumber"
                         placeholder="Enter Phone Number"
-                        className="form-control w-full only_number"
-                        value={tempAddress.phoneNumber}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full only_number no_space"
+                        value={formData.phoneNumber}
+                        onChange={handleValueChange}
                         maxLength={10} // Assuming 10 digit phone number
                       />
                     </FormField>
 
-                    <FormField label="Address" required htmlFor="address">
+                    <FormField
+                      label="Shipping Address1"
+                      required
+                      htmlFor="shippingAddress1"
+                    >
                       <Input
-                        name="address"
-                        placeholder="Enter the Address"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.address}
-                        onChange={handleTempAddressChange}
+                        name="shippingAddress1"
+                        placeholder="Enter Shipping Address 1"
+                        className="form-control w-full capitalize "
+                        value={formData.shippingAddress1}
+                        onChange={handleValueChange}
+                      />
+                    </FormField>
+
+                    <FormField
+                      label="Shipping Address2"
+                      required
+                      htmlFor="shippingAddress2"
+                    >
+                      <Input
+                        name="shippingAddress2"
+                        placeholder="Enter Shipping Address 2"
+                        className="form-control w-full capitalize "
+                        value={formData.shippingAddress2}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
@@ -344,8 +346,8 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                         options={stateOptions}
                         placeholder="Select State"
                         searchable
-                        onChange={handleTabStateChange}
-                        initialValue={tempAddress.state}
+                        onChange={handleStateChange}
+                        initialValue={formData.state}
                       />
                     </FormField>
 
@@ -354,24 +356,47 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                         name="gstNumber"
                         placeholder="Enter GST Number"
                         className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.gstNumber}
-                        onChange={handleTempAddressChange}
+                        value={formData.gstNumber}
+                        onChange={handleValueChange}
                         maxLength={15} // Standard GST number length
                       />
                     </FormField>
                   </div>
 
-                  {/* Right Column: Purchase Details */}
                   <div className="space-y-4 ">
-                   
+                    <div>
+                      <span className="text-md">
+                        <u>Other Details</u>
+                      </span>
+                    </div>
+                    <FormField label="Bill Type" required htmlFor="billType">
+                      <RadioGroup
+                        name="billType"
+                        options={[
+                          { value: "cash", label: "Cash" },
+                          { value: "credit", label: "credit" },
+                        ]}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            billType: e.target.value,
+                          }))
+                        }
+                        defaultValue={formData.billType}
+                      />
+                    </FormField>
 
-                    <FormField label="Bill Number" required htmlFor="billNumber">
+                    <FormField
+                      label="Paid Amount"
+                      required
+                      htmlFor="paidAmount"
+                    >
                       <Input
-                        name="billNumber"
-                        placeholder="Enter Bill Number"
-                        className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.billNumber}
-                        onChange={handleTempAddressChange}
+                        name="paidAmount"
+                        placeholder="Enter Amount"
+                        className="form-control w-full only_number"
+                        value={formData.paidAmount}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
@@ -379,66 +404,98 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                       <Input
                         name="place"
                         placeholder="Enter Place"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.place}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full capitalize"
+                        value={formData.place}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                    <FormField label="Transport Mode" required htmlFor="transportMode">
+                    <FormField
+                      label="Transport Mode"
+                      required
+                      htmlFor="transportMode"
+                    >
                       <Input
                         name="transportMode"
                         placeholder="Enter Transport Mode"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.transportMode}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full  capitalize"
+                        value={formData.transportMode}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                    <FormField label="Vehicle Number" required htmlFor="vehicleNumber">
+                    <FormField
+                      label="Vehicle Number"
+                      required
+                      htmlFor="vehicleNumber"
+                    >
                       <Input
                         name="vehicleNumber"
                         placeholder="Enter Vehicle Number"
                         className="form-control w-full all_uppercase alphanumeric no_space"
-                        value={tempAddress.vehicleNumber}
-                        onChange={handleTempAddressChange}
+                        value={formData.vehicleNumber}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                   
+                    <FormField label="Pincode" required htmlFor="pinCode">
+                      <Input
+                        name="pinCode"
+                        placeholder="Enter Pincode"
+                        className="form-control w-full  only_number no_space"
+                        maxLength={6}
+                        value={formData.pinCode}
+                        onChange={handleValueChange}
+                      />
+                    </FormField>
                   </div>
                 </div>
 
-                <div className="max-h-[calc(100vh-520px)] overflow-y-auto mt-10">
-                  <table className="w-full text-[14px]">
-                    <thead className="bg-[#f8f9fa] text-left text-[14px] text-[#12344d] sticky-table-header">
+                {/* Product Details Section */}
+                <h2 className="text-lg text-[#009333] mt-5 mb-5">
+                  Product Details
+                </h2>
+                <div className="max-h-[calc(100vh-520px)] overflow-y-auto">
+                  <table className="w-full text-[14px] text-sm">
+                    <thead className="bg-[#f8f9fa] text-left  text-[#12344d] sticky-table-header">
                       <tr>
-                        <td className="p-2 w-[3%] th-cell">S.no</td>
-                        <td className="p-2 w-[25%] th-cell">Product Name</td>
-                        <td className="p-2 w-[10%] th-cell">MRP</td>
-                        <td className="p-2 w-[10%] th-cell">Qty</td>
-                        <td className="p-2 w-[5%] th-cell">Stock</td>
-                        <td className="p-2 w-[10%] th-cell">Net Rate</td>
-                        <td className="p-2 w-[8%] th-cell">Less%</td>
-                        <td className="p-2 w-[8%] th-cell text-center">
-                          Discount
-                        </td>
-                        <td className="p-2 w-[10%] th-cell text-center">
+                        <th className="p-2 w-[3%] th-cell">S.no</th>
+                        <th className="p-2 w-[12%] th-cell">Product</th>
+                        <th className="p-2 w-[10%] th-cell">Unit</th>
+                        <th className="p-2 w-[10%] th-cell">Details</th>
+                        <th className="p-2 w-[10%] th-cell">Quantity</th>
+                        <th className="p-2 w-[10%] th-cell">
+                          <div className="flex gap-2">
+                            <span >
+                              Rate {rateIncTax ? "(Inc tax)" : "(Exc tax)"}
+                            </span>
+                            <Toggle
+                              name="rate"
+                              checked={rateIncTax}
+                              onChange={(e) => setRateIncTax(e.target.checked)}
+                            />
+                          </div>
+                        </th>
+                        <th className="p-2 w-[10%] th-cell">MRP</th>
+
+                        <th className="p-2 w-[10%] th-cell">Taxable</th>
+
+                        <th className="p-2 w-[10%] th-cell">GST</th>
+                        <th className="p-2 w-[10%] th-cell text-center">
                           Total
-                        </td>
-                        <td className="p-2 w-[5%] last-th-cell text-center">
+                        </th>
+                        <th className="p-2 w-[7%] last-th-cell text-center">
                           Action
-                        </td>
+                        </th>
                       </tr>
                     </thead>
                     <tbody id="productTableBody">
-                      {productDetails.map((product, idx) => (
+                      {ProductDetails.map((product, idx) => (
                         <tr key={idx}>
                           <td className="p-2 text-center w-[3%] td-cell">
                             {idx + 1}
                           </td>
-
-                          <td className="p-2 w-[25%] td-cell">
+                          <td className="p-2 td-cell">
                             <CommonTypeahead
                               name={`productName-${idx}`}
                               placeholder="Search Name to Select"
@@ -447,31 +504,47 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                               searchFields={["name"]}
                               displayField="name"
                               minSearchLength={1}
-                              onAddNew={handleAddNewName}
+                              onAddNew={handleAddNewProduct}
                               onSelect={(item) => productChange(idx, item)}
                             />
                           </td>
 
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2  td-cell">
+                            <SearchableSelect
+                              name={`unit-${idx}`}
+                              options={unit}
+                              searchable
+                              placeholder="Select Unit"
+                              initialValue={product.unit}
+                              onChange={(item) =>
+                                unitChange(idx, item)
+                              }
+                            />
+                          </td>
+
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
-                              name={`mrp-${idx}`}
+                              name={`details-${idx}`}
                               className="w-full alphanumeric all_uppercase no_space"
-                              placeholder="Enter MRP"
-                              value={product.mrp}
+                              placeholder="Enter Details"
+                              value={product.details}
                               onChange={(e: any) =>
-                                handleProductChange(idx, "mrp", e.target.value)
+                                handleProductChange(
+                                  idx,
+                                  "details",
+                                  e.target.value
+                                )
                               }
                               maxLength={100}
                             />
                           </td>
-
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
                               name={`quantity-${idx}`}
                               className="w-full only_number"
-                              placeholder="Enter Quantity"
+                              placeholder="Enter Qty"
                               value={product.quantity}
                               onChange={(e: any) =>
                                 handleProductChange(
@@ -482,84 +555,88 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                               }
                             />
                           </td>
-                          {/* Stock Column */}
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2  td-cell">
+                            {rateIncTax ? (
+                              <Input
+                                type="text"
+                                name={`rateIncTax-${idx}`}
+                                className="w-full only_number"
+                                placeholder="Enter Rate"
+                                value={product.rateIncTax}
+                                onChange={(e: any) =>
+                                  handleProductChange(
+                                    idx,
+                                    "rateIncTax",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            ) : (
+                              <Input
+                                type="text"
+                                name={`rate-${idx}`}
+                                className="w-full only_number"
+                                placeholder="Enter Rate"
+                                value={product.rate}
+                                onChange={(e: any) =>
+                                  handleProductChange(
+                                    idx,
+                                    "rate",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            )}
+                          </td>
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
-                              name={`stock-${idx}`}
+                              name={`mrp-${idx}`}
                               className="w-full only_number"
-                              placeholder="Enter Stock"
-                              value={product.stock}
+                              placeholder="Enter MRP"
+                              value={product.mrp}
                               onChange={(e: any) =>
-                                handleProductChange(
-                                  idx,
-                                  "stock",
-                                  e.target.value
-                                )
+                                handleProductChange(idx, "mrp", e.target.value)
                               }
                             />
                           </td>
-                          {/* NetRate Column */}
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2 td-cell">
                             <Input
                               type="text"
-                              name={`netRate-${idx}`}
+                              name={`taxable-${idx}`}
                               className="w-full only_number"
-                              placeholder="Enter Netrate"
-                              value={product.netRate}
+                              placeholder="Enter Taxable"
+                              value={product.taxable}
                               onChange={(e: any) =>
-                                handleProductChange(
-                                  idx,
-                                  "netRate",
-                                  e.target.value
-                                )
+                                handleProductChange(idx, "taxable", e.target.value)
                               }
                             />
                           </td>
-                          {/* Less% Column */}
-                          <td className="p-2 w-[8%] td-cell">
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
-                              name={`less-${idx}`}
+                              name={`gst-${idx}`}
                               className="w-full only_number"
-                              placeholder="Enter less"
-                              value={product.less}
+                              placeholder="Enter GST"
+                              value={product.gst}
                               onChange={(e: any) =>
-                                handleProductChange(idx, "less", e.target.value)
+                                handleProductChange(idx, "gst", e.target.value)
                               }
                             />
                           </td>
-
-                          {/* Discount Column */}
-                          <td className="p-2 w-[8%] td-cell">
-                            <Input
-                              type="text"
-                              name={`discount-${idx}`}
-                              className="w-full only_number"
-                              placeholder="Enter Discount"
-                              value={product.discount}
-                              onChange={(e: any) =>
-                                handleProductChange(
-                                  idx,
-                                  "discount",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </td>
-
-                          <td className="p-2 w-[10%] text-right td-cell">
+                          <td className="p-2  text-right td-cell">
                             <Input
                               type="text"
                               name={`total-${idx}`}
-                              className="w-full text-right total"
-                              placeholder="Auto-calculated Total"
+                              className="w-full text-start total"
+                              placeholder="Total"
                               value={product.total}
                               readOnly
                             />
                           </td>
-
-                          <td className="p-2 text-center w-[5%] last-td-cell">
+                          <td className="p-2 text-center  last-td-cell">
+                            <div className="flex justify-around">
+                              <i className="ri-pencil-line text-[16px] cursor-pointer"></i>
                             <button
                               type="button"
                               className="text-red-600 delete-row mx-1 cursor-pointer"
@@ -567,6 +644,7 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                             >
                               <i className="ri-delete-bin-line text-[16px]"></i>
                             </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -576,10 +654,10 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
                 <button
                   type="button"
                   onClick={handleAddRow}
-                  className="btn-sm btn-primary mt-4 flex items-center gap-1"
+                  className="btn-sm btn-primary mt-4"
                 >
-                  <i className="ri-add-line  "></i>
-                  Add Product
+                  <i className="ri-add-fill mr-1"></i>
+                  <span className="text-sm">Add Row</span>
                 </button>
               </div>
             </form>
@@ -597,4 +675,4 @@ const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
   );
 };
 
-export default Newsalesreturn;
+export default NewSalesReturn;

@@ -1090,7 +1090,7 @@ export default function NewContact() {
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-start justify-center p-4 z-50">
-          <div className="bg-[#f1eef4] rounded-[40px] border border-white max-w-[470px] w-full text-center mx-4 mt-10 p-4.5">
+          <div className="relative max-w-[470px] w-full text-center mx-4 mt-10 p-4.5">
             <div className="bg-white rounded-[20px]  p-8 relative max-w-[470px] w-full text-center">
               <div className="flex justify-center items-center mb-5 gap-2">
                 <i className="ri-user-line text-green-600 text-3xl"></i>
@@ -1105,7 +1105,7 @@ export default function NewContact() {
                 <button
                   type="button"
                   onClick={() => handleCustomerType("gst")}
-                  className={`text-sm cursor-pointer  px-4 py-2 w-full ${
+                  className={`text-sm cursor-pointer rounded px-4 py-2 w-full ${
                     customerType === "gst"
                       ? "bg-[#009333] text-white"
                       : "bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800"
@@ -1116,13 +1116,13 @@ export default function NewContact() {
                 <button
                   type="button"
                   onClick={() => handleCustomerType("non-gst")}
-                  className="text-sm cursor-pointer bg-[#f3f4f6] hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2  w-full"
+                  className="text-sm cursor-pointer bg-[#f3f4f6] rounded hover:bg-[#009333] hover:text-white text-gray-800 px-4 py-2  w-full"
                 >
                   Non - GST Customer
                 </button>
               </div>
               {customerType === "gst" && (
-                <div className="mt-3">
+                <div className="mt-5">
                   <label className="text-sm font-medium mb-1 block text-start">
                     GST Number
                   </label>
@@ -1145,7 +1145,7 @@ export default function NewContact() {
 
                   <div className="mt-4 ">
                     <button
-                      className="btn-sm btn-primary ml-2  py-2 px-4"
+                      className="btn-sm btn-primary ml-2   px-4"
                       onClick={handleApply}
                     >
                       <i className="ri-checkbox-circle-line mr-1 text-[17px]"></i>

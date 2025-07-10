@@ -8,7 +8,7 @@ import CustomizeTableContent from "@/app/utils/customizeTableSidebar";
 import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
-// --- Interfaces for fetched data ---
+
 interface Purchase {
   id: number;
   poNumber: string;
@@ -20,11 +20,7 @@ interface Purchase {
   category: string;
 }
 
-interface SupplierData {
-  id?: number; 
-  name?: string;
-  supplierName?: string; 
-}
+
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -76,11 +72,11 @@ const PurchaseList = () => {
   const poRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // --- State for fetched data ---
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [supplierOptions, setSupplierOptions] = useState<Option[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
 
   useEffect(() => {
     const fetchPurchaseData = async () => {
@@ -99,17 +95,12 @@ const PurchaseList = () => {
 
         const purchasesData: Purchase[] = await purchasesResponse.json();
         
-        const suppliersData: SupplierData[] = await suppliersResponse.json();
+        const suppliersData: Option[] = await suppliersResponse.json();
 
-        const mappedSupplierOptions: Option[] = suppliersData
-          .filter(supplier => supplier.id !== undefined && supplier.id !== null) // NEW: Filter out items without a valid 'id'
-          .map(supplier => ({
-            value: supplier.id!.toString(), // Use ! (non-null assertion) after filtering
-            label: supplier.supplierName || supplier.name || 'Unknown Supplier', // Handle potentially missing label too
-          }));
+      
 
         setPurchases(purchasesData);
-        setSupplierOptions(mappedSupplierOptions);
+        setSupplierOptions(suppliersData);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -274,7 +265,7 @@ const PurchaseList = () => {
 
   const tabs: TabKey[] = ["all", "pending", "completed", "cancelled"];
 
-  // Calculate counts dynamically based on fetched purchases
+ 
   const counts: Record<TabKey, number> = {
     all: purchases.length,
     pending: purchases.filter(p => p.status.toLowerCase() === 'pending').length,
@@ -508,7 +499,7 @@ const PurchaseList = () => {
                     <SearchableSelect
                       id="supplier-select"
                       name="supplier"
-                      options={supplierOptions} // Using the fetched supplier options here
+                      options={supplierOptions} 
                       placeholder="Select Supplier Name"
                       searchable
                       onChange={handleSupplierChange}

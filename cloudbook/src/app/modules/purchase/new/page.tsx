@@ -6,33 +6,52 @@ import CommonTypeahead from "@/app/utils/commonTypehead";
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead";
 import { AppDispatch, RootState } from "@/store/store";
-import { Input, Toggle } from "@/app/utils/form-controls";
+import { Input, RadioGroup, Toggle } from "@/app/utils/form-controls";
 import SearchableSelect, { Option } from "@/app/utils/searchableSelect";
 import useInputValidation from "@/app/utils/inputValidations";
-
-
 
 // Define types for product fields
 type ProductField =
   | "productName"
-  | "serialNo"
+  | "unit"
+  | "details"
   | "quantity"
   | "rate"
   | "rateIncTax"
+  | "mrp"
+  | "taxable"
   | "gst"
   | "total";
 
 // Interface for a single product
 interface Product {
   productName: string;
-  serialNo: string;
+  unit: string;
+  details: string;
   quantity: string;
   rate: string;
   rateIncTax: string; // new alternative rate field
+  mrp: string;
+  taxable: string;
   gst: string;
   total: string;
 }
 
+interface FormDataTypes {
+  name: string;
+  phoneNumber: string;
+  shippingAddress1: string;
+  shippingAddress2: string;
+  state: string;
+  gstNumber: string;
+  billType: string;
+  paidAmount: string;
+  place: string;
+  transportMode: string;
+  vehicleNumber: string;
+  pinCode: string;
+  productDetails: Product[];
+}
 // Interface for FormField props
 interface FormFieldProps {
   label: string;
@@ -70,97 +89,82 @@ const FormField = ({
 
 // Main NewPurchase component
 const NewPurchase = () => {
-  // Custom hook for input validation (assuming it handles the class names like 'only_number', 'all_uppercase' etc.)
   useInputValidation();
-
-  // State for the purchase date
-  const [date, setDate] = useState<string | undefined>("01/07/2025");
-
-  // Redux hooks for dispatching actions and selecting state
   const dispatch = useDispatch<AppDispatch>();
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
-
-  // State for selected purchase type
-  const [selectedPurchaseType, setSelectedPurchasetype] = useState<
-    string | null
-  >(null);
-
-  // State for supplier details (now directly input)
-  const [tempAddress, setTempAddress] = useState({
+  const [formData, setFormData] = useState<FormDataTypes>({
     name: "",
     phoneNumber: "",
-    address: "",
+    shippingAddress1: "",
+    shippingAddress2: "",
     state: "",
     gstNumber: "",
+    billType: "",
+    paidAmount: "",
     place: "",
     transportMode: "",
-    billNumber: "",
-    vehicleNumber:"",
+    vehicleNumber: "",
+    pinCode: "",
+    productDetails: [],
   });
 
-  // Options for purchase type dropdown
-  const purchaseType: Option[] = [
-    { value: "cash", label: "Cash" },
-    { value: "credit", label: "Credit" },
-    { value: "loan", label: "Loan" },
-  ];
-
-  // Options for state dropdown (example: Tamil Nadu)
   const stateOptions: Option[] = [{ value: "Tamil Nadu", label: "Tamil Nadu" }];
 
-  // Ref for the form element to access form data directly
-  const formRef = useRef<HTMLFormElement>(null);
-
-  // State for product details table
-  const [productDetails, setProductDetails] = useState<Product[]>([
+  const [ProductDetails, setProductDetails] = useState<Product[]>([
     {
       productName: "",
-      serialNo: "",
+      unit: "",
+      details: "",
       quantity: "",
       rate: "",
       rateIncTax: "",
+      mrp: "",
+      taxable: "",
       gst: "",
       total: "",
     },
   ]);
 
-  // State for toggling between rate including tax or excluding tax
   const [rateIncTax, setRateIncTax] = useState(false);
 
-  // Handle change for the state field in supplier details
-  const handleTabStateChange = (value: string | string[] | null) => {
-    setTempAddress((prev) => ({
+  const handleStateChange = (value: string | string[] | null) => {
+    setFormData((prev) => ({
       ...prev,
       state: value as string,
     }));
   };
 
-  // Handle general input changes for supplier details
-  const handleTempAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setTempAddress((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  // Add a new row to the product details table
   const handleAddRow = () => {
     setProductDetails((prev) => [
       ...prev,
       {
         productName: "",
-        serialNo: "",
+        unit: "",
+        details: "",
         quantity: "",
         rate: "",
         rateIncTax: "",
+        mrp: "",
+        taxable: "",
         gst: "",
         total: "",
       },
     ]);
   };
+  const unit: Option[] = [
+    { value: "case", label: "Case" },
+    { value: "nos", label: "Nos" },
+    { value: "pcs", label: "Pcs" },
+  ];
 
-  // Handle changes in product fields and recalculate total
   const handleProductChange = (
     index: number,
     field: ProductField,
@@ -187,19 +191,23 @@ const NewPurchase = () => {
     });
   };
 
-  // Delete a row from the product details table
   const handleDeleteRow = (index: number) => {
     setProductDetails((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Fetch typeahead data on component mount if not already present
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      productDetails: ProductDetails,
+    }));
+  }, [ProductDetails]);
+
   useEffect(() => {
     if (typeHead.length === 0) {
       fetchTypeHead();
     }
   }, []);
 
-  // Function to fetch typeahead data from API
   const fetchTypeHead = async () => {
     try {
       const res = await fetch("http://localhost:4000/typeHeadData");
@@ -216,104 +224,120 @@ const NewPurchase = () => {
   };
 
   const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
-
-  const form = formRef.current;
-  if (!form) return;
-
-  // Compile all form data
-  const fullFormData = {
-    // Supplier/Customer Details (from the left column in the image)
-    supplier: {
-      name: tempAddress.name || "",
-      phoneNumber: tempAddress.phoneNumber || "",
-      address: tempAddress.address || "",
-      state: tempAddress.state || "",
-      gstNumber: tempAddress.gstNumber || "",
-    },
-    // Purchase/Sales Return Details (from the right column in the image)
-    billNumber: tempAddress.billNumber || "",
-    place: tempAddress.place || "",
-    transportMode: tempAddress.transportMode || "",
-    vehicleNumber: tempAddress.vehicleNumber || "", // Ensure 'vehicleNumber' is correctly used if that's the key in tempAddress
-
-   
-
-    productDetails: productDetails, // Array of product details
+    e.preventDefault();
+    console.log(formData);
   };
 
-  console.log("Full Form Data:", fullFormData);
-
-  // TODO: send fullFormData to your API here
-};
-
-  // Handle purchase type selection change
-  const handlePurchaseTypeChange = (value: string | string[] | null) => {
-    setSelectedPurchasetype(value as string | null);
-  };
-
-  // Placeholder for "Add New Item" functionality
-  const handleAddNewItem = () => {
-    console.log("Add New functionality would go here!");
-  };
-
-  // Placeholder for "Add New Name" functionality (for product typeahead)
   const handleAddNewName = () => {
     console.log("Add new name clicked for product");
-    // Handle add new logic here
   };
 
-  // Handle product selection from typeahead
+  const handleAddNewProduct = () => {
+    console.log("Add new name clicked for product");
+  };
+
   const productChange = (index: number, item: any) => {
     setProductDetails((prev) => {
       const updated = [...prev];
       updated[index] = {
         ...updated[index],
-        productName: item?.name || "", // assuming your CommonTypeahead returns {name: "..."}
+        productName: item?.name || "",
       };
       return updated;
     });
   };
 
+  const unitChange = (index: number, item: any) => {
+    setProductDetails((prev) => {
+      const updated = [...prev];
+      updated[index] = {
+        ...updated[index],
+        unit: item || "", // assuming your CommonTypeahead returns {name: "..."}
+      };
+      return updated;
+    });
+  };
   return (
     <Layout pageTitle="Purchase New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
-            <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
+            <form onSubmit={handleSubmit} autoComplete="off">
               {/* Supplier and Purchase Details Section */}
               <div className="px-4 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 ">
                   {/* Left Column: Supplier Details */}
                   <div className="space-y-4 lg:border-r lg:border-gray-300 lg:pr-4">
+                    <div>
+                      <span className="text-md">
+                        <u>Billing Details</u>
+                      </span>
+                    </div>
                     <FormField label="Name" required htmlFor="name">
-                      <Input
+                      <CommonTypeahead
                         name="name"
-                        placeholder="Enter the Name"
-                        className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.name}
-                        onChange={handleTempAddressChange}
+                        placeholder="Search Name to Select"
+                        data={typeHead}
+                        required={true}
+                        searchFields={["name"]}
+                        displayField="name"
+                        minSearchLength={1}
+                        onAddNew={handleAddNewName}
+                        onSelect={(item) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: item.name,
+                            shippingAddress1: item.addressLine1 ?? "",
+                            shippingAddress2: item.addressLine2 ?? "",
+                            phoneNumber: item.phoneNumber ?? "",
+                            gstNumber: item.gstNumber ?? "",
+                            state: item.state ?? "",
+                            pinCode: item.pincode ?? "",
+                          }))
+                        }
                       />
                     </FormField>
 
-                    <FormField label="Phone Number" required htmlFor="phoneNumber">
+                    <FormField
+                      label="Phone Number"
+                      required
+                      htmlFor="phoneNumber"
+                    >
                       <Input
                         name="phoneNumber"
                         placeholder="Enter Phone Number"
-                        className="form-control w-full only_number"
-                        value={tempAddress.phoneNumber}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full only_number no_space"
+                        value={formData.phoneNumber}
+                        onChange={handleValueChange}
                         maxLength={10} // Assuming 10 digit phone number
                       />
                     </FormField>
 
-                    <FormField label="Address" required htmlFor="address">
+                    <FormField
+                      label="Shipping Address1"
+                      required
+                      htmlFor="shippingAddress1"
+                    >
                       <Input
-                        name="address"
-                        placeholder="Enter the Address"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.address}
-                        onChange={handleTempAddressChange}
+                        name="shippingAddress1"
+                        placeholder="Enter Shipping Address 1"
+                        className="form-control w-full capitalize "
+                        value={formData.shippingAddress1}
+                        onChange={handleValueChange}
+                      />
+                    </FormField>
+
+                    <FormField
+                      label="Shipping Address2"
+                      required
+                      htmlFor="shippingAddress2"
+                    >
+                      <Input
+                        name="shippingAddress2"
+                        placeholder="Enter Shipping Address 2"
+                        className="form-control w-full capitalize "
+                        value={formData.shippingAddress2}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
@@ -323,8 +347,9 @@ const NewPurchase = () => {
                         options={stateOptions}
                         placeholder="Select State"
                         searchable
-                        onChange={handleTabStateChange}
-                        initialValue={tempAddress.state}
+                        onChange={handleStateChange}
+                        initialValue={formData.state}
+                        
                       />
                     </FormField>
 
@@ -333,8 +358,8 @@ const NewPurchase = () => {
                         name="gstNumber"
                         placeholder="Enter GST Number"
                         className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.gstNumber}
-                        onChange={handleTempAddressChange}
+                        value={formData.gstNumber}
+                        onChange={handleValueChange}
                         maxLength={15} // Standard GST number length
                       />
                     </FormField>
@@ -342,15 +367,39 @@ const NewPurchase = () => {
 
                   {/* Right Column: Purchase Details */}
                   <div className="space-y-4 ">
-                   
+                    <div>
+                      <span className="text-md">
+                        <u>Other Details</u>
+                      </span>
+                    </div>
+                    <FormField label="Bill Type" required htmlFor="billType">
+                      <RadioGroup
+                        name="billType"
+                        options={[
+                          { value: "cash", label: "Cash" },
+                          { value: "credit", label: "credit" },
+                        ]}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            billType: e.target.value,
+                          }))
+                        }
+                        defaultValue={formData.billType}
+                      />
+                    </FormField>
 
-                    <FormField label="Bill Number" required htmlFor="billNumber">
+                    <FormField
+                      label="Paid Amount"
+                      required
+                      htmlFor="paidAmount"
+                    >
                       <Input
-                        name="billNumber"
-                        placeholder="Enter Bill Number"
-                        className="form-control w-full alphanumeric all_uppercase no_space"
-                        value={tempAddress.billNumber}
-                        onChange={handleTempAddressChange}
+                        name="paidAmount"
+                        placeholder="Enter Amount"
+                        className="form-control w-full only_number"
+                        value={formData.paidAmount}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
@@ -358,51 +407,69 @@ const NewPurchase = () => {
                       <Input
                         name="place"
                         placeholder="Enter Place"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.place}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full capitalize"
+                        value={formData.place}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                    <FormField label="Transport Mode" required htmlFor="transportMode">
+                    <FormField
+                      label="Transport Mode"
+                      required
+                      htmlFor="transportMode"
+                    >
                       <Input
                         name="transportMode"
                         placeholder="Enter Transport Mode"
-                        className="form-control w-full all_uppercase alphanumeric"
-                        value={tempAddress.transportMode}
-                        onChange={handleTempAddressChange}
+                        className="form-control w-full  capitalize"
+                        value={formData.transportMode}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                    <FormField label="Vehicle Number" required htmlFor="vehicleNumber">
+                    <FormField
+                      label="Vehicle Number"
+                      required
+                      htmlFor="vehicleNumber"
+                    >
                       <Input
                         name="vehicleNumber"
                         placeholder="Enter Vehicle Number"
                         className="form-control w-full all_uppercase alphanumeric no_space"
-                        value={tempAddress.vehicleNumber}
-                        onChange={handleTempAddressChange}
+                        value={formData.vehicleNumber}
+                        onChange={handleValueChange}
                       />
                     </FormField>
 
-                   
+                    <FormField label="Pincode" required htmlFor="pinCode">
+                      <Input
+                        name="pinCode"
+                        placeholder="Enter Pincode"
+                        className="form-control w-full  only_number no_space"
+                        maxLength={6}
+                        value={formData.pinCode}
+                        onChange={handleValueChange}
+                      />
+                    </FormField>
                   </div>
                 </div>
 
                 {/* Product Details Section */}
-                <h2 className="text-lg text-[#009333] mt-5 mb-4">
+                <h2 className="text-lg text-[#009333] mt-5 mb-5">
                   Product Details
                 </h2>
                 <div className="max-h-[calc(100vh-520px)] overflow-y-auto">
                   <table className="w-full text-[14px] text-sm">
                     <thead className="bg-[#f8f9fa] text-left  text-[#12344d] sticky-table-header">
                       <tr>
-                        <td className="p-2 w-[3%] th-cell">S.no</td>
-                        <td className="p-2 w-[25%] th-cell">Product Name</td>
-                        <td className="p-2 w-[15%] th-cell">Serial No</td>
-                        <td className="p-2 w-[10%] th-cell">Quantity</td>
-                        <td className="p-2 w-[15%] th-cell">
+                        <th className="p-2 w-[3%] th-cell">S.no</th>
+                        <th className="p-2 w-[12%] th-cell">Product</th>
+                        <th className="p-2 w-[10%] th-cell">Unit</th>
+                        <th className="p-2 w-[10%] th-cell">Details</th>
+                        <th className="p-2 w-[10%] th-cell">Quantity</th>
+                        <th className="p-2 w-[10%] th-cell">
                           <div className="flex gap-2">
-                            <span className="text-sm font-medium text-gray-700 ">
+                            <span>
                               Rate {rateIncTax ? "(Inc tax)" : "(Exc tax)"}
                             </span>
                             <Toggle
@@ -411,17 +478,27 @@ const NewPurchase = () => {
                               onChange={(e) => setRateIncTax(e.target.checked)}
                             />
                           </div>
-                        </td>
-                        <td className="p-2 w-[10%] th-cell">GST</td>
-                        <td className="p-2 w-[12%] th-cell text-center">Total</td>
-                        <td className="p-2 w-[7%] last-th-cell text-center">Action</td>
+                        </th>
+                        <th className="p-2 w-[10%] th-cell">MRP</th>
+
+                        <th className="p-2 w-[10%] th-cell">Taxable</th>
+
+                        <th className="p-2 w-[10%] th-cell">GST</th>
+                        <th className="p-2 w-[10%] th-cell text-center">
+                          Total
+                        </th>
+                        <th className="p-2 w-[7%] last-th-cell text-center">
+                          Action
+                        </th>
                       </tr>
                     </thead>
                     <tbody id="productTableBody">
-                      {productDetails.map((product, idx) => (
+                      {ProductDetails.map((product, idx) => (
                         <tr key={idx}>
-                          <td className="p-2 text-center w-[3%] td-cell">{idx + 1}</td>
-                          <td className="p-2 w-[25%] td-cell">
+                          <td className="p-2 text-center w-[3%] td-cell">
+                            {idx + 1}
+                          </td>
+                          <td className="p-2 td-cell">
                             <CommonTypeahead
                               name={`productName-${idx}`}
                               placeholder="Search Name to Select"
@@ -430,33 +507,45 @@ const NewPurchase = () => {
                               searchFields={["name"]}
                               displayField="name"
                               minSearchLength={1}
-                              onAddNew={handleAddNewName}
+                              onAddNew={handleAddNewProduct}
                               onSelect={(item) => productChange(idx, item)}
                             />
                           </td>
-                          <td className="p-2 w-[15%] td-cell">
+
+                          <td className="p-2  td-cell">
+                            <SearchableSelect
+                              name={`unit-${idx}`}
+                              options={unit}
+                              searchable
+                              placeholder="Select Unit"
+                              initialValue={product.unit}
+                              onChange={(item) => unitChange(idx, item)}
+                            />
+                          </td>
+
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
-                              name={`serialNo-${idx}`}
+                              name={`details-${idx}`}
                               className="w-full alphanumeric all_uppercase no_space"
-                              placeholder="Enter Serial No"
-                              value={product.serialNo}
+                              placeholder="Enter Details"
+                              value={product.details}
                               onChange={(e: any) =>
                                 handleProductChange(
                                   idx,
-                                  "serialNo",
+                                  "details",
                                   e.target.value
                                 )
                               }
                               maxLength={100}
                             />
                           </td>
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
                               name={`quantity-${idx}`}
                               className="w-full only_number"
-                              placeholder="Enter Quantity"
+                              placeholder="Enter Qty"
                               value={product.quantity}
                               onChange={(e: any) =>
                                 handleProductChange(
@@ -467,13 +556,13 @@ const NewPurchase = () => {
                               }
                             />
                           </td>
-                          <td className="p-2 w-[15%] td-cell">
+                          <td className="p-2  td-cell">
                             {rateIncTax ? (
                               <Input
                                 type="text"
                                 name={`rateIncTax-${idx}`}
                                 className="w-full only_number"
-                                placeholder="Enter Rate with tax"
+                                placeholder="Enter Rate"
                                 value={product.rateIncTax}
                                 onChange={(e: any) =>
                                   handleProductChange(
@@ -488,7 +577,7 @@ const NewPurchase = () => {
                                 type="text"
                                 name={`rate-${idx}`}
                                 className="w-full only_number"
-                                placeholder="Enter Rate without tax"
+                                placeholder="Enter Rate"
                                 value={product.rate}
                                 onChange={(e: any) =>
                                   handleProductChange(
@@ -500,7 +589,35 @@ const NewPurchase = () => {
                               />
                             )}
                           </td>
-                          <td className="p-2 w-[10%] td-cell">
+                          <td className="p-2  td-cell">
+                            <Input
+                              type="text"
+                              name={`mrp-${idx}`}
+                              className="w-full only_number"
+                              placeholder="Enter MRP"
+                              value={product.mrp}
+                              onChange={(e: any) =>
+                                handleProductChange(idx, "mrp", e.target.value)
+                              }
+                            />
+                          </td>
+                          <td className="p-2 td-cell">
+                            <Input
+                              type="text"
+                              name={`taxable-${idx}`}
+                              className="w-full only_number"
+                              placeholder="Enter Taxable"
+                              value={product.taxable}
+                              onChange={(e: any) =>
+                                handleProductChange(
+                                  idx,
+                                  "taxable",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </td>
+                          <td className="p-2  td-cell">
                             <Input
                               type="text"
                               name={`gst-${idx}`}
@@ -512,24 +629,27 @@ const NewPurchase = () => {
                               }
                             />
                           </td>
-                          <td className="p-2 w-[12%] text-right td-cell">
+                          <td className="p-2  text-right td-cell">
                             <Input
                               type="text"
                               name={`total-${idx}`}
-                              className="w-full text-right total"
-                              placeholder="Auto-calculated Total"
+                              className="w-full text-start total"
+                              placeholder="Total"
                               value={product.total}
                               readOnly
                             />
                           </td>
-                          <td className="p-2 text-center w-[7%] last-td-cell">
-                            <button
-                              type="button"
-                              className="text-red-600 delete-row mx-1 cursor-pointer"
-                              onClick={() => handleDeleteRow(idx)}
-                            >
-                              <i className="ri-delete-bin-line text-[16px]"></i>
-                            </button>
+                          <td className="p-2 text-center  last-td-cell">
+                            <div className="flex justify-around">
+                              <i className="ri-pencil-line text-[16px] cursor-pointer"></i>
+                              <button
+                                type="button"
+                                className="text-red-600 delete-row mx-1 cursor-pointer"
+                                onClick={() => handleDeleteRow(idx)}
+                              >
+                                <i className="ri-delete-bin-line text-[16px]"></i>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -541,7 +661,8 @@ const NewPurchase = () => {
                   onClick={handleAddRow}
                   className="btn-sm btn-primary mt-4"
                 >
-                  Add Row
+                  <i className="ri-add-fill mr-1"></i>
+                  <span className="text-sm">Add Row</span>
                 </button>
               </div>
             </form>

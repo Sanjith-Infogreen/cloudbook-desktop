@@ -55,7 +55,7 @@ interface BillItem {
   balance: number | string; // Can be number or empty string for input
 }
 
-const NewExpense = () => {
+const NewPayment = () => {
   useInputValidation(); // Custom hook for input validation
   const [date, setDate] = useState<string | undefined>("01/07/2025");
   const dispatch = useDispatch<AppDispatch>();
@@ -63,7 +63,7 @@ const NewExpense = () => {
   const [details, setDetails] = useState<any>(null); // For supplier details from typeahead
 
   // New states for the requested fields
-  const [name, setCategory] = useState<string>(""); // New generic name field
+  const [name, setName] = useState<string>(""); // New generic name field
   const [remarks, setRemarks] = useState<string>("");
   const [mode, setMode] = useState<string>(""); // Default to Cash
   const [bankAccount, setBankAccount] = useState<string | null>(null);
@@ -78,17 +78,8 @@ const NewExpense = () => {
 
   const [upiReference, setUpiReference] = useState("");
   const [chequeNumber, setChequeNumber] = useState("");
-  const [chequeDate, setChequeDate] = useState<string | undefined>("");
-  const [creditAmount, setCreditAmount] = useState("");
-  const [debitAmount, setDebitAmount] = useState("");
-const countryOptions: Option[] = [
-    { value: "usa", label: "United States" },
-    { value: "canada", label: "Canada" },
-    { value: "uk", label: "United Kingdom" },
-    { value: "india", label: "India" },
-    { value: "australia", label: "Australia" },
-    { value: "germany", label: "Germany" },
-  ];
+  const [chequeDate, setChequeDate] = useState<string | undefined>("")
+
   const formRef = useRef<HTMLFormElement>(null);
 
   // Sample static JSON data for bills with the new 'purpose' field
@@ -195,17 +186,16 @@ const countryOptions: Option[] = [
 
     // Collect all form data including new fields and updated bill balances
     const fullFormData = {
+      supplier: details,
       date,
-      name,
+      name, // Generic name field
       remarks,
       mode,
       bankAccount,
-      amount: parseFloat(amount),
-      creditAmount: parseFloat(creditAmount || "0"),
-      debitAmount: parseFloat(debitAmount || "0"),
+      amount: parseFloat(amount), // Convert amount to number
       bills: bills.map((bill) => ({
         ...bill,
-        balance: parseFloat(bill.balance as string),
+        balance: parseFloat(bill.balance as string), // Ensure balance is number
       })),
     };
 
@@ -294,11 +284,9 @@ const countryOptions: Option[] = [
   // Calculate total sum of 'Total' and 'Paid' columns
   const totalSum = bills.reduce((sum, bill) => sum + (bill.total || 0), 0);
   const paidSum = bills.reduce((sum, bill) => sum + (bill.paid || 0), 0);
-const handleGroupChange = (value: string | string[] | null) => {
-    setCategory(value as string);
-  };
+
   return (
-    <Layout pageTitle="Expense New">
+    <Layout pageTitle="Payment New">
       <div className="min-h-screen">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
@@ -355,14 +343,19 @@ const handleGroupChange = (value: string | string[] | null) => {
                         className="w-full"
                       />
                     </FormField>
-                    <FormField label="Category">
-                      <SearchableSelect
-                      name="group"
-                      options={countryOptions}
-                      searchable
-                      placeholder="Select Category"
-                      onChange={handleGroupChange}
-                    />
+                    <FormField label="Name">
+                      <CommonTypeahead
+                        className="capitalize"
+                        name="PaymentName"
+                        placeholder="Search name"
+                        data={typeHead}
+                        required={true}
+                        searchFields={["name"]}
+                        displayField="name"
+                        minSearchLength={1}
+                        onAddNew={handleAddNewName}
+                        onSelect={handleNameSelect}
+                      />
                     </FormField>
 
                     {/* New Remarks Field */}
@@ -389,6 +382,7 @@ const handleGroupChange = (value: string | string[] | null) => {
                             { value: "UPI", label: "UPI" },
                             { value: "Cheque", label: "Cheque" },
                           ]}
+                          
                           onChange={(value) => setMode(value.target.value)}
                         />
                       </div>
@@ -427,7 +421,9 @@ const handleGroupChange = (value: string | string[] | null) => {
                             name="chequeDate"
                             id="chequeDate"
                             selected={chequeDate}
-                            onChange={(date) => setChequeDate(date)}
+                            onChange={(date) =>
+                              setChequeDate(date)
+                            }
                             className="w-full"
                           />
                         </FormField>
@@ -454,29 +450,6 @@ const handleGroupChange = (value: string | string[] | null) => {
                         value={amount}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                           handleNumericInputChange(e.target.value, setAmount)
-                        }
-                      />
-                    </FormField>
-                    <FormField label="Credit Amount">
-                      <Input
-                        name="creditAmount"
-                        placeholder="Enter Credit Amount"
-                        className="form-control w-full number_with_decimal"
-                        value={creditAmount}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setCreditAmount(e.target.value)
-                        }
-                      />
-                    </FormField>
-
-                    <FormField label="Debit Amount">
-                      <Input
-                        name="debitAmount"
-                        placeholder="Enter Debit Amount"
-                        className="form-control w-full number_with_decimal"
-                        value={debitAmount}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setDebitAmount(e.target.value)
                         }
                       />
                     </FormField>
@@ -824,4 +797,4 @@ const handleGroupChange = (value: string | string[] | null) => {
   );
 };
 
-export default NewExpense;
+export default NewPayment;

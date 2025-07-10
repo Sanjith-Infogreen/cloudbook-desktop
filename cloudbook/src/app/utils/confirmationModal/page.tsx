@@ -60,7 +60,7 @@ const ConfirmationModal = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-[#f1eef4] rounded-[40px] border border-white  p-4.5 relative max-w-[470px] w-full text-center">
+      <div className="relative max-w-[470px] w-full text-center">
       <div className="bg-white rounded-[20px]  p-8 relative max-w-[470px] w-full text-center">
         {/* Close Button */}
         <button

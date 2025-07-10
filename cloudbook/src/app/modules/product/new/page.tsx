@@ -930,7 +930,7 @@ export default function NewProduct() {
                       {sellingChecked ? (
                         <Input
                           name="sellingRateIncTax"
-                          placeholder={"Enter Rate (Including Tax)"}
+                          placeholder={"Enter Selling Rate (Including Tax)"}
                           className="form-control w-full only_number"
                           value={formData.sellingRateIncTax}
                           onChange={handleChange}
@@ -938,7 +938,7 @@ export default function NewProduct() {
                       ) : (
                         <Input
                           name="sellingRateExcTax"
-                          placeholder={"Enter Rate (Excluding Tax)"}
+                          placeholder={"Enter Selling Rate (Excluding Tax)"}
                           className="form-control w-full only_number"
                           value={formData.sellingRateExcTax}
                           onChange={handleChange}

@@ -87,8 +87,8 @@ const FormField = ({
   </div>
 );
 
-// Main NewQuotation component
-const NewQuotation = () => {
+// Main NewPurchaseReturn component
+const NewPurchaseReturn = () => {
   useInputValidation();
   const dispatch = useDispatch<AppDispatch>();
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
@@ -258,7 +258,7 @@ const NewQuotation = () => {
     });
   };
   return (
-    <Layout pageTitle="Quotation New">
+    <Layout pageTitle="New Purchase Return">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
@@ -675,4 +675,4 @@ const NewQuotation = () => {
   );
 };
 
-export default NewQuotation;
+export default NewPurchaseReturn;
