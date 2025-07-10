@@ -1914,7 +1914,223 @@
       "label": "Pinnacle Health"
     }
   ],
+ "transactionsData":[
+   {
+      "id": 1,
+      "date": "16/01/2024",
+      "amount": 5000,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Chase Bank",
+      "accountNumber": "****1234",
+      "remarks": "Monthly payment"
+    },
+    {
+      "id": 2,
+      "date": "15/01/2024",
+      "amount": 3500,
+      "type": "Debit",
+      "status": "Pending",
+      "bankName": "Bank of America",
+      "accountNumber": "****5678",
+      "remarks": "Service charge"
+    },
+    {
+      "id": 3,
+      "date": "14/01/2024",
+      "amount": 7500,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Wells Fargo",
+      "accountNumber": "****9012",
+      "remarks": "Commission payment"
+    },
+    {
+      "id": 4,
+      "date": "13/01/2024",
+      "amount": 2000,
+      "type": "Debit",
+      "status": "Failed",
+      "bankName": "Citibank",
+      "accountNumber": "****3456",
+      "remarks": "Refund processing"
+    },
+    {
+      "id": 5,
+      "date": "12/01/2024",
+      "amount": 6200,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "HDFC Bank",
+      "accountNumber": "****1122",
+      "remarks": "Freelance work"
+    },
+    {
+      "id": 6,
+      "date": "11/01/2024",
+      "amount": 1800,
+      "type": "Debit",
+      "status": "Failed",
+      "bankName": "ICICI Bank",
+      "accountNumber": "****3344",
+      "remarks": "ATM withdrawal"
+    },
+    {
+      "id": 7,
+      "date": "10/01/2024",
+      "amount": 4600,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Axis Bank",
+      "accountNumber": "****5566",
+      "remarks": "Client transfer"
+    },
+    {
+      "id": 8,
+      "date": "09/01/2024",
+      "amount": 2100,
+      "type": "Debit",
+      "status": "Pending",
+      "bankName": "Kotak Mahindra",
+      "accountNumber": "****7788",
+      "remarks": "Loan EMI"
+    },
+    {
+      "id": 9,
+      "date": "08/01/2024",
+      "amount": 9800,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "IndusInd Bank",
+      "accountNumber": "****9900",
+      "remarks": "Salary credit"
+    },
+    {
+      "id": 10,
+      "date": "07/01/2024",
+      "amount": 3000,
+      "type": "Debit",
+      "status": "Failed",
+      "bankName": "Federal Bank",
+      "accountNumber": "****1111",
+      "remarks": "Bill payment"
+    },
+    {
+      "id": 11,
+      "date": "06/01/2024",
+      "amount": 4000,
+      "type": "Credit",
+      "status": "Active",
+      "bankName": "Canara Bank",
+      "accountNumber": "****2222",
+      "remarks": "Dividend income"
+    },
+    {
+      "id": 12,
+      "date": "05/01/2024",
+      "amount": 1200,
+      "type": "Debit",
+      "status": "Completed",
+      "bankName": "PNB",
+      "accountNumber": "****3333",
+      "remarks": "Subscription fee"
+    },
+    {
+      "id": 13,
+      "date": "04/01/2024",
+      "amount": 8500,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Union Bank",
+      "accountNumber": "****4444",
+      "remarks": "Bonus payout"
+    },
+    {
+      "id": 14,
+      "date": "03/01/2024",
+      "amount": 2900,
+      "type": "Debit",
+      "status": "Failed",
+      "bankName": "UCO Bank",
+      "accountNumber": "****5555",
+      "remarks": "Transfer to savings"
+    },
+    {
+      "id": 15,
+      "date": "02/01/2024",
+      "amount": 7600,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "HSBC",
+      "accountNumber": "****6666",
+      "remarks": "Project payment"
+    },
+    {
+      "id": 16,
+      "date": "01/01/2024",
+      "amount": 1900,
+      "type": "Debit",
+      "status": "Pending",
+      "bankName": "DBS Bank",
+      "accountNumber": "****7777",
+      "remarks": "Shopping"
+    },
+    {
+      "id": 17,
+      "date": "31/12/2023",
+      "amount": 5800,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Standard Chartered",
+      "accountNumber": "****8888",
+      "remarks": "Investment return"
+    },
+    {
+      "id": 18,
+      "date": "30/12/2023",
+      "amount": 3400,
+      "type": "Debit",
+      "status": "Failed",
+      "bankName": "RBL Bank",
+      "accountNumber": "****9999",
+      "remarks": "Online order refund"
+    },
+    {
+      "id": 19,
+      "date": "29/12/2023",
+      "amount": 6700,
+      "type": "Credit",
+      "status": "Completed",
+      "bankName": "Yes Bank",
+      "accountNumber": "****0001",
+      "remarks": "App earnings"
+    },
+    {
+      "id": 20,
+      "date": "28/12/2023",
+      "amount": 2400,
+      "type": "Debit",
+      "status": "Completed",
+      "bankName": "IDFC First",
+      "accountNumber": "****0002",
+      "remarks": "Mobile recharge"
+    }
 
+ ],
+"traderInfo" :[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+91 87654 32100",
+    "status": "Active",
+    "totalTransactions": 245,
+    "totalAmount": 125000,
+    "lastTransaction": "2024-01-15",
+    "rating": 4.8,
+    "joinDate": "2023-05-12",
+    "address": "123 Main St, New York, NY 10001"
+  }
+],
   "quotations": [
     {
       "id": 1,

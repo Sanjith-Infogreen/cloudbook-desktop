@@ -55,7 +55,7 @@ interface BillItem {
   balance: number | string; // Can be number or empty string for input
 }
 
-const NewReceipt = () => {
+const NewPayment = () => {
   useInputValidation(); // Custom hook for input validation
   const [date, setDate] = useState<string | undefined>("01/07/2025");
   const dispatch = useDispatch<AppDispatch>();
@@ -286,7 +286,7 @@ const NewReceipt = () => {
   const paidSum = bills.reduce((sum, bill) => sum + (bill.paid || 0), 0);
 
   return (
-    <Layout pageTitle="Receipt New">
+    <Layout pageTitle="Payment New">
       <div className="min-h-screen">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
@@ -346,7 +346,7 @@ const NewReceipt = () => {
                     <FormField label="Name">
                       <CommonTypeahead
                         className="capitalize"
-                        name="receiptName"
+                        name="PaymentName"
                         placeholder="Search name"
                         data={typeHead}
                         required={true}
@@ -797,4 +797,4 @@ const NewReceipt = () => {
   );
 };
 
-export default NewReceipt;
+export default NewPayment;
