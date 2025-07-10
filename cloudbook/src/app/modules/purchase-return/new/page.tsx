@@ -286,6 +286,12 @@ const NewPurchaseReturn = () => {
                           setFormData((prev) => ({
                             ...prev,
                             name: item.name,
+                            shippingAddress1: item.addressLine1 ?? "",
+                            shippingAddress2: item.addressLine2 ?? "",
+                            phoneNumber: item.phoneNumber ?? "",
+                            gstNumber: item.gstNumber ?? "",
+                            state: item.state ?? "",
+                            pinCode: item.pincode ?? "",
                           }))
                         }
                       />

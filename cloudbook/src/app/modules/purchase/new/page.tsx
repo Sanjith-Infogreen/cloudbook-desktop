@@ -287,6 +287,12 @@ const NewPurchase = () => {
                           setFormData((prev) => ({
                             ...prev,
                             name: item.name,
+                            shippingAddress1: item.addressLine1 ?? "",
+                            shippingAddress2: item.addressLine2 ?? "",
+                            phoneNumber: item.phoneNumber ?? "",
+                            gstNumber: item.gstNumber ?? "",
+                            state: item.state ?? "",
+                            pinCode: item.pincode ?? "",
                           }))
                         }
                       />
@@ -343,6 +349,7 @@ const NewPurchase = () => {
                         searchable
                         onChange={handleStateChange}
                         initialValue={formData.state}
+                        
                       />
                     </FormField>
 
@@ -462,7 +469,7 @@ const NewPurchase = () => {
                         <th className="p-2 w-[10%] th-cell">Quantity</th>
                         <th className="p-2 w-[10%] th-cell">
                           <div className="flex gap-2">
-                            <span >
+                            <span>
                               Rate {rateIncTax ? "(Inc tax)" : "(Exc tax)"}
                             </span>
                             <Toggle
@@ -512,9 +519,7 @@ const NewPurchase = () => {
                               searchable
                               placeholder="Select Unit"
                               initialValue={product.unit}
-                              onChange={(item) =>
-                                unitChange(idx, item)
-                              }
+                              onChange={(item) => unitChange(idx, item)}
                             />
                           </td>
 
@@ -604,7 +609,11 @@ const NewPurchase = () => {
                               placeholder="Enter Taxable"
                               value={product.taxable}
                               onChange={(e: any) =>
-                                handleProductChange(idx, "taxable", e.target.value)
+                                handleProductChange(
+                                  idx,
+                                  "taxable",
+                                  e.target.value
+                                )
                               }
                             />
                           </td>
@@ -633,13 +642,13 @@ const NewPurchase = () => {
                           <td className="p-2 text-center  last-td-cell">
                             <div className="flex justify-around">
                               <i className="ri-pencil-line text-[16px] cursor-pointer"></i>
-                            <button
-                              type="button"
-                              className="text-red-600 delete-row mx-1 cursor-pointer"
-                              onClick={() => handleDeleteRow(idx)}
-                            >
-                              <i className="ri-delete-bin-line text-[16px]"></i>
-                            </button>
+                              <button
+                                type="button"
+                                className="text-red-600 delete-row mx-1 cursor-pointer"
+                                onClick={() => handleDeleteRow(idx)}
+                              >
+                                <i className="ri-delete-bin-line text-[16px]"></i>
+                              </button>
                             </div>
                           </td>
                         </tr>
