@@ -428,7 +428,7 @@ const NewBulkReceipt = () => {
               <table className="w-full text-sm rounded-lg">
                 <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
                   <tr>
-                    {/* Ensure no whitespace between <th> tags */}
+                    
                     <th className="th-cell w-[5%]">S.no</th><th className="th-cell w-[8%]">Bill Number</th><th className="th-cell w-[10%]">Date</th><th className="th-cell w-[15%]">Company Name</th><th className="th-cell w-[25%]">Address</th><th className="th-cell w-[12%] text-right">Amount</th><th className="th-cell w-[12%] text-right text-right">Balance</th><th className="last-th-cell w-[13%] text-right">Paid</th>
                   </tr>
                 </thead>
@@ -439,10 +439,10 @@ const NewBulkReceipt = () => {
                         <td className="td-cell">{index + 1}</td>
                         <td className="td-cell">{bill.billNumber}</td>
                         <td className="td-cell">{bill.date}</td>
-                        <td className="td-cell">{bill.companyName}</td>{" "}
-                        {/* Display companyName */}
-                        <td className="td-cell">{bill.address}</td>{" "}
-                        {/* Display address */}
+                        <td className="td-cell">{bill.companyName}</td>
+                        
+                        <td className="td-cell">{bill.address}</td>
+                       
                         <td className="td-cell text-right">
                           {bill.total.toLocaleString("en-IN", {
                             style: "currency",
