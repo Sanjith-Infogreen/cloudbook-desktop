@@ -9,14 +9,15 @@ import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 
-interface Receipt {
+interface SalesOrder {
     id: number;
-    receiptNumber: string;
+    orderID: string;
     customer: string;
-    receiptDate: string;
-    amountReceived: number;
-    paymentMethod: string;
+    orderDate: string;
+    deliveryDate: string;
+    totalAmount: number;
     status: string; 
+    salesperson: string;
 }
 
 interface SidebarProps {
@@ -57,44 +58,51 @@ function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
     );
 }
 
-type TabKey = "all" | "paid" | "partially_paid" | "void";
+type TabKey = "all" | "pending" | "confirmed" | "shipped" | "delivered" | "cancelled";
 
-const ReceiptList = () => {
+const SalesOrderList = () => {
     const [activeTab, setActiveTab] = useState<TabKey>("all");
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const [selectAll, setSelectAll] = useState(false);
     const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
-    const [isReceiptDropdownOpen, setReceiptDropdownOpen] = useState(false);
+    const [isOrderDropdownOpen, setOrderDropdownOpen] = useState(false);
     const viewRef = useRef(null);
-    const receiptRef = useRef(null);
+    const orderRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
-    const [receipts, setReceipts] = useState<Receipt[]>([]);
-    const [receiptCustomerOptions, setreceiptCustomerOptions] = useState<Option[]>([]);
+    
+    const [salesOrders, setSalesOrders] = useState<SalesOrder[]>([]);
+    const [customerOptions, setCustomerOptions] = useState<Option[]>([]); 
+    const [salespersonOptions, setSalespersonOptions] = useState<Option[]>([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchReceiptData = async () => {
+        const fetchSalesOrderData = async () => {
             try {
-                const [receiptsResponse, customersResponse] = await Promise.all([
-                    fetch("http://localhost:4000/receipts"), 
-                    fetch("http://localhost:4000/receiptCustomerOptions"), 
+                const [ordersResponse, customersResponse, salespersonsResponse] = await Promise.all([
+                    fetch("http://localhost:4000/salesOrders"), 
+                    fetch("http://localhost:4000/customerOptions"), 
+                    fetch("http://localhost:4000/salespersonOptions"),
                 ]);
 
-                if (!receiptsResponse.ok) {
-                    throw new Error(`HTTP error! Status: ${receiptsResponse.status} from /receipts`);
+                if (!ordersResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${ordersResponse.status} from /salesOrders`);
                 }
                 if (!customersResponse.ok) {
-                    throw new Error(`HTTP error! Status: ${customersResponse.status} from /receiptCustomerOptions`);
+                    throw new Error(`HTTP error! Status: ${customersResponse.status} from /customerOptions`);
+                }
+                if (!salespersonsResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${salespersonsResponse.status} from /salespersonOptions`);
                 }
 
-                const receiptsData: Receipt[] = await receiptsResponse.json();
+                const ordersData: SalesOrder[] = await ordersResponse.json();
                 const customersData: Option[] = await customersResponse.json();
+                const salespersonsData: Option[] = await salespersonsResponse.json();
 
-                setReceipts(receiptsData);
-                setreceiptCustomerOptions(customersData);
+                setSalesOrders(ordersData);
+                setCustomerOptions(customersData);
+                setSalespersonOptions(salespersonsData);
             } catch (err) {
                 if (err instanceof Error) {
                     setError(err.message);
@@ -107,12 +115,12 @@ const ReceiptList = () => {
             }
         };
 
-        fetchReceiptData();
+        fetchSalesOrderData();
     }, []);
 
     const handleDelete = () => {
-        console.log("Deleting receipts with IDs:", selectedIds);
-       
+        console.log("Deleting sales orders with IDs:", selectedIds);
+        
         setIsModalOpen(false);
         setSelectedIds([]);
         
@@ -126,10 +134,10 @@ const ReceiptList = () => {
             setViewDropdownOpen(false);
         }
         if (
-            receiptRef.current &&
-            !(receiptRef.current as any).contains(e.target)
+            orderRef.current &&
+            !(orderRef.current as any).contains(e.target)
         ) {
-            setReceiptDropdownOpen(false);
+            setOrderDropdownOpen(false);
         }
     };
 
@@ -141,15 +149,15 @@ const ReceiptList = () => {
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [fields, setFields] = useState([
-        { id: "receiptNumber", label: "Receipt Number", visible: true },
+        { id: "orderID", label: "Order ID", visible: true },
         { id: "customer", label: "Customer", visible: true },
-        { id: "receiptDate", label: "Receipt Date", visible: true },
-        { id: "amountReceived", label: "Amount Received", visible: true },
-        { id: "paymentMethod", label: "Payment Method", visible: true },
+        { id: "orderDate", label: "Order Date", visible: true },
+        { id: "deliveryDate", label: "Delivery Date", visible: true },
+        { id: "totalAmount", label: "Total Amount", visible: true },
         { id: "status", label: "Status", visible: true },
-        
-        { id: "invoiceReference", label: "Invoice Reference", visible: false },
-        { id: "notes", label: "Notes", visible: false },
+        { id: "salesperson", label: "Salesperson", visible: true },
+        { id: "paymentStatus", label: "Payment Status", visible: false },
+        { id: "shippingAddress", label: "Shipping Address", visible: false },
     ]);
 
     const toggleSidebar = () => {
@@ -173,12 +181,13 @@ const ReceiptList = () => {
             fields.map((field) => ({
                 ...field,
                 visible: [
-                    "receiptNumber",
+                    "orderID",
                     "customer",
-                    "receiptDate",
-                    "amountReceived",
-                    "paymentMethod",
+                    "orderDate",
+                    "deliveryDate",
+                    "totalAmount",
                     "status",
+                    "salesperson",
                 ].includes(field.id),
             }))
         );
@@ -193,7 +202,7 @@ const ReceiptList = () => {
         const checked = e.target.checked;
         setSelectAll(checked);
         if (checked) {
-            setSelectedIds(filteredReceipts.map((p) => p.id));
+            setSelectedIds(filteredSalesOrders.map((p) => p.id));
         } else {
             setSelectedIds([]);
         }
@@ -207,13 +216,21 @@ const ReceiptList = () => {
 
     const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
     const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
-    const [selectedReceiptStatus, setSelectedReceiptStatus] = useState<string | null>(null);
+    const [selectedSalesperson, setSelectedSalesperson] = useState<string | null>(null);
+    const [selectedOrderStatus, setSelectedOrderStatus] = useState<string | null>(null);
     const [minAmount, setMinAmount] = useState<string>('');
     const [maxAmount, setMaxAmount] = useState<string>('');
+    const [startDate, setStartDate] = useState<string>('');
+    const [endDate, setEndDate] = useState<string>('');
 
     const handleCustomerChange = (value: string | string[] | null) => {
         console.log("Selected Customer:", value);
         setSelectedCustomer(value as string | null);
+    };
+
+    const handleSalespersonChange = (value: string | string[] | null) => {
+        console.log("Selected Salesperson:", value);
+        setSelectedSalesperson(value as string | null);
     };
 
     const handleAddNewItem = () => {
@@ -231,9 +248,12 @@ const ReceiptList = () => {
     const handleApplyFilters = () => {
         console.log("Applying filters:", {
             selectedCustomer,
-            selectedReceiptStatus,
+            selectedSalesperson,
+            selectedOrderStatus,
             minAmount,
-            maxAmount
+            maxAmount,
+            startDate,
+            endDate
         });
         setIsFilterSidebarOpen(false);
     };
@@ -241,45 +261,49 @@ const ReceiptList = () => {
     const handleResetFilters = () => {
         console.log("Resetting filters");
         setSelectedCustomer(null);
-        setSelectedReceiptStatus(null);
+        setSelectedSalesperson(null);
+        setSelectedOrderStatus(null);
         setMinAmount('');
         setMaxAmount('');
+        setStartDate('');
+        setEndDate('');
     };
 
-    const tabs: TabKey[] = ["all", "paid", "partially_paid", "void"];
+    const tabs: TabKey[] = ["all", "pending", "confirmed", "shipped", "delivered", "cancelled"];
 
- 
     const counts: Record<TabKey, number> = {
-        all: receipts.length,
-        paid: receipts.filter(r => r.status.toLowerCase() === 'paid').length,
-        partially_paid: receipts.filter(r => r.status.toLowerCase() === 'partially_paid').length,
-        void: receipts.filter(r => r.status.toLowerCase() === 'void').length,
+        all: salesOrders.length,
+        pending: salesOrders.filter(so => so.status.toLowerCase() === 'pending').length,
+        confirmed: salesOrders.filter(so => so.status.toLowerCase() === 'confirmed').length,
+        shipped: salesOrders.filter(so => so.status.toLowerCase() === 'shipped').length,
+        delivered: salesOrders.filter(so => so.status.toLowerCase() === 'delivered').length,
+        cancelled: salesOrders.filter(so => so.status.toLowerCase() === 'cancelled').length,
     };
 
     const router = useRouter();
 
-    const filteredReceipts =
+    const filteredSalesOrders =
         activeTab === "all"
-            ? receipts
-            : receipts.filter((r) => r.status.toLowerCase() === activeTab);
+            ? salesOrders
+            : salesOrders.filter((so) => so.status.toLowerCase() === activeTab);
 
     useEffect(() => {
         setSelectAll(
-            filteredReceipts.length > 0 &&
-            selectedIds.length === filteredReceipts.length
+            filteredSalesOrders.length > 0 &&
+            selectedIds.length === filteredSalesOrders.length
         );
-    }, [selectedIds, filteredReceipts]);
+    }, [selectedIds, filteredSalesOrders]);
 
     if (loading) {
-        return <Layout pageTitle="Receipt List">Loading receipts...</Layout>;
+        return <Layout pageTitle="Sales Order List">Loading sales orders...</Layout>;
     }
 
     if (error) {
-        return <Layout pageTitle="Receipt List">Error: {error}</Layout>;
+        return <Layout pageTitle="Sales Order List">Error: {error}</Layout>;
     }
 
     return (
-        <Layout pageTitle="Receipt List">
+        <Layout pageTitle="Sales Order List">
             <main className="flex-1">
                 <div className="overflow-y-hidden h-[calc(100vh-103px)]">
                     {/* Tabs */}
@@ -296,7 +320,7 @@ const ReceiptList = () => {
                                     >
                                         <span className="flex items-center gap-1">
                                             {tab === "all"
-                                                ? "All Receipts"
+                                                ? "All Orders"
                                                 : tab.charAt(0).toUpperCase() + tab.slice(1).replace('_', ' ')}
                                             {activeTab === tab && (
                                                 <>
@@ -344,7 +368,7 @@ const ReceiptList = () => {
                             <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
                                     <i className="ri-download-line mr-1"></i>
-                                    Import Receipts
+                                    Import Sales Orders
                                 </button>
                                 <button className="px-2 border-l border-[#cfd7df] hover:bg-[#ebeff3] cursor-pointer">
                                     <i className="ri-arrow-down-s-line"></i>
@@ -352,10 +376,10 @@ const ReceiptList = () => {
                             </div>
                             <button
                                 className="btn-sm btn-primary ml-2 text-sm"
-                                onClick={() => router.push("/modules/receipt/new")}
+                                onClick={() => router.push("/modules/salesOrder/new")}
                             >
                                 <i className="ri-add-fill mr-1"></i>
-                                <span className="text-sm">Add Receipt</span>
+                                <span className="text-sm">Add Sales Order</span>
                             </button>
                         </div>
                     </div>
@@ -394,7 +418,7 @@ const ReceiptList = () => {
                                         id="bulkActionsBtn"
                                         onClick={() => {
                                             setSelectAll(true);
-                                            setSelectedIds(filteredReceipts.map((p) => p.id));
+                                            setSelectedIds(filteredSalesOrders.map((p) => p.id));
                                         }}
                                     >
                                         <i className="ri-stack-fill mr-1"></i>
@@ -425,8 +449,8 @@ const ReceiptList = () => {
                                         isOpen={isModalOpen}
                                         onClose={() => setIsModalOpen(false)}
                                         onConfirm={handleDelete}
-                                        title="Delete selected receipts?"
-                                        message="These receipts will be permanently deleted and cannot be recovered."
+                                        title="Delete selected sales orders?"
+                                        message="These sales orders will be permanently deleted and cannot be recovered."
                                         confirmText="Yes, Delete"
                                         cancelText="No, Keep"
                                         iconName="delete"
@@ -440,7 +464,7 @@ const ReceiptList = () => {
                         </div>
                         <div className="flex items-center relative space-x-2">
                             <Input
-                                name="receiptSearch"
+                                name="salesOrderSearch"
                                 placeholder="Search here..."
                                 className="!h-[31px] "
                             />
@@ -457,10 +481,10 @@ const ReceiptList = () => {
                                 {/* Content to be placed inside the sidebar */}
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="filter-label">Receipt Number</label>
+                                        <label className="filter-label">Order ID</label>
                                         <Input
-                                            name="receiptNumber"
-                                            placeholder="Enter Receipt Number"
+                                            name="orderID"
+                                            placeholder="Enter Order ID"
                                         />
                                     </div>
                                     <div>
@@ -469,9 +493,9 @@ const ReceiptList = () => {
                                             name="status"
                                             options={[
                                                
-                                                { value: "Paid", label: "Paid" },
-                                                { value: "Partially_Paid", label: "Partially Paid" },
-                                                { value: "Void", label: "Void" },
+                                                { value: "Shipped", label: "Shipped" },
+                                                { value: "Delivered", label: "Delivered" },
+                                                { value: "Cancelled", label: "Cancelled" },
                                             ]}
                                            
                                         />
@@ -483,7 +507,7 @@ const ReceiptList = () => {
                                         <SearchableSelect
                                             id="customer-select"
                                             name="customer"
-                                            options={receiptCustomerOptions}
+                                            options={customerOptions}
                                             placeholder="Select Customer Name"
                                             searchable
                                             onChange={handleCustomerChange}
@@ -491,7 +515,41 @@ const ReceiptList = () => {
                                             onAddNew={handleAddNewItem}
                                         />
                                     </div>
-                                  
+                                    <div>
+                                        <label htmlFor="salesperson-select" className="filter-label">
+                                            Salesperson
+                                        </label>
+                                        <SearchableSelect
+                                            id="salesperson-select"
+                                            name="salesperson"
+                                            options={salespersonOptions}
+                                            placeholder="Select Salesperson"
+                                            searchable
+                                            onChange={handleSalespersonChange}
+                                            initialValue={selectedSalesperson}
+                                            onAddNew={handleAddNewItem}
+                                        />
+                                    </div>
+                                    {/* <div>
+                                        <label className="filter-label">Order Date Range</label>
+                                        <div className="flex space-x-2">
+                                            <Input
+                                                name="startDate"
+                                                type="date"
+                                                value={startDate}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setStartDate(e.target.value)}
+                                                className="w-1/2"
+                                            />
+                                            <Input
+                                                name="endDate"
+                                                type="date"
+                                                value={endDate}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndDate(e.target.value)}
+                                                className="w-1/2"
+                                            />
+                                        </div>
+                                    </div> */}
+                                   
                                 </div>
                             </FilterSidebar>
                         </div>
@@ -500,7 +558,7 @@ const ReceiptList = () => {
                     <div className="bg-[#ebeff3]">
                         {selectedIds.length > 1 && (
                             <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-                                {selectedIds.length} Receipts selected
+                                {selectedIds.length} Sales Orders selected
                             </div>
                         )}
                         <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
@@ -523,14 +581,14 @@ const ReceiptList = () => {
                                             </th>
                                             <th className="th-cell relative" >
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Receipt Number</span>
+                                                    <span>Order ID</span>
                                                     <i
-                                                        className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isReceiptDropdownOpen ? 'bg-[#c9d1d7]' : ''
+                                                        className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isOrderDropdownOpen ? 'bg-[#c9d1d7]' : ''
                                                             }`}
-                                                        onClick={() => setReceiptDropdownOpen(prev => !prev)} ref={receiptRef}
+                                                        onClick={() => setOrderDropdownOpen(prev => !prev)} ref={orderRef}
                                                     ></i>
                                                 </div>
-                                                {isReceiptDropdownOpen && (
+                                                {isOrderDropdownOpen && (
                                                     <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
                                                         <ul className="text-sm text-[#12344d] font-normal py-1">
                                                             <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -577,43 +635,49 @@ const ReceiptList = () => {
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Receipt Date</span>
+                                                    <span>Order Date</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Amount Received</span>
+                                                    <span>Delivery Date</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Payment Method</span>
+                                                    <span>Total Amount</span>
+                                                    <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
+                                                </div>
+                                            </th>
+                                            <th className="th-cell">
+                                                <div className="flex justify-between items-center gap-1">
+                                                    <span>Status</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="last-th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Status</span>
+                                                    <span>Salesperson</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredReceipts.map((receipt, index) => (
+                                        {filteredSalesOrders.map((so, index) => (
                                             <tr
-                                                key={receipt.id}
-                                                className={`tr-hover group ${selectedIds.includes(receipt.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
+                                                key={so.id}
+                                                className={`tr-hover group ${selectedIds.includes(so.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
                                                     }`}
                                             >
                                                 <td className="td-cell">
                                                     <CheckboxGroup
                                                         name="selectall"
                                                         value="selectAll"
-                                                        checked={selectedIds.includes(receipt.id)}
-                                                        onChange={() => handleCheckboxChange(receipt.id)}
+                                                        checked={selectedIds.includes(so.id)}
+                                                        onChange={() => handleCheckboxChange(so.id)}
                                                     />
                                                 </td>
                                                 <td className="td-cell">
@@ -622,19 +686,22 @@ const ReceiptList = () => {
                                                         <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
                                                     </span>
                                                 </td>
-                                                <td className="td-cell">{receipt.receiptNumber}</td>
-                                                <td className="td-cell">{receipt.customer}</td>
-                                                <td className="td-cell">{receipt.receiptDate}</td>
-                                                <td className="td-cell">₹{receipt.amountReceived.toLocaleString()}</td>
-                                                <td className="td-cell">{receipt.paymentMethod}</td>
-                                                <td className="last-td-cell">
-                                                    <span className={`px-2 py-1 rounded-full text-xs ${receipt.status === 'Paid' ? 'bg-green-100 text-green-800' :
-                                                        receipt.status === 'Partially_Paid' ? 'bg-yellow-100 text-yellow-800' :
-                                                            'bg-red-100 text-red-800'
+                                                <td className="td-cell">{so.orderID}</td>
+                                                <td className="td-cell">{so.customer}</td>
+                                                <td className="td-cell">{so.orderDate}</td>
+                                                <td className="td-cell">{so.deliveryDate}</td>
+                                                <td className="td-cell">₹{so.totalAmount.toLocaleString()}</td>
+                                                <td className="td-cell">
+                                                    <span className={`px-2 py-1 rounded-full text-xs ${so.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
+                                                        so.status === 'Confirmed' ? 'bg-blue-100 text-blue-800' :
+                                                            so.status === 'Shipped' ? 'bg-purple-100 text-purple-800' :
+                                                                so.status === 'Delivered' ? 'bg-green-100 text-green-800' :
+                                                                    'bg-red-100 text-red-800'
                                                         }`}>
-                                                        {receipt.status.replace('_', ' ')}
+                                                        {so.status}
                                                     </span>
                                                 </td>
+                                                <td className="last-td-cell">{so.salesperson}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -646,11 +713,11 @@ const ReceiptList = () => {
             </main>
             <footer className="footer-list">
                 <span className="text-sm">
-                    Showing <span className="text-red-600">{filteredReceipts.length}</span> of <span className="text-blue-600">{receipts.length}</span>
+                    Showing <span className="text-red-600">{filteredSalesOrders.length}</span> of <span className="text-blue-600">{salesOrders.length}</span>
                 </span>
             </footer>
         </Layout>
     );
 };
 
-export default ReceiptList;
+export default SalesOrderList;

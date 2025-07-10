@@ -9,17 +9,17 @@ import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 
-interface Invoice {
+interface Contact {
   id: number;
-  invoiceNumber: string;
-  customer: string;
-  invoiceDate: string;
-  dueDate: string;
-  totalAmount: number;
-  status: string;
-  category: string;
+  contactID: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company: string;
+  type: string; 
+  status: string; 
 }
-
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -59,46 +59,44 @@ function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
   );
 }
 
-type TabKey = "all" | "pending" | "paid" | "overdue";
+type TabKey = "all" | "customer" | "vendor" | "lead" | "other";
 
-const InvoiceList = () => {
+const ContactList = () => {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
-  const [isInvoiceDropdownOpen, setInvoiceDropdownOpen] = useState(false);
+  const [isContactDropdownOpen, setContactDropdownOpen] = useState(false);
   const viewRef = useRef(null);
-  const invoiceRef = useRef(null);
+  const contactRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [customerOptions, setCustomerOptions] = useState<Option[]>([]);
+ 
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [companyOptions, setCompanyOptions] = useState<Option[]>([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchInvoiceData = async () => {
+    const fetchContactData = async () => {
       try {
-        const [invoicesResponse, customersResponse] = await Promise.all([
-            fetch("http://localhost:4000/invoices"),
-          fetch("http://localhost:4000/customerOptions"),
+        const [contactsResponse, companiesResponse] = await Promise.all([
+          fetch("http://localhost:4000/contacts"), 
+          fetch("http://localhost:4000/companyOptions"), 
         ]);
 
-        if (!invoicesResponse.ok) {
-          throw new Error(`HTTP error! Status: ${invoicesResponse.status} from /invoices`);
+        if (!contactsResponse.ok) {
+          throw new Error(`HTTP error! Status: ${contactsResponse.status} from /contacts`);
         }
-        if (!customersResponse.ok) {
-          throw new Error(`HTTP error! Status: ${customersResponse.status} from /customerOptions`);
+        if (!companiesResponse.ok) {
+          throw new Error(`HTTP error! Status: ${companiesResponse.status} from /companyOptions`);
         }
 
-        const invoicesData: Invoice[] = await invoicesResponse.json();
-        const customersData: Option[] = await customersResponse.json();
+        const contactsData: Contact[] = await contactsResponse.json();
+        const companiesData: Option[] = await companiesResponse.json();
 
-     
-
-        setInvoices(invoicesData);
-        setCustomerOptions(customersData);
+        setContacts(contactsData);
+        setCompanyOptions(companiesData);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);
@@ -111,27 +109,29 @@ const InvoiceList = () => {
       }
     };
 
-    fetchInvoiceData();
+    fetchContactData();
   }, []);
 
   const handleDelete = () => {
-    console.log("Deleting invoices with IDs:", selectedIds);
+    console.log("Deleting contacts with IDs:", selectedIds);
+   
     setIsModalOpen(false);
     setSelectedIds([]);
+   
   };
 
   const handleClickOutside = (e: MouseEvent) => {
     if (
-      viewRef.current && 
+      viewRef.current &&
       !(viewRef.current as any).contains(e.target)
     ) {
       setViewDropdownOpen(false);
     }
     if (
-      invoiceRef.current &&
-      !(invoiceRef.current as any).contains(e.target)
+      contactRef.current &&
+      !(contactRef.current as any).contains(e.target)
     ) {
-      setInvoiceDropdownOpen(false);
+      setContactDropdownOpen(false);
     }
   };
 
@@ -143,16 +143,16 @@ const InvoiceList = () => {
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [fields, setFields] = useState([
-    { id: "invoiceNumber", label: "Invoice Number", visible: true },
-    { id: "customer", label: "Customer", visible: true },
-    { id: "invoiceDate", label: "Invoice Date", visible: true },
-    { id: "dueDate", label: "Due Date", visible: true },
-    { id: "totalAmount", label: "Total Amount", visible: true },
-    { id: "status", label: "Status", visible: true },
-    { id: "category", label: "Category", visible: true },
-    { id: "items", label: "Items", visible: false },
-    { id: "paymentTerms", label: "Payment Terms", visible: false },
-    { id: "notes", label: "Notes", visible: false },
+    { id: "contactID", label: "Contact ID", visible: true },
+    { id: "firstName", label: "First Name", visible: true },
+    { id: "lastName", label: "Last Name", visible: true },
+    { id: "email", label: "Email", visible: true },
+    { id: "phone", label: "Phone", visible: true },
+    { id: "company", label: "Company", visible: true },
+    { id: "type", label: "Contact Type", visible: true },
+    { id: "status", label: "Status", visible: true }, 
+    { id: "address", label: "Address", visible: false },
+    { id: "lastContacted", label: "Last Contacted", visible: false },
   ]);
 
   const toggleSidebar = () => {
@@ -176,13 +176,14 @@ const InvoiceList = () => {
       fields.map((field) => ({
         ...field,
         visible: [
-          "invoiceNumber",
-          "customer",
-          "invoiceDate",
-          "dueDate",
-          "totalAmount",
+          "contactID",
+          "firstName",
+          "lastName",
+          "email",
+          "phone",
+          "company",
+          "type",
           "status",
-          "category",
         ].includes(field.id),
       }))
     );
@@ -197,7 +198,7 @@ const InvoiceList = () => {
     const checked = e.target.checked;
     setSelectAll(checked);
     if (checked) {
-      setSelectedIds(filteredInvoices.map((p) => p.id));
+      setSelectedIds(filteredContacts.map((p) => p.id));
     } else {
       setSelectedIds([]);
     }
@@ -210,12 +211,13 @@ const InvoiceList = () => {
   };
 
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
-  const [selectedInvoiceStatus, setSelectedInvoiceStatus] = useState<string | null>(null);
-  
-  const handleCustomerChange = (value: string | string[] | null) => {
-    console.log("Selected Customer:", value);
-    setSelectedCustomer(value as string | null);
+  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
+  const [selectedContactType, setSelectedContactType] = useState<string | null>(null);
+  const [selectedContactStatus, setSelectedContactStatus] = useState<string | null>(null);
+
+  const handleCompanyChange = (value: string | string[] | null) => {
+    console.log("Selected Company:", value);
+    setSelectedCompany(value as string | null);
   };
 
   const handleAddNewItem = () => {
@@ -232,52 +234,60 @@ const InvoiceList = () => {
 
   const handleApplyFilters = () => {
     console.log("Applying filters:", {
-      selectedCustomer,
-      selectedInvoiceStatus,
+      selectedCompany,
+      selectedContactType,
+      selectedContactStatus,
     });
     setIsFilterSidebarOpen(false);
   };
 
   const handleResetFilters = () => {
     console.log("Resetting filters");
-    setSelectedCustomer(null);
-    setSelectedInvoiceStatus(null);
+    setSelectedCompany(null);
+    setSelectedContactType(null);
+    setSelectedContactStatus(null);
   };
 
-  const tabs: TabKey[] = ["all", "pending", "paid", "overdue"];
+  const tabs: TabKey[] = ["all", "customer", "vendor", "lead", "other"];
 
  
   const counts: Record<TabKey, number> = {
-    all: invoices.length,
-    pending: invoices.filter(p => p.status.toLowerCase() === 'pending').length,
-    paid: invoices.filter(p => p.status.toLowerCase() === 'paid').length,
-    overdue: invoices.filter(p => p.status.toLowerCase() === 'overdue').length,
+    all: contacts.length,
+    customer: contacts.filter(c => c.type.toLowerCase() === 'customer').length,
+    vendor: contacts.filter(c => c.type.toLowerCase() === 'vendor').length,
+    lead: contacts.filter(c => c.status.toLowerCase() === 'lead').length,
+    other: contacts.filter(c => c.type.toLowerCase() === 'other').length,
   };
 
   const router = useRouter();
 
-  const filteredInvoices =
+  const filteredContacts =
     activeTab === "all"
-      ? invoices
-      : invoices.filter((p) => p.status.toLowerCase() === activeTab);
+      ? contacts
+      : contacts.filter((c) => {
+          if (activeTab === "lead") {
+            return c.status.toLowerCase() === 'lead';
+          }
+          return c.type.toLowerCase() === activeTab;
+        });
 
   useEffect(() => {
     setSelectAll(
-      filteredInvoices.length > 0 &&
-      selectedIds.length === filteredInvoices.length
+      filteredContacts.length > 0 &&
+      selectedIds.length === filteredContacts.length
     );
-  }, [selectedIds, filteredInvoices]);
+  }, [selectedIds, filteredContacts]);
 
   if (loading) {
-    return <Layout pageTitle="Invoice List">Loading invoices...</Layout>;
+    return <Layout pageTitle="Contact List">Loading contacts...</Layout>;
   }
 
   if (error) {
-    return <Layout pageTitle="Invoice List">Error: {error}</Layout>;
+    return <Layout pageTitle="Contact List">Error: {error}</Layout>;
   }
 
   return (
-    <Layout pageTitle="Invoice List">
+    <Layout pageTitle="Contact List">
       <main className="flex-1">
         <div className="overflow-y-hidden h-[calc(100vh-103px)]">
           {/* Tabs */}
@@ -294,7 +304,7 @@ const InvoiceList = () => {
                   >
                     <span className="flex items-center gap-1">
                       {tab === "all"
-                        ? "All Invoices"
+                        ? "All Contacts"
                         : tab.charAt(0).toUpperCase() + tab.slice(1)}
                       {activeTab === tab && (
                         <>
@@ -342,7 +352,7 @@ const InvoiceList = () => {
               <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-download-line mr-1"></i>
-                  Import Invoices
+                  Import Contacts
                 </button>
                 <button className="px-2 border-l border-[#cfd7df] hover:bg-[#ebeff3] cursor-pointer">
                   <i className="ri-arrow-down-s-line"></i>
@@ -350,10 +360,10 @@ const InvoiceList = () => {
               </div>
               <button
                 className="btn-sm btn-primary ml-2 text-sm"
-                onClick={() => router.push("/modules/invoice/new")}
+                onClick={() => router.push("/modules/contact/new")}
               >
                 <i className="ri-add-fill mr-1"></i>
-                <span className="text-sm">Add Invoice</span>
+                <span className="text-sm">Add Contact</span>
               </button>
             </div>
           </div>
@@ -392,7 +402,7 @@ const InvoiceList = () => {
                     id="bulkActionsBtn"
                     onClick={() => {
                       setSelectAll(true);
-                      setSelectedIds(filteredInvoices.map((p) => p.id));
+                      setSelectedIds(filteredContacts.map((p) => p.id));
                     }}
                   >
                     <i className="ri-stack-fill mr-1"></i>
@@ -423,8 +433,8 @@ const InvoiceList = () => {
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     onConfirm={handleDelete}
-                    title="Delete this file?"
-                    message="This file will be permanently deleted from your device and cannot be recovered."
+                    title="Delete selected contacts?"
+                    message="These contacts will be permanently deleted and cannot be recovered."
                     confirmText="Yes, Delete"
                     cancelText="No, Keep"
                     iconName="delete"
@@ -438,7 +448,7 @@ const InvoiceList = () => {
             </div>
             <div className="flex items-center relative space-x-2">
               <Input
-                name="invoiceSearch"
+                name="contactSearch"
                 placeholder="Search here..."
                 className="!h-[31px] "
               />
@@ -452,42 +462,46 @@ const InvoiceList = () => {
                 onReset={handleResetFilters}
                 title="Apply Your Filters"
               >
-
-                
                 {/* Content to be placed inside the sidebar */}
                 <div className="space-y-4">
                   <div>
-                    <label className="filter-label">Invoice Number</label>
-                    <Input
-                      name="invoiceNumber"
-                      placeholder="Enter Invoice Number"
-                    />
-                  </div>
-                  <div>
-                    <label className="filter-label">Status</label>
+                    <label className="filter-label">Contact Type</label>
                     <RadioGroup
-                      name="status"
+                      name="contactType"
                       options={[
-                       
-                        { value: "Pending", label: "Pending" },
-                        { value: "Paid", label: "Paid" },
-                        { value: "Overdue", label: "Overdue" },
+                        
+                        { value: "Customer", label: "Customer" },
+                        { value: "Vendor", label: "Vendor" },
+                        { value: "Other", label: "Other" },
                       ]}
-                  
+                     
                     />
                   </div>
                   <div>
-                    <label htmlFor="customer-select" className="filter-label">
-                      Customer Name
+                    <label className="filter-label">Contact Status</label>
+                    <RadioGroup
+                      name="contactStatus"
+                      options={[
+                        
+                        { value: "Active", label: "Active" },
+                        { value: "Inactive", label: "Inactive" },
+                        { value: "Lead", label: "Lead" },
+                      ]}
+                      
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="company-select" className="filter-label">
+                      Company
                     </label>
                     <SearchableSelect
-                      id="customer-select"
-                      name="customer"
-                      options={customerOptions} 
-                      placeholder="Select Customer Name"
+                      id="company-select"
+                      name="company"
+                      options={companyOptions}
+                      placeholder="Select Company"
                       searchable
-                      onChange={handleCustomerChange}
-                      initialValue={selectedCustomer}
+                      onChange={handleCompanyChange}
+                      initialValue={selectedCompany}
                       onAddNew={handleAddNewItem}
                     />
                   </div>
@@ -499,7 +513,7 @@ const InvoiceList = () => {
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
               <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-                {selectedIds.length} Invoices selected
+                {selectedIds.length} Contacts selected
               </div>
             )}
             <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
@@ -522,17 +536,17 @@ const InvoiceList = () => {
                       </th>
                       <th className="th-cell relative" >
                         <div className="flex justify-between items-center gap-1">
-                          <span>Invoice Number</span>
+                          <span>Contact ID</span>
                           <i
-                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isInvoiceDropdownOpen ? 'bg-[#c9d1d7]' : ''
+                            className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isContactDropdownOpen ? 'bg-[#c9d1d7]' : ''
                               }`}
-                            onClick={() => setInvoiceDropdownOpen(prev => !prev)} ref={invoiceRef}
+                            onClick={() => setContactDropdownOpen(prev => !prev)} ref={contactRef}
                           ></i>
                         </div>
-                        {isInvoiceDropdownOpen && (
+                        {isContactDropdownOpen && (
                           <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
                             <ul className="text-sm text-[#12344d] font-normal py-1">
-                              <li className="flex items-center  px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
+                              <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
                                 <i className="ri-sort-asc mr-2"></i> Sort ascending A → Z
                               </li>
                               <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -570,55 +584,61 @@ const InvoiceList = () => {
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Customer Name</span>
+                          <span>First Name</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Invoice Date</span>
+                          <span>Last Name</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Due Date</span>
+                          <span>Email</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Total Amount</span>
+                          <span>Phone</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Status</span>
+                          <span>Company</span>
+                          <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
+                        </div>
+                      </th>
+                      <th className="th-cell">
+                        <div className="flex justify-between items-center gap-1">
+                          <span>Type</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                       <th className="last-th-cell">
                         <div className="flex justify-between items-center gap-1">
-                          <span>Category</span>
+                          <span>Status</span>
                           <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                         </div>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredInvoices.map((invoice, index) => (
+                    {filteredContacts.map((c, index) => (
                       <tr
-                        key={invoice.id}
-                        className={`tr-hover group ${selectedIds.includes(invoice.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
+                        key={c.id}
+                        className={`tr-hover group ${selectedIds.includes(c.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
                           }`}
                       >
                         <td className="td-cell">
                           <CheckboxGroup
                             name="selectall"
                             value="selectAll"
-                            checked={selectedIds.includes(invoice.id)}
-                            onChange={() => handleCheckboxChange(invoice.id)}
+                            checked={selectedIds.includes(c.id)}
+                            onChange={() => handleCheckboxChange(c.id)}
                           />
                         </td>
                         <td className="td-cell">
@@ -627,20 +647,28 @@ const InvoiceList = () => {
                             <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
                           </span>
                         </td>
-                        <td className="td-cell">{invoice.invoiceNumber}</td>
-                        <td className="td-cell">{invoice.customer}</td>
-                        <td className="td-cell">{invoice.invoiceDate}</td>
-                        <td className="td-cell">{invoice.dueDate}</td>
-                        <td className="td-cell">₹{invoice.totalAmount.toLocaleString()}</td>
+                        <td className="td-cell">{c.contactID}</td>
+                        <td className="td-cell">{c.firstName}</td>
+                        <td className="td-cell">{c.lastName}</td>
+                        <td className="td-cell">{c.email}</td>
+                        <td className="td-cell">{c.phone}</td>
+                        <td className="td-cell">{c.company}</td>
                         <td className="td-cell">
-                          <span className={`px-2 py-1 rounded-full text-xs ${invoice.status === 'Paid' ? 'bg-green-100 text-green-800' :
-                              invoice.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-red-100 text-red-800'
+                          <span className={`px-2 py-1 rounded-full text-xs ${c.type === 'Customer' ? 'bg-blue-100 text-blue-800' :
+                              c.type === 'Vendor' ? 'bg-purple-100 text-purple-800' :
+                                'bg-gray-100 text-gray-800'
                             }`}>
-                            {invoice.status}
+                            {c.type}
                           </span>
                         </td>
-                        <td className="last-td-cell">{invoice.category}</td>
+                        <td className="last-td-cell">
+                          <span className={`px-2 py-1 rounded-full text-xs ${c.status === 'Active' ? 'bg-green-100 text-green-800' :
+                              c.status === 'Inactive' ? 'bg-red-100 text-red-800' :
+                                'bg-yellow-100 text-yellow-800'
+                            }`}>
+                            {c.status}
+                          </span>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -652,11 +680,11 @@ const InvoiceList = () => {
       </main>
       <footer className="footer-list">
         <span className="text-sm">
-          Showing <span className="text-red-600">{filteredInvoices.length}</span> of <span className="text-blue-600">{invoices.length}</span>
+          Showing <span className="text-red-600">{filteredContacts.length}</span> of <span className="text-blue-600">{contacts.length}</span>
         </span>
       </footer>
     </Layout>
   );
 };
 
-export default InvoiceList;
+export default ContactList;

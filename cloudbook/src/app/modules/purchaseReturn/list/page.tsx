@@ -9,14 +9,14 @@ import { Input, RadioGroup, CheckboxGroup } from "@/app/utils/form-controls";
 import ConfirmationModal from "@/app/utils/confirmationModal/page";
 
 
-interface Receipt {
+interface PurchaseReturn {
     id: number;
-    receiptNumber: string;
-    customer: string;
-    receiptDate: string;
-    amountReceived: number;
-    paymentMethod: string;
+    returnID: string;
+    vendor: string;
+    returnDate: string;
+    totalAmount: number;
     status: string; 
+    category: string; 
 }
 
 interface SidebarProps {
@@ -57,44 +57,51 @@ function Sidebar({ isOpen, onClose, children, toggleButtonRef }: SidebarProps) {
     );
 }
 
-type TabKey = "all" | "paid" | "partially_paid" | "void";
+type TabKey = "all" | "returned" | "credit_received" | "pending";
 
-const ReceiptList = () => {
+const PurchaseReturnList = () => {
     const [activeTab, setActiveTab] = useState<TabKey>("all");
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const [selectAll, setSelectAll] = useState(false);
     const [isViewDropdownOpen, setViewDropdownOpen] = useState(false);
-    const [isReceiptDropdownOpen, setReceiptDropdownOpen] = useState(false);
+    const [isReturnDropdownOpen, setReturnDropdownOpen] = useState(false);
     const viewRef = useRef(null);
-    const receiptRef = useRef(null);
+    const returnRef = useRef(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
-    const [receipts, setReceipts] = useState<Receipt[]>([]);
-    const [receiptCustomerOptions, setreceiptCustomerOptions] = useState<Option[]>([]);
+
+    const [purchaseReturns, setPurchaseReturns] = useState<PurchaseReturn[]>([]);
+    const [vendorOptions, setVendorOptions] = useState<Option[]>([]); 
+    const [categoryOptions, setCategoryOptions] = useState<Option[]>([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchReceiptData = async () => {
+        const fetchPurchaseReturnData = async () => {
             try {
-                const [receiptsResponse, customersResponse] = await Promise.all([
-                    fetch("http://localhost:4000/receipts"), 
-                    fetch("http://localhost:4000/receiptCustomerOptions"), 
+                const [returnsResponse, vendorsResponse, categoriesResponse] = await Promise.all([
+                    fetch("http://localhost:4000/purchaseReturns"), 
+                    fetch("http://localhost:4000/vendorOptions"), 
+                    fetch("http://localhost:4000/categoryOptions"), 
                 ]);
 
-                if (!receiptsResponse.ok) {
-                    throw new Error(`HTTP error! Status: ${receiptsResponse.status} from /receipts`);
+                if (!returnsResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${returnsResponse.status} from /purchaseReturns`);
                 }
-                if (!customersResponse.ok) {
-                    throw new Error(`HTTP error! Status: ${customersResponse.status} from /receiptCustomerOptions`);
+                if (!vendorsResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${vendorsResponse.status} from /vendorOptions`);
+                }
+                if (!categoriesResponse.ok) {
+                    throw new Error(`HTTP error! Status: ${categoriesResponse.status} from /categoryOptions`);
                 }
 
-                const receiptsData: Receipt[] = await receiptsResponse.json();
-                const customersData: Option[] = await customersResponse.json();
+                const returnsData: PurchaseReturn[] = await returnsResponse.json();
+                const vendorsData: Option[] = await vendorsResponse.json();
+                const categoriesData: Option[] = await categoriesResponse.json();
 
-                setReceipts(receiptsData);
-                setreceiptCustomerOptions(customersData);
+                setPurchaseReturns(returnsData);
+                setVendorOptions(vendorsData);
+                setCategoryOptions(categoriesData);
             } catch (err) {
                 if (err instanceof Error) {
                     setError(err.message);
@@ -107,15 +114,15 @@ const ReceiptList = () => {
             }
         };
 
-        fetchReceiptData();
+        fetchPurchaseReturnData();
     }, []);
 
     const handleDelete = () => {
-        console.log("Deleting receipts with IDs:", selectedIds);
-       
+        console.log("Deleting purchase returns with IDs:", selectedIds);
+        
         setIsModalOpen(false);
         setSelectedIds([]);
-        
+       
     };
 
     const handleClickOutside = (e: MouseEvent) => {
@@ -126,10 +133,10 @@ const ReceiptList = () => {
             setViewDropdownOpen(false);
         }
         if (
-            receiptRef.current &&
-            !(receiptRef.current as any).contains(e.target)
+            returnRef.current &&
+            !(returnRef.current as any).contains(e.target)
         ) {
-            setReceiptDropdownOpen(false);
+            setReturnDropdownOpen(false);
         }
     };
 
@@ -141,15 +148,14 @@ const ReceiptList = () => {
     const toggleButtonRef = useRef<HTMLButtonElement>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [fields, setFields] = useState([
-        { id: "receiptNumber", label: "Receipt Number", visible: true },
-        { id: "customer", label: "Customer", visible: true },
-        { id: "receiptDate", label: "Receipt Date", visible: true },
-        { id: "amountReceived", label: "Amount Received", visible: true },
-        { id: "paymentMethod", label: "Payment Method", visible: true },
+        { id: "returnID", label: "Return ID", visible: true },
+        { id: "vendor", label: "Vendor", visible: true },
+        { id: "returnDate", label: "Return Date", visible: true },
+        { id: "totalAmount", label: "Total Amount", visible: true },
         { id: "status", label: "Status", visible: true },
-        
-        { id: "invoiceReference", label: "Invoice Reference", visible: false },
-        { id: "notes", label: "Notes", visible: false },
+        { id: "category", label: "Category", visible: true },
+        { id: "originalPurchaseID", label: "Original Purchase ID", visible: false },
+        { id: "reason", label: "Reason", visible: false },
     ]);
 
     const toggleSidebar = () => {
@@ -173,12 +179,12 @@ const ReceiptList = () => {
             fields.map((field) => ({
                 ...field,
                 visible: [
-                    "receiptNumber",
-                    "customer",
-                    "receiptDate",
-                    "amountReceived",
-                    "paymentMethod",
+                    "returnID",
+                    "vendor",
+                    "returnDate",
+                    "totalAmount",
                     "status",
+                    "category",
                 ].includes(field.id),
             }))
         );
@@ -193,7 +199,7 @@ const ReceiptList = () => {
         const checked = e.target.checked;
         setSelectAll(checked);
         if (checked) {
-            setSelectedIds(filteredReceipts.map((p) => p.id));
+            setSelectedIds(filteredPurchaseReturns.map((p) => p.id));
         } else {
             setSelectedIds([]);
         }
@@ -206,14 +212,20 @@ const ReceiptList = () => {
     };
 
     const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
-    const [selectedCustomer, setSelectedCustomer] = useState<string | null>(null);
-    const [selectedReceiptStatus, setSelectedReceiptStatus] = useState<string | null>(null);
+    const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedReturnStatus, setSelectedReturnStatus] = useState<string | null>(null);
     const [minAmount, setMinAmount] = useState<string>('');
     const [maxAmount, setMaxAmount] = useState<string>('');
 
-    const handleCustomerChange = (value: string | string[] | null) => {
-        console.log("Selected Customer:", value);
-        setSelectedCustomer(value as string | null);
+    const handleVendorChange = (value: string | string[] | null) => {
+        console.log("Selected Vendor:", value);
+        setSelectedVendor(value as string | null);
+    };
+
+    const handleCategoryChange = (value: string | string[] | null) => {
+        console.log("Selected Category:", value);
+        setSelectedCategory(value as string | null);
     };
 
     const handleAddNewItem = () => {
@@ -230,8 +242,9 @@ const ReceiptList = () => {
 
     const handleApplyFilters = () => {
         console.log("Applying filters:", {
-            selectedCustomer,
-            selectedReceiptStatus,
+            selectedVendor,
+            selectedCategory,
+            selectedReturnStatus,
             minAmount,
             maxAmount
         });
@@ -240,46 +253,47 @@ const ReceiptList = () => {
 
     const handleResetFilters = () => {
         console.log("Resetting filters");
-        setSelectedCustomer(null);
-        setSelectedReceiptStatus(null);
+        setSelectedVendor(null);
+        setSelectedCategory(null);
+        setSelectedReturnStatus(null);
         setMinAmount('');
         setMaxAmount('');
     };
 
-    const tabs: TabKey[] = ["all", "paid", "partially_paid", "void"];
+    const tabs: TabKey[] = ["all", "returned", "credit_received", "pending"];
 
  
     const counts: Record<TabKey, number> = {
-        all: receipts.length,
-        paid: receipts.filter(r => r.status.toLowerCase() === 'paid').length,
-        partially_paid: receipts.filter(r => r.status.toLowerCase() === 'partially_paid').length,
-        void: receipts.filter(r => r.status.toLowerCase() === 'void').length,
+        all: purchaseReturns.length,
+        returned: purchaseReturns.filter(pr => pr.status.toLowerCase() === 'returned').length,
+        credit_received: purchaseReturns.filter(pr => pr.status.toLowerCase() === 'credit_received').length,
+        pending: purchaseReturns.filter(pr => pr.status.toLowerCase() === 'pending').length,
     };
 
     const router = useRouter();
 
-    const filteredReceipts =
+    const filteredPurchaseReturns =
         activeTab === "all"
-            ? receipts
-            : receipts.filter((r) => r.status.toLowerCase() === activeTab);
+            ? purchaseReturns
+            : purchaseReturns.filter((pr) => pr.status.toLowerCase() === activeTab);
 
     useEffect(() => {
         setSelectAll(
-            filteredReceipts.length > 0 &&
-            selectedIds.length === filteredReceipts.length
+            filteredPurchaseReturns.length > 0 &&
+            selectedIds.length === filteredPurchaseReturns.length
         );
-    }, [selectedIds, filteredReceipts]);
+    }, [selectedIds, filteredPurchaseReturns]);
 
     if (loading) {
-        return <Layout pageTitle="Receipt List">Loading receipts...</Layout>;
+        return <Layout pageTitle="Purchase Return List">Loading purchase returns...</Layout>;
     }
 
     if (error) {
-        return <Layout pageTitle="Receipt List">Error: {error}</Layout>;
+        return <Layout pageTitle="Purchase Return List">Error: {error}</Layout>;
     }
 
     return (
-        <Layout pageTitle="Receipt List">
+        <Layout pageTitle="Purchase Return List">
             <main className="flex-1">
                 <div className="overflow-y-hidden h-[calc(100vh-103px)]">
                     {/* Tabs */}
@@ -296,7 +310,7 @@ const ReceiptList = () => {
                                     >
                                         <span className="flex items-center gap-1">
                                             {tab === "all"
-                                                ? "All Receipts"
+                                                ? "All Returns"
                                                 : tab.charAt(0).toUpperCase() + tab.slice(1).replace('_', ' ')}
                                             {activeTab === tab && (
                                                 <>
@@ -344,7 +358,7 @@ const ReceiptList = () => {
                             <div className="inline-flex border border-[#cfd7df] text-[#12375d] rounded overflow-hidden bg-white text-sm ml-2">
                                 <button className="flex items-center py-1 px-2 hover:bg-[#ebeff3] cursor-pointer">
                                     <i className="ri-download-line mr-1"></i>
-                                    Import Receipts
+                                    Import Purchase Returns
                                 </button>
                                 <button className="px-2 border-l border-[#cfd7df] hover:bg-[#ebeff3] cursor-pointer">
                                     <i className="ri-arrow-down-s-line"></i>
@@ -352,10 +366,10 @@ const ReceiptList = () => {
                             </div>
                             <button
                                 className="btn-sm btn-primary ml-2 text-sm"
-                                onClick={() => router.push("/modules/receipt/new")}
+                                onClick={() => router.push("/modules/purchaseReturn/new")}
                             >
                                 <i className="ri-add-fill mr-1"></i>
-                                <span className="text-sm">Add Receipt</span>
+                                <span className="text-sm">Add Purchase Return</span>
                             </button>
                         </div>
                     </div>
@@ -394,7 +408,7 @@ const ReceiptList = () => {
                                         id="bulkActionsBtn"
                                         onClick={() => {
                                             setSelectAll(true);
-                                            setSelectedIds(filteredReceipts.map((p) => p.id));
+                                            setSelectedIds(filteredPurchaseReturns.map((p) => p.id));
                                         }}
                                     >
                                         <i className="ri-stack-fill mr-1"></i>
@@ -425,8 +439,8 @@ const ReceiptList = () => {
                                         isOpen={isModalOpen}
                                         onClose={() => setIsModalOpen(false)}
                                         onConfirm={handleDelete}
-                                        title="Delete selected receipts?"
-                                        message="These receipts will be permanently deleted and cannot be recovered."
+                                        title="Delete selected purchase returns?"
+                                        message="These purchase returns will be permanently deleted and cannot be recovered."
                                         confirmText="Yes, Delete"
                                         cancelText="No, Keep"
                                         iconName="delete"
@@ -440,7 +454,7 @@ const ReceiptList = () => {
                         </div>
                         <div className="flex items-center relative space-x-2">
                             <Input
-                                name="receiptSearch"
+                                name="purchaseReturnSearch"
                                 placeholder="Search here..."
                                 className="!h-[31px] "
                             />
@@ -457,10 +471,10 @@ const ReceiptList = () => {
                                 {/* Content to be placed inside the sidebar */}
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="filter-label">Receipt Number</label>
+                                        <label className="filter-label">Return ID</label>
                                         <Input
-                                            name="receiptNumber"
-                                            placeholder="Enter Receipt Number"
+                                            name="returnID"
+                                            placeholder="Enter Return ID"
                                         />
                                     </div>
                                     <div>
@@ -468,30 +482,44 @@ const ReceiptList = () => {
                                         <RadioGroup
                                             name="status"
                                             options={[
-                                               
-                                                { value: "Paid", label: "Paid" },
-                                                { value: "Partially_Paid", label: "Partially Paid" },
-                                                { value: "Void", label: "Void" },
+                                                { value: "All", label: "All" },
+                                                { value: "Returned", label: "Returned" },
+                                                { value: "Pending", label: "Pending" },
                                             ]}
-                                           
+                                            
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="customer-select" className="filter-label">
-                                            Customer Name
+                                        <label htmlFor="vendor-select" className="filter-label">
+                                            Vendor Name
                                         </label>
                                         <SearchableSelect
-                                            id="customer-select"
-                                            name="customer"
-                                            options={receiptCustomerOptions}
-                                            placeholder="Select Customer Name"
+                                            id="vendor-select"
+                                            name="vendor"
+                                            options={vendorOptions}
+                                            placeholder="Select Vendor Name"
                                             searchable
-                                            onChange={handleCustomerChange}
-                                            initialValue={selectedCustomer}
+                                            onChange={handleVendorChange}
+                                            initialValue={selectedVendor}
                                             onAddNew={handleAddNewItem}
                                         />
                                     </div>
-                                  
+                                    <div>
+                                        <label htmlFor="category-select" className="filter-label">
+                                            Category
+                                        </label>
+                                        <SearchableSelect
+                                            id="category-select"
+                                            name="category"
+                                            options={categoryOptions}
+                                            placeholder="Select Category"
+                                            searchable
+                                            onChange={handleCategoryChange}
+                                            initialValue={selectedCategory}
+                                            onAddNew={handleAddNewItem}
+                                        />
+                                    </div>
+                                    
                                 </div>
                             </FilterSidebar>
                         </div>
@@ -500,7 +528,7 @@ const ReceiptList = () => {
                     <div className="bg-[#ebeff3]">
                         {selectedIds.length > 1 && (
                             <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
-                                {selectedIds.length} Receipts selected
+                                {selectedIds.length} Purchase Returns selected
                             </div>
                         )}
                         <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
@@ -523,14 +551,14 @@ const ReceiptList = () => {
                                             </th>
                                             <th className="th-cell relative" >
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Receipt Number</span>
+                                                    <span>Return ID</span>
                                                     <i
-                                                        className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isReceiptDropdownOpen ? 'bg-[#c9d1d7]' : ''
+                                                        className={`dropdown-icon-hover ri-arrow-down-s-fill cursor-pointer ${isReturnDropdownOpen ? 'bg-[#c9d1d7]' : ''
                                                             }`}
-                                                        onClick={() => setReceiptDropdownOpen(prev => !prev)} ref={receiptRef}
+                                                        onClick={() => setReturnDropdownOpen(prev => !prev)} ref={returnRef}
                                                     ></i>
                                                 </div>
-                                                {isReceiptDropdownOpen && (
+                                                {isReturnDropdownOpen && (
                                                     <div className="absolute right-0 mt-1 w-60 bg-white rounded-sm z-50 shadow-[0_4px_16px_#27313a66]">
                                                         <ul className="text-sm text-[#12344d] font-normal py-1">
                                                             <li className="flex items-center px-4 py-2 hover:bg-[#ebeff3] cursor-pointer">
@@ -571,49 +599,49 @@ const ReceiptList = () => {
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Customer Name</span>
+                                                    <span>Vendor Name</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Receipt Date</span>
+                                                    <span>Return Date</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Amount Received</span>
+                                                    <span>Total Amount</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Payment Method</span>
+                                                    <span>Status</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                             <th className="last-th-cell">
                                                 <div className="flex justify-between items-center gap-1">
-                                                    <span>Status</span>
+                                                    <span>Category</span>
                                                     <i className="dropdown-icon-hover ri-arrow-down-s-fill"></i>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredReceipts.map((receipt, index) => (
+                                        {filteredPurchaseReturns.map((pr, index) => (
                                             <tr
-                                                key={receipt.id}
-                                                className={`tr-hover group ${selectedIds.includes(receipt.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
+                                                key={pr.id}
+                                                className={`tr-hover group ${selectedIds.includes(pr.id) ? "bg-[#e5f2fd] hover:bg-[#f5f7f9]" : ""
                                                     }`}
                                             >
                                                 <td className="td-cell">
                                                     <CheckboxGroup
                                                         name="selectall"
                                                         value="selectAll"
-                                                        checked={selectedIds.includes(receipt.id)}
-                                                        onChange={() => handleCheckboxChange(receipt.id)}
+                                                        checked={selectedIds.includes(pr.id)}
+                                                        onChange={() => handleCheckboxChange(pr.id)}
                                                     />
                                                 </td>
                                                 <td className="td-cell">
@@ -622,19 +650,19 @@ const ReceiptList = () => {
                                                         <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
                                                     </span>
                                                 </td>
-                                                <td className="td-cell">{receipt.receiptNumber}</td>
-                                                <td className="td-cell">{receipt.customer}</td>
-                                                <td className="td-cell">{receipt.receiptDate}</td>
-                                                <td className="td-cell">₹{receipt.amountReceived.toLocaleString()}</td>
-                                                <td className="td-cell">{receipt.paymentMethod}</td>
-                                                <td className="last-td-cell">
-                                                    <span className={`px-2 py-1 rounded-full text-xs ${receipt.status === 'Paid' ? 'bg-green-100 text-green-800' :
-                                                        receipt.status === 'Partially_Paid' ? 'bg-yellow-100 text-yellow-800' :
-                                                            'bg-red-100 text-red-800'
+                                                <td className="td-cell">{pr.returnID}</td>
+                                                <td className="td-cell">{pr.vendor}</td>
+                                                <td className="td-cell">{pr.returnDate}</td>
+                                                <td className="td-cell">₹{pr.totalAmount.toLocaleString()}</td>
+                                                <td className="td-cell">
+                                                    <span className={`px-2 py-1 rounded-full text-xs ${pr.status === 'Returned' ? 'bg-green-100 text-green-800' :
+                                                        pr.status === 'Credit_Received' ? 'bg-blue-100 text-blue-800' :
+                                                            'bg-yellow-100 text-yellow-800'
                                                         }`}>
-                                                        {receipt.status.replace('_', ' ')}
+                                                        {pr.status.replace('_', ' ')}
                                                     </span>
                                                 </td>
+                                                <td className="last-td-cell">{pr.category}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -646,11 +674,11 @@ const ReceiptList = () => {
             </main>
             <footer className="footer-list">
                 <span className="text-sm">
-                    Showing <span className="text-red-600">{filteredReceipts.length}</span> of <span className="text-blue-600">{receipts.length}</span>
+                    Showing <span className="text-red-600">{filteredPurchaseReturns.length}</span> of <span className="text-blue-600">{purchaseReturns.length}</span>
                 </span>
             </footer>
         </Layout>
     );
 };
 
-export default ReceiptList;
+export default PurchaseReturnList;
