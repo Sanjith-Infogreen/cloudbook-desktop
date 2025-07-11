@@ -349,7 +349,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
                         ? "bg-gray-50 text-[#12375d]  font-[700]"
                         : "hover:bg-gray-50 text-gray-700 "
                     }`}
-                    onClick={() => handleItemSelect(item)}
+                    // onClick={() => handleItemSelect(item)}
                     onMouseEnter={(e) => handleMouseEnter(item, index, e)}
                     onMouseLeave={handleMouseLeave}
                     onMouseDown={(e) => {
