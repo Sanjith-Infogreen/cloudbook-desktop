@@ -591,7 +591,7 @@ const NewReceipt = () => {
                           //   </div>
                           // )
                           /* Transactions Table */
-                          <div className="h-[calc(100vh-410px)] ">
+                          <div className="max-h-[calc(100vh-410px)] ">
                             <table className="w-full h-full overflow-y-auto ">
                               <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">
                                 <tr className="divide-x divide-[#efefef]">
