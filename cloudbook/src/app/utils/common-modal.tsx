@@ -1,10 +1,8 @@
-// CommonModal.tsx
+// Refactored CommonModal.tsx with full UI sections for all ledgers
 import React, { useState, useMemo } from "react";
 import {
-  Input,
-  RadioGroup,
-  CheckboxGroup, // Keep this import
-  Toggle,
+  CheckboxGroup,
+  Toggle, Input
 } from "@/app/utils/form-controls";
 
 interface CommonModalProps {
@@ -12,146 +10,91 @@ interface CommonModalProps {
   closeModal: () => void;
 }
 
-const CommonModal: React.FC<CommonModalProps> = ({
-  isModalOpen,
-  closeModal,
-}) => {
+const CommonModal: React.FC<CommonModalProps> = ({ isModalOpen, closeModal }) => {
   const [activeTab, setActiveTab] = useState("Customer Ledger");
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
 
   const [tableData, setTableData] = useState([
-    {
-      id: 1,
-      sNo: 1,
-      name: "Bangalore",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 2,
-      sNo: 2,
-      name: "Chennai",
-      remarks: "South India",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 3,
-      sNo: 3,
-      name: "Delhi",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 4,
-      sNo: 4,
-      name: "Mumbai",
-      remarks: "Financial Hub",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 5,
-      sNo: 5,
-      name: "Kolkata",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 6,
-      sNo: 6,
-      name: "Hyderabad",
-      remarks: "IT City",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 7,
-      sNo: 7,
-      name: "Pune",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 8,
-      sNo: 8,
-      name: "Ahmedabad",
-      remarks: "-",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 9,
-      sNo: 9,
-      name: "Bangalore",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 10,
-      sNo: 10,
-      name: "Chennai",
-      remarks: "South India",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 11,
-      sNo: 11,
-      name: "Delhi",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 12,
-      sNo: 12,
-      name: "Mumbai",
-      remarks: "Financial Hub",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 13,
-      sNo: 13,
-      name: "Kolkata",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 14,
-      sNo: 14,
-      name: "Hyderabad",
-      remarks: "IT City",
-      status: true,
-      isSelected: false,
-    },
-    {
-      id: 15,
-      sNo: 15,
-      name: "Pune",
-      remarks: "-",
-      status: false,
-      isSelected: false,
-    },
-    {
-      id: 16,
-      sNo: 16,
-      name: "Ahmedabad",
-      remarks: "-",
-      status: true,
-      isSelected: false,
-    },
-  ]);
+    { "id": 1, "name": "City 1", "remarks": "Important region", "status": true, "isSelected": false },
+    { "id": 2, "name": "City 2", "remarks": "Urban area", "status": false, "isSelected": false },
+    { "id": 3, "name": "City 3", "remarks": "-", "status": true, "isSelected": false },
+    { "id": 4, "name": "City 4", "remarks": "Important region", "status": false, "isSelected": false },
+    { "id": 5, "name": "City 5", "remarks": "Urban area", "status": true, "isSelected": false },
+    { "id": 6, "name": "City 6", "remarks": "-", "status": false, "isSelected": false },
+    { "id": 7, "name": "City 7", "remarks": "Important region", "status": true, "isSelected": false },
+    { "id": 8, "name": "City 8", "remarks": "Urban area", "status": false, "isSelected": false },
+    { "id": 9, "name": "City 9", "remarks": "-", "status": true, "isSelected": false },
+    { "id": 10, "name": "City 10", "remarks": "Important region", "status": false, "isSelected": false },
+    { "id": 11, "name": "City 11", "remarks": "Urban area", "status": true, "isSelected": false },
+    { "id": 12, "name": "City 12", "remarks": "-", "status": false, "isSelected": false },
+    { "id": 13, "name": "City 13", "remarks": "Important region", "status": true, "isSelected": false },
+    { "id": 14, "name": "City 14", "remarks": "Urban area", "status": false, "isSelected": false },
+    { "id": 15, "name": "City 15", "remarks": "-", "status": true, "isSelected": false },
+    { "id": 16, "name": "City 16", "remarks": "Important region", "status": false, "isSelected": false },
+    { "id": 17, "name": "City 17", "remarks": "Urban area", "status": true, "isSelected": false },
+    { "id": 18, "name": "City 18", "remarks": "-", "status": false, "isSelected": false },
+    { "id": 19, "name": "City 19", "remarks": "Important region", "status": true, "isSelected": false },
+    { "id": 20, "name": "City 20", "remarks": "Urban area", "status": false, "isSelected": false },
+    { "id": 21, "name": "City 21", "remarks": "-", "status": true, "isSelected": false },
+    { "id": 22, "name": "City 22", "remarks": "Important region", "status": false, "isSelected": false },
+    { "id": 23, "name": "City 23", "remarks": "Urban area", "status": true, "isSelected": false },
+    { "id": 24, "name": "City 24", "remarks": "-", "status": false, "isSelected": false },
+    { "id": 25, "name": "City 25", "remarks": "Important region", "status": true, "isSelected": false },
+    { "id": 26, "name": "City 26", "remarks": "Urban area", "status": false, "isSelected": false },
+    { "id": 27, "name": "City 27", "remarks": "-", "status": true, "isSelected": false },
+    { "id": 28, "name": "City 28", "remarks": "Important region", "status": false, "isSelected": false },
+    { "id": 29, "name": "City 29", "remarks": "Urban area", "status": true, "isSelected": false },
+    { "id": 30, "name": "City 30", "remarks": "-", "status": false, "isSelected": false }
+  ]
+  );
 
-  // Calculate if all rows are selected
+
+  const mandatoryFieldList = [
+    "Ledger Name",
+    "Contact Type",
+    "Group",
+    "Phone Number",
+    "Company Name",
+    "Billing Address",
+    "State",
+    "Pincode"
+  ];
+
+  const [mandatoryFields, setMandatoryFields] = useState<Record<string, boolean>>(
+    mandatoryFieldList.reduce((acc, field) => {
+      acc[field] = false; 
+      return acc;
+    }, {} as Record<string, boolean>)
+  );
+
+
+  const handleMandatoryToggle = (field: string) => {
+    setMandatoryFields((prev) => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+
+  const uniqueFieldList = ["Email", "Customer ID"];
+
+  const [uniqueFields, setUniqueFields] = useState<Record<string, boolean>>(
+    uniqueFieldList.reduce((acc, field) => {
+      acc[field] = false; 
+      return acc;
+    }, {} as Record<string, boolean>)
+  );
+
+
+  const handleUniqueToggle = (field: string) => {
+    setUniqueFields((prev) => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+
   const allRowsSelected = useMemo(() => {
     return tableData.every((row) => row.isSelected);
   }, [tableData]);
@@ -166,43 +109,245 @@ const CommonModal: React.FC<CommonModalProps> = ({
 
   const handleToggleStatus = (id: number) => {
     setTableData((prevData) =>
-      prevData.map((row) =>
-        row.id === id ? { ...row, status: !row.status } : row
-      )
+      prevData.map((row) => (row.id === id ? { ...row, status: !row.status } : row))
     );
   };
 
-  // NEW: Handler for the individual row checkboxes using CheckboxGroup
   const handleRowCheckboxChange = (rowId: number, selectedValues: string[]) => {
-    // Since each CheckboxGroup here only has one option ({value: rowId}),
-    // selectedValues will either be [String(rowId)] (checked) or [] (unchecked).
     const isChecked = selectedValues.includes(String(rowId));
-
     setTableData((prevData) =>
-      prevData.map((row) =>
-        row.id === rowId ? { ...row, isSelected: isChecked } : row
-      )
+      prevData.map((row) => (row.id === rowId ? { ...row, isSelected: isChecked } : row))
     );
   };
 
-  // Handler for the "select all" checkbox in the header
   const handleSelectAllChange = (selectedValues: string[]) => {
-    // If 'selectAll' is in the values, it means the checkbox is checked
     const checked = selectedValues.includes("selectAll");
-    setTableData((prevData) =>
-      prevData.map((row) => ({ ...row, isSelected: checked }))
-    );
+    setTableData((prevData) => prevData.map((row) => ({ ...row, isSelected: checked })));
+  };
+
+  const renderLedgerFormAndList = (ledgerName: string) => (
+    <div className="flex flex-col md:flex-row gap-6 h-full">
+      <div className="md:w-1/3 bg-white rounded-sm border border-gray-200 ">
+
+
+        <div className="flex items-center rounded-t-sm bg-gray-50 border-b  px-4 py-3">
+          <div>
+            <h6 className="  text-green-800"><i className="ri-add-large-line mr-0.5  text-lg"></i> New {ledgerName} Entry</h6>
+
+          </div>
+
+        </div>
+        <div className=" space-y-4 p-4">
+          <div>
+            <label className="form-label mb-1">Name<span className="text-red-500">*</span></label>
+            <Input
+              name="ledgername"
+              type="text"
+              placeholder="Enter Name"
+              className=""
+            />
+          </div>
+          <div>
+            <label className="form-label mb-1">Remarks</label>
+            <textarea
+              placeholder="Enter remarks"
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              className="form-control !h-[100px]"
+            />
+          </div>
+          <div className="flex items-center justify-end pt-4 space-x-2">
+            <button onClick={handleSaveUpdate} className="btn-sm btn-primary">
+              <i className="ri-save-line mr-0.5"></i> Save & Update
+            </button>
+            <button onClick={handleRefresh} className="btn-sm btn-light">
+              <i className="ri-refresh-line  "></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 bg-white rounded-sm border border-gray-200 ">
+        <div className="flex items-center  bg-[#f0f5f3] border-b rounded-t-sm px-4 py-3">
+          <div>
+            <h6 className="  text-gray-800"><i className="ri-file-list-2-line mr-1  text-lg"></i>{ledgerName} Entries</h6>
+
+          </div>
+
+        </div>
+
+        <div className="flex items-center justify-between p-4">
+          <div>
+            <p className="text-sm text-green-900">Manage {ledgerName.toLowerCase()} records</p>
+
+          </div>
+          <div className="text-sm  items-center">
+            List Count : <span className=" px-2 py-1 bg-purple-500 text-[#fff] rounded text-xs">
+              {tableData.length}
+            </span>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto ">
+          <div className="max-h-[calc(100vh-287px)] ">
+            <table className="w-full h-full overflow-y-auto ">
+              <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">
+                <tr className="divide-x divide-[#efefef]">
+
+                  <th className="text-center px-2 py-2 text-xs font-medium text-gray-600">
+                    <CheckboxGroup
+                      name="selectAll"
+                      value="selectAll"
+                      label=""
+                      checked={allRowsSelected}
+                      onChange={(e) =>
+                        handleSelectAllChange(e.target.checked ? ["selectAll"] : [])
+                      }
+                    />
+                  </th>
+
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    S.No
+                  </th>
+
+
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    Name
+                  </th>
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    Remarks
+                  </th>
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="] cursor-pointer">
+                {tableData.length > 0 ? (
+                  tableData.map((row, index) => (
+                    <tr
+                      key={row.id}
+                      className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
+                    >
+                      <td className="px-2 py-2 text-sm text-gray-700 font-medium text-center border-b border-[#efefef]">
+                        <CheckboxGroup
+                          name={`select_${row.id}`}
+                          value={String(row.id)}
+                          label=""
+                          checked={row.isSelected}
+                          onChange={(e) =>
+                            handleRowCheckboxChange(row.id, e.target.checked ? [String(row.id)] : [])
+                          }
+                        />
+                      </td>
+
+                      <td className="px-2 py-2 border-b border-[#efefef]">
+                        <div className="text-sm text-gray-900">{index + 1}</div>
+                      </td>
+
+                      <td className="px-2 py-2 border-b border-[#efefef]">
+                        <div>
+                          <div className="text-sm font-medium">{row.name}</div>
+                        </div>
+                      </td>
+
+                      <td className="px-2 py-2 border-b border-[#efefef]">
+                        <div className="text-sm text-gray-600">{row.remarks}</div>
+                      </td>
+
+                      <td className="px-2 py-2 border-b border-[#efefef]">
+                        <div className="text-sm text-gray-600">
+                          <Toggle
+                            name="status"
+                            checked={row.status}
+                            onChange={() => handleToggleStatus(row.id)}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="p-4 text-center text-gray-500">
+                      No transactions found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+
+
+
+      </div>
+    </div >
+  );
+
+  const renderMandatoryFieldsUI = () => (
+    <div className="grid grid-cols-3 space-x-10">
+      <div>
+        <h3 className="text-md font-semibold text-gray-700 mb-4 pb-1.5 border-b-2 border-gray-300">Mandatory Fields</h3>
+        <ul className="space-y-4 text-[15px]">
+          {mandatoryFieldList.map((field) => (
+            <li key={field} className="flex items-center gap-2">
+              <Toggle
+                name={field}
+                checked={mandatoryFields[field]}
+                onChange={() => handleMandatoryToggle(field)}
+              />
+              <span>{field}</span>
+               <span><i className="ri-information-2-fill text-[16px] text-[#bdbbbc] cursor-pointer"></i></span>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+      <div>
+        <h3 className="text-md font-semibold text-gray-700 mb-4 pb-1.5  border-b-2 border-gray-300">Unique Fields</h3>
+        <ul className="space-y-4 text-[15px]">
+          {uniqueFieldList.map((field) => (
+            <li key={field} className="flex items-center gap-2">
+              <Toggle
+                name={field}
+                checked={uniqueFields[field]}
+                onChange={() => handleUniqueToggle(field)}
+              />
+              <span>{field}</span>
+              <span><i className="ri-information-2-fill text-[16px] text-[#bdbbbc] cursor-pointer"></i></span>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+    </div>
+  );
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Customer Ledger":
+      case "Product Ledger":
+      case "Expense Ledger":
+      case "Unit Ledger":
+      case "Bank Accounts":
+        return renderLedgerFormAndList(activeTab);
+      case "Mandatory Fields":
+        return renderMandatoryFieldsUI();
+      default:
+        return null;
+    }
   };
 
   if (!isModalOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
-      onClick={closeModal}
-    >
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={closeModal}>
       <div
-        className="bg-white rounded-[0.5rem] w-full max-w-[85%]  flex flex-col custom-helvetica"
+        className="bg-white rounded-md w-full max-w-[75%] h-[90vh] flex flex-col "
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative border-b border-[#dee2e6] px-4 py-2 bg-[#f8f8f8] rounded-tl-md">
@@ -215,187 +360,24 @@ const CommonModal: React.FC<CommonModalProps> = ({
           </button>
         </div>
 
-        <div className="row p-[16px] m-0 flex-1 flex flex-col">
-          <div className="grid grid-cols-12 min-h-[calc(100vh-120px)] flex-1">
-            <div className="col-span-2 bg-[#f0f0f0] rounded-bl-md -m-4 overflow-y-auto h-[calc(100vh-85px)]">
-              <ul className="text-[14px] text-[#000000]">
-                {[
-                  "Customer Ledger",
-                  "Product Ledger",
-                  "Expense Ledger",
-                  "Unit Ledger",
-                  "Bank Accounts",
-                  "Mandatory Fields",
-                ].map((tab) => (
+        <div className="flex flex-1 overflow-hidden">
+          <aside className="w-1/6 bg-gray-100 rounded-bl-md overflow-y-auto">
+            <ul className=" text-[14px] text-[#000000]">
+              {["Customer Ledger", "Product Ledger", "Expense Ledger", "Unit Ledger", "Bank Accounts", "Mandatory Fields"].map(
+                (tab) => (
                   <li
                     key={tab}
+                    className={`cursor-pointer px-4 py-3  ${activeTab === tab ? "bg-white " : "hover:bg-gray-200"}`}
                     onClick={() => setActiveTab(tab)}
-                    className={`cursor-pointer px-4 py-2 ${
-                      activeTab === tab ? "bg-white" : ""
-                    }`}
                   >
-                    <a
-                      href="#"
-                      className="block px-1 py-1 w-full whitespace-normal"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      {tab}
-                    </a>
+                    {tab}
                   </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-10 pl-4 pr-4 -mt-4 -mb-4 -mr-[10px] flex flex-col flex-1">
-              <div className="bg-white rounded-md ml-5 my-5 shadow-[0_2px_8px_rgba(60,72,88,0.08)] border border-gray-200">
-                <div className=" flex flex-col md:flex-row md:flex-nowrap items-end gap-3 p-6">
-                  <div className="w-full md:w-1/3">
-                    <div className="relative">
-                      <label htmlFor="name" className="form-label">
-                        Name<span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter your name"
-                        autoComplete="off"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full form-control"
-                      />
-                      <div className="text-red-500 absolute top-full left-0 text-xs mt-1"></div>
-                    </div>
-                  </div>
-                  <div className="w-full md:w-1/3">
-                    <label htmlFor="remarks" className="form-label">
-                      Remarks
-                    </label>
-                    <input
-                      type="text"
-                      id="remarks"
-                      placeholder="Enter your Remarks"
-                      autoComplete="off"
-                      value={remarks}
-                      onChange={(e) => setRemarks(e.target.value)}
-                      className="w-full form-control"
-                    />
-                  </div>
+                )
+              )}
+            </ul>
+          </aside>
 
-                  <div className="w-full md:w-1/3 flex justify-start">
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={handleSaveUpdate}
-                        className="btn-sm btn-primary"
-                      >
-                        Save & Update
-                      </button>
-                      <i
-                        onClick={handleRefresh}
-                        className="ri-refresh-line text-[#0d6efd] font-semibold text-[18px] cursor-pointer"
-                      ></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="ml-5 overflow-hidden rounded-t-lg h-[calc(100vh-277px)] border border-[#ebeff3] ">
-                <div className="h-full overflow-y-auto">
-                  <table className="w-full text-sm">
-                    <thead className="sticky-table-header">
-                      <tr>
-                        <th className="th-cell w-[5%] text-left">
-                          <CheckboxGroup
-                            name="features_Heating"
-                            value="Heating"
-                            label="Heating"
-                            checked={allRowsSelected}
-                            onChange={(e) =>
-                              handleSelectAllChange(
-                                e.target.checked ? ["selectAll"] : []
-                              )
-                            }
-                          />
-                        </th>
-                        <th className="th-cell w-[10%] text-left">
-                          <span>S.No</span>
-                        </th>
-                        <th className="th-cell w-[45%] text-left">
-                          <div className="flex items-center justify-between relative">
-                            <span className="font-semibold">Name</span>
-                            <i
-                              className="ri-arrow-down-s-fill text-[12px] dropdown-icon-hover"
-                              id="statusDropdownBtn"
-                            ></i>
-                          </div>
-                        </th>
-                        <th className="th-cell w-[25%] text-left">Remarks</th>
-                        <th className="th-cell w-[15%] text-left">
-                          <div className="flex items-center justify-between relative">
-                            <span>Status</span>
-                            <i
-                              className="ri-arrow-down-s-fill text-[12px] dropdown-icon-hover"
-                              id="statusDropdownBtn"
-                            ></i>
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#ebeff3]">
-                      {tableData.map((row) => (
-                        <tr key={row.id} className="tr-hover group">
-                          <td className="td-cell w-[5%]">
-                            <CheckboxGroup
-                              name="features_Heating"
-                              value="Heating"
-                              label="Heating"
-                              checked={row.isSelected}
-                              onChange={(e) =>
-                                handleRowCheckboxChange(
-                                  row.id,
-                                  e.target.checked ? [String(row.id)] : []
-                                )
-                              }
-                            />
-                          </td>
-                          <td className="td-cell w-[5%]">
-                            <span className="float-left">{row.sNo}</span>
-                            <span className="float-right">
-                              <i className="ri-pencil-fill edit-icon opacity-0 group-hover:opacity-100"></i>
-                            </span>
-                          </td>
-                          <td className="td-cell w-[45%]">
-                            <div className="flex items-center justify-between">
-                              <span>{row.name}</span>
-                            </div>
-                          </td>
-                          <td className="td-cell w-[25%]">
-                            <div className="flex items-center justify-between">
-                              <span>{row.remarks}</span>
-                            </div>
-                          </td>
-                          <td className="last-td-cell w-[15%]">
-                            <div className="flex items-center">
-                              <label className="relative inline-flex items-center mt-1 cursor-pointer">
-                                <Toggle
-                                  name="status"
-                                  checked={row.status}
-                                  onChange={() => handleToggleStatus(row.id)}
-                                />
-                              </label>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="ml-5 bg-[#ebeff3] border-t border-[#ebeff3]  rounded-b-lg">
-                <div className="px-3 py-2 text-right text-[14px] text-[#212529]">
-                  Total Entries: {tableData.length}
-                </div>
-              </div>
-            </div>
-          </div>
+          <main className="flex-1 p-6 overflow-y-auto">{renderContent()}</main>
         </div>
       </div>
     </div>
