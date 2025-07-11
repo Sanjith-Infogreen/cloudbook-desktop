@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface CommonTypeaheadProps {
   name: string;
@@ -44,6 +45,28 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // code for open dropdown over the table open
+  const [menuPos, setMenuPos] = useState({ left: 0, top: 0, width: 0 });
+  const [mounted, setMounted] = useState(false);
+
+  /** 1️⃣ When input gains focus or term changes, remember its screen coords */
+  const updateMenuPos = () => {
+    if (inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect();
+      setMenuPos({
+        left: rect.left,
+        top: rect.bottom + window.scrollY,
+        width: rect.width,
+      });
+    }
+  };
+  useEffect(updateMenuPos, [searchTerm, isDropdownOpen]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  // code for open dropdown over the table close
 
   // Filter data based on search criteria
   const filterData = (term: string) => {
@@ -175,6 +198,8 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
 
   // Handle item selection
   const handleItemSelect = (item: any) => {
+    console.log("Selected item:", item);
+
     setSelectedItem(item);
     setSearchTerm(item[displayField]);
     setIsDropdownOpen(false);
@@ -300,54 +325,64 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
       </div>
 
       {/* Dropdown */}
-      {isDropdownOpen && (
-        <div className="absolute top-full mt-1 left-0 right-0 bg-white border border-gray-200 rounded-sm shadow-lg z-50 max-h-64 overflow-hidden flex flex-col">
-          {/* Scrollable Suggestions Area */}
-          <div className="flex-1 overflow-y-auto py-0">
-            {filteredData.length > 0 ? (
-              filteredData.map((item: any, index: number) => (
-                <div
-                  key={item.id}
-                  ref={(el) => {
-                    itemRefs.current[index] = el;
-                  }}
-                  className={`px-3 py-2 cursor-pointer text-sm  ${
-                    (navigationMode === "keyboard" &&
-                      keyboardSelectedIndex === index) ||
-                    (navigationMode === "mouse" && hoveredItem?.id === item.id)
-                      ? "bg-gray-50 text-[#12375d]  font-[700]"
-                      : "hover:bg-gray-50 text-gray-700 "
-                  }`}
-                  onClick={() => handleItemSelect(item)}
-                  onMouseEnter={(e) => handleMouseEnter(item, index, e)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {item[displayField]}
+      {isDropdownOpen &&
+        mounted &&
+        createPortal(
+          <div
+            className="absolute top-full mt-1 left-0 right-0 bg-white border border-gray-200 rounded-sm shadow-lg z-50 max-h-64 overflow-hidden flex flex-col"
+            style={{ position: "absolute", ...menuPos, width: menuPos.width }}
+          >
+            <div className="flex-1 overflow-y-auto py-0">
+              {filteredData.length > 0 ? (
+                filteredData.map((item: any, index: number) => (
+                  <div
+                    key={item.id}
+                    ref={(el) => {
+                      itemRefs.current[index] = el;
+                    }}
+                    className={`px-3 py-2 cursor-pointer text-sm  ${
+                      (navigationMode === "keyboard" &&
+                        keyboardSelectedIndex === index) ||
+                      (navigationMode === "mouse" &&
+                        hoveredItem?.id === item.id)
+                        ? "bg-gray-50 text-[#12375d]  font-[700]"
+                        : "hover:bg-gray-50 text-gray-700 "
+                    }`}
+                    onClick={() => handleItemSelect(item)}
+                    onMouseEnter={(e) => handleMouseEnter(item, index, e)}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseDown={(e) => {
+                      e.preventDefault(); 
+                      handleItemSelect(item); 
+                    }}
+                  >
+                    {item[displayField]}
+                  </div>
+                ))
+              ) : (
+                <div className="px-3 py-2 text-sm text-gray-500 text-center">
+                  No data found
                 </div>
-              ))
-            ) : (
-              <div className="px-3 py-2 text-sm text-gray-500 text-center">
-                No data found
+              )}
+            </div>
+
+            {/* Fixed Add New Button */}
+            {onAddNew && (
+              <div className="flex justify-between border-t border-gray-200 px-3 py-2 bg-white">
+                <button
+                  type="button"
+                  onClick={onAddNew}
+                  className="flex items-center cursor-pointer gap-1 text-green-600 text-sm "
+                >
+                  <i className="ri-add-line text-green-600"></i>
+                  Add New
+                </button>
+                <i className="ri-refresh-line text-blue-500 cursor-pointer"></i>
               </div>
             )}
-          </div>
-
-          {/* Fixed Add New Button */}
-          {onAddNew && (
-            <div className="flex justify-between border-t border-gray-200 px-3 py-2 bg-white">
-              <button
-                type="button"
-                onClick={onAddNew}
-                className="flex items-center cursor-pointer gap-1 text-green-600 text-sm "
-              >
-                <i className="ri-add-line text-green-600"></i>
-                Add New
-              </button>
-              <i className="ri-refresh-line text-blue-500 cursor-pointer"></i>
-            </div>
-          )}
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
 
       {/* Description Card */}
       {hoveredItem && hoveredItem.description && isDropdownOpen && (
