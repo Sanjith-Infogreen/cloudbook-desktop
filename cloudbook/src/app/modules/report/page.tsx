@@ -26,12 +26,7 @@ import PurchaseSummaryReport from "./components/PurchaseSummaryReport";
 
 import AllSalesExcelReport from "./components/AllSalesExcelReport";
 import AllPurchaseExcelReport from "./components/AllPurchaseExcelReport";
-
-// Define the interface for the props that ProductSalesReport expects
-interface ProductSalesReportProps {
-  activeReport: string | null;
-  activeCategory: string | null;
-}
+ 
 
 const ReportsPage = () => {
   const router = useRouter();
@@ -151,7 +146,7 @@ const ReportsPage = () => {
 
   return (
     <Layout pageTitle="Reports">
-      <div className="flex">
+      <div className="flex mt[-2px]">
         {/* Sidebar */}
         <aside className="w-[240px] h-[100vh] bg-[#f8f9fa] border-[#ebeff3] px-3 flex flex-col space-y-4">
           
@@ -167,7 +162,7 @@ const ReportsPage = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-160px)]">
+          <div className="flex flex-col gap-4 text-sm bg-[#f8f9fa] overflow-y-auto pr-2 max-h-[calc(100vh-120px)] report-scrollbar">
             {filteredCategories.map((category, categoryIndex) => (
               <div key={categoryIndex}>
                 <p

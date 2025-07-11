@@ -859,7 +859,7 @@ export default function NewContact() {
   };
   return (
     <Layout pageTitle="Contact New">
-      <div className="min-h-screen">
+      <div className="">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">

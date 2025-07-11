@@ -94,7 +94,16 @@ body {
   width: 7px;            
   height: 11px;        
 }
+.custom-scrollbar {
+  overflow-y:hidden; 
+}
 
+.custom-scrollbar:hover {
+  overflow-y:auto; 
+}
+.report-scrollbar::-webkit-scrollbar-track {
+  background: #f8f9fa;  
+}
 .border-l-5 {
   border-left-width: 5px;
 }

@@ -512,7 +512,7 @@ const ContactList = () => {
           {/* Table */}
           <div className="bg-[#ebeff3]">
             {selectedIds.length > 1 && (
-              <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
+              <div className=" fixed top-42 left-1/2 transform -translate-x-1/2 z- badge-selected">
                 {selectedIds.length} Contacts selected
               </div>
             )}
