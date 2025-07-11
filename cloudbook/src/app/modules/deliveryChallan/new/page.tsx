@@ -98,8 +98,8 @@ interface BillItem {
   balance: number | string; // Can be number or empty string for input
 }
 
-// Main NewInvoice component
-const NewInvoice = () => {
+// Main NewdeliveryChallan component
+const NewdeliveryChallan = () => {
   useInputValidation();
   const dispatch = useDispatch<AppDispatch>();
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
@@ -323,7 +323,7 @@ const NewInvoice = () => {
     });
   };
   return (
-    <Layout pageTitle="Invoice New">
+    <Layout pageTitle="DeliveryChallan New">
       <div className="flex-1">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)] ">
@@ -827,4 +827,4 @@ const NewInvoice = () => {
   );
 };
 
-export default NewInvoice;
+export default NewdeliveryChallan;
