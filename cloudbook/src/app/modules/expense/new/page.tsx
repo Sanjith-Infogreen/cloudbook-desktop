@@ -610,14 +610,7 @@ const handleGroupChange = (value: string | string[] | null) => {
                             </div>
                           ))
                         ) : (
-                          /* Trader Information Display */
-
-                          // ) : (
-                          //   <div className="p-4 text-center text-gray-500">
-                          //     No trader information available.
-                          //   </div>
-                          // )
-                          /* Transactions Table */
+                         
                           <div className="h-[calc(100vh-410px)] ">
                             <table className="w-full h-full overflow-y-auto ">
                               <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">

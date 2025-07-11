@@ -193,6 +193,7 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
     setKeyboardSelectedIndex(-1);
     setNavigationMode("mouse");
     inputRef.current?.focus();
+    onSelect?.("");
   };
 
   // Handle mouse enter on item
