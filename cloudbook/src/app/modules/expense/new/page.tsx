@@ -3,8 +3,7 @@
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
 // Assuming these paths are correct relative to your project structure
 import Layout from "../../../components/Layout";
-import DatePicker from "@/app/utils/commonDatepicker";
-import CommonTypeahead from "@/app/utils/commonTypehead";
+import DatePicker from "@/app/utils/commonDatepicker"; 
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead";
 import { AppDispatch, RootState } from "@/store/store";
@@ -279,65 +278,17 @@ const countryOptions: Option[] = [
     }
   };
 
-  // Handler for individual bill balance changes
-  const handleBillBalanceChange = (id: number, value: string) => {
-    const regex = /^\d*\.?\d{0,2}$/;
-    if (value === "" || regex.test(value)) {
-      setBills((prevBills) =>
-        prevBills.map((bill) =>
-          bill.id === id ? { ...bill, balance: value } : bill
-        )
-      );
-    }
-  };
-
-  // Calculate total sum of 'Total' and 'Paid' columns
-  const totalSum = bills.reduce((sum, bill) => sum + (bill.total || 0), 0);
-  const paidSum = bills.reduce((sum, bill) => sum + (bill.paid || 0), 0);
+ 
 const handleGroupChange = (value: string | string[] | null) => {
     setCategory(value as string);
   };
   return (
     <Layout pageTitle="Expense New">
-      <div className="min-h-screen">
+      <div className="">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              {/* Top section: Supplier Name and Date */}
-              {/* <div className="border-b border-gray-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2 mb-1">
-                  <div className="lg:pr-4">
-                    <FormField label="Supplier Name" required className="!mb-0">
-                      <CommonTypeahead
-                        className="capitalize"
-                        name="supplierName"
-                        placeholder="Enter supplier name"
-                        data={typeHead}
-                        required={true}
-                        searchFields={["name"]}
-                        displayField="name"
-                        minSearchLength={1}
-                        onAddNew={handleAddNewName}
-                        onSelect={handleNameSelect}
-                      />
-                    </FormField>
-                  </div>
-                  <div className="space-y-4 flex justify-end">
-                    <FormField label="" className="w-full lg:w-1/2 !mb-0">
-                      <DatePicker
-                        name="date"
-                        id="date"
-                        selected={date}
-                        initialDate={date}
-                        onChange={(e) => {
-                          setDate(e);
-                        }}
-                        className="w-full"
-                      />
-                    </FormField>
-                  </div>
-                </div>
-              </div> */}
+               
 
               {/* Middle section: Remarks, Mode, Bank Account, Amount, and Supplier Details */}
               <div className="px-4 py-4">
@@ -487,16 +438,7 @@ const handleGroupChange = (value: string | string[] | null) => {
                       {/* Header Tabs */}
                       <div className="border-b bg-[#f0f5f3]">
                         <div className="flex items-center">
-                          <button
-                            className={`px-3 py-2 font-medium border-b-2 cursor-pointer ${
-                              activeTab === "traders"
-                                ? "border-[#44745c] text-green-900 bg-white"
-                                : "border-transparent text-[#666c6a]"
-                            }`}
-                            onClick={() => setActiveTab("traders")}
-                          >
-                            Trader's Information
-                          </button>
+                          
                           <button
                             className={`px-3 py-2 font-medium border-b-2 cursor-pointer ${
                               activeTab === "transactions"
@@ -514,293 +456,117 @@ const handleGroupChange = (value: string | string[] | null) => {
                       </div>
 
                       {/* Content */}
-                      <div className="overflow-x-auto mt-3">
-                        {loading ? (
-                          <div className="p-4 text-center text-gray-500">
-                            Loading trader data...
-                          </div>
-                        ) : error ? (
-                          <div className="p-4 text-center text-red-500">
-                            {error}
-                          </div>
-                        ) : activeTab === "traders" ? (
-                          // Check if traderInfo is available after loading and no error
-                          traderInfo &&
-                          traderInfo.length > 0 &&
-                          traderInfo.map((item: any, ind: any) => (
-                            <div className="p-4 " key={ind}>
-                              {/* Top: Avatar + Name + Email */}
-                              <div className="flex items-start gap-3">
-                                <div className="w-14 h-14 rounded-full overflow-hidden border border-gray-200">
-                                  <img
-                                    src="/images/profile-pic.jpg" // Ensure this path is correct and image exists
-                                    alt="Trader"
-                                    className="w-full h-full object-cover"
-                                  />
-                                </div>
-
-                                <div className="flex-1">
-                                  <h3 className="text-lg font-semibold text-[#080d1b]">
-                                    {item.name || "N/A"}
-                                  </h3>
-                                  <p className="text-sm text-[#191a25] flex items-center gap-1.5">
-                                    <i className="ri-mail-line text-base text-gray-500"></i>
-                                    {item.email || "N/A"}
-                                  </p>
-                                  <div className="flex items-center gap-1.5 mt-1 text-sm text-[#080d1b]">
-                                    <i className="ri-calendar-line text-base text-gray-500"></i>
-                                    <span>
-                                      Joined on {item.joinDate || "N/A"}
-                                    </span>
-                                  </div>
-
-                                  <div className=" flex items-center gap-2 text-sm mt-1 text-green-600 font-medium">
-                                    <i className="ri-checkbox-circle-fill text-lg"></i>
-                                    <span>{item.status || "N/A"}</span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Quick Info Badges */}
-                              <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
-                                {/* Phone */}
-                                <div className="bg-[#e8f4ff] rounded-lg py-2 px-4 border border-[#b8e1ff]">
-                                  <div className="text-[15px] mb-1">Phone</div>
-                                  <div className="text-gray-900 font-medium">
-                                    {item.phone || "N/A"}
-                                  </div>
-                                </div>
-
-                                {/* Transactions */}
-                                <div className="bg-[#fff7e6] rounded-lg py-2 px-4 border border-[#ffe2b8]">
-                                  <div className="text-[15px] mb-1">
-                                    Transactions
-                                  </div>
-                                  <div className="text-blue-600 font-semibold">
-                                    {item.totalTransactions || 0}
-                                  </div>
-                                </div>
-
-                                {/* Amount */}
-                                <div className="bg-[#e6f9f1] rounded-lg py-2 px-4 border border-[#b8f0db]">
-                                  <div className="text-[15px] mb-1">Amount</div>
-                                  <div className="text-green-600 font-semibold">
-                                    ₹{item.totalAmount?.toLocaleString() || "0"}
-                                  </div>
-                                </div>
-
-                                {/* Last Txn */}
-                                <div className="bg-[#fdf1f7] rounded-lg py-2 px-4 border border-[#f9cfe1]">
-                                  <div className="text-[15px] mb-1">
-                                    Last Transaction
-                                  </div>
-                                  <div className="text-gray-900">
-                                    {item.lastTransaction || "N/A"}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Address */}
-                              <div className="mt-4 bg-[#f4f4ff] rounded-lg py-3 px-4 text-sm border border-[#d5d5ff]">
-                                <div className="mb-1 text-[15px]">Address</div>
-                                <div className="text-gray-900">
-                                  {item.address || "N/A"}
-                                </div>
-                              </div>
-                            </div>
-                          ))
-                        ) : (
-                         
-                          <div className="max-h-[calc(100vh-410px)] ">
-                            <table className="w-full h-full overflow-y-auto ">
-                              <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">
-                                <tr className="divide-x divide-[#efefef]">
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    S.No
-                                  </th>
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    Date
-                                  </th>
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    Amount
-                                  </th>
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    Bank
-                                  </th>
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    Remarks
-                                  </th>
-                                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                                    Status
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-[#efefef] cursor-pointer">
-                                {transactionsData.length > 0 ? (
-                                  transactionsData.map((transaction, index) => (
-                                    <tr
-                                      key={transaction.id}
-                                      className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
-                                    >
-                                      <td className="px-2 py-2 text-sm text-gray-700 font-medium text-center w-10">
-                                        {index + 1}
-                                      </td>
-
-                                      <td className="px-2 py-2">
-                                        <div className="text-sm text-gray-900">
-                                          {transaction.date}
-                                        </div>
-                                      </td>
-                                      <td className="px-2 py-2">
-                                        <div className="font-medium text-sm flex items-center">
-                                          <i
-                                            className={`mr-1 text-base ${
-                                              transaction.type === "Credit"
-                                                ? "ri-arrow-down-line text-green-600"
-                                                : "ri-arrow-up-line text-red-600"
-                                            }`}
-                                          ></i>
-                                          ₹{transaction.amount.toLocaleString()}
-                                        </div>
-                                      </td>
-
-                                      <td className="px-2 py-2">
-                                        <div>
-                                          <div className="text-sm font-medium">
-                                            {transaction.bankName}
-                                          </div>
-                                        </div>
-                                      </td>
-
-                                      <td className="px-2 py-2">
-                                        <div className="text-sm text-gray-600">
-                                          {transaction.remarks}
-                                        </div>
-                                      </td>
-
-                                      <td className="px-2 py-2">
-                                        {(() => {
-                                          const { color, icon } =
-                                            getStatusColor(transaction.status);
-                                          return (
-                                            <span
-                                              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${color}`}
-                                            >
-                                              <i
-                                                className={`text-sm ${icon}`}
-                                              ></i>
-                                              {transaction.status}
-                                            </span>
-                                          );
-                                        })()}
-                                      </td>
-                                    </tr>
-                                  ))
-                                ) : (
-                                  <tr>
-                                    <td
-                                      colSpan={6}
-                                      className="p-4 text-center text-gray-500"
-                                    >
-                                      No transactions found.
-                                    </td>
-                                  </tr>
-                                )}
-                              </tbody>
-                            </table>
-                          </div>
-                        )}
-                      </div>
+ 
+                      <div className="overflow-x-auto mt-3 h-[calc(100vh-210px)]">
+  {loading ? (
+    <div className="p-4 text-center text-gray-500">
+      Loading transaction data...
+    </div>
+  ) : error ? (
+    <div className="p-4 text-center text-red-500">
+      {error}
+    </div>
+  ) : (
+    <div className="h-[calc(100vh-410px)]">
+      <table className="w-full h-full overflow-y-auto">
+        <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">
+          <tr className="divide-x divide-[#efefef]">
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              S.No
+            </th>
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              Date
+            </th>
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              Amount
+            </th>
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              Bank
+            </th>
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              Remarks
+            </th>
+            <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-[#efefef] cursor-pointer">
+          {transactionsData.length > 0 ? (
+            transactionsData.map((transaction, index) => (
+              <tr
+                key={transaction.id}
+                className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
+              >
+                <td className="px-2 py-2 text-sm text-gray-700 font-medium text-center w-10">
+                  {index + 1}
+                </td>
+                <td className="px-2 py-2">
+                  <div className="text-sm text-gray-900">
+                    {transaction.date}
+                  </div>
+                </td>
+                <td className="px-2 py-2">
+                  <div className="font-medium text-sm flex items-center">
+                    <i
+                      className={`mr-1 text-base ${
+                        transaction.type === "Credit"
+                          ? "ri-arrow-down-line text-green-600"
+                          : "ri-arrow-up-line text-red-600"
+                      }`}
+                    ></i>
+                    ₹{transaction.amount.toLocaleString()}
+                  </div>
+                </td>
+                <td className="px-2 py-2">
+                  <div>
+                    <div className="text-sm font-medium">
+                      {transaction.bankName}
+                    </div>
+                  </div>
+                </td>
+                <td className="px-2 py-2">
+                  <div className="text-sm text-gray-600">
+                    {transaction.remarks}
+                  </div>
+                </td>
+                <td className="px-2 py-2">
+                  {(() => {
+                    const { color, icon } = getStatusColor(transaction.status);
+                    return (
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${color}`}
+                      >
+                        <i className={`text-sm ${icon}`}></i>
+                        {transaction.status}
+                      </span>
+                    );
+                  })()}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={6}
+                className="p-4 text-center text-gray-500"
+              >
+                No transactions found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+ 
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Bills Table Section */}
-              <div className="h-[calc(100vh-422px)] max-h-[calc(100vh-422px)] overflow-y-auto pr-5 pl-4">
-                <table className="w-full text-sm">
-                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
-                    <tr>
-                      <th className="th-cell w-[5%]">S.no</th>
-                      <th className="th-cell w-[15%]">Date</th>
-                      <th className="th-cell w-[15%]">Bill Number</th>
-                      <th className="th-cell w-[15%]">Purpose</th>
-                      <th className="th-cell w-[15%] text-right">Total</th>
-                      <th className="th-cell w-[15%] text-right">Paid</th>
-                      <th className="th-cell w-[20%] text-right">Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody id="productTableBody">
-                    {bills.length > 0 ? (
-                      bills.map((bill, index) => (
-                        <tr key={bill.id} className="border-b border-gray-200">
-                          <td className="td-cell">{index + 1}</td>
-                          <td className="td-cell">{bill.date}</td>
-                          <td className="td-cell">{bill.billNumber}</td>
-                          <td className="td-cell">{bill.purpose}</td>
-                          <td className="td-cell text-right">
-                            {bill.total.toLocaleString("en-IN", {
-                              style: "currency",
-                              currency: "INR",
-                            })}
-                          </td>
-                          <td className="td-cell text-right text-[#009333]">
-                            {bill.paid.toLocaleString("en-IN", {
-                              style: "currency",
-                              currency: "INR",
-                            })}
-                          </td>
-                          <td className="td-cell">
-                            <Input
-                              name={`balance-${bill.id}`}
-                              placeholder="Enter Balance"
-                              className="form-control number_with_decimal text-right"
-                              value={bill.balance.toString()}
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) =>
-                                handleBillBalanceChange(bill.id, e.target.value)
-                              }
-                            />
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan={7}
-                          className="p-4 text-center text-gray-500"
-                        >
-                          Select a supplier to view bills.
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                  {/* Table Footer for Totals */}
-                  {bills.length > 0 && (
-                    <tfoot className="bg-[#f8f9fa] text-left text-[#12344d] font-bold sticky-table-footer">
-                      <tr>
-                        <td colSpan={4} className="p-2 text-right">
-                          Total:
-                        </td>
-                        <td className="p-2 text-right">
-                          {totalSum.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td>
-                        <td className="p-2 text-right">
-                          {paidSum.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td>
-                        <td className="p-2"></td>
-                      </tr>
-                    </tfoot>
-                  )}
-                </table>
-              </div>
+              
             </form>
           </div>
         </main>

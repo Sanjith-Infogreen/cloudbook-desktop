@@ -135,7 +135,6 @@
       "pincode": "302001"
     }
   ],
-
   "sidebarData": [
     {
       "icon": "ri-dashboard-line",
@@ -276,7 +275,6 @@
       "id": "2df5"
     }
   ],
-
   "customerLedger": [
     {
       "id": "1",
@@ -287,6 +285,16 @@
       "id": "2",
       "name": "Beta Solutions",
       "remarks": "New client, follow up"
+    },
+    {
+      "id": "c487",
+      "name": "vnvg",
+      "remarks": "ghgh"
+    },
+    {
+      "id": "7f38",
+      "name": "ghgf",
+      "remarks": "hghfgh"
     }
   ],
   "productLedger": [
@@ -361,140 +369,24 @@
       "remarks": "Electronics category"
     },
     {
-      "id": "501",
-      "name": "Product B",
-      "remarks": "Home goods category"
+      "id": "ff44",
+      "name": "yj",
+      "remarks": "ghjghj"
     },
     {
-      "id": "601",
-      "name": "Product C",
-      "remarks": "In stock"
+      "id": "5bd9",
+      "name": "ghjghj",
+      "remarks": "ghjghj"
     },
     {
-      "id": "73",
-      "name": "Product A",
-      "remarks": "Electronics category"
+      "id": "4f2b",
+      "name": "hgjghj",
+      "remarks": "ghjghj"
     },
     {
-      "id": "801",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "9",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "10",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "1101",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "122",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "13",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "22",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "33",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "44",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "275",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "46",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "76",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "1301",
-      "name": "Product A",
-      "remarks": "Electronics category",
-      "status": false
-    },
-    {
-      "id": "2201",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "3301",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "4401",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "25",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "4601",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "7601",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "48",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "92",
-      "name": "Product C",
-      "remarks": "In stock"
-    },
-    {
-      "id": "410",
-      "name": "Product A",
-      "remarks": "Electronics category"
-    },
-    {
-      "id": "151",
-      "name": "Product B",
-      "remarks": "Home goods category"
-    },
-    {
-      "id": "142",
-      "name": "Product C",
-      "remarks": "In stock"
+      "id": "96d2",
+      "name": "ghjghj",
+      "remarks": "ghjghj"
     }
   ],
   "unitLedger": [
@@ -509,6 +401,66 @@
       "name": "Kilograms",
       "remarks": "Weight unit",
       "status": true
+    },
+    {
+      "id": "f2d6",
+      "name": "hjkhj",
+      "remarks": "hjkhj"
+    },
+    {
+      "id": "dc49",
+      "name": "hjkjhk",
+      "remarks": "hjkhjk"
+    },
+    {
+      "id": "b954",
+      "name": "hjkhjk",
+      "remarks": "hjkhj"
+    },
+    {
+      "id": "b5f8",
+      "name": "hjkhjk",
+      "remarks": "hjkhjk"
+    },
+    {
+      "id": "8cd7",
+      "name": "hjkhjk",
+      "remarks": "hjkhjkh"
+    },
+    {
+      "id": "f3e9",
+      "name": "hjk",
+      "remarks": "hjk"
+    },
+    {
+      "id": "7a6f",
+      "name": "hjk",
+      "remarks": "hjk"
+    },
+    {
+      "id": "9eb2",
+      "name": "hjkjk",
+      "remarks": "hjkhjk"
+    },
+    {
+      "id": "5392",
+      "name": "hjkhjk",
+      "remarks": "hjkhjk"
+    },
+    {
+      "id": "f065",
+      "name": "hjkhjk",
+      "remarks": "hjkhjk"
+    },
+    {
+      "id": "f422",
+      "name": "jghj",
+      "remarks": "ghjghj"
+    },
+    {
+      "id": "6b8a",
+      "name": "ghjghj",
+      "remarks": "ghjg"
     }
   ],
   "bankAccounts": [
@@ -538,40 +490,39 @@
       "remarks": "Business travel related"
     }
   ],
-
   "mockProductSalesReportData": [
     {
-      "id": 1,
+      "id": "1",
       "customerName": "John Doe",
       "address": "Namakkal",
       "productName": "Paracetamol Tablets",
       "quantitySold": 5,
       "saleDate": "2025-07-01",
-      "totalAmount": 150.0,
+      "totalAmount": 150,
       "status": "Delivered"
     },
     {
-      "id": 2,
+      "id": "2",
       "customerName": "Jane Smith",
       "address": "Trichy",
       "productName": "Vitamin C Syrup",
       "quantitySold": 2,
       "saleDate": "2025-07-05",
-      "totalAmount": 80.0,
+      "totalAmount": 80,
       "status": "Pending"
     },
     {
-      "id": 3,
+      "id": "3",
       "customerName": "Robert Brown",
       "address": "Salem",
       "productName": "Cough Syrup",
       "quantitySold": 3,
       "saleDate": "2025-07-10",
-      "totalAmount": 120.0,
+      "totalAmount": 120,
       "status": "Cancelled"
     },
     {
-      "id": 4,
+      "id": "4",
       "customerName": "Aravind Kumar",
       "address": "Coimbatore",
       "productName": "Antibiotic Ointment",
@@ -581,323 +532,321 @@
       "status": "Delivered"
     },
     {
-      "id": 5,
+      "id": "5",
       "customerName": "Priya Devi",
       "address": "Madurai",
       "productName": "Pain Relief Spray",
       "quantitySold": 2,
       "saleDate": "2025-07-06",
-      "totalAmount": 90.0,
+      "totalAmount": 90,
       "status": "Pending"
     },
     {
-      "id": 6,
+      "id": "6",
       "customerName": "Suresh Rajan",
       "address": "Chennai",
       "productName": "Multivitamin Capsules",
       "quantitySold": 4,
       "saleDate": "2025-07-11",
-      "totalAmount": 200.0,
+      "totalAmount": 200,
       "status": "Delivered"
     },
     {
-      "id": 7,
+      "id": "7",
       "customerName": "Meena Kumari",
       "address": "Vellore",
       "productName": "Antacid Tablets",
       "quantitySold": 6,
       "saleDate": "2025-07-03",
-      "totalAmount": 60.0,
+      "totalAmount": 60,
       "status": "Delivered"
     },
     {
-      "id": 8,
+      "id": "8",
       "customerName": "Ganesh Murugan",
       "address": "Erode",
       "productName": "Fever Reducer Syrup",
       "quantitySold": 1,
       "saleDate": "2025-07-07",
-      "totalAmount": 45.0,
+      "totalAmount": 45,
       "status": "Pending"
     },
     {
-      "id": 9,
+      "id": "9",
       "customerName": "Shanthi Prakash",
       "address": "Thanjavur",
       "productName": "Bandages Pack",
       "quantitySold": 3,
       "saleDate": "2025-07-12",
-      "totalAmount": 30.0,
+      "totalAmount": 30,
       "status": "Cancelled"
     },
     {
-      "id": 10,
+      "id": "10",
       "customerName": "Kathir Velu",
       "address": "Dindigul",
       "productName": "Allergy Medication",
       "quantitySold": 2,
       "saleDate": "2025-07-04",
-      "totalAmount": 110.0,
+      "totalAmount": 110,
       "status": "Delivered"
     },
     {
-      "id": 11,
+      "id": "11",
       "customerName": "Lakshmi Narayanan",
       "address": "Kanyakumari",
       "productName": "Digestive Enzymes",
       "quantitySold": 1,
       "saleDate": "2025-07-08",
-      "totalAmount": 70.0,
+      "totalAmount": 70,
       "status": "Pending"
     },
     {
-      "id": 12,
+      "id": "12",
       "customerName": "Ramesh Kumar",
       "address": "Puducherry",
       "productName": "Topical Cream",
       "quantitySold": 2,
       "saleDate": "2025-07-13",
-      "totalAmount": 85.0,
+      "totalAmount": 85,
       "status": "Delivered"
     },
     {
-      "id": 13,
+      "id": "13",
       "customerName": "Deepa Anand",
       "address": "Nagercoil",
       "productName": "Eye Drops",
       "quantitySold": 1,
       "saleDate": "2025-07-01",
-      "totalAmount": 50.0,
+      "totalAmount": 50,
       "status": "Delivered"
     },
     {
-      "id": 14,
+      "id": "14",
       "customerName": "Kumaravel",
       "address": "Tirunelveli",
       "productName": "Hand Sanitizer",
       "quantitySold": 5,
       "saleDate": "2025-07-05",
-      "totalAmount": 125.0,
+      "totalAmount": 125,
       "status": "Pending"
     },
     {
-      "id": 15,
+      "id": "15",
       "customerName": "Selvi Rani",
       "address": "Thiruvannamalai",
       "productName": "First Aid Kit",
       "quantitySold": 1,
       "saleDate": "2025-07-10",
-      "totalAmount": 250.0,
+      "totalAmount": 250,
       "status": "Cancelled"
     },
     {
-      "id": 16,
+      "id": "16",
       "customerName": "Vijayalakshmi",
       "address": "Cuddalore",
       "productName": "Orthopedic Belt",
       "quantitySold": 1,
       "saleDate": "2025-07-02",
-      "totalAmount": 300.0,
+      "totalAmount": 300,
       "status": "Delivered"
     },
     {
-      "id": 17,
+      "id": "17",
       "customerName": "Mohan Raj",
       "address": "Karur",
       "productName": "Blood Pressure Monitor",
       "quantitySold": 1,
       "saleDate": "2025-07-06",
-      "totalAmount": 750.0,
+      "totalAmount": 750,
       "status": "Pending"
     },
     {
-      "id": 18,
+      "id": "18",
       "customerName": "Sangeetha Devi",
       "address": "Ramanathapuram",
       "productName": "Diabetes Test Strips",
       "quantitySold": 3,
       "saleDate": "2025-07-11",
-      "totalAmount": 450.0,
+      "totalAmount": 450,
       "status": "Delivered"
     },
     {
-      "id": 19,
+      "id": "19",
       "customerName": "Prabhu Deva",
       "address": "Virudhunagar",
       "productName": "Inhaler",
       "quantitySold": 1,
       "saleDate": "2025-07-03",
-      "totalAmount": 200.0,
+      "totalAmount": 200,
       "status": "Delivered"
     },
     {
-      "id": 20,
+      "id": "20",
       "customerName": "Malathi Murugan",
       "address": "Sivaganga",
       "productName": "Vapor Rub",
       "quantitySold": 2,
       "saleDate": "2025-07-07",
-      "totalAmount": 70.0,
+      "totalAmount": 70,
       "status": "Pending"
     },
     {
-      "id": 21,
+      "id": "21",
       "customerName": "Saravanan",
       "address": "Theni",
       "productName": "Multivitamin Gummies",
       "quantitySold": 3,
       "saleDate": "2025-07-12",
-      "totalAmount": 180.0,
+      "totalAmount": 180,
       "status": "Cancelled"
     },
     {
-      "id": 22,
+      "id": "22",
       "customerName": "Kavitha",
       "address": "Thoothukudi",
       "productName": "Weight Loss Supplement",
       "quantitySold": 1,
       "saleDate": "2025-07-04",
-      "totalAmount": 600.0,
+      "totalAmount": 600,
       "status": "Delivered"
     },
     {
-      "id": 23,
+      "id": "23",
       "customerName": "Dinesh Kumar",
       "address": "Krishnagiri",
       "productName": "Protein Powder",
       "quantitySold": 1,
       "saleDate": "2025-07-08",
-      "totalAmount": 900.0,
+      "totalAmount": 900,
       "status": "Pending"
     }
   ],
-
   "existingContacts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Arun Kumar",
       "phoneNumber": "9876543210",
       "location": "Chennai"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Priya Sharma",
       "phoneNumber": "9123456780",
       "location": "Bangalore"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Ravi Teja",
       "phoneNumber": "9988776655",
       "location": "Hyderabad"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Meena R",
       "phoneNumber": "9090909090",
       "location": "Coimbatore"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Suresh Das",
       "phoneNumber": "8888777766",
       "location": "Kolkata"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Anita Verma",
       "phoneNumber": "7766554433",
       "location": "Mumbai"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Rajeev Nair",
       "phoneNumber": "7001234567",
       "location": "Kochi"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Divya Iyer",
       "phoneNumber": "9443311223",
       "location": "Madurai"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Nikhil B",
       "phoneNumber": "8080808080",
       "location": "Pune"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Sandhya G",
       "phoneNumber": "9300456789",
       "location": "Delhi"
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Karthik M",
       "phoneNumber": "9367812345",
       "location": "Salem"
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Sneha Reddy",
       "phoneNumber": "8899776655",
       "location": "Warangal"
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Ajay Singh",
       "phoneNumber": "9811122233",
       "location": "Noida"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Lavanya V",
       "phoneNumber": "9871234567",
       "location": "Vellore"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Manoj P",
       "phoneNumber": "9533578642",
       "location": "Trichy"
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Deepika N",
       "phoneNumber": "9944556633",
       "location": "Thanjavur"
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Sathish R",
       "phoneNumber": "9000088899",
       "location": "Tirunelveli"
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Anjali C",
       "phoneNumber": "8907766554",
       "location": "Erode"
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Vikram S",
       "phoneNumber": "8500554477",
       "location": "Theni"
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Bhavana L",
       "phoneNumber": "9321123344",
       "location": "Nagercoil"
     }
   ],
-
   "existingProducts": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Toor Dal",
       "category": "Pulses",
       "price": 120,
@@ -905,7 +854,7 @@
       "stock": 100
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Urad Dal",
       "category": "Pulses",
       "price": 95,
@@ -913,7 +862,7 @@
       "stock": 80
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Moong Dal",
       "category": "Pulses",
       "price": 110,
@@ -921,7 +870,7 @@
       "stock": 60
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Chana Dal",
       "category": "Pulses",
       "price": 100,
@@ -929,7 +878,7 @@
       "stock": 90
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Basmati Rice",
       "category": "Grains",
       "price": 80,
@@ -937,7 +886,7 @@
       "stock": 200
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Idli Rice",
       "category": "Grains",
       "price": 60,
@@ -945,7 +894,7 @@
       "stock": 150
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Groundnut Oil",
       "category": "Oil",
       "price": 180,
@@ -953,7 +902,7 @@
       "stock": 90
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Sunflower Oil",
       "category": "Oil",
       "price": 160,
@@ -961,7 +910,7 @@
       "stock": 70
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Palm Oil",
       "category": "Oil",
       "price": 150,
@@ -969,7 +918,7 @@
       "stock": 120
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Parachute Coconut Oil",
       "category": "Hair Oil",
       "price": 95,
@@ -977,7 +926,7 @@
       "stock": 60
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Surf Excel Detergent",
       "category": "Cleaning",
       "price": 210,
@@ -985,7 +934,7 @@
       "stock": 40
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Tide Detergent Powder",
       "category": "Cleaning",
       "price": 195,
@@ -993,7 +942,7 @@
       "stock": 50
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Lifebuoy Soap",
       "category": "Bath Soap",
       "price": 35,
@@ -1001,7 +950,7 @@
       "stock": 300
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Lux Soap",
       "category": "Bath Soap",
       "price": 40,
@@ -1009,7 +958,7 @@
       "stock": 280
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Colgate Toothpaste",
       "category": "Personal Care",
       "price": 90,
@@ -1017,7 +966,7 @@
       "stock": 100
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Pepsodent Toothpaste",
       "category": "Personal Care",
       "price": 85,
@@ -1025,7 +974,7 @@
       "stock": 90
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Tata Salt",
       "category": "Spices",
       "price": 25,
@@ -1033,7 +982,7 @@
       "stock": 300
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Aashirvaad Atta",
       "category": "Flour",
       "price": 280,
@@ -1041,7 +990,7 @@
       "stock": 75
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Sugar",
       "category": "Essentials",
       "price": 45,
@@ -1049,7 +998,7 @@
       "stock": 250
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Turmeric Powder",
       "category": "Spices",
       "price": 55,
@@ -1059,7 +1008,7 @@
   ],
   "purchases": [
     {
-      "id": 1,
+      "id": "1",
       "poNumber": "PO-2024-001",
       "supplier": "ABC Motors Ltd",
       "orderDate": "15/01/2024",
@@ -1068,9 +1017,8 @@
       "deliveryDate": "25/01/2024",
       "category": "Spare Parts"
     },
-
     {
-      "id": 2,
+      "id": "2",
       "poNumber": "PO-2024-002",
       "supplier": "XYZ Auto Parts",
       "orderDate": "18/01/2024",
@@ -1079,9 +1027,8 @@
       "deliveryDate": "28/01/2024",
       "category": "Tyres"
     },
-
     {
-      "id": 3,
+      "id": "3",
       "poNumber": "PO-2024-003",
       "supplier": "Chennai Garage Supplies",
       "orderDate": "20/01/2024",
@@ -1090,9 +1037,8 @@
       "deliveryDate": "30/01/2024",
       "category": "Tools"
     },
-
     {
-      "id": 4,
+      "id": "4",
       "poNumber": "PO-2024-004",
       "supplier": "South India Lubricants",
       "orderDate": "22/01/2024",
@@ -1101,9 +1047,8 @@
       "deliveryDate": "02/02/2024",
       "category": "Oils"
     },
-
     {
-      "id": 5,
+      "id": "5",
       "poNumber": "PO-2024-005",
       "supplier": "Madurai Vehicle Parts",
       "orderDate": "25/01/2024",
@@ -1112,9 +1057,8 @@
       "deliveryDate": "05/02/2024",
       "category": "Engine Parts"
     },
-
     {
-      "id": 6,
+      "id": "6",
       "poNumber": "PO-2024-006",
       "supplier": "Coimbatore Auto Hub",
       "orderDate": "28/01/2024",
@@ -1123,9 +1067,8 @@
       "deliveryDate": "08/02/2024",
       "category": "Accessories"
     },
-
     {
-      "id": 7,
+      "id": "7",
       "poNumber": "PO-2024-007",
       "supplier": "Salem Motors",
       "orderDate": "30/01/2024",
@@ -1134,9 +1077,8 @@
       "deliveryDate": "10/02/2024",
       "category": "Brake Parts"
     },
-
     {
-      "id": 8,
+      "id": "8",
       "poNumber": "PO-2024-008",
       "supplier": "Trichy Auto Solutions",
       "orderDate": "02/02/2024",
@@ -1145,9 +1087,8 @@
       "deliveryDate": "12/02/2024",
       "category": "Electrical"
     },
-
     {
-      "id": 9,
+      "id": "9",
       "poNumber": "PO-2024-009",
       "supplier": "Erode Vehicle Store",
       "orderDate": "05/02/2024",
@@ -1156,9 +1097,8 @@
       "deliveryDate": "15/02/2024",
       "category": "Suspension"
     },
-
     {
-      "id": 10,
+      "id": "10",
       "poNumber": "PO-2024-010",
       "supplier": "Vellore Auto Parts",
       "orderDate": "08/02/2024",
@@ -1167,9 +1107,8 @@
       "deliveryDate": "18/02/2024",
       "category": "Filters"
     },
-
     {
-      "id": 11,
+      "id": "11",
       "poNumber": "PO-2024-011",
       "supplier": "Thanjavur Motors",
       "orderDate": "10/02/2024",
@@ -1178,9 +1117,8 @@
       "deliveryDate": "20/02/2024",
       "category": "Transmission"
     },
-
     {
-      "id": 12,
+      "id": "12",
       "poNumber": "PO-2024-012",
       "supplier": "Dindigul Auto Center",
       "orderDate": "12/02/2024",
@@ -1189,9 +1127,8 @@
       "deliveryDate": "22/02/2024",
       "category": "Cooling System"
     },
-
     {
-      "id": 13,
+      "id": "13",
       "poNumber": "PO-2024-013",
       "supplier": "Tirunelveli Parts",
       "orderDate": "15/02/2024",
@@ -1200,9 +1137,8 @@
       "deliveryDate": "25/02/2024",
       "category": "Exhaust System"
     },
-
     {
-      "id": 14,
+      "id": "14",
       "poNumber": "PO-2024-014",
       "supplier": "Kanyakumari Auto",
       "orderDate": "18/02/2024",
@@ -1211,9 +1147,8 @@
       "deliveryDate": "28/02/2024",
       "category": "Body Parts"
     },
-
     {
-      "id": 15,
+      "id": "15",
       "poNumber": "PO-2024-015",
       "supplier": "Karur Vehicle Hub",
       "orderDate": "20/02/2024",
@@ -1222,9 +1157,8 @@
       "deliveryDate": "02/03/2024",
       "category": "Interior"
     },
-
     {
-      "id": 16,
+      "id": "16",
       "poNumber": "PO-2024-016",
       "supplier": "Namakkal Motors",
       "orderDate": "22/02/2024",
@@ -1233,9 +1167,8 @@
       "deliveryDate": "05/03/2024",
       "category": "Lighting"
     },
-
     {
-      "id": 17,
+      "id": "17",
       "poNumber": "PO-2024-017",
       "supplier": "Dharmapuri Auto",
       "orderDate": "25/02/2024",
@@ -1244,9 +1177,8 @@
       "deliveryDate": "08/03/2024",
       "category": "Safety Equipment"
     },
-
     {
-      "id": 18,
+      "id": "18",
       "poNumber": "PO-2024-018",
       "supplier": "Krishnagiri Parts",
       "orderDate": "28/02/2024",
@@ -1255,9 +1187,8 @@
       "deliveryDate": "10/03/2024",
       "category": "Fuel System"
     },
-
     {
-      "id": 19,
+      "id": "19",
       "poNumber": "PO-2024-019",
       "supplier": "Hosur Auto Center",
       "orderDate": "02/03/2024",
@@ -1266,9 +1197,8 @@
       "deliveryDate": "12/03/2024",
       "category": "Steering"
     },
-
     {
-      "id": 20,
+      "id": "20",
       "poNumber": "PO-2024-020",
       "supplier": "Cuddalore Motors",
       "orderDate": "05/03/2024",
@@ -1277,9 +1207,8 @@
       "deliveryDate": "15/03/2024",
       "category": "Clutch Parts"
     },
-
     {
-      "id": 21,
+      "id": "21",
       "poNumber": "PO-2024-021",
       "supplier": "Villupuram Auto",
       "orderDate": "08/03/2024",
@@ -1288,9 +1217,8 @@
       "deliveryDate": "18/03/2024",
       "category": "Batteries"
     },
-
     {
-      "id": 22,
+      "id": "22",
       "poNumber": "PO-2024-022",
       "supplier": "Nagapattinam Parts",
       "orderDate": "10/03/2024",
@@ -1299,9 +1227,8 @@
       "deliveryDate": "20/03/2024",
       "category": "Radiator"
     },
-
     {
-      "id": 23,
+      "id": "23",
       "poNumber": "PO-2024-023",
       "supplier": "Mayiladuthurai Motors",
       "orderDate": "12/03/2024",
@@ -1310,9 +1237,8 @@
       "deliveryDate": "22/03/2024",
       "category": "Alternator"
     },
-
     {
-      "id": 24,
+      "id": "24",
       "poNumber": "PO-2024-024",
       "supplier": "Pudukkottai Auto",
       "orderDate": "15/03/2024",
@@ -1321,9 +1247,8 @@
       "deliveryDate": "25/03/2024",
       "category": "Starter Motor"
     },
-
     {
-      "id": 25,
+      "id": "25",
       "poNumber": "PO-2024-025",
       "supplier": "Sivaganga Parts",
       "orderDate": "18/03/2024",
@@ -1332,9 +1257,8 @@
       "deliveryDate": "28/03/2024",
       "category": "Air Filter"
     },
-
     {
-      "id": 26,
+      "id": "26",
       "poNumber": "PO-2024-026",
       "supplier": "Ramanathapuram Motors",
       "orderDate": "20/03/2024",
@@ -1343,9 +1267,8 @@
       "deliveryDate": "30/03/2024",
       "category": "Shock Absorbers"
     },
-
     {
-      "id": 27,
+      "id": "27",
       "poNumber": "PO-2024-027",
       "supplier": "Thoothukudi Auto",
       "orderDate": "22/03/2024",
@@ -1354,9 +1277,8 @@
       "deliveryDate": "01/04/2024",
       "category": "Wipers"
     },
-
     {
-      "id": 28,
+      "id": "28",
       "poNumber": "PO-2024-028",
       "supplier": "Tirupur Vehicle Hub",
       "orderDate": "25/03/2024",
@@ -1365,9 +1287,8 @@
       "deliveryDate": "05/04/2024",
       "category": "Mirrors"
     },
-
     {
-      "id": 29,
+      "id": "29",
       "poNumber": "PO-2024-029",
       "supplier": "Nilgiris Auto Parts",
       "orderDate": "28/03/2024",
@@ -1376,9 +1297,8 @@
       "deliveryDate": "08/04/2024",
       "category": "Gaskets"
     },
-
     {
-      "id": 30,
+      "id": "30",
       "poNumber": "PO-2024-030",
       "supplier": "Perambalur Motors",
       "orderDate": "30/03/2024",
@@ -1387,9 +1307,8 @@
       "deliveryDate": "10/04/2024",
       "category": "Belts"
     },
-
     {
-      "id": 31,
+      "id": "31",
       "poNumber": "PO-2024-031",
       "supplier": "Ariyalur Auto",
       "orderDate": "02/04/2024",
@@ -1398,9 +1317,8 @@
       "deliveryDate": "12/04/2024",
       "category": "Hoses"
     },
-
     {
-      "id": 32,
+      "id": "32",
       "poNumber": "PO-2024-032",
       "supplier": "Kallakurichi Parts",
       "orderDate": "05/04/2024",
@@ -1409,9 +1327,8 @@
       "deliveryDate": "15/04/2024",
       "category": "Sensors"
     },
-
     {
-      "id": 33,
+      "id": "33",
       "poNumber": "PO-2024-033",
       "supplier": "Ranipet Motors",
       "orderDate": "08/04/2024",
@@ -1420,9 +1337,8 @@
       "deliveryDate": "18/04/2024",
       "category": "Valves"
     },
-
     {
-      "id": 34,
+      "id": "34",
       "poNumber": "PO-2024-034",
       "supplier": "Tirupattur Auto",
       "orderDate": "10/04/2024",
@@ -1431,9 +1347,8 @@
       "deliveryDate": "20/04/2024",
       "category": "Pistons"
     },
-
     {
-      "id": 35,
+      "id": "35",
       "poNumber": "PO-2024-035",
       "supplier": "Chengalpattu Parts",
       "orderDate": "12/04/2024",
@@ -1443,83 +1358,186 @@
       "category": "Bearings"
     }
   ],
-
   "supplierOptions": [
-    { "value": "abc_motors", "label": "ABC Motors Ltd" },
-
-    { "value": "xyz_auto_parts", "label": "XYZ Auto Parts" },
-
-    { "value": "chennai_garage_supplies", "label": "Chennai Garage Supplies" },
-
-    { "value": "south_india_lubricants", "label": "South India Lubricants" },
-
-    { "value": "madurai_vehicle_parts", "label": "Madurai Vehicle Parts" },
-
-    { "value": "coimbatore_auto_hub", "label": "Coimbatore Auto Hub" },
-
-    { "value": "salem_motors", "label": "Salem Motors" },
-
-    { "value": "trichy_auto_solutions", "label": "Trichy Auto Solutions" },
-
-    { "value": "erode_vehicle_store", "label": "Erode Vehicle Store" },
-
-    { "value": "vellore_auto_parts", "label": "Vellore Auto Parts" },
-
-    { "value": "thanjavur_motors", "label": "Thanjavur Motors" },
-
-    { "value": "dindigul_auto_center", "label": "Dindigul Auto Center" },
-
-    { "value": "tirunelveli_parts", "label": "Tirunelveli Parts" },
-
-    { "value": "kanyakumari_auto", "label": "Kanyakumari Auto" },
-
-    { "value": "karur_vehicle_hub", "label": "Karur Vehicle Hub" },
-
-    { "value": "namakkal_motors", "label": "Namakkal Motors" },
-
-    { "value": "dharmapuri_auto", "label": "Dharmapuri Auto" },
-
-    { "value": "krishnagiri_parts", "label": "Krishnagiri Parts" },
-
-    { "value": "hosur_auto_center", "label": "Hosur Auto Center" },
-
-    { "value": "cuddalore_motors", "label": "Cuddalore Motors" },
-
-    { "value": "villupuram_auto", "label": "Villupuram Auto" },
-
-    { "value": "nagapattinam_parts", "label": "Nagapattinam Parts" },
-
-    { "value": "mayiladuthurai_motors", "label": "Mayiladuthurai Motors" },
-
-    { "value": "pudukkottai_auto", "label": "Pudukkottai Auto" },
-
-    { "value": "sivaganga_parts", "label": "Sivaganga Parts" },
-
-    { "value": "ramanathapuram_motors", "label": "Ramanathapuram Motors" },
-
-    { "value": "thoothukudi_auto", "label": "Thoothukudi Auto" },
-
-    { "value": "tirupur_vehicle_hub", "label": "Tirupur Vehicle Hub" },
-
-    { "value": "nilgiris_auto_parts", "label": "Nilgiris Auto Parts" },
-
-    { "value": "perambalur_motors", "label": "Perambalur Motors" },
-
-    { "value": "ariyalur_auto", "label": "Ariyalur Auto" },
-
-    { "value": "kallakurichi_parts", "label": "Kallakurichi Parts" },
-
-    { "value": "ranipet_motors", "label": "Ranipet Motors" },
-
-    { "value": "tirupattur_auto", "label": "Tirupattur Auto" },
-
-    { "value": "chengalpattu_parts", "label": "Chengalpattu Parts" }
+    {
+      "value": "abc_motors",
+      "label": "ABC Motors Ltd",
+      "id": "7c3d"
+    },
+    {
+      "value": "xyz_auto_parts",
+      "label": "XYZ Auto Parts",
+      "id": "6d9d"
+    },
+    {
+      "value": "chennai_garage_supplies",
+      "label": "Chennai Garage Supplies",
+      "id": "a301"
+    },
+    {
+      "value": "south_india_lubricants",
+      "label": "South India Lubricants",
+      "id": "d619"
+    },
+    {
+      "value": "madurai_vehicle_parts",
+      "label": "Madurai Vehicle Parts",
+      "id": "80a1"
+    },
+    {
+      "value": "coimbatore_auto_hub",
+      "label": "Coimbatore Auto Hub",
+      "id": "deda"
+    },
+    {
+      "value": "salem_motors",
+      "label": "Salem Motors",
+      "id": "9a2a"
+    },
+    {
+      "value": "trichy_auto_solutions",
+      "label": "Trichy Auto Solutions",
+      "id": "5863"
+    },
+    {
+      "value": "erode_vehicle_store",
+      "label": "Erode Vehicle Store",
+      "id": "ea0c"
+    },
+    {
+      "value": "vellore_auto_parts",
+      "label": "Vellore Auto Parts",
+      "id": "8d48"
+    },
+    {
+      "value": "thanjavur_motors",
+      "label": "Thanjavur Motors",
+      "id": "36a4"
+    },
+    {
+      "value": "dindigul_auto_center",
+      "label": "Dindigul Auto Center",
+      "id": "cb80"
+    },
+    {
+      "value": "tirunelveli_parts",
+      "label": "Tirunelveli Parts",
+      "id": "3c07"
+    },
+    {
+      "value": "kanyakumari_auto",
+      "label": "Kanyakumari Auto",
+      "id": "0de5"
+    },
+    {
+      "value": "karur_vehicle_hub",
+      "label": "Karur Vehicle Hub",
+      "id": "41e5"
+    },
+    {
+      "value": "namakkal_motors",
+      "label": "Namakkal Motors",
+      "id": "508e"
+    },
+    {
+      "value": "dharmapuri_auto",
+      "label": "Dharmapuri Auto",
+      "id": "bf51"
+    },
+    {
+      "value": "krishnagiri_parts",
+      "label": "Krishnagiri Parts",
+      "id": "17c5"
+    },
+    {
+      "value": "hosur_auto_center",
+      "label": "Hosur Auto Center",
+      "id": "457e"
+    },
+    {
+      "value": "cuddalore_motors",
+      "label": "Cuddalore Motors",
+      "id": "569c"
+    },
+    {
+      "value": "villupuram_auto",
+      "label": "Villupuram Auto",
+      "id": "8019"
+    },
+    {
+      "value": "nagapattinam_parts",
+      "label": "Nagapattinam Parts",
+      "id": "ae7c"
+    },
+    {
+      "value": "mayiladuthurai_motors",
+      "label": "Mayiladuthurai Motors",
+      "id": "5d1c"
+    },
+    {
+      "value": "pudukkottai_auto",
+      "label": "Pudukkottai Auto",
+      "id": "5a45"
+    },
+    {
+      "value": "sivaganga_parts",
+      "label": "Sivaganga Parts",
+      "id": "765e"
+    },
+    {
+      "value": "ramanathapuram_motors",
+      "label": "Ramanathapuram Motors",
+      "id": "3b21"
+    },
+    {
+      "value": "thoothukudi_auto",
+      "label": "Thoothukudi Auto",
+      "id": "87aa"
+    },
+    {
+      "value": "tirupur_vehicle_hub",
+      "label": "Tirupur Vehicle Hub",
+      "id": "904d"
+    },
+    {
+      "value": "nilgiris_auto_parts",
+      "label": "Nilgiris Auto Parts",
+      "id": "f0c9"
+    },
+    {
+      "value": "perambalur_motors",
+      "label": "Perambalur Motors",
+      "id": "7ae6"
+    },
+    {
+      "value": "ariyalur_auto",
+      "label": "Ariyalur Auto",
+      "id": "55ec"
+    },
+    {
+      "value": "kallakurichi_parts",
+      "label": "Kallakurichi Parts",
+      "id": "b0bc"
+    },
+    {
+      "value": "ranipet_motors",
+      "label": "Ranipet Motors",
+      "id": "facf"
+    },
+    {
+      "value": "tirupattur_auto",
+      "label": "Tirupattur Auto",
+      "id": "cdb8"
+    },
+    {
+      "value": "chengalpattu_parts",
+      "label": "Chengalpattu Parts",
+      "id": "ec38"
+    }
   ],
-
-
   "invoices": [
     {
-      "id": 1,
+      "id": "1",
       "invoiceNumber": "INV-001",
       "customer": "Tech Solutions Inc.",
       "invoiceDate": "15/01/2025",
@@ -1529,17 +1547,17 @@
       "category": "Software Licenses"
     },
     {
-      "id": 2,
+      "id": "2",
       "invoiceNumber": "INV-002",
       "customer": "Global Marketing Co.",
       "invoiceDate": "20/01/2025",
       "dueDate": "20/02/2025",
-      "totalAmount": 780.0,
+      "totalAmount": 780,
       "status": "Pending",
       "category": "Consulting Services"
     },
     {
-      "id": 3,
+      "id": "3",
       "invoiceNumber": "INV-003",
       "customer": "Innovate Designs",
       "invoiceDate": "01/02/2025",
@@ -1549,7 +1567,7 @@
       "category": "Web Development"
     },
     {
-      "id": 4,
+      "id": "4",
       "invoiceNumber": "INV-004",
       "customer": "Apex Industries",
       "invoiceDate": "10/02/2025",
@@ -1559,37 +1577,37 @@
       "category": "Office Supplies"
     },
     {
-      "id": 5,
+      "id": "5",
       "invoiceNumber": "INV-005",
       "customer": "Quantum Logistics",
       "invoiceDate": "15/02/2025",
       "dueDate": "15/03/2025",
-      "totalAmount": 990.0,
+      "totalAmount": 990,
       "status": "Pending",
       "category": "Shipping Services"
     },
     {
-      "id": 6,
+      "id": "6",
       "invoiceNumber": "INV-006",
       "customer": "Bright Ideas Ltd.",
       "invoiceDate": "28/02/2025",
       "dueDate": "28/03/2025",
-      "totalAmount": 150.0,
+      "totalAmount": 150,
       "status": "Paid",
       "category": "Graphic Design"
     },
     {
-      "id": 7,
+      "id": "7",
       "invoiceNumber": "INV-007",
       "customer": "Summit Financial",
       "invoiceDate": "05/03/2025",
       "dueDate": "05/04/2025",
-      "totalAmount": 5200.0,
+      "totalAmount": 5200,
       "status": "Pending",
       "category": "Financial Advisory"
     },
     {
-      "id": 8,
+      "id": "8",
       "invoiceNumber": "INV-008",
       "customer": "Green Earth Solutions",
       "invoiceDate": "10/03/2025",
@@ -1599,57 +1617,57 @@
       "category": "Environmental Consulting"
     },
     {
-      "id": 9,
+      "id": "9",
       "invoiceNumber": "INV-009",
       "customer": "Digital Innovations",
       "invoiceDate": "18/03/2025",
       "dueDate": "18/04/2025",
-      "totalAmount": 450.0,
+      "totalAmount": 450,
       "status": "Paid",
       "category": "Digital Marketing"
     },
     {
-      "id": 10,
+      "id": "10",
       "invoiceNumber": "INV-010",
       "customer": "Pinnacle Health",
       "invoiceDate": "22/03/2025",
       "dueDate": "22/04/2025",
-      "totalAmount": 1800.0,
+      "totalAmount": 1800,
       "status": "Pending",
       "category": "Medical Supplies"
     },
     {
-      "id": 11,
+      "id": "11",
       "invoiceNumber": "INV-011",
       "customer": "Urban Sprout",
       "invoiceDate": "01/04/2025",
       "dueDate": "01/05/2025",
-      "totalAmount": 620.0,
+      "totalAmount": 620,
       "status": "Paid",
       "category": "Agricultural Products"
     },
     {
-      "id": 12,
+      "id": "12",
       "invoiceNumber": "INV-012",
       "customer": "Future Foods Co.",
       "invoiceDate": "05/04/2025",
       "dueDate": "05/05/2025",
-      "totalAmount": 1100.50,
+      "totalAmount": 1100.5,
       "status": "Pending",
       "category": "Food Distribution"
     },
     {
-      "id": 13,
+      "id": "13",
       "invoiceNumber": "INV-013",
       "customer": "Connect IT Solutions",
       "invoiceDate": "12/04/2025",
       "dueDate": "12/05/2025",
-      "totalAmount": 2800.0,
+      "totalAmount": 2800,
       "status": "Overdue",
       "category": "Network Services"
     },
     {
-      "id": 14,
+      "id": "14",
       "invoiceNumber": "INV-014",
       "customer": "Creative Media Group",
       "invoiceDate": "18/04/2025",
@@ -1659,37 +1677,37 @@
       "category": "Advertising"
     },
     {
-      "id": 15,
+      "id": "15",
       "invoiceNumber": "INV-015",
       "customer": "Eco-Friendly Products",
       "invoiceDate": "25/04/2025",
       "dueDate": "25/05/2025",
-      "totalAmount": 320.0,
+      "totalAmount": 320,
       "status": "Pending",
       "category": "Retail"
     },
     {
-      "id": 16,
+      "id": "16",
       "invoiceNumber": "INV-016",
       "customer": "Dynamic Systems",
       "invoiceDate": "02/05/2025",
       "dueDate": "02/06/2025",
-      "totalAmount": 1950.0,
+      "totalAmount": 1950,
       "status": "Paid",
       "category": "IT Support"
     },
     {
-      "id": 17,
+      "id": "17",
       "invoiceNumber": "INV-017",
       "customer": "Global Trade Corp.",
       "invoiceDate": "08/05/2025",
       "dueDate": "08/06/2025",
-      "totalAmount": 4100.0,
+      "totalAmount": 4100,
       "status": "Pending",
       "category": "Logistics"
     },
     {
-      "id": 18,
+      "id": "18",
       "invoiceNumber": "INV-018",
       "customer": "Precision Engineering",
       "invoiceDate": "15/05/2025",
@@ -1699,57 +1717,57 @@
       "category": "Manufacturing"
     },
     {
-      "id": 19,
+      "id": "19",
       "invoiceNumber": "INV-019",
       "customer": "Bright Horizon Education",
       "invoiceDate": "20/05/2025",
       "dueDate": "20/06/2025",
-      "totalAmount": 980.0,
+      "totalAmount": 980,
       "status": "Paid",
       "category": "Educational Services"
     },
     {
-      "id": 20,
+      "id": "20",
       "invoiceNumber": "INV-020",
       "customer": "MediCare Solutions",
       "invoiceDate": "28/05/2025",
       "dueDate": "28/06/2025",
-      "totalAmount": 2500.0,
+      "totalAmount": 2500,
       "status": "Pending",
       "category": "Healthcare Software"
     },
     {
-      "id": 21,
+      "id": "21",
       "invoiceNumber": "INV-021",
       "customer": "Innovate Solutions",
       "invoiceDate": "05/06/2025",
       "dueDate": "05/07/2025",
-      "totalAmount": 1400.0,
+      "totalAmount": 1400,
       "status": "Paid",
       "category": "Consulting"
     },
     {
-      "id": 22,
+      "id": "22",
       "invoiceNumber": "INV-022",
       "customer": "Prime Real Estate",
       "invoiceDate": "10/06/2025",
       "dueDate": "10/07/2025",
-      "totalAmount": 7500.0,
+      "totalAmount": 7500,
       "status": "Pending",
       "category": "Property Management"
     },
     {
-      "id": 23,
+      "id": "23",
       "invoiceNumber": "INV-023",
       "customer": "Swift Courier Services",
       "invoiceDate": "15/06/2025",
       "dueDate": "15/07/2025",
-      "totalAmount": 480.50,
+      "totalAmount": 480.5,
       "status": "Overdue",
       "category": "Delivery Services"
     },
     {
-      "id": 24,
+      "id": "24",
       "invoiceNumber": "INV-024",
       "customer": "Artisan Crafts Co.",
       "invoiceDate": "20/06/2025",
@@ -1759,37 +1777,37 @@
       "category": "Handicrafts"
     },
     {
-      "id": 25,
+      "id": "25",
       "invoiceNumber": "INV-025",
       "customer": "Digital Marketing Pro",
       "invoiceDate": "25/06/2025",
       "dueDate": "25/07/2025",
-      "totalAmount": 1600.0,
+      "totalAmount": 1600,
       "status": "Pending",
       "category": "SEO Services"
     },
     {
-      "id": 26,
+      "id": "26",
       "invoiceNumber": "INV-026",
       "customer": "NextGen Technologies",
       "invoiceDate": "01/07/2025",
       "dueDate": "01/08/2025",
-      "totalAmount": 5500.0,
+      "totalAmount": 5500,
       "status": "Paid",
       "category": "Software Development"
     },
     {
-      "id": 27,
+      "id": "27",
       "invoiceNumber": "INV-027",
       "customer": "Elite Fitness Center",
       "invoiceDate": "05/07/2025",
       "dueDate": "05/08/2025",
-      "totalAmount": 890.0,
+      "totalAmount": 890,
       "status": "Pending",
       "category": "Health & Wellness"
     },
     {
-      "id": 28,
+      "id": "28",
       "invoiceNumber": "INV-028",
       "customer": "Global Sourcing Ltd.",
       "invoiceDate": "10/07/2025",
@@ -1799,124 +1817,131 @@
       "category": "Procurement"
     },
     {
-      "id": 29,
+      "id": "29",
       "invoiceNumber": "INV-029",
       "customer": "Professional Services Inc.",
       "invoiceDate": "15/07/2025",
       "dueDate": "15/08/2025",
-      "totalAmount": 1120.0,
+      "totalAmount": 1120,
       "status": "Paid",
       "category": "Legal Services"
     },
     {
-      "id": 30,
+      "id": "30",
       "invoiceNumber": "INV-030",
       "customer": "Innovative Education",
       "invoiceDate": "20/07/2025",
       "dueDate": "20/08/2025",
-      "totalAmount": 1900.0,
+      "totalAmount": 1900,
       "status": "Pending",
       "category": "Online Courses"
     },
     {
-      "id": 31,
+      "id": "31",
       "invoiceNumber": "INV-031",
       "customer": "Hydro Solutions",
       "invoiceDate": "25/07/2025",
       "dueDate": "25/08/2025",
-      "totalAmount": 2700.0,
+      "totalAmount": 2700,
       "status": "Paid",
       "category": "Water Treatment"
     },
     {
-      "id": 32,
+      "id": "32",
       "invoiceNumber": "INV-032",
       "customer": "Power Grid Innovations",
       "invoiceDate": "30/07/2025",
       "dueDate": "30/08/2025",
-      "totalAmount": 8500.0,
+      "totalAmount": 8500,
       "status": "Pending",
       "category": "Energy Solutions"
     },
     {
-      "id": 33,
+      "id": "33",
       "invoiceNumber": "INV-033",
       "customer": "Travel Dreams Agency",
       "invoiceDate": "05/08/2025",
       "dueDate": "05/09/2025",
-      "totalAmount": 650.0,
+      "totalAmount": 650,
       "status": "Overdue",
       "category": "Tourism"
     },
     {
-      "id": 34,
+      "id": "34",
       "invoiceNumber": "INV-034",
       "customer": "SecureIT Systems",
       "invoiceDate": "10/08/2025",
       "dueDate": "10/09/2025",
-      "totalAmount": 2200.0,
+      "totalAmount": 2200,
       "status": "Paid",
       "category": "Cybersecurity"
     },
     {
-      "id": 35,
+      "id": "35",
       "invoiceNumber": "INV-035",
       "customer": "Event Management Pro",
       "invoiceDate": "15/08/2025",
       "dueDate": "15/09/2025",
-      "totalAmount": 1350.0,
+      "totalAmount": 1350,
       "status": "Pending",
       "category": "Event Planning"
     }
   ],
-
-
-
   "customerOptions": [
     {
       "value": "1",
-      "label": "Tech Solutions Inc."
+      "label": "Tech Solutions Inc.",
+      "id": "426b"
     },
     {
       "value": "2",
-      "label": "Global Marketing Co."
+      "label": "Global Marketing Co.",
+      "id": "32b9"
     },
     {
       "value": "3",
-      "label": "Innovate Designs"
+      "label": "Innovate Designs",
+      "id": "9a2f"
     },
     {
       "value": "4",
-      "label": "Apex Industries"
+      "label": "Apex Industries",
+      "id": "ed54"
     },
     {
       "value": "5",
-      "label": "Quantum Logistics"
+      "label": "Quantum Logistics",
+      "id": "3792"
     },
     {
       "value": "6",
-      "label": "Bright Ideas Ltd."
+      "label": "Bright Ideas Ltd.",
+      "id": "0ee4"
     },
     {
       "value": "7",
-      "label": "Summit Financial"
+      "label": "Summit Financial",
+      "id": "b773"
     },
     {
       "value": "8",
-      "label": "Green Earth Solutions"
+      "label": "Green Earth Solutions",
+      "id": "264c"
     },
     {
       "value": "9",
-      "label": "Digital Innovations"
+      "label": "Digital Innovations",
+      "id": "ee77"
     },
     {
       "value": "10",
-      "label": "Pinnacle Health"
+      "label": "Pinnacle Health",
+      "id": "4114"
     }
   ],
- "transactionsData":[
-   {
-      "id": 1,
+  "transactionsData": [
+    {
+      "id": "1",
       "date": "16/01/2024",
       "amount": 5000,
       "type": "Credit",
@@ -1926,7 +1951,7 @@
       "remarks": "Monthly payment"
     },
     {
-      "id": 2,
+      "id": "2",
       "date": "15/01/2024",
       "amount": 3500,
       "type": "Debit",
@@ -1936,7 +1961,7 @@
       "remarks": "Service charge"
     },
     {
-      "id": 3,
+      "id": "3",
       "date": "14/01/2024",
       "amount": 7500,
       "type": "Credit",
@@ -1946,7 +1971,7 @@
       "remarks": "Commission payment"
     },
     {
-      "id": 4,
+      "id": "4",
       "date": "13/01/2024",
       "amount": 2000,
       "type": "Debit",
@@ -1956,7 +1981,7 @@
       "remarks": "Refund processing"
     },
     {
-      "id": 5,
+      "id": "5",
       "date": "12/01/2024",
       "amount": 6200,
       "type": "Credit",
@@ -1966,7 +1991,7 @@
       "remarks": "Freelance work"
     },
     {
-      "id": 6,
+      "id": "6",
       "date": "11/01/2024",
       "amount": 1800,
       "type": "Debit",
@@ -1976,7 +2001,7 @@
       "remarks": "ATM withdrawal"
     },
     {
-      "id": 7,
+      "id": "7",
       "date": "10/01/2024",
       "amount": 4600,
       "type": "Credit",
@@ -1986,7 +2011,7 @@
       "remarks": "Client transfer"
     },
     {
-      "id": 8,
+      "id": "8",
       "date": "09/01/2024",
       "amount": 2100,
       "type": "Debit",
@@ -1996,7 +2021,7 @@
       "remarks": "Loan EMI"
     },
     {
-      "id": 9,
+      "id": "9",
       "date": "08/01/2024",
       "amount": 9800,
       "type": "Credit",
@@ -2006,7 +2031,7 @@
       "remarks": "Salary credit"
     },
     {
-      "id": 10,
+      "id": "10",
       "date": "07/01/2024",
       "amount": 3000,
       "type": "Debit",
@@ -2016,7 +2041,7 @@
       "remarks": "Bill payment"
     },
     {
-      "id": 11,
+      "id": "11",
       "date": "06/01/2024",
       "amount": 4000,
       "type": "Credit",
@@ -2026,7 +2051,7 @@
       "remarks": "Dividend income"
     },
     {
-      "id": 12,
+      "id": "12",
       "date": "05/01/2024",
       "amount": 1200,
       "type": "Debit",
@@ -2036,7 +2061,7 @@
       "remarks": "Subscription fee"
     },
     {
-      "id": 13,
+      "id": "13",
       "date": "04/01/2024",
       "amount": 8500,
       "type": "Credit",
@@ -2046,7 +2071,7 @@
       "remarks": "Bonus payout"
     },
     {
-      "id": 14,
+      "id": "14",
       "date": "03/01/2024",
       "amount": 2900,
       "type": "Debit",
@@ -2056,7 +2081,7 @@
       "remarks": "Transfer to savings"
     },
     {
-      "id": 15,
+      "id": "15",
       "date": "02/01/2024",
       "amount": 7600,
       "type": "Credit",
@@ -2066,7 +2091,7 @@
       "remarks": "Project payment"
     },
     {
-      "id": 16,
+      "id": "16",
       "date": "01/01/2024",
       "amount": 1900,
       "type": "Debit",
@@ -2076,7 +2101,7 @@
       "remarks": "Shopping"
     },
     {
-      "id": 17,
+      "id": "17",
       "date": "31/12/2023",
       "amount": 5800,
       "type": "Credit",
@@ -2086,7 +2111,7 @@
       "remarks": "Investment return"
     },
     {
-      "id": 18,
+      "id": "18",
       "date": "30/12/2023",
       "amount": 3400,
       "type": "Debit",
@@ -2096,7 +2121,7 @@
       "remarks": "Online order refund"
     },
     {
-      "id": 19,
+      "id": "19",
       "date": "29/12/2023",
       "amount": 6700,
       "type": "Credit",
@@ -2106,7 +2131,7 @@
       "remarks": "App earnings"
     },
     {
-      "id": 20,
+      "id": "20",
       "date": "28/12/2023",
       "amount": 2400,
       "type": "Debit",
@@ -2115,25 +2140,25 @@
       "accountNumber": "****0002",
       "remarks": "Mobile recharge"
     }
-
- ],
-"traderInfo" :[
-  {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "phone": "+91 87654 32100",
-    "status": "Active",
-    "totalTransactions": 245,
-    "totalAmount": 125000,
-    "lastTransaction": "2024-01-15",
-    "rating": 4.8,
-    "joinDate": "2023-05-12",
-    "address": "123 Main St, New York, NY 10001"
-  }
-],
+  ],
+  "traderInfo": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "+91 87654 32100",
+      "status": "Active",
+      "totalTransactions": 245,
+      "totalAmount": 125000,
+      "lastTransaction": "2024-01-15",
+      "rating": 4.8,
+      "joinDate": "2023-05-12",
+      "address": "123 Main St, New York, NY 10001",
+      "id": "ae85"
+    }
+  ],
   "quotations": [
     {
-      "id": 1,
+      "id": "1",
       "quotationNumber": "QTE-001",
       "customer": "Alpha Corp",
       "quotationDate": "01/06/2025",
@@ -2143,7 +2168,7 @@
       "category": "Services"
     },
     {
-      "id": 2,
+      "id": "2",
       "quotationNumber": "QTE-002",
       "customer": "Beta Solutions",
       "quotationDate": "05/06/2025",
@@ -2153,7 +2178,7 @@
       "category": "Products"
     },
     {
-      "id": 3,
+      "id": "3",
       "quotationNumber": "QTE-003",
       "customer": "Gamma Innovations",
       "quotationDate": "10/06/2025",
@@ -2163,7 +2188,7 @@
       "category": "Consulting"
     },
     {
-      "id": 4,
+      "id": "4",
       "quotationNumber": "QTE-004",
       "customer": "Delta Enterprises",
       "quotationDate": "12/06/2025",
@@ -2173,7 +2198,7 @@
       "category": "Products"
     },
     {
-      "id": 5,
+      "id": "5",
       "quotationNumber": "QTE-005",
       "customer": "Epsilon Group",
       "quotationDate": "15/06/2025",
@@ -2183,7 +2208,7 @@
       "category": "Services"
     },
     {
-      "id": 6,
+      "id": "6",
       "quotationNumber": "QTE-006",
       "customer": "Zeta Systems",
       "quotationDate": "18/06/2025",
@@ -2193,7 +2218,7 @@
       "category": "Consulting"
     },
     {
-      "id": 7,
+      "id": "7",
       "quotationNumber": "QTE-007",
       "customer": "Eta Solutions",
       "quotationDate": "20/06/2025",
@@ -2203,7 +2228,7 @@
       "category": "Products"
     },
     {
-      "id": 8,
+      "id": "8",
       "quotationNumber": "QTE-008",
       "customer": "Theta Technologies",
       "quotationDate": "22/06/2025",
@@ -2213,7 +2238,7 @@
       "category": "Services"
     },
     {
-      "id": 9,
+      "id": "9",
       "quotationNumber": "QTE-009",
       "customer": "Iota Industries",
       "quotationDate": "25/06/2025",
@@ -2223,7 +2248,7 @@
       "category": "Consulting"
     },
     {
-      "id": 10,
+      "id": "10",
       "quotationNumber": "QTE-010",
       "customer": "Kappa Corp",
       "quotationDate": "28/06/2025",
@@ -2233,7 +2258,7 @@
       "category": "Products"
     },
     {
-      "id": 11,
+      "id": "11",
       "quotationNumber": "QTE-011",
       "customer": "Lambda Ltd.",
       "quotationDate": "01/07/2025",
@@ -2243,7 +2268,7 @@
       "category": "Services"
     },
     {
-      "id": 12,
+      "id": "12",
       "quotationNumber": "QTE-012",
       "customer": "Mu Marketing",
       "quotationDate": "03/07/2025",
@@ -2253,7 +2278,7 @@
       "category": "Consulting"
     },
     {
-      "id": 13,
+      "id": "13",
       "quotationNumber": "QTE-013",
       "customer": "Nu Networks",
       "quotationDate": "06/07/2025",
@@ -2263,7 +2288,7 @@
       "category": "Products"
     },
     {
-      "id": 14,
+      "id": "14",
       "quotationNumber": "QTE-014",
       "customer": "Xi Xpress",
       "quotationDate": "08/07/2025",
@@ -2273,7 +2298,7 @@
       "category": "Services"
     },
     {
-      "id": 15,
+      "id": "15",
       "quotationNumber": "QTE-015",
       "customer": "Omicron Corp",
       "quotationDate": "11/07/2025",
@@ -2283,7 +2308,7 @@
       "category": "Consulting"
     },
     {
-      "id": 16,
+      "id": "16",
       "quotationNumber": "QTE-016",
       "customer": "Pi Power",
       "quotationDate": "14/07/2025",
@@ -2293,7 +2318,7 @@
       "category": "Products"
     },
     {
-      "id": 17,
+      "id": "17",
       "quotationNumber": "QTE-017",
       "customer": "Rho Retail",
       "quotationDate": "17/07/2025",
@@ -2303,7 +2328,7 @@
       "category": "Services"
     },
     {
-      "id": 18,
+      "id": "18",
       "quotationNumber": "QTE-018",
       "customer": "Sigma Solutions",
       "quotationDate": "20/07/2025",
@@ -2313,7 +2338,7 @@
       "category": "Consulting"
     },
     {
-      "id": 19,
+      "id": "19",
       "quotationNumber": "QTE-019",
       "customer": "Tau Tech",
       "quotationDate": "23/07/2025",
@@ -2323,7 +2348,7 @@
       "category": "Products"
     },
     {
-      "id": 20,
+      "id": "20",
       "quotationNumber": "QTE-020",
       "customer": "Upsilon Utilities",
       "quotationDate": "26/07/2025",
@@ -2333,7 +2358,7 @@
       "category": "Services"
     },
     {
-      "id": 21,
+      "id": "21",
       "quotationNumber": "QTE-021",
       "customer": "Phi Pharma",
       "quotationDate": "29/07/2025",
@@ -2343,7 +2368,7 @@
       "category": "Consulting"
     },
     {
-      "id": 22,
+      "id": "22",
       "quotationNumber": "QTE-022",
       "customer": "Chi Consulting",
       "quotationDate": "01/08/2025",
@@ -2353,7 +2378,7 @@
       "category": "Services"
     },
     {
-      "id": 23,
+      "id": "23",
       "quotationNumber": "QTE-023",
       "customer": "Psi Products",
       "quotationDate": "04/08/2025",
@@ -2363,7 +2388,7 @@
       "category": "Products"
     },
     {
-      "id": 24,
+      "id": "24",
       "quotationNumber": "QTE-024",
       "customer": "Omega Logistics",
       "quotationDate": "07/08/2025",
@@ -2373,7 +2398,7 @@
       "category": "Consulting"
     },
     {
-      "id": 25,
+      "id": "25",
       "quotationNumber": "QTE-025",
       "customer": "Acme Innovations",
       "quotationDate": "10/08/2025",
@@ -2383,7 +2408,7 @@
       "category": "Services"
     },
     {
-      "id": 26,
+      "id": "26",
       "quotationNumber": "QTE-026",
       "customer": "Byte Solutions",
       "quotationDate": "13/08/2025",
@@ -2393,7 +2418,7 @@
       "category": "Products"
     },
     {
-      "id": 27,
+      "id": "27",
       "quotationNumber": "QTE-027",
       "customer": "Circuit City",
       "quotationDate": "16/08/2025",
@@ -2403,7 +2428,7 @@
       "category": "Consulting"
     },
     {
-      "id": 28,
+      "id": "28",
       "quotationNumber": "QTE-028",
       "customer": "Data Dynamics",
       "quotationDate": "19/08/2025",
@@ -2413,7 +2438,7 @@
       "category": "Services"
     },
     {
-      "id": 29,
+      "id": "29",
       "quotationNumber": "QTE-029",
       "customer": "Electro Ventures",
       "quotationDate": "22/08/2025",
@@ -2423,7 +2448,7 @@
       "category": "Products"
     },
     {
-      "id": 30,
+      "id": "30",
       "quotationNumber": "QTE-030",
       "customer": "Fusion Forge",
       "quotationDate": "25/08/2025",
@@ -2433,7 +2458,7 @@
       "category": "Consulting"
     },
     {
-      "id": 31,
+      "id": "31",
       "quotationNumber": "QTE-031",
       "customer": "Gigabyte Global",
       "quotationDate": "28/08/2025",
@@ -2443,7 +2468,7 @@
       "category": "Services"
     },
     {
-      "id": 32,
+      "id": "32",
       "quotationNumber": "QTE-032",
       "customer": "Hyperion Holdings",
       "quotationDate": "01/09/2025",
@@ -2453,7 +2478,7 @@
       "category": "Products"
     },
     {
-      "id": 33,
+      "id": "33",
       "quotationNumber": "QTE-033",
       "customer": "Infinite Innovations",
       "quotationDate": "04/09/2025",
@@ -2463,7 +2488,7 @@
       "category": "Consulting"
     },
     {
-      "id": 34,
+      "id": "34",
       "quotationNumber": "QTE-034",
       "customer": "Juno Junction",
       "quotationDate": "07/09/2025",
@@ -2473,7 +2498,7 @@
       "category": "Services"
     },
     {
-      "id": 35,
+      "id": "35",
       "quotationNumber": "QTE-035",
       "customer": "Kinetic Kicks",
       "quotationDate": "10/09/2025",
@@ -2483,22 +2508,61 @@
       "category": "Products"
     }
   ],
-    "quotationsCustomerOptions": [
-    { "value": "Alpha Corp", "label": "Alpha Corp" },
-    { "value": "Beta Solutions", "label": "Beta Solutions" },
-    { "value": "Gamma Innovations", "label": "Gamma Innovations" },
-    { "value": "Delta Enterprises", "label": "Delta Enterprises" },
-    { "value": "Epsilon Group", "label": "Epsilon Group" },
-    { "value": "Zeta Systems", "label": "Zeta Systems" },
-    { "value": "Eta Solutions", "label": "Eta Solutions" },
-    { "value": "Theta Technologies", "label": "Theta Technologies" },
-    { "value": "Iota Industries", "label": "Iota Industries" },
-    { "value": "Kappa Corp", "label": "Kappa Corp" }
-  ],
-
-"deliveryChallans": [
+  "quotationsCustomerOptions": [
     {
-      "id": 1,
+      "value": "Alpha Corp",
+      "label": "Alpha Corp",
+      "id": "64d8"
+    },
+    {
+      "value": "Beta Solutions",
+      "label": "Beta Solutions",
+      "id": "2957"
+    },
+    {
+      "value": "Gamma Innovations",
+      "label": "Gamma Innovations",
+      "id": "ce59"
+    },
+    {
+      "value": "Delta Enterprises",
+      "label": "Delta Enterprises",
+      "id": "924f"
+    },
+    {
+      "value": "Epsilon Group",
+      "label": "Epsilon Group",
+      "id": "c6d5"
+    },
+    {
+      "value": "Zeta Systems",
+      "label": "Zeta Systems",
+      "id": "dd58"
+    },
+    {
+      "value": "Eta Solutions",
+      "label": "Eta Solutions",
+      "id": "65d2"
+    },
+    {
+      "value": "Theta Technologies",
+      "label": "Theta Technologies",
+      "id": "7b7e"
+    },
+    {
+      "value": "Iota Industries",
+      "label": "Iota Industries",
+      "id": "17ae"
+    },
+    {
+      "value": "Kappa Corp",
+      "label": "Kappa Corp",
+      "id": "eb73"
+    }
+  ],
+  "deliveryChallans": [
+    {
+      "id": "1",
       "challanNumber": "DC-001",
       "customer": "ABC Enterprises",
       "challanDate": "15/05/2024",
@@ -2508,7 +2572,7 @@
       "category": "Electronics"
     },
     {
-      "id": 2,
+      "id": "2",
       "challanNumber": "DC-002",
       "customer": "XYZ Solutions",
       "challanDate": "16/05/2024",
@@ -2518,7 +2582,7 @@
       "category": "Home Goods"
     },
     {
-      "id": 3,
+      "id": "3",
       "challanNumber": "DC-003",
       "customer": "Global Corp",
       "challanDate": "17/05/2024",
@@ -2528,7 +2592,7 @@
       "category": "Office Supplies"
     },
     {
-      "id": 4,
+      "id": "4",
       "challanNumber": "DC-004",
       "customer": "Tech Innovators",
       "challanDate": "18/05/2024",
@@ -2538,7 +2602,7 @@
       "category": "Machinery"
     },
     {
-      "id": 5,
+      "id": "5",
       "challanNumber": "DC-005",
       "customer": "Retail Express",
       "challanDate": "19/05/2024",
@@ -2548,7 +2612,7 @@
       "category": "Textiles"
     },
     {
-      "id": 6,
+      "id": "6",
       "challanNumber": "DC-006",
       "customer": "Innovate Ltd.",
       "challanDate": "20/05/2024",
@@ -2558,7 +2622,7 @@
       "category": "Automotive"
     },
     {
-      "id": 7,
+      "id": "7",
       "challanNumber": "DC-007",
       "customer": "Dynamic Solutions",
       "challanDate": "21/05/2024",
@@ -2568,7 +2632,7 @@
       "category": "Food & Beverage"
     },
     {
-      "id": 8,
+      "id": "8",
       "challanNumber": "DC-008",
       "customer": "NextGen Systems",
       "challanDate": "22/05/2024",
@@ -2578,7 +2642,7 @@
       "category": "Construction"
     },
     {
-      "id": 9,
+      "id": "9",
       "challanNumber": "DC-009",
       "customer": "Precision Tools",
       "challanDate": "23/05/2024",
@@ -2588,7 +2652,7 @@
       "category": "Tools"
     },
     {
-      "id": 10,
+      "id": "10",
       "challanNumber": "DC-010",
       "customer": "Future Tech",
       "challanDate": "24/05/2024",
@@ -2598,7 +2662,7 @@
       "category": "Electronics"
     },
     {
-      "id": 11,
+      "id": "11",
       "challanNumber": "DC-011",
       "customer": "Green Energy Co.",
       "challanDate": "25/05/2024",
@@ -2608,7 +2672,7 @@
       "category": "Renewable Energy"
     },
     {
-      "id": 12,
+      "id": "12",
       "challanNumber": "DC-012",
       "customer": "Urban Logistics",
       "challanDate": "26/05/2024",
@@ -2618,7 +2682,7 @@
       "category": "Logistics"
     },
     {
-      "id": 13,
+      "id": "13",
       "challanNumber": "DC-013",
       "customer": "Aqua Pure Water",
       "challanDate": "27/05/2024",
@@ -2628,7 +2692,7 @@
       "category": "Beverages"
     },
     {
-      "id": 14,
+      "id": "14",
       "challanNumber": "DC-014",
       "customer": "Summit Builders",
       "challanDate": "28/05/2024",
@@ -2638,7 +2702,7 @@
       "category": "Building Materials"
     },
     {
-      "id": 15,
+      "id": "15",
       "challanNumber": "DC-015",
       "customer": "Fashion Forward",
       "challanDate": "29/05/2024",
@@ -2648,7 +2712,7 @@
       "category": "Apparel"
     },
     {
-      "id": 16,
+      "id": "16",
       "challanNumber": "DC-016",
       "customer": "MediCorp Supplies",
       "challanDate": "30/05/2024",
@@ -2658,7 +2722,7 @@
       "category": "Medical Supplies"
     },
     {
-      "id": 17,
+      "id": "17",
       "challanNumber": "DC-017",
       "customer": "EduTech Solutions",
       "challanDate": "01/06/2024",
@@ -2668,7 +2732,7 @@
       "category": "Educational Equipment"
     },
     {
-      "id": 18,
+      "id": "18",
       "challanNumber": "DC-018",
       "customer": "AgriGrow Farms",
       "challanDate": "02/06/2024",
@@ -2678,7 +2742,7 @@
       "category": "Agricultural Products"
     },
     {
-      "id": 19,
+      "id": "19",
       "challanNumber": "DC-019",
       "customer": "Home Comforts",
       "challanDate": "03/06/2024",
@@ -2688,7 +2752,7 @@
       "category": "Furniture"
     },
     {
-      "id": 20,
+      "id": "20",
       "challanNumber": "DC-020",
       "customer": "Clean Sweep Services",
       "challanDate": "04/06/2024",
@@ -2698,7 +2762,7 @@
       "category": "Cleaning Supplies"
     },
     {
-      "id": 21,
+      "id": "21",
       "challanNumber": "DC-021",
       "customer": "Digital Dreams",
       "challanDate": "05/06/2024",
@@ -2708,7 +2772,7 @@
       "category": "Software"
     },
     {
-      "id": 22,
+      "id": "22",
       "challanNumber": "DC-022",
       "customer": "Power Solutions",
       "challanDate": "06/06/2024",
@@ -2718,7 +2782,7 @@
       "category": "Electrical Equipment"
     },
     {
-      "id": 23,
+      "id": "23",
       "challanNumber": "DC-023",
       "customer": "Artistic Creations",
       "challanDate": "07/06/2024",
@@ -2728,7 +2792,7 @@
       "category": "Art Supplies"
     },
     {
-      "id": 24,
+      "id": "24",
       "challanNumber": "DC-024",
       "customer": "Global Food Distributors",
       "challanDate": "08/06/2024",
@@ -2738,7 +2802,7 @@
       "category": "Perishables"
     },
     {
-      "id": 25,
+      "id": "25",
       "challanNumber": "DC-025",
       "customer": "Secure Systems Inc.",
       "challanDate": "09/06/2024",
@@ -2748,7 +2812,7 @@
       "category": "Security Equipment"
     },
     {
-      "id": 26,
+      "id": "26",
       "challanNumber": "DC-026",
       "customer": "Eco-Friendly Packaging",
       "challanDate": "10/06/2024",
@@ -2758,7 +2822,7 @@
       "category": "Packaging Materials"
     },
     {
-      "id": 27,
+      "id": "27",
       "challanNumber": "DC-027",
       "customer": "Prime Auto Parts",
       "challanDate": "11/06/2024",
@@ -2768,7 +2832,7 @@
       "category": "Automotive Parts"
     },
     {
-      "id": 28,
+      "id": "28",
       "challanNumber": "DC-028",
       "customer": "Health & Wellness Co.",
       "challanDate": "12/06/2024",
@@ -2778,7 +2842,7 @@
       "category": "Health Products"
     },
     {
-      "id": 29,
+      "id": "29",
       "challanNumber": "DC-029",
       "customer": "Construction Pros",
       "challanDate": "13/06/2024",
@@ -2788,7 +2852,7 @@
       "category": "Heavy Equipment"
     },
     {
-      "id": 30,
+      "id": "30",
       "challanNumber": "DC-030",
       "customer": "Office Solutions Hub",
       "challanDate": "14/06/2024",
@@ -2798,7 +2862,7 @@
       "category": "Stationery"
     },
     {
-      "id": 31,
+      "id": "31",
       "challanNumber": "DC-031",
       "customer": "Tech Gadgets Store",
       "challanDate": "15/06/2024",
@@ -2808,7 +2872,7 @@
       "category": "Electronics"
     },
     {
-      "id": 32,
+      "id": "32",
       "challanNumber": "DC-032",
       "customer": "Garden Essentials",
       "challanDate": "16/06/2024",
@@ -2818,7 +2882,7 @@
       "category": "Gardening Tools"
     },
     {
-      "id": 33,
+      "id": "33",
       "challanNumber": "DC-033",
       "customer": "Sports Gear Outlet",
       "challanDate": "17/06/2024",
@@ -2828,7 +2892,7 @@
       "category": "Sporting Goods"
     },
     {
-      "id": 34,
+      "id": "34",
       "challanNumber": "DC-034",
       "customer": "Pet Care Supplies",
       "challanDate": "18/06/2024",
@@ -2838,7 +2902,7 @@
       "category": "Pet Products"
     },
     {
-      "id": 35,
+      "id": "35",
       "challanNumber": "DC-035",
       "customer": "Music Mania Store",
       "challanDate": "19/06/2024",
@@ -2848,22 +2912,61 @@
       "category": "Musical Instruments"
     }
   ],
-
-"deliveryChallanOptions": [
-  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
-  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
-  { "value": "Global Corp", "label": "Global Corp" },
-  { "value": "Tech Innovators", "label": "Tech Innovators" },
-  { "value": "Retail Express", "label": "Retail Express" },
-  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
-  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
-  { "value": "NextGen Systems", "label": "NextGen Systems" },
-  { "value": "Precision Tools", "label": "Precision Tools" },
-  { "value": "Future Tech", "label": "Future Tech" }
-],
-"payments": [
+  "deliveryChallanOptions": [
     {
-      "id": 101,
+      "value": "ABC Enterprises",
+      "label": "ABC Enterprises",
+      "id": "75d3"
+    },
+    {
+      "value": "XYZ Solutions",
+      "label": "XYZ Solutions",
+      "id": "57a0"
+    },
+    {
+      "value": "Global Corp",
+      "label": "Global Corp",
+      "id": "b356"
+    },
+    {
+      "value": "Tech Innovators",
+      "label": "Tech Innovators",
+      "id": "61f7"
+    },
+    {
+      "value": "Retail Express",
+      "label": "Retail Express",
+      "id": "a958"
+    },
+    {
+      "value": "Innovate Ltd.",
+      "label": "Innovate Ltd.",
+      "id": "efb1"
+    },
+    {
+      "value": "Dynamic Solutions",
+      "label": "Dynamic Solutions",
+      "id": "163d"
+    },
+    {
+      "value": "NextGen Systems",
+      "label": "NextGen Systems",
+      "id": "0218"
+    },
+    {
+      "value": "Precision Tools",
+      "label": "Precision Tools",
+      "id": "bd7e"
+    },
+    {
+      "value": "Future Tech",
+      "label": "Future Tech",
+      "id": "fcd6"
+    }
+  ],
+  "payments": [
+    {
+      "id": "101",
       "paymentID": "PAY-001",
       "customer": "ABC Enterprises",
       "paymentDate": "01/06/2024",
@@ -2872,7 +2975,7 @@
       "status": "Completed"
     },
     {
-      "id": 102,
+      "id": "102",
       "paymentID": "PAY-002",
       "customer": "XYZ Solutions",
       "paymentDate": "03/06/2024",
@@ -2881,7 +2984,7 @@
       "status": "Completed"
     },
     {
-      "id": 103,
+      "id": "103",
       "paymentID": "PAY-003",
       "customer": "Global Corp",
       "paymentDate": "05/06/2024",
@@ -2890,7 +2993,7 @@
       "status": "Pending"
     },
     {
-      "id": 104,
+      "id": "104",
       "paymentID": "PAY-004",
       "customer": "Tech Innovators",
       "paymentDate": "07/06/2024",
@@ -2899,7 +3002,7 @@
       "status": "Completed"
     },
     {
-      "id": 105,
+      "id": "105",
       "paymentID": "PAY-005",
       "customer": "Retail Express",
       "paymentDate": "09/06/2024",
@@ -2908,7 +3011,7 @@
       "status": "Failed"
     },
     {
-      "id": 106,
+      "id": "106",
       "paymentID": "PAY-006",
       "customer": "Innovate Ltd.",
       "paymentDate": "11/06/2024",
@@ -2917,7 +3020,7 @@
       "status": "Completed"
     },
     {
-      "id": 107,
+      "id": "107",
       "paymentID": "PAY-007",
       "customer": "Dynamic Solutions",
       "paymentDate": "13/06/2024",
@@ -2926,7 +3029,7 @@
       "status": "Completed"
     },
     {
-      "id": 108,
+      "id": "108",
       "paymentID": "PAY-008",
       "customer": "NextGen Systems",
       "paymentDate": "15/06/2024",
@@ -2935,7 +3038,7 @@
       "status": "Pending"
     },
     {
-      "id": 109,
+      "id": "109",
       "paymentID": "PAY-009",
       "customer": "Precision Tools",
       "paymentDate": "17/06/2024",
@@ -2944,7 +3047,7 @@
       "status": "Completed"
     },
     {
-      "id": 110,
+      "id": "110",
       "paymentID": "PAY-010",
       "customer": "Future Tech",
       "paymentDate": "19/06/2024",
@@ -2953,7 +3056,7 @@
       "status": "Completed"
     },
     {
-      "id": 111,
+      "id": "111",
       "paymentID": "PAY-011",
       "customer": "Global Marketing Co.",
       "paymentDate": "21/06/2024",
@@ -2962,7 +3065,7 @@
       "status": "Completed"
     },
     {
-      "id": 112,
+      "id": "112",
       "paymentID": "PAY-012",
       "customer": "Apex Industries",
       "paymentDate": "23/06/2024",
@@ -2971,7 +3074,7 @@
       "status": "Pending"
     },
     {
-      "id": 113,
+      "id": "113",
       "paymentID": "PAY-013",
       "customer": "Quantum Logistics",
       "paymentDate": "25/06/2024",
@@ -2980,7 +3083,7 @@
       "status": "Completed"
     },
     {
-      "id": 114,
+      "id": "114",
       "paymentID": "PAY-014",
       "customer": "Bright Ideas Ltd.",
       "paymentDate": "27/06/2024",
@@ -2989,7 +3092,7 @@
       "status": "Failed"
     },
     {
-      "id": 115,
+      "id": "115",
       "paymentID": "PAY-015",
       "customer": "Summit Financial",
       "paymentDate": "29/06/2024",
@@ -2998,7 +3101,7 @@
       "status": "Completed"
     },
     {
-      "id": 116,
+      "id": "116",
       "paymentID": "PAY-016",
       "customer": "Green Earth Solutions",
       "paymentDate": "01/07/2024",
@@ -3007,7 +3110,7 @@
       "status": "Completed"
     },
     {
-      "id": 117,
+      "id": "117",
       "paymentID": "PAY-017",
       "customer": "Digital Innovations",
       "paymentDate": "03/07/2024",
@@ -3016,7 +3119,7 @@
       "status": "Pending"
     },
     {
-      "id": 118,
+      "id": "118",
       "paymentID": "PAY-018",
       "customer": "Pinnacle Health",
       "paymentDate": "05/07/2024",
@@ -3025,7 +3128,7 @@
       "status": "Completed"
     },
     {
-      "id": 119,
+      "id": "119",
       "paymentID": "PAY-019",
       "customer": "Urban Sprout",
       "paymentDate": "07/07/2024",
@@ -3034,7 +3137,7 @@
       "status": "Completed"
     },
     {
-      "id": 120,
+      "id": "120",
       "paymentID": "PAY-020",
       "customer": "Future Foods Co.",
       "paymentDate": "09/07/2024",
@@ -3043,7 +3146,7 @@
       "status": "Failed"
     },
     {
-      "id": 121,
+      "id": "121",
       "paymentID": "PAY-021",
       "customer": "Connect IT Solutions",
       "paymentDate": "11/07/2024",
@@ -3052,7 +3155,7 @@
       "status": "Completed"
     },
     {
-      "id": 122,
+      "id": "122",
       "paymentID": "PAY-022",
       "customer": "Creative Media Group",
       "paymentDate": "13/07/2024",
@@ -3061,7 +3164,7 @@
       "status": "Pending"
     },
     {
-      "id": 123,
+      "id": "123",
       "paymentID": "PAY-023",
       "customer": "Eco-Friendly Products",
       "paymentDate": "15/07/2024",
@@ -3070,7 +3173,7 @@
       "status": "Completed"
     },
     {
-      "id": 124,
+      "id": "124",
       "paymentID": "PAY-024",
       "customer": "Dynamic Systems",
       "paymentDate": "17/07/2024",
@@ -3079,7 +3182,7 @@
       "status": "Completed"
     },
     {
-      "id": 125,
+      "id": "125",
       "paymentID": "PAY-025",
       "customer": "Global Trade Corp.",
       "paymentDate": "19/07/2024",
@@ -3088,7 +3191,7 @@
       "status": "Failed"
     },
     {
-      "id": 126,
+      "id": "126",
       "paymentID": "PAY-026",
       "customer": "Precision Engineering",
       "paymentDate": "21/07/2024",
@@ -3097,7 +3200,7 @@
       "status": "Completed"
     },
     {
-      "id": 127,
+      "id": "127",
       "paymentID": "PAY-027",
       "customer": "Bright Horizon Education",
       "paymentDate": "23/07/2024",
@@ -3106,7 +3209,7 @@
       "status": "Pending"
     },
     {
-      "id": 128,
+      "id": "128",
       "paymentID": "PAY-028",
       "customer": "MediCare Solutions",
       "paymentDate": "25/07/2024",
@@ -3115,7 +3218,7 @@
       "status": "Completed"
     },
     {
-      "id": 129,
+      "id": "129",
       "paymentID": "PAY-029",
       "customer": "Innovate Solutions",
       "paymentDate": "27/07/2024",
@@ -3124,7 +3227,7 @@
       "status": "Completed"
     },
     {
-      "id": 130,
+      "id": "130",
       "paymentID": "PAY-030",
       "customer": "Prime Real Estate",
       "paymentDate": "29/07/2024",
@@ -3133,7 +3236,7 @@
       "status": "Failed"
     },
     {
-      "id": 131,
+      "id": "131",
       "paymentID": "PAY-031",
       "customer": "Swift Courier Services",
       "paymentDate": "31/07/2024",
@@ -3142,7 +3245,7 @@
       "status": "Completed"
     },
     {
-      "id": 132,
+      "id": "132",
       "paymentID": "PAY-032",
       "customer": "Artisan Crafts Co.",
       "paymentDate": "02/08/2024",
@@ -3151,7 +3254,7 @@
       "status": "Pending"
     },
     {
-      "id": 133,
+      "id": "133",
       "paymentID": "PAY-033",
       "customer": "Digital Marketing Pro",
       "paymentDate": "04/08/2024",
@@ -3160,7 +3263,7 @@
       "status": "Completed"
     },
     {
-      "id": 134,
+      "id": "134",
       "paymentID": "PAY-034",
       "customer": "NextGen Technologies",
       "paymentDate": "06/08/2024",
@@ -3169,7 +3272,7 @@
       "status": "Completed"
     },
     {
-      "id": 135,
+      "id": "135",
       "paymentID": "PAY-035",
       "customer": "Elite Fitness Center",
       "paymentDate": "08/08/2024",
@@ -3178,21 +3281,61 @@
       "status": "Pending"
     }
   ],
-"paymentCustomerOptions": [
-  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
-  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
-  { "value": "Global Corp", "label": "Global Corp" },
-  { "value": "Tech Innovators", "label": "Tech Innovators" },
-  { "value": "Retail Express", "label": "Retail Express" },
-  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
-  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
-  { "value": "NextGen Systems", "label": "NextGen Systems" },
-  { "value": "Precision Tools", "label": "Precision Tools" },
-  { "value": "Future Tech", "label": "Future Tech" }
-],
-"receipts": [
+  "paymentCustomerOptions": [
     {
-      "id": 201,
+      "value": "ABC Enterprises",
+      "label": "ABC Enterprises",
+      "id": "acd8"
+    },
+    {
+      "value": "XYZ Solutions",
+      "label": "XYZ Solutions",
+      "id": "c101"
+    },
+    {
+      "value": "Global Corp",
+      "label": "Global Corp",
+      "id": "dbb6"
+    },
+    {
+      "value": "Tech Innovators",
+      "label": "Tech Innovators",
+      "id": "327d"
+    },
+    {
+      "value": "Retail Express",
+      "label": "Retail Express",
+      "id": "850f"
+    },
+    {
+      "value": "Innovate Ltd.",
+      "label": "Innovate Ltd.",
+      "id": "75e0"
+    },
+    {
+      "value": "Dynamic Solutions",
+      "label": "Dynamic Solutions",
+      "id": "28d9"
+    },
+    {
+      "value": "NextGen Systems",
+      "label": "NextGen Systems",
+      "id": "3bd0"
+    },
+    {
+      "value": "Precision Tools",
+      "label": "Precision Tools",
+      "id": "4547"
+    },
+    {
+      "value": "Future Tech",
+      "label": "Future Tech",
+      "id": "d438"
+    }
+  ],
+  "receipts": [
+    {
+      "id": "201",
       "receiptNumber": "REC-001",
       "customer": "ABC Enterprises",
       "receiptDate": "01/06/2024",
@@ -3201,7 +3344,7 @@
       "status": "Paid"
     },
     {
-      "id": 202,
+      "id": "202",
       "receiptNumber": "REC-002",
       "customer": "XYZ Solutions",
       "receiptDate": "03/06/2024",
@@ -3210,7 +3353,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 203,
+      "id": "203",
       "receiptNumber": "REC-003",
       "customer": "Global Corp",
       "receiptDate": "05/06/2024",
@@ -3219,7 +3362,7 @@
       "status": "Paid"
     },
     {
-      "id": 204,
+      "id": "204",
       "receiptNumber": "REC-004",
       "customer": "Tech Innovators",
       "receiptDate": "07/06/2024",
@@ -3228,7 +3371,7 @@
       "status": "Paid"
     },
     {
-      "id": 205,
+      "id": "205",
       "receiptNumber": "REC-005",
       "customer": "Retail Express",
       "receiptDate": "09/06/2024",
@@ -3237,7 +3380,7 @@
       "status": "Void"
     },
     {
-      "id": 206,
+      "id": "206",
       "receiptNumber": "REC-006",
       "customer": "Innovate Ltd.",
       "receiptDate": "11/06/2024",
@@ -3246,7 +3389,7 @@
       "status": "Paid"
     },
     {
-      "id": 207,
+      "id": "207",
       "receiptNumber": "REC-007",
       "customer": "Dynamic Solutions",
       "receiptDate": "13/06/2024",
@@ -3255,7 +3398,7 @@
       "status": "Paid"
     },
     {
-      "id": 208,
+      "id": "208",
       "receiptNumber": "REC-008",
       "customer": "NextGen Systems",
       "receiptDate": "15/06/2024",
@@ -3264,7 +3407,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 209,
+      "id": "209",
       "receiptNumber": "REC-009",
       "customer": "Precision Tools",
       "receiptDate": "17/06/2024",
@@ -3273,7 +3416,7 @@
       "status": "Paid"
     },
     {
-      "id": 210,
+      "id": "210",
       "receiptNumber": "REC-010",
       "customer": "Future Tech",
       "receiptDate": "19/06/2024",
@@ -3282,7 +3425,7 @@
       "status": "Paid"
     },
     {
-      "id": 211,
+      "id": "211",
       "receiptNumber": "REC-011",
       "customer": "Global Marketing Co.",
       "receiptDate": "21/06/2024",
@@ -3291,7 +3434,7 @@
       "status": "Paid"
     },
     {
-      "id": 212,
+      "id": "212",
       "receiptNumber": "REC-012",
       "customer": "Apex Industries",
       "receiptDate": "23/06/2024",
@@ -3300,7 +3443,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 213,
+      "id": "213",
       "receiptNumber": "REC-013",
       "customer": "Quantum Logistics",
       "receiptDate": "25/06/2024",
@@ -3309,7 +3452,7 @@
       "status": "Paid"
     },
     {
-      "id": 214,
+      "id": "214",
       "receiptNumber": "REC-014",
       "customer": "Bright Ideas Ltd.",
       "receiptDate": "27/06/2024",
@@ -3318,7 +3461,7 @@
       "status": "Void"
     },
     {
-      "id": 215,
+      "id": "215",
       "receiptNumber": "REC-015",
       "customer": "Summit Financial",
       "receiptDate": "29/06/2024",
@@ -3327,7 +3470,7 @@
       "status": "Paid"
     },
     {
-      "id": 216,
+      "id": "216",
       "receiptNumber": "REC-016",
       "customer": "Green Earth Solutions",
       "receiptDate": "01/07/2024",
@@ -3336,7 +3479,7 @@
       "status": "Paid"
     },
     {
-      "id": 217,
+      "id": "217",
       "receiptNumber": "REC-017",
       "customer": "Digital Innovations",
       "receiptDate": "03/07/2024",
@@ -3345,7 +3488,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 218,
+      "id": "218",
       "receiptNumber": "REC-018",
       "customer": "Pinnacle Health",
       "receiptDate": "05/07/2024",
@@ -3354,7 +3497,7 @@
       "status": "Paid"
     },
     {
-      "id": 219,
+      "id": "219",
       "receiptNumber": "REC-019",
       "customer": "Urban Sprout",
       "receiptDate": "07/07/2024",
@@ -3363,7 +3506,7 @@
       "status": "Paid"
     },
     {
-      "id": 220,
+      "id": "220",
       "receiptNumber": "REC-020",
       "customer": "Future Foods Co.",
       "receiptDate": "09/07/2024",
@@ -3372,7 +3515,7 @@
       "status": "Void"
     },
     {
-      "id": 221,
+      "id": "221",
       "receiptNumber": "REC-021",
       "customer": "Connect IT Solutions",
       "receiptDate": "11/07/2024",
@@ -3381,7 +3524,7 @@
       "status": "Paid"
     },
     {
-      "id": 222,
+      "id": "222",
       "receiptNumber": "REC-022",
       "customer": "Creative Media Group",
       "receiptDate": "13/07/2024",
@@ -3390,7 +3533,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 223,
+      "id": "223",
       "receiptNumber": "REC-023",
       "customer": "Eco-Friendly Products",
       "receiptDate": "15/07/2024",
@@ -3399,7 +3542,7 @@
       "status": "Paid"
     },
     {
-      "id": 224,
+      "id": "224",
       "receiptNumber": "REC-024",
       "customer": "Dynamic Systems",
       "receiptDate": "17/07/2024",
@@ -3408,7 +3551,7 @@
       "status": "Paid"
     },
     {
-      "id": 225,
+      "id": "225",
       "receiptNumber": "REC-025",
       "customer": "Global Trade Corp.",
       "receiptDate": "19/07/2024",
@@ -3417,7 +3560,7 @@
       "status": "Void"
     },
     {
-      "id": 226,
+      "id": "226",
       "receiptNumber": "REC-026",
       "customer": "Precision Engineering",
       "receiptDate": "21/07/2024",
@@ -3426,7 +3569,7 @@
       "status": "Paid"
     },
     {
-      "id": 227,
+      "id": "227",
       "receiptNumber": "REC-027",
       "customer": "Bright Horizon Education",
       "receiptDate": "23/07/2024",
@@ -3435,7 +3578,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 228,
+      "id": "228",
       "receiptNumber": "REC-028",
       "customer": "MediCare Solutions",
       "receiptDate": "25/07/2024",
@@ -3444,7 +3587,7 @@
       "status": "Paid"
     },
     {
-      "id": 229,
+      "id": "229",
       "receiptNumber": "REC-029",
       "customer": "Innovate Solutions",
       "receiptDate": "27/07/2024",
@@ -3453,7 +3596,7 @@
       "status": "Paid"
     },
     {
-      "id": 230,
+      "id": "230",
       "receiptNumber": "REC-030",
       "customer": "Prime Real Estate",
       "receiptDate": "29/07/2024",
@@ -3462,7 +3605,7 @@
       "status": "Void"
     },
     {
-      "id": 231,
+      "id": "231",
       "receiptNumber": "REC-031",
       "customer": "Swift Courier Services",
       "receiptDate": "31/07/2024",
@@ -3471,7 +3614,7 @@
       "status": "Paid"
     },
     {
-      "id": 232,
+      "id": "232",
       "receiptNumber": "REC-032",
       "customer": "Artisan Crafts Co.",
       "receiptDate": "02/08/2024",
@@ -3480,7 +3623,7 @@
       "status": "Partially_Paid"
     },
     {
-      "id": 233,
+      "id": "233",
       "receiptNumber": "REC-033",
       "customer": "Digital Marketing Pro",
       "receiptDate": "04/08/2024",
@@ -3489,7 +3632,7 @@
       "status": "Paid"
     },
     {
-      "id": 234,
+      "id": "234",
       "receiptNumber": "REC-034",
       "customer": "NextGen Technologies",
       "receiptDate": "06/08/2024",
@@ -3498,7 +3641,7 @@
       "status": "Paid"
     },
     {
-      "id": 235,
+      "id": "235",
       "receiptNumber": "REC-035",
       "customer": "Elite Fitness Center",
       "receiptDate": "08/08/2024",
@@ -3507,23 +3650,61 @@
       "status": "Paid"
     }
   ],
-
-"receiptCustomerOptions": [
-  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
-  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
-  { "value": "Global Corp", "label": "Global Corp" },
-  { "value": "Tech Innovators", "label": "Tech Innovators" },
-  { "value": "Retail Express", "label": "Retail Express" },
-  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
-  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
-  { "value": "NextGen Systems", "label": "NextGen Systems" },
-  { "value": "Precision Tools", "label": "Precision Tools" },
-  { "value": "Future Tech", "label": "Future Tech" }
-],
-
-"expenses": [
+  "receiptCustomerOptions": [
     {
-      "id": 301,
+      "value": "ABC Enterprises",
+      "label": "ABC Enterprises",
+      "id": "305f"
+    },
+    {
+      "value": "XYZ Solutions",
+      "label": "XYZ Solutions",
+      "id": "09af"
+    },
+    {
+      "value": "Global Corp",
+      "label": "Global Corp",
+      "id": "8706"
+    },
+    {
+      "value": "Tech Innovators",
+      "label": "Tech Innovators",
+      "id": "6a4b"
+    },
+    {
+      "value": "Retail Express",
+      "label": "Retail Express",
+      "id": "d9f4"
+    },
+    {
+      "value": "Innovate Ltd.",
+      "label": "Innovate Ltd.",
+      "id": "3749"
+    },
+    {
+      "value": "Dynamic Solutions",
+      "label": "Dynamic Solutions",
+      "id": "0215"
+    },
+    {
+      "value": "NextGen Systems",
+      "label": "NextGen Systems",
+      "id": "493f"
+    },
+    {
+      "value": "Precision Tools",
+      "label": "Precision Tools",
+      "id": "7260"
+    },
+    {
+      "value": "Future Tech",
+      "label": "Future Tech",
+      "id": "a87f"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "301",
       "expenseID": "EXP-001",
       "category": "Office Supplies",
       "vendor": "OfficeMart",
@@ -3532,7 +3713,7 @@
       "status": "Paid"
     },
     {
-      "id": 302,
+      "id": "302",
       "expenseID": "EXP-002",
       "category": "Travel",
       "vendor": "GoTravel Agency",
@@ -3541,7 +3722,7 @@
       "status": "Pending"
     },
     {
-      "id": 303,
+      "id": "303",
       "expenseID": "EXP-003",
       "category": "Utilities",
       "vendor": "Electricity Board",
@@ -3550,7 +3731,7 @@
       "status": "Paid"
     },
     {
-      "id": 304,
+      "id": "304",
       "expenseID": "EXP-004",
       "category": "Software Subscriptions",
       "vendor": "CloudSoft Inc.",
@@ -3559,7 +3740,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 305,
+      "id": "305",
       "expenseID": "EXP-005",
       "category": "Marketing",
       "vendor": "AdBoost Solutions",
@@ -3568,7 +3749,7 @@
       "status": "Paid"
     },
     {
-      "id": 306,
+      "id": "306",
       "expenseID": "EXP-006",
       "category": "Repairs & Maintenance",
       "vendor": "FixIt Services",
@@ -3577,7 +3758,7 @@
       "status": "Pending"
     },
     {
-      "id": 307,
+      "id": "307",
       "expenseID": "EXP-007",
       "category": "Meals & Entertainment",
       "vendor": "Local Cafe",
@@ -3586,7 +3767,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 308,
+      "id": "308",
       "expenseID": "EXP-008",
       "category": "Training & Development",
       "vendor": "SkillUp Academy",
@@ -3595,7 +3776,7 @@
       "status": "Paid"
     },
     {
-      "id": 309,
+      "id": "309",
       "expenseID": "EXP-009",
       "category": "Communication",
       "vendor": "Telecom Provider",
@@ -3604,7 +3785,7 @@
       "status": "Pending"
     },
     {
-      "id": 310,
+      "id": "310",
       "expenseID": "EXP-010",
       "category": "Transportation",
       "vendor": "Cab Service",
@@ -3613,7 +3794,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 311,
+      "id": "311",
       "expenseID": "EXP-011",
       "category": "Rent",
       "vendor": "Property Management Co.",
@@ -3622,7 +3803,7 @@
       "status": "Paid"
     },
     {
-      "id": 312,
+      "id": "312",
       "expenseID": "EXP-012",
       "category": "Salaries",
       "vendor": "Payroll Services",
@@ -3631,7 +3812,7 @@
       "status": "Paid"
     },
     {
-      "id": 313,
+      "id": "313",
       "expenseID": "EXP-013",
       "category": "Legal Fees",
       "vendor": "LawFirm Associates",
@@ -3640,7 +3821,7 @@
       "status": "Pending"
     },
     {
-      "id": 314,
+      "id": "314",
       "expenseID": "EXP-014",
       "category": "Insurance",
       "vendor": "SecureLife Insurance",
@@ -3649,7 +3830,7 @@
       "status": "Paid"
     },
     {
-      "id": 315,
+      "id": "315",
       "expenseID": "EXP-015",
       "category": "Web Hosting",
       "vendor": "HostFast Services",
@@ -3658,7 +3839,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 316,
+      "id": "316",
       "expenseID": "EXP-016",
       "category": "Consulting Fees",
       "vendor": "Expert Advisory",
@@ -3667,7 +3848,7 @@
       "status": "Paid"
     },
     {
-      "id": 317,
+      "id": "317",
       "expenseID": "EXP-017",
       "category": "Printing & Stationery",
       "vendor": "PrintHub",
@@ -3676,7 +3857,7 @@
       "status": "Pending"
     },
     {
-      "id": 318,
+      "id": "318",
       "expenseID": "EXP-018",
       "category": "Vehicle Maintenance",
       "vendor": "AutoCare Workshop",
@@ -3685,7 +3866,7 @@
       "status": "Paid"
     },
     {
-      "id": 319,
+      "id": "319",
       "expenseID": "EXP-019",
       "category": "Internet Services",
       "vendor": "NetConnect",
@@ -3694,7 +3875,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 320,
+      "id": "320",
       "expenseID": "EXP-020",
       "category": "Event Management",
       "vendor": "Celebration Planners",
@@ -3703,7 +3884,7 @@
       "status": "Paid"
     },
     {
-      "id": 321,
+      "id": "321",
       "expenseID": "EXP-021",
       "category": "Courier Services",
       "vendor": "Swift Deliveries",
@@ -3712,7 +3893,7 @@
       "status": "Paid"
     },
     {
-      "id": 322,
+      "id": "322",
       "expenseID": "EXP-022",
       "category": "Membership Fees",
       "vendor": "Chamber of Commerce",
@@ -3721,7 +3902,7 @@
       "status": "Pending"
     },
     {
-      "id": 323,
+      "id": "323",
       "expenseID": "EXP-023",
       "category": "IT Equipment",
       "vendor": "CompTech Solutions",
@@ -3730,7 +3911,7 @@
       "status": "Paid"
     },
     {
-      "id": 324,
+      "id": "324",
       "expenseID": "EXP-024",
       "category": "Bank Charges",
       "vendor": "First Bank",
@@ -3739,7 +3920,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 325,
+      "id": "325",
       "expenseID": "EXP-025",
       "category": "Cleaning Services",
       "vendor": "Sparkle Clean",
@@ -3748,7 +3929,7 @@
       "status": "Paid"
     },
     {
-      "id": 326,
+      "id": "326",
       "expenseID": "EXP-026",
       "category": "Research & Development",
       "vendor": "Innovate Lab",
@@ -3757,7 +3938,7 @@
       "status": "Paid"
     },
     {
-      "id": 327,
+      "id": "327",
       "expenseID": "EXP-027",
       "category": "Photography Services",
       "vendor": "Pixel Perfect Studio",
@@ -3766,7 +3947,7 @@
       "status": "Pending"
     },
     {
-      "id": 328,
+      "id": "328",
       "expenseID": "EXP-028",
       "category": "Subscription Services",
       "vendor": "NewsFeed Premium",
@@ -3775,7 +3956,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 329,
+      "id": "329",
       "expenseID": "EXP-029",
       "category": "Office Furniture",
       "vendor": "Furnishings Galore",
@@ -3784,7 +3965,7 @@
       "status": "Paid"
     },
     {
-      "id": 330,
+      "id": "330",
       "expenseID": "EXP-030",
       "category": "Security Services",
       "vendor": "SafeGuard Security",
@@ -3793,7 +3974,7 @@
       "status": "Paid"
     },
     {
-      "id": 331,
+      "id": "331",
       "expenseID": "EXP-031",
       "category": "Software Licenses",
       "vendor": "Software Solutions",
@@ -3802,7 +3983,7 @@
       "status": "Pending"
     },
     {
-      "id": 332,
+      "id": "332",
       "expenseID": "EXP-032",
       "category": "Catering",
       "vendor": "Delicious Bites",
@@ -3811,7 +3992,7 @@
       "status": "Reimbursed"
     },
     {
-      "id": 333,
+      "id": "333",
       "expenseID": "EXP-033",
       "category": "Employee Welfare",
       "vendor": "Wellness Hub",
@@ -3820,7 +4001,7 @@
       "status": "Paid"
     },
     {
-      "id": 334,
+      "id": "334",
       "expenseID": "EXP-034",
       "category": "Professional Development",
       "vendor": "Growth Workshops",
@@ -3829,7 +4010,7 @@
       "status": "Paid"
     },
     {
-      "id": 335,
+      "id": "335",
       "expenseID": "EXP-035",
       "category": "Miscellaneous",
       "vendor": "Various",
@@ -3838,41 +4019,153 @@
       "status": "Pending"
     }
   ],
-"vendorOptions":[
-  { "value": "OfficeMart", "label": "OfficeMart" },
-  { "value": "GoTravel Agency", "label": "GoTravel Agency" },
-  { "value": "Electricity Board", "label": "Electricity Board" },
-  { "value": "CloudSoft Inc.", "label": "CloudSoft Inc." },
-  { "value": "AdBoost Solutions", "label": "AdBoost Solutions" },
-  { "value": "FixIt Services", "label": "FixIt Services" },
-  { "value": "Local Cafe", "label": "Local Cafe" },
-  { "value": "SkillUp Academy", "label": "SkillUp Academy" },
-  { "value": "Telecom Provider", "label": "Telecom Provider" },
-  { "value": "Cab Service", "label": "Cab Service" },
-  { "value": "Amazon Web Services", "label": "Amazon Web Services" },
-  { "value": "Google Ads", "label": "Google Ads" },
-  { "value": "Shipping Logistics Pvt Ltd", "label": "Shipping Logistics Pvt Ltd" },
-  { "value": "Maintenance Services India", "label": "Maintenance Services India" }
-],
-"categoryOptions":[
-  { "value": "Office Supplies", "label": "Office Supplies" },
-  { "value": "Travel", "label": "Travel" },
-  { "value": "Utilities", "label": "Utilities" },
-  { "value": "Software Subscriptions", "label": "Software Subscriptions" },
-  { "value": "Marketing", "label": "Marketing" },
-  { "value": "Repairs & Maintenance", "label": "Repairs & Maintenance" },
-  { "value": "Meals & Entertainment", "label": "Meals & Entertainment" },
-  { "value": "Training & Development", "label": "Training & Development" },
-  { "value": "Communication", "label": "Communication" },
-  { "value": "Transportation", "label": "Transportation" },
-  { "value": "Rent", "label": "Rent" },
-  { "value": "Salaries", "label": "Salaries" },
-  { "value": "Freight & Shipping", "label": "Freight & Shipping" },
-  { "value": "Consulting Fees", "label": "Consulting Fees" }
-],
-"purchaseReturns": [
+  "vendorOptions": [
     {
-      "id": 401,
+      "value": "OfficeMart",
+      "label": "OfficeMart",
+      "id": "53af"
+    },
+    {
+      "value": "GoTravel Agency",
+      "label": "GoTravel Agency",
+      "id": "64d9"
+    },
+    {
+      "value": "Electricity Board",
+      "label": "Electricity Board",
+      "id": "09ee"
+    },
+    {
+      "value": "CloudSoft Inc.",
+      "label": "CloudSoft Inc.",
+      "id": "0a9e"
+    },
+    {
+      "value": "AdBoost Solutions",
+      "label": "AdBoost Solutions",
+      "id": "3cf7"
+    },
+    {
+      "value": "FixIt Services",
+      "label": "FixIt Services",
+      "id": "fffd"
+    },
+    {
+      "value": "Local Cafe",
+      "label": "Local Cafe",
+      "id": "83ef"
+    },
+    {
+      "value": "SkillUp Academy",
+      "label": "SkillUp Academy",
+      "id": "b661"
+    },
+    {
+      "value": "Telecom Provider",
+      "label": "Telecom Provider",
+      "id": "b2c0"
+    },
+    {
+      "value": "Cab Service",
+      "label": "Cab Service",
+      "id": "19f8"
+    },
+    {
+      "value": "Amazon Web Services",
+      "label": "Amazon Web Services",
+      "id": "3455"
+    },
+    {
+      "value": "Google Ads",
+      "label": "Google Ads",
+      "id": "f775"
+    },
+    {
+      "value": "Shipping Logistics Pvt Ltd",
+      "label": "Shipping Logistics Pvt Ltd",
+      "id": "8118"
+    },
+    {
+      "value": "Maintenance Services India",
+      "label": "Maintenance Services India",
+      "id": "579a"
+    }
+  ],
+  "categoryOptions": [
+    {
+      "value": "Office Supplies",
+      "label": "Office Supplies",
+      "id": "a7eb"
+    },
+    {
+      "value": "Travel",
+      "label": "Travel",
+      "id": "9bbc"
+    },
+    {
+      "value": "Utilities",
+      "label": "Utilities",
+      "id": "eb7d"
+    },
+    {
+      "value": "Software Subscriptions",
+      "label": "Software Subscriptions",
+      "id": "2d91"
+    },
+    {
+      "value": "Marketing",
+      "label": "Marketing",
+      "id": "3e85"
+    },
+    {
+      "value": "Repairs & Maintenance",
+      "label": "Repairs & Maintenance",
+      "id": "567e"
+    },
+    {
+      "value": "Meals & Entertainment",
+      "label": "Meals & Entertainment",
+      "id": "589b"
+    },
+    {
+      "value": "Training & Development",
+      "label": "Training & Development",
+      "id": "a01e"
+    },
+    {
+      "value": "Communication",
+      "label": "Communication",
+      "id": "c218"
+    },
+    {
+      "value": "Transportation",
+      "label": "Transportation",
+      "id": "885e"
+    },
+    {
+      "value": "Rent",
+      "label": "Rent",
+      "id": "66ec"
+    },
+    {
+      "value": "Salaries",
+      "label": "Salaries",
+      "id": "6925"
+    },
+    {
+      "value": "Freight & Shipping",
+      "label": "Freight & Shipping",
+      "id": "5df5"
+    },
+    {
+      "value": "Consulting Fees",
+      "label": "Consulting Fees",
+      "id": "c03b"
+    }
+  ],
+  "purchaseReturns": [
+    {
+      "id": "401",
       "returnID": "PR-001",
       "vendor": "OfficeMart",
       "returnDate": "20/06/2024",
@@ -3881,7 +4174,7 @@
       "category": "Office Supplies"
     },
     {
-      "id": 402,
+      "id": "402",
       "returnID": "PR-002",
       "vendor": "GoTravel Agency",
       "returnDate": "22/06/2024",
@@ -3890,7 +4183,7 @@
       "category": "Travel"
     },
     {
-      "id": 403,
+      "id": "403",
       "returnID": "PR-003",
       "vendor": "Electricity Board",
       "returnDate": "25/06/2024",
@@ -3899,7 +4192,7 @@
       "category": "Utilities"
     },
     {
-      "id": 404,
+      "id": "404",
       "returnID": "PR-004",
       "vendor": "CloudSoft Inc.",
       "returnDate": "28/06/2024",
@@ -3908,7 +4201,7 @@
       "category": "Software Subscriptions"
     },
     {
-      "id": 405,
+      "id": "405",
       "returnID": "PR-005",
       "vendor": "AdBoost Solutions",
       "returnDate": "01/07/2024",
@@ -3917,7 +4210,7 @@
       "category": "Marketing"
     },
     {
-      "id": 406,
+      "id": "406",
       "returnID": "PR-006",
       "vendor": "FixIt Services",
       "returnDate": "03/07/2024",
@@ -3926,7 +4219,7 @@
       "category": "Repairs & Maintenance"
     },
     {
-      "id": 407,
+      "id": "407",
       "returnID": "PR-007",
       "vendor": "Local Cafe",
       "returnDate": "05/07/2024",
@@ -3935,7 +4228,7 @@
       "category": "Meals & Entertainment"
     },
     {
-      "id": 408,
+      "id": "408",
       "returnID": "PR-008",
       "vendor": "SkillUp Academy",
       "returnDate": "07/07/2024",
@@ -3944,7 +4237,7 @@
       "category": "Training & Development"
     },
     {
-      "id": 409,
+      "id": "409",
       "returnID": "PR-009",
       "vendor": "Telecom Provider",
       "returnDate": "09/07/2024",
@@ -3953,7 +4246,7 @@
       "category": "Communication"
     },
     {
-      "id": 410,
+      "id": "410",
       "returnID": "PR-010",
       "vendor": "Cab Service",
       "returnDate": "10/07/2024",
@@ -3962,7 +4255,7 @@
       "category": "Transportation"
     },
     {
-      "id": 411,
+      "id": "411",
       "returnID": "PR-011",
       "vendor": "Property Management Co.",
       "returnDate": "12/07/2024",
@@ -3971,7 +4264,7 @@
       "category": "Rent"
     },
     {
-      "id": 412,
+      "id": "412",
       "returnID": "PR-012",
       "vendor": "Payroll Services",
       "returnDate": "14/07/2024",
@@ -3980,7 +4273,7 @@
       "category": "Salaries"
     },
     {
-      "id": 413,
+      "id": "413",
       "returnID": "PR-013",
       "vendor": "LawFirm Associates",
       "returnDate": "16/07/2024",
@@ -3989,7 +4282,7 @@
       "category": "Legal Fees"
     },
     {
-      "id": 414,
+      "id": "414",
       "returnID": "PR-014",
       "vendor": "SecureLife Insurance",
       "returnDate": "18/07/2024",
@@ -3998,7 +4291,7 @@
       "category": "Insurance"
     },
     {
-      "id": 415,
+      "id": "415",
       "returnID": "PR-015",
       "vendor": "HostFast Services",
       "returnDate": "20/07/2024",
@@ -4007,7 +4300,7 @@
       "category": "Web Hosting"
     },
     {
-      "id": 416,
+      "id": "416",
       "returnID": "PR-016",
       "vendor": "Expert Advisory",
       "returnDate": "22/07/2024",
@@ -4016,7 +4309,7 @@
       "category": "Consulting Fees"
     },
     {
-      "id": 417,
+      "id": "417",
       "returnID": "PR-017",
       "vendor": "PrintHub",
       "returnDate": "24/07/2024",
@@ -4025,7 +4318,7 @@
       "category": "Printing & Stationery"
     },
     {
-      "id": 418,
+      "id": "418",
       "returnID": "PR-018",
       "vendor": "AutoCare Workshop",
       "returnDate": "26/07/2024",
@@ -4034,7 +4327,7 @@
       "category": "Vehicle Maintenance"
     },
     {
-      "id": 419,
+      "id": "419",
       "returnID": "PR-019",
       "vendor": "NetConnect",
       "returnDate": "28/07/2024",
@@ -4043,7 +4336,7 @@
       "category": "Internet Services"
     },
     {
-      "id": 420,
+      "id": "420",
       "returnID": "PR-020",
       "vendor": "Celebration Planners",
       "returnDate": "30/07/2024",
@@ -4052,7 +4345,7 @@
       "category": "Event Management"
     },
     {
-      "id": 421,
+      "id": "421",
       "returnID": "PR-021",
       "vendor": "Swift Deliveries",
       "returnDate": "01/08/2024",
@@ -4061,7 +4354,7 @@
       "category": "Courier Services"
     },
     {
-      "id": 422,
+      "id": "422",
       "returnID": "PR-022",
       "vendor": "Chamber of Commerce",
       "returnDate": "03/08/2024",
@@ -4070,7 +4363,7 @@
       "category": "Membership Fees"
     },
     {
-      "id": 423,
+      "id": "423",
       "returnID": "PR-023",
       "vendor": "CompTech Solutions",
       "returnDate": "05/08/2024",
@@ -4079,7 +4372,7 @@
       "category": "IT Equipment"
     },
     {
-      "id": 424,
+      "id": "424",
       "returnID": "PR-024",
       "vendor": "First Bank",
       "returnDate": "07/08/2024",
@@ -4088,7 +4381,7 @@
       "category": "Bank Charges"
     },
     {
-      "id": 425,
+      "id": "425",
       "returnID": "PR-025",
       "vendor": "Sparkle Clean",
       "returnDate": "09/08/2024",
@@ -4097,7 +4390,7 @@
       "category": "Cleaning Services"
     },
     {
-      "id": 426,
+      "id": "426",
       "returnID": "PR-026",
       "vendor": "Innovate Lab",
       "returnDate": "11/08/2024",
@@ -4106,7 +4399,7 @@
       "category": "Research & Development"
     },
     {
-      "id": 427,
+      "id": "427",
       "returnID": "PR-027",
       "vendor": "Pixel Perfect Studio",
       "returnDate": "13/08/2024",
@@ -4115,7 +4408,7 @@
       "category": "Photography Services"
     },
     {
-      "id": 428,
+      "id": "428",
       "returnID": "PR-028",
       "vendor": "NewsFeed Premium",
       "returnDate": "15/08/2024",
@@ -4124,7 +4417,7 @@
       "category": "Subscription Services"
     },
     {
-      "id": 429,
+      "id": "429",
       "returnID": "PR-029",
       "vendor": "Furnishings Galore",
       "returnDate": "17/08/2024",
@@ -4133,7 +4426,7 @@
       "category": "Office Furniture"
     },
     {
-      "id": 430,
+      "id": "430",
       "returnID": "PR-030",
       "vendor": "SafeGuard Security",
       "returnDate": "19/08/2024",
@@ -4142,7 +4435,7 @@
       "category": "Security Services"
     },
     {
-      "id": 431,
+      "id": "431",
       "returnID": "PR-031",
       "vendor": "Software Solutions",
       "returnDate": "21/08/2024",
@@ -4151,7 +4444,7 @@
       "category": "Software Licenses"
     },
     {
-      "id": 432,
+      "id": "432",
       "returnID": "PR-032",
       "vendor": "Delicious Bites",
       "returnDate": "23/08/2024",
@@ -4160,7 +4453,7 @@
       "category": "Catering"
     },
     {
-      "id": 433,
+      "id": "433",
       "returnID": "PR-033",
       "vendor": "Wellness Hub",
       "returnDate": "25/08/2024",
@@ -4169,7 +4462,7 @@
       "category": "Employee Welfare"
     },
     {
-      "id": 434,
+      "id": "434",
       "returnID": "PR-034",
       "vendor": "Growth Workshops",
       "returnDate": "27/08/2024",
@@ -4178,7 +4471,7 @@
       "category": "Professional Development"
     },
     {
-      "id": 435,
+      "id": "435",
       "returnID": "PR-035",
       "vendor": "Various",
       "returnDate": "29/08/2024",
@@ -4187,10 +4480,9 @@
       "category": "Miscellaneous"
     }
   ],
-
-"salesReturns": [
+  "salesReturns": [
     {
-      "id": 501,
+      "id": "501",
       "returnID": "SR-001",
       "customer": "ABC Enterprises",
       "returnDate": "15/06/2024",
@@ -4199,7 +4491,7 @@
       "category": "Electronics"
     },
     {
-      "id": 502,
+      "id": "502",
       "returnID": "SR-002",
       "customer": "XYZ Solutions",
       "returnDate": "18/06/2024",
@@ -4208,7 +4500,7 @@
       "category": "Office Supplies"
     },
     {
-      "id": 503,
+      "id": "503",
       "returnID": "SR-003",
       "customer": "Global Corp",
       "returnDate": "20/06/2024",
@@ -4217,7 +4509,7 @@
       "category": "Software"
     },
     {
-      "id": 504,
+      "id": "504",
       "returnID": "SR-004",
       "customer": "Tech Innovators",
       "returnDate": "25/06/2024",
@@ -4226,7 +4518,7 @@
       "category": "Machinery"
     },
     {
-      "id": 505,
+      "id": "505",
       "returnID": "SR-005",
       "customer": "Retail Express",
       "returnDate": "28/06/2024",
@@ -4235,7 +4527,7 @@
       "category": "Apparel"
     },
     {
-      "id": 506,
+      "id": "506",
       "returnID": "SR-006",
       "customer": "Innovate Ltd.",
       "returnDate": "01/07/2024",
@@ -4244,7 +4536,7 @@
       "category": "Home Goods"
     },
     {
-      "id": 507,
+      "id": "507",
       "returnID": "SR-007",
       "customer": "Dynamic Solutions",
       "returnDate": "03/07/2024",
@@ -4253,7 +4545,7 @@
       "category": "Furniture"
     },
     {
-      "id": 508,
+      "id": "508",
       "returnID": "SR-008",
       "customer": "NextGen Systems",
       "returnDate": "05/07/2024",
@@ -4262,7 +4554,7 @@
       "category": "Tools"
     },
     {
-      "id": 509,
+      "id": "509",
       "returnID": "SR-009",
       "customer": "Precision Tools",
       "returnDate": "08/07/2024",
@@ -4271,7 +4563,7 @@
       "category": "Automotive"
     },
     {
-      "id": 510,
+      "id": "510",
       "returnID": "SR-010",
       "customer": "Future Tech",
       "returnDate": "10/07/2024",
@@ -4280,7 +4572,7 @@
       "category": "Networking"
     },
     {
-      "id": 511,
+      "id": "511",
       "returnID": "SR-011",
       "customer": "Green Energy Co.",
       "returnDate": "12/07/2024",
@@ -4289,7 +4581,7 @@
       "category": "Renewable Energy"
     },
     {
-      "id": 512,
+      "id": "512",
       "returnID": "SR-012",
       "customer": "Urban Logistics",
       "returnDate": "14/07/2024",
@@ -4298,7 +4590,7 @@
       "category": "Logistics"
     },
     {
-      "id": 513,
+      "id": "513",
       "returnID": "SR-013",
       "customer": "Aqua Pure Water",
       "returnDate": "16/07/2024",
@@ -4307,7 +4599,7 @@
       "category": "Beverages"
     },
     {
-      "id": 514,
+      "id": "514",
       "returnID": "SR-014",
       "customer": "Summit Builders",
       "returnDate": "18/07/2024",
@@ -4316,7 +4608,7 @@
       "category": "Building Materials"
     },
     {
-      "id": 515,
+      "id": "515",
       "returnID": "SR-015",
       "customer": "Fashion Forward",
       "returnDate": "20/07/2024",
@@ -4325,7 +4617,7 @@
       "category": "Apparel"
     },
     {
-      "id": 516,
+      "id": "516",
       "returnID": "SR-016",
       "customer": "MediCorp Supplies",
       "returnDate": "22/07/2024",
@@ -4334,7 +4626,7 @@
       "category": "Medical Supplies"
     },
     {
-      "id": 517,
+      "id": "517",
       "returnID": "SR-017",
       "customer": "EduTech Solutions",
       "returnDate": "24/07/2024",
@@ -4343,7 +4635,7 @@
       "category": "Educational Equipment"
     },
     {
-      "id": 518,
+      "id": "518",
       "returnID": "SR-018",
       "customer": "AgriGrow Farms",
       "returnDate": "26/07/2024",
@@ -4352,7 +4644,7 @@
       "category": "Agricultural Products"
     },
     {
-      "id": 519,
+      "id": "519",
       "returnID": "SR-019",
       "customer": "Home Comforts",
       "returnDate": "28/07/2024",
@@ -4361,7 +4653,7 @@
       "category": "Furniture"
     },
     {
-      "id": 520,
+      "id": "520",
       "returnID": "SR-020",
       "customer": "Clean Sweep Services",
       "returnDate": "30/07/2024",
@@ -4370,7 +4662,7 @@
       "category": "Cleaning Supplies"
     },
     {
-      "id": 521,
+      "id": "521",
       "returnID": "SR-021",
       "customer": "Digital Dreams",
       "returnDate": "01/08/2024",
@@ -4379,7 +4671,7 @@
       "category": "Software"
     },
     {
-      "id": 522,
+      "id": "522",
       "returnID": "SR-022",
       "customer": "Power Solutions",
       "returnDate": "03/08/2024",
@@ -4388,7 +4680,7 @@
       "category": "Electrical Equipment"
     },
     {
-      "id": 523,
+      "id": "523",
       "returnID": "SR-023",
       "customer": "Artistic Creations",
       "returnDate": "05/08/2024",
@@ -4397,7 +4689,7 @@
       "category": "Art Supplies"
     },
     {
-      "id": 524,
+      "id": "524",
       "returnID": "SR-024",
       "customer": "Global Food Distributors",
       "returnDate": "07/08/2024",
@@ -4406,7 +4698,7 @@
       "category": "Perishables"
     },
     {
-      "id": 525,
+      "id": "525",
       "returnID": "SR-025",
       "customer": "Secure Systems Inc.",
       "returnDate": "09/08/2024",
@@ -4415,7 +4707,7 @@
       "category": "Security Equipment"
     },
     {
-      "id": 526,
+      "id": "526",
       "returnID": "SR-026",
       "customer": "Eco-Friendly Packaging",
       "returnDate": "11/08/2024",
@@ -4424,7 +4716,7 @@
       "category": "Packaging Materials"
     },
     {
-      "id": 527,
+      "id": "527",
       "returnID": "SR-027",
       "customer": "Prime Auto Parts",
       "returnDate": "13/08/2024",
@@ -4433,7 +4725,7 @@
       "category": "Automotive Parts"
     },
     {
-      "id": 528,
+      "id": "528",
       "returnID": "SR-028",
       "customer": "Health & Wellness Co.",
       "returnDate": "15/08/2024",
@@ -4442,7 +4734,7 @@
       "category": "Health Products"
     },
     {
-      "id": 529,
+      "id": "529",
       "returnID": "SR-029",
       "customer": "Construction Pros",
       "returnDate": "17/08/2024",
@@ -4451,7 +4743,7 @@
       "category": "Heavy Equipment"
     },
     {
-      "id": 530,
+      "id": "530",
       "returnID": "SR-030",
       "customer": "Office Solutions Hub",
       "returnDate": "19/08/2024",
@@ -4460,7 +4752,7 @@
       "category": "Stationery"
     },
     {
-      "id": 531,
+      "id": "531",
       "returnID": "SR-031",
       "customer": "Tech Gadgets Store",
       "returnDate": "21/08/2024",
@@ -4469,7 +4761,7 @@
       "category": "Electronics"
     },
     {
-      "id": 532,
+      "id": "532",
       "returnID": "SR-032",
       "customer": "Garden Essentials",
       "returnDate": "23/08/2024",
@@ -4478,7 +4770,7 @@
       "category": "Gardening Tools"
     },
     {
-      "id": 533,
+      "id": "533",
       "returnID": "SR-033",
       "customer": "Sports Gear Outlet",
       "returnDate": "25/08/2024",
@@ -4487,7 +4779,7 @@
       "category": "Sporting Goods"
     },
     {
-      "id": 534,
+      "id": "534",
       "returnID": "SR-034",
       "customer": "Pet Care Supplies",
       "returnDate": "27/08/2024",
@@ -4496,7 +4788,7 @@
       "category": "Pet Products"
     },
     {
-      "id": 535,
+      "id": "535",
       "returnID": "SR-035",
       "customer": "Music Mania Store",
       "returnDate": "29/08/2024",
@@ -4505,10 +4797,9 @@
       "category": "Musical Instruments"
     }
   ],
-
-"salesOrders": [
+  "salesOrders": [
     {
-      "id": 601,
+      "id": "601",
       "orderID": "SO-001",
       "customer": "ABC Enterprises",
       "orderDate": "01/07/2024",
@@ -4518,7 +4809,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 602,
+      "id": "602",
       "orderID": "SO-002",
       "customer": "XYZ Solutions",
       "orderDate": "02/07/2024",
@@ -4528,7 +4819,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 603,
+      "id": "603",
       "orderID": "SO-003",
       "customer": "Global Corp",
       "orderDate": "03/07/2024",
@@ -4538,7 +4829,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 604,
+      "id": "604",
       "orderID": "SO-004",
       "customer": "Tech Innovators",
       "orderDate": "04/07/2024",
@@ -4548,7 +4839,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 605,
+      "id": "605",
       "orderID": "SO-005",
       "customer": "Retail Express",
       "orderDate": "05/07/2024",
@@ -4558,7 +4849,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 606,
+      "id": "606",
       "orderID": "SO-006",
       "customer": "Innovate Ltd.",
       "orderDate": "06/07/2024",
@@ -4568,7 +4859,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 607,
+      "id": "607",
       "orderID": "SO-007",
       "customer": "Dynamic Solutions",
       "orderDate": "07/07/2024",
@@ -4578,7 +4869,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 608,
+      "id": "608",
       "orderID": "SO-008",
       "customer": "NextGen Systems",
       "orderDate": "08/07/2024",
@@ -4588,7 +4879,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 609,
+      "id": "609",
       "orderID": "SO-009",
       "customer": "Precision Tools",
       "orderDate": "09/07/2024",
@@ -4598,7 +4889,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 610,
+      "id": "610",
       "orderID": "SO-010",
       "customer": "Future Tech",
       "orderDate": "10/07/2024",
@@ -4608,7 +4899,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 611,
+      "id": "611",
       "orderID": "SO-011",
       "customer": "Green Energy Co.",
       "orderDate": "11/07/2024",
@@ -4618,7 +4909,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 612,
+      "id": "612",
       "orderID": "SO-012",
       "customer": "Urban Logistics",
       "orderDate": "12/07/2024",
@@ -4628,7 +4919,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 613,
+      "id": "613",
       "orderID": "SO-013",
       "customer": "Aqua Pure Water",
       "orderDate": "13/07/2024",
@@ -4638,7 +4929,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 614,
+      "id": "614",
       "orderID": "SO-014",
       "customer": "Summit Builders",
       "orderDate": "14/07/2024",
@@ -4648,7 +4939,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 615,
+      "id": "615",
       "orderID": "SO-015",
       "customer": "Fashion Forward",
       "orderDate": "15/07/2024",
@@ -4658,7 +4949,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 616,
+      "id": "616",
       "orderID": "SO-016",
       "customer": "MediCorp Supplies",
       "orderDate": "16/07/2024",
@@ -4668,7 +4959,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 617,
+      "id": "617",
       "orderID": "SO-017",
       "customer": "EduTech Solutions",
       "orderDate": "17/07/2024",
@@ -4678,7 +4969,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 618,
+      "id": "618",
       "orderID": "SO-018",
       "customer": "AgriGrow Farms",
       "orderDate": "18/07/2024",
@@ -4688,7 +4979,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 619,
+      "id": "619",
       "orderID": "SO-019",
       "customer": "Home Comforts",
       "orderDate": "19/07/2024",
@@ -4698,7 +4989,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 620,
+      "id": "620",
       "orderID": "SO-020",
       "customer": "Clean Sweep Services",
       "orderDate": "20/07/2024",
@@ -4708,7 +4999,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 621,
+      "id": "621",
       "orderID": "SO-021",
       "customer": "Digital Dreams",
       "orderDate": "21/07/2024",
@@ -4718,7 +5009,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 622,
+      "id": "622",
       "orderID": "SO-022",
       "customer": "Power Solutions",
       "orderDate": "22/07/2024",
@@ -4728,7 +5019,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 623,
+      "id": "623",
       "orderID": "SO-023",
       "customer": "Artistic Creations",
       "orderDate": "23/07/2024",
@@ -4738,7 +5029,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 624,
+      "id": "624",
       "orderID": "SO-024",
       "customer": "Global Food Distributors",
       "orderDate": "24/07/2024",
@@ -4748,7 +5039,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 625,
+      "id": "625",
       "orderID": "SO-025",
       "customer": "Secure Systems Inc.",
       "orderDate": "25/07/2024",
@@ -4758,7 +5049,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 626,
+      "id": "626",
       "orderID": "SO-026",
       "customer": "Eco-Friendly Packaging",
       "orderDate": "26/07/2024",
@@ -4768,7 +5059,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 627,
+      "id": "627",
       "orderID": "SO-027",
       "customer": "Prime Auto Parts",
       "orderDate": "27/07/2024",
@@ -4778,7 +5069,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 628,
+      "id": "628",
       "orderID": "SO-028",
       "customer": "Health & Wellness Co.",
       "orderDate": "28/07/2024",
@@ -4788,7 +5079,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 629,
+      "id": "629",
       "orderID": "SO-029",
       "customer": "Construction Pros",
       "orderDate": "29/07/2024",
@@ -4798,7 +5089,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 630,
+      "id": "630",
       "orderID": "SO-030",
       "customer": "Office Solutions Hub",
       "orderDate": "30/07/2024",
@@ -4808,7 +5099,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 631,
+      "id": "631",
       "orderID": "SO-031",
       "customer": "Tech Gadgets Store",
       "orderDate": "31/07/2024",
@@ -4818,7 +5109,7 @@
       "salesperson": "Rajesh Kumar"
     },
     {
-      "id": 632,
+      "id": "632",
       "orderID": "SO-032",
       "customer": "Garden Essentials",
       "orderDate": "01/08/2024",
@@ -4828,7 +5119,7 @@
       "salesperson": "Amit Singh"
     },
     {
-      "id": 633,
+      "id": "633",
       "orderID": "SO-033",
       "customer": "Sports Gear Outlet",
       "orderDate": "02/08/2024",
@@ -4838,7 +5129,7 @@
       "salesperson": "Sonia Gandhi"
     },
     {
-      "id": 634,
+      "id": "634",
       "orderID": "SO-034",
       "customer": "Pet Care Supplies",
       "orderDate": "03/08/2024",
@@ -4848,7 +5139,7 @@
       "salesperson": "Priya Sharma"
     },
     {
-      "id": 635,
+      "id": "635",
       "orderID": "SO-035",
       "customer": "Music Mania Store",
       "orderDate": "04/08/2024",
@@ -4858,17 +5149,41 @@
       "salesperson": "Rajesh Kumar"
     }
   ],
-"salespersonOptions":[
-  { "value": "Rajesh Kumar", "label": "Rajesh Kumar" },
-  { "value": "Priya Sharma", "label": "Priya Sharma" },
-  { "value": "Amit Singh", "label": "Amit Singh" },
-  { "value": "Sonia Gandhi", "label": "Sonia Gandhi" },
-  { "value": "Vikram Desai", "label": "Vikram Desai" },
-  { "value": "Deepa Reddy", "label": "Deepa Reddy" }
-],
-"products": [
+  "salespersonOptions": [
     {
-      "id": 701,
+      "value": "Rajesh Kumar",
+      "label": "Rajesh Kumar",
+      "id": "835b"
+    },
+    {
+      "value": "Priya Sharma",
+      "label": "Priya Sharma",
+      "id": "6a7e"
+    },
+    {
+      "value": "Amit Singh",
+      "label": "Amit Singh",
+      "id": "4553"
+    },
+    {
+      "value": "Sonia Gandhi",
+      "label": "Sonia Gandhi",
+      "id": "d8af"
+    },
+    {
+      "value": "Vikram Desai",
+      "label": "Vikram Desai",
+      "id": "20ce"
+    },
+    {
+      "value": "Deepa Reddy",
+      "label": "Deepa Reddy",
+      "id": "538e"
+    }
+  ],
+  "products": [
+    {
+      "id": "701",
       "productID": "PROD-001",
       "name": "Laptop Pro X1",
       "category": "Electronics",
@@ -4877,7 +5192,7 @@
       "status": "In Stock"
     },
     {
-      "id": 702,
+      "id": "702",
       "productID": "PROD-002",
       "name": "Ergonomic Office Chair",
       "category": "Office Furniture",
@@ -4886,7 +5201,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 703,
+      "id": "703",
       "productID": "PROD-003",
       "name": "Wireless Mouse M300",
       "category": "Computer Accessories",
@@ -4895,7 +5210,7 @@
       "status": "Out of Stock"
     },
     {
-      "id": 704,
+      "id": "704",
       "productID": "PROD-004",
       "name": "4K UHD Monitor 27-inch",
       "category": "Electronics",
@@ -4904,7 +5219,7 @@
       "status": "In Stock"
     },
     {
-      "id": 705,
+      "id": "705",
       "productID": "PROD-005",
       "name": "Premium Printer Paper (Ream)",
       "category": "Office Supplies",
@@ -4913,7 +5228,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 706,
+      "id": "706",
       "productID": "PROD-006",
       "name": "External SSD 1TB",
       "category": "Computer Accessories",
@@ -4922,7 +5237,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 707,
+      "id": "707",
       "productID": "PROD-007",
       "name": "Smart Speaker Echo Dot",
       "category": "Electronics",
@@ -4931,7 +5246,7 @@
       "status": "Out of Stock"
     },
     {
-      "id": 708,
+      "id": "708",
       "productID": "PROD-008",
       "name": "Conference Table 8-seater",
       "category": "Office Furniture",
@@ -4940,7 +5255,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 709,
+      "id": "709",
       "productID": "PROD-009",
       "name": "USB-C Hub Multi-port",
       "category": "Computer Accessories",
@@ -4949,7 +5264,7 @@
       "status": "In Stock"
     },
     {
-      "id": 710,
+      "id": "710",
       "productID": "PROD-010",
       "name": "Old Desktop Model 2015",
       "category": "Electronics",
@@ -4958,7 +5273,7 @@
       "status": "Discontinued"
     },
     {
-      "id": 711,
+      "id": "711",
       "productID": "PROD-011",
       "name": "Webcam HD Pro",
       "category": "Computer Accessories",
@@ -4967,7 +5282,7 @@
       "status": "In Stock"
     },
     {
-      "id": 712,
+      "id": "712",
       "productID": "PROD-012",
       "name": "Notebook (A4, 200 pages)",
       "category": "Office Supplies",
@@ -4976,7 +5291,7 @@
       "status": "In Stock"
     },
     {
-      "id": 713,
+      "id": "713",
       "productID": "PROD-013",
       "name": "Shredder Office Grade",
       "category": "Office Equipment",
@@ -4985,7 +5300,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 714,
+      "id": "714",
       "productID": "PROD-014",
       "name": "Projector Mini",
       "category": "Electronics",
@@ -4994,7 +5309,7 @@
       "status": "In Stock"
     },
     {
-      "id": 715,
+      "id": "715",
       "productID": "PROD-015",
       "name": "Wireless Keyboard",
       "category": "Computer Accessories",
@@ -5003,7 +5318,7 @@
       "status": "In Stock"
     },
     {
-      "id": 716,
+      "id": "716",
       "productID": "PROD-016",
       "name": "Binder Clips (Box)",
       "category": "Office Supplies",
@@ -5012,7 +5327,7 @@
       "status": "In Stock"
     },
     {
-      "id": 717,
+      "id": "717",
       "productID": "PROD-017",
       "name": "Standing Desk",
       "category": "Office Furniture",
@@ -5021,7 +5336,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 718,
+      "id": "718",
       "productID": "PROD-018",
       "name": "Gaming Headset",
       "category": "Electronics",
@@ -5030,7 +5345,7 @@
       "status": "Out of Stock"
     },
     {
-      "id": 719,
+      "id": "719",
       "productID": "PROD-019",
       "name": "External Hard Drive 2TB",
       "category": "Computer Accessories",
@@ -5039,7 +5354,7 @@
       "status": "In Stock"
     },
     {
-      "id": 720,
+      "id": "720",
       "productID": "PROD-020",
       "name": "Whiteboard (Large)",
       "category": "Office Equipment",
@@ -5048,7 +5363,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 721,
+      "id": "721",
       "productID": "PROD-021",
       "name": "Smartwatch S2",
       "category": "Wearable Technology",
@@ -5057,7 +5372,7 @@
       "status": "In Stock"
     },
     {
-      "id": 722,
+      "id": "722",
       "productID": "PROD-022",
       "name": "Portable Bluetooth Speaker",
       "category": "Audio Devices",
@@ -5066,7 +5381,7 @@
       "status": "Out of Stock"
     },
     {
-      "id": 723,
+      "id": "723",
       "productID": "PROD-023",
       "name": "LED Desk Lamp",
       "category": "Office Accessories",
@@ -5075,7 +5390,7 @@
       "status": "In Stock"
     },
     {
-      "id": 724,
+      "id": "724",
       "productID": "PROD-024",
       "name": "Graphic Tablet",
       "category": "Computer Accessories",
@@ -5084,7 +5399,7 @@
       "status": "Low Stock"
     },
     {
-      "id": 725,
+      "id": "725",
       "productID": "PROD-025",
       "name": "Security Camera System",
       "category": "Security Devices",
@@ -5093,9 +5408,9 @@
       "status": "In Stock"
     }
   ],
-"contacts": [
+  "contacts": [
     {
-      "id": 801,
+      "id": "801",
       "contactID": "C-001",
       "firstName": "John",
       "lastName": "Doe",
@@ -5106,7 +5421,7 @@
       "status": "Active"
     },
     {
-      "id": 802,
+      "id": "802",
       "contactID": "C-002",
       "firstName": "Jane",
       "lastName": "Smith",
@@ -5117,7 +5432,7 @@
       "status": "Active"
     },
     {
-      "id": 803,
+      "id": "803",
       "contactID": "C-003",
       "firstName": "Alice",
       "lastName": "Johnson",
@@ -5128,7 +5443,7 @@
       "status": "Lead"
     },
     {
-      "id": 804,
+      "id": "804",
       "contactID": "C-004",
       "firstName": "Bob",
       "lastName": "Williams",
@@ -5139,7 +5454,7 @@
       "status": "Active"
     },
     {
-      "id": 805,
+      "id": "805",
       "contactID": "C-005",
       "firstName": "Charlie",
       "lastName": "Brown",
@@ -5150,7 +5465,7 @@
       "status": "Inactive"
     },
     {
-      "id": 806,
+      "id": "806",
       "contactID": "C-006",
       "firstName": "Diana",
       "lastName": "Prince",
@@ -5161,7 +5476,7 @@
       "status": "Active"
     },
     {
-      "id": 807,
+      "id": "807",
       "contactID": "C-007",
       "firstName": "Eve",
       "lastName": "Davis",
@@ -5172,7 +5487,7 @@
       "status": "Active"
     },
     {
-      "id": 808,
+      "id": "808",
       "contactID": "C-008",
       "firstName": "Frank",
       "lastName": "Miller",
@@ -5183,7 +5498,7 @@
       "status": "Lead"
     },
     {
-      "id": 809,
+      "id": "809",
       "contactID": "C-009",
       "firstName": "Grace",
       "lastName": "Wilson",
@@ -5194,7 +5509,7 @@
       "status": "Inactive"
     },
     {
-      "id": 810,
+      "id": "810",
       "contactID": "C-010",
       "firstName": "Henry",
       "lastName": "Moore",
@@ -5205,7 +5520,7 @@
       "status": "Active"
     },
     {
-      "id": 811,
+      "id": "811",
       "contactID": "C-011",
       "firstName": "Isabel",
       "lastName": "Taylor",
@@ -5216,7 +5531,7 @@
       "status": "Active"
     },
     {
-      "id": 812,
+      "id": "812",
       "contactID": "C-012",
       "firstName": "Jack",
       "lastName": "Anderson",
@@ -5227,7 +5542,7 @@
       "status": "Active"
     },
     {
-      "id": 813,
+      "id": "813",
       "contactID": "C-013",
       "firstName": "Karen",
       "lastName": "Thomas",
@@ -5238,7 +5553,7 @@
       "status": "Lead"
     },
     {
-      "id": 814,
+      "id": "814",
       "contactID": "C-014",
       "firstName": "Liam",
       "lastName": "Jackson",
@@ -5249,7 +5564,7 @@
       "status": "Active"
     },
     {
-      "id": 815,
+      "id": "815",
       "contactID": "C-015",
       "firstName": "Mia",
       "lastName": "White",
@@ -5260,7 +5575,7 @@
       "status": "Inactive"
     },
     {
-      "id": 816,
+      "id": "816",
       "contactID": "C-016",
       "firstName": "Noah",
       "lastName": "Harris",
@@ -5271,7 +5586,7 @@
       "status": "Active"
     },
     {
-      "id": 817,
+      "id": "817",
       "contactID": "C-017",
       "firstName": "Olivia",
       "lastName": "Martin",
@@ -5282,7 +5597,7 @@
       "status": "Active"
     },
     {
-      "id": 818,
+      "id": "818",
       "contactID": "C-018",
       "firstName": "Peter",
       "lastName": "Garcia",
@@ -5293,7 +5608,7 @@
       "status": "Lead"
     },
     {
-      "id": 819,
+      "id": "819",
       "contactID": "C-019",
       "firstName": "Quinn",
       "lastName": "Martinez",
@@ -5304,7 +5619,7 @@
       "status": "Inactive"
     },
     {
-      "id": 820,
+      "id": "820",
       "contactID": "C-020",
       "firstName": "Rachel",
       "lastName": "Rodriguez",
@@ -5315,7 +5630,7 @@
       "status": "Active"
     },
     {
-      "id": 821,
+      "id": "821",
       "contactID": "C-021",
       "firstName": "Sam",
       "lastName": "Lee",
@@ -5326,7 +5641,7 @@
       "status": "Active"
     },
     {
-      "id": 822,
+      "id": "822",
       "contactID": "C-022",
       "firstName": "Tina",
       "lastName": "Hernandez",
@@ -5337,7 +5652,7 @@
       "status": "Active"
     },
     {
-      "id": 823,
+      "id": "823",
       "contactID": "C-023",
       "firstName": "Uma",
       "lastName": "Gonzales",
@@ -5348,7 +5663,7 @@
       "status": "Lead"
     },
     {
-      "id": 824,
+      "id": "824",
       "contactID": "C-024",
       "firstName": "Victor",
       "lastName": "Perez",
@@ -5359,7 +5674,7 @@
       "status": "Active"
     },
     {
-      "id": 825,
+      "id": "825",
       "contactID": "C-025",
       "firstName": "Wendy",
       "lastName": "Roberts",
@@ -5370,7 +5685,7 @@
       "status": "Inactive"
     },
     {
-      "id": 826,
+      "id": "826",
       "contactID": "C-026",
       "firstName": "Xavier",
       "lastName": "Campbell",
@@ -5381,7 +5696,7 @@
       "status": "Active"
     },
     {
-      "id": 827,
+      "id": "827",
       "contactID": "C-027",
       "firstName": "Yara",
       "lastName": "Mitchell",
@@ -5392,7 +5707,7 @@
       "status": "Active"
     },
     {
-      "id": 828,
+      "id": "828",
       "contactID": "C-028",
       "firstName": "Zack",
       "lastName": "Ramirez",
@@ -5403,7 +5718,7 @@
       "status": "Lead"
     },
     {
-      "id": 829,
+      "id": "829",
       "contactID": "C-029",
       "firstName": "Anna",
       "lastName": "Cook",
@@ -5414,7 +5729,7 @@
       "status": "Inactive"
     },
     {
-      "id": 830,
+      "id": "830",
       "contactID": "C-030",
       "firstName": "Ben",
       "lastName": "Bell",
@@ -5425,7 +5740,7 @@
       "status": "Active"
     },
     {
-      "id": 831,
+      "id": "831",
       "contactID": "C-031",
       "firstName": "Chloe",
       "lastName": "Flores",
@@ -5436,7 +5751,7 @@
       "status": "Active"
     },
     {
-      "id": 832,
+      "id": "832",
       "contactID": "C-032",
       "firstName": "David",
       "lastName": "Scott",
@@ -5447,7 +5762,7 @@
       "status": "Active"
     },
     {
-      "id": 833,
+      "id": "833",
       "contactID": "C-033",
       "firstName": "Emily",
       "lastName": "Green",
@@ -5458,7 +5773,7 @@
       "status": "Lead"
     },
     {
-      "id": 834,
+      "id": "834",
       "contactID": "C-034",
       "firstName": "Fred",
       "lastName": "Adams",
@@ -5469,7 +5784,7 @@
       "status": "Active"
     },
     {
-      "id": 835,
+      "id": "835",
       "contactID": "C-035",
       "firstName": "Georgia",
       "lastName": "Baker",
@@ -5480,16 +5795,56 @@
       "status": "Inactive"
     }
   ],
-"companyOptions":[
-  { "value": "ABC Enterprises", "label": "ABC Enterprises" },
-  { "value": "XYZ Solutions", "label": "XYZ Solutions" },
-  { "value": "Global Corp", "label": "Global Corp" },
-  { "value": "Tech Innovators", "label": "Tech Innovators" },
-  { "value": "Retail Express", "label": "Retail Express" },
-  { "value": "Innovate Ltd.", "label": "Innovate Ltd." },
-  { "value": "Dynamic Solutions", "label": "Dynamic Solutions" },
-  { "value": "NextGen Systems", "label": "NextGen Systems" },
-  { "value": "Precision Tools", "label": "Precision Tools" },
-  { "value": "Future Tech", "label": "Future Tech" }
-]
+  "companyOptions": [
+    {
+      "value": "ABC Enterprises",
+      "label": "ABC Enterprises",
+      "id": "daac"
+    },
+    {
+      "value": "XYZ Solutions",
+      "label": "XYZ Solutions",
+      "id": "a58c"
+    },
+    {
+      "value": "Global Corp",
+      "label": "Global Corp",
+      "id": "0ee7"
+    },
+    {
+      "value": "Tech Innovators",
+      "label": "Tech Innovators",
+      "id": "9ab0"
+    },
+    {
+      "value": "Retail Express",
+      "label": "Retail Express",
+      "id": "5923"
+    },
+    {
+      "value": "Innovate Ltd.",
+      "label": "Innovate Ltd.",
+      "id": "ae4f"
+    },
+    {
+      "value": "Dynamic Solutions",
+      "label": "Dynamic Solutions",
+      "id": "d529"
+    },
+    {
+      "value": "NextGen Systems",
+      "label": "NextGen Systems",
+      "id": "acb6"
+    },
+    {
+      "value": "Precision Tools",
+      "label": "Precision Tools",
+      "id": "b24d"
+    },
+    {
+      "value": "Future Tech",
+      "label": "Future Tech",
+      "id": "8d81"
+    }
+  ]
 }
