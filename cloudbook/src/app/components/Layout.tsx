@@ -59,8 +59,10 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
         
         <Header pageTitle={pageTitle} onSearchClick={handleSearchClick} />
 
-        <main className="custom-scrollbar bg-white">
-          
+ 
+        <main className="bg-white">
+          {/* Pass the search dropdown state and toggle function to the Dashboard component */}
+ 
           <Dashboard
             isDropdownOpen={isSearchDropdownOpen}
             handleDropdownToggle={handleSearchClick}  

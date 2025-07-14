@@ -20,14 +20,38 @@ export default function Sidebar() {
     (state: RootState) => state.sideMenu.sideMenuBar
   );
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   useEffect(() => {
     const checkScreenSize = () => {
       const isSmallScreen = window.innerWidth <= 1024;
       const forcedShrinkRoutes = ['/modules/report', '/modules/settings'];
       setIsMobile(isSmallScreen || forcedShrinkRoutes.includes(pathname));
     };
-  
-    // Run on mount and route change
+ 
+
+    const handleClickOutsideSidebar = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setHoveredMenu(null);
+      }
+    };
+
+    const handleClickOutsideDropdown = (event: MouseEvent) => {
+      if (
+        isDropdownOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest(".bottom-profile-toggle-area")
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+ 
     checkScreenSize();
   
     // Attach resize listener
@@ -36,8 +60,10 @@ export default function Sidebar() {
     return () => {
       window.removeEventListener("resize", checkScreenSize);
     };
+ 
   }, [pathname]); // 🔁 Add pathname so it re-runs on route change
   
+ 
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
 
@@ -61,16 +87,12 @@ export default function Sidebar() {
       ...prev,
       [title]: !currentOpen, // flip based on current resolved open state
     }));
-    
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
-// Add this state to manage the dropdown visibility
-const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-const toggleDropdown = (event: React.MouseEvent) => {
-  event.stopPropagation(); // Crucial for proper toggle behavior
-  setIsDropdownOpen((prev) => !prev);
-};
+  const toggleDropdown = (event: React.MouseEvent) => {
+    // This function now just toggles the state directly.
+    // The `handleClickOutsideDropdown` will handle closing when clicking outside.
+    setIsDropdownOpen((prev) => !prev);
+  };
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
@@ -195,37 +217,35 @@ const toggleDropdown = (event: React.MouseEvent) => {
             </ul>
           </nav>
 
-           <div
-          className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center cursor-pointer" // Added cursor-pointer and onClick
-          onClick={toggleDropdown}
-        >
-          <div className="mr-2">
-            <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
-             
-              <img
-                src="/images/profile-pic.jpg"
-                alt="User Image"
-                className="w-full h-full object-cover"
-              />
+          <div
+            className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center cursor-pointer bottom-profile-toggle-area"
+            onClick={toggleDropdown}
+          >
+            <div className="mr-2">
+              <div className="bg-gray-200 rounded-full w-9.5 h-9.5 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/images/profile-pic.jpg"
+                  alt="User Image"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="text-[#b0b3b7]">
+              <div className="font-semibold text-[15px]">Emma Stone</div>
+              <div className="text-xs">Admin</div>
+            </div>
+            <div className="ml-auto">
+              <i className="ri-expand-up-down-fill text-[#b0b3b7] text-md"></i>
             </div>
           </div>
-          <div className="text-[#b0b3b7]">
-            <div className="font-semibold text-[15px]">Emma Stone</div>
-            <div className="text-xs">Admin</div>
-          </div>
-          <div className="ml-auto">
-            <i
-              className="ri-expand-up-down-fill text-[#b0b3b7] text-md" // Removed onClick here
-            ></i>
-          </div>
         </div>
-      </div>
         {isDropdownOpen && (
           <div
             ref={dropdownRef}
             className="absolute top-[calc(100vh-350px)] h-[340px] left-[200px] p-2 ml-2 w-75 bg-white rounded-xl z-50 shadow-[0_4px_16px_#27313a66]"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-2 py-1.5  flex items-center">
+            <div className="px-2 py-1.5 flex items-center">
               <div className="mr-3">
                 <div className="bg-gray-200 rounded-full w-11 h-11 flex items-center justify-center overflow-hidden">
                   <img
@@ -236,7 +256,6 @@ const toggleDropdown = (event: React.MouseEvent) => {
                 </div>
               </div>
               <div className="flex-1">
-                {/* This makes the info section take full width */}
                 <div className="flex flex-col w-full">
                   <div className="flex items-center w-full">
                     <div className="font-semibold text-gray-900 text-[15px]">
@@ -256,7 +275,6 @@ const toggleDropdown = (event: React.MouseEvent) => {
               </div>
             </div>
 
-            {/* Menu Items */}
             <ul className="py-2">
             <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-moon-line mr-3 text-gray-600 "></i>
@@ -272,12 +290,10 @@ const toggleDropdown = (event: React.MouseEvent) => {
 
               <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-moon-line mr-3 text-gray-600 "></i>
-               
-
+ 
                 <span className="text-[14px] text-gray-800 leading-none">
                   Dark Mode
                 </span>
-
                 <div className="ml-auto flex items-center">
                   <Toggle
                     name="darkMode"
@@ -311,7 +327,6 @@ const toggleDropdown = (event: React.MouseEvent) => {
               </li>
             </ul>
 
-            {/* Version and Terms */}
             <div className="px-2 py-1 text-xs text-gray-400 flex items-center ">
               <span>v.1.5.69</span>
               <span className="text-[10px] ml-1">•</span>

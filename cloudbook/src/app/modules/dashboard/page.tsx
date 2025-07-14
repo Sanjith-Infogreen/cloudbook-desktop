@@ -291,7 +291,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <li
                       key={index}
                       data-index={flatList.findIndex((f) => f.label === modal)}
-                      className={`py-1.5 px-2 text-[14px] text-[#1f2328] cursor-pointer rounded-sm flex justify-between items-center  ${
+                      className={`py-1.5 px-2 text-[14px] text-[#1f2328] cursor-pointer rounded-sm flex justify-between items-center hover:bg-gray-100  ${
                         activeIndex ===
                         flatList.findIndex((f) => f.label === modal)
                           ? "bg-gray-100"
@@ -319,10 +319,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <li
                       key={index}
                       data-index={flatList.findIndex((f) => f.label === search)}
-                      className={`py-1.5 px-2 cursor-pointer text-[14px] text-[#1f2328]  rounded-md ${
+                      className={`py-1.5 px-2 cursor-pointer text-[14px] text-[#1f2328]  rounded-md  ${
                         activeIndex ===
                         flatList.findIndex((f) => f.label === search)
-                          ? "bg-gray-100"
+                          ? "hover:bg-gray-100 "
                           : ""
                       }`}
                     >
