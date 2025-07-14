@@ -23,118 +23,250 @@
       "email": "jane.smith@example.com"
     }
   ],
-  "typeHeadData": [
-    {
-      "id": "1",
-      "name": "Aaaaaaaaaaaaaaaa",
-      "description": "This is a detailed description for Aaaaaaaaaaaaaaaa item with more information about its features and usage.",
-      "addressLine1": "123 Alpha Street",
-      "addressLine2": "Industrial Zone",
-      "phoneNumber": "9876543210",
-      "gstNumber": "29ABCDE1234F1Z5",
-      "state": "Karnataka",
-      "pincode": "560001"
-    },
-    {
-      "id": "2",
-      "name": "Ad Agency Solutions",
-      "description": "Professional advertising and marketing solutions for businesses of all sizes.",
-      "addressLine1": "45 Market Road",
-      "addressLine2": "Advertising Hub",
-      "phoneNumber": "9123456780",
-      "gstNumber": "27ABCDE2345G2Y6",
-      "state": "Maharashtra",
-      "pincode": "400001"
-    },
-    {
-      "id": "3",
-      "name": "Anil Alta Technologies",
-      "description": "Advanced technology solutions and IT services provider.",
-      "addressLine1": "67 Tech Park",
-      "addressLine2": "Innovation Street",
-      "phoneNumber": "9988776655",
-      "gstNumber": "33ABCDE3456H3Z7",
-      "state": "Tamil Nadu",
-      "pincode": "600001"
-    },
-    {
-      "id": "4",
-      "name": "Anil Maggie Foods",
-      "description": "Quality food products and catering services for various occasions.",
-      "addressLine1": "12 Flavor Avenue",
-      "addressLine2": "Food District",
-      "phoneNumber": "9090909090",
-      "gstNumber": "24ABCDE4567J4K8",
-      "state": "Gujarat",
-      "pincode": "380001"
-    },
-    {
-      "id": "5",
-      "name": "Anil Kumar Enterprises",
-      "description": "Multi-business enterprise offering various commercial services.",
-      "addressLine1": "101 Main Road",
-      "addressLine2": "Business Center",
-      "phoneNumber": "8877665544",
-      "gstNumber": "09ABCDE5678K5L9",
-      "state": "Uttar Pradesh",
-      "pincode": "226001"
-    },
-    {
-      "id": "6",
-      "name": "Arun Suppliers",
-      "description": "Reliable supplier of industrial and commercial goods and materials.",
-      "addressLine1": "88 Warehouse Lane",
-      "addressLine2": "Supply Zone",
-      "phoneNumber": "9988001122",
-      "gstNumber": "07ABCDE6789L6M0",
-      "state": "Delhi",
-      "pincode": "110001"
-    },
-    {
-      "id": "7",
-      "name": "Asdfasf Industries",
-      "description": "Manufacturing and industrial solutions provider with quality products.",
-      "addressLine1": "56 Industrial Estate",
-      "addressLine2": "Sector 12",
-      "phoneNumber": "9012345678",
-      "gstNumber": "08ABCDE7890M7N1",
-      "state": "Haryana",
-      "pincode": "122001"
-    },
-    {
-      "id": "8",
-      "name": "Alpha Beta Corp",
-      "description": "Corporate solutions and business consulting services.",
-      "addressLine1": "777 Corporate Lane",
-      "addressLine2": "Finance District",
-      "phoneNumber": "9321654987",
-      "gstNumber": "21ABCDE8901N8O2",
-      "state": "Odisha",
-      "pincode": "751001"
-    },
-    {
-      "id": "9",
-      "name": "Amazing Products Ltd",
-      "description": "Innovative product development and distribution company.",
-      "addressLine1": "500 Product Park",
-      "addressLine2": "Creation City",
-      "phoneNumber": "9234567890",
-      "gstNumber": "22ABCDE9012O9P3",
-      "state": "Punjab",
-      "pincode": "160001"
-    },
-    {
-      "id": "10",
-      "name": "Advance Systems",
-      "description": "Advanced system integration and technical support services.",
-      "addressLine1": "33 Integration Road",
-      "addressLine2": "Tech City",
-      "phoneNumber": "9876512345",
-      "gstNumber": "23ABCDE0123P0Q4",
-      "state": "Rajasthan",
-      "pincode": "302001"
-    }
-  ],
+"typeHeadData": [
+  {
+    "id": "1",
+    "name": "Aaaaaaaaaaaaaaaa",
+    "description": "This is a detailed description...",
+    "billingAddresses": [
+      {
+        "id": "b1",
+        "addressLine1": "123 Alpha Street",
+        "addressLine2": "Industrial Zone",
+        "phoneNumber": "9876543210"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s1",
+        "addressLine1": "789 Ship Road",
+        "addressLine2": "Port Area",
+        "phoneNumber": "9876500000"
+      }
+      
+    ],
+    "gstNumber": "29ABCDE1234F1Z5",
+    "state": "Karnataka",
+    "pincode": "560001"
+  },
+  {
+    "id": "2",
+    "name": "Ad Agency Solutions",
+    "description": "Professional advertising and marketing solutions for businesses of all sizes.",
+    "billingAddresses": [
+      {
+        "id": "b2",
+        "addressLine1": "45 Market Road",
+        "addressLine2": "Advertising Hub",
+        "phoneNumber": "9123456780"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s3",
+        "addressLine1": "50 Creative Street",
+        "addressLine2": "Media District",
+        "phoneNumber": "9123467890"
+      }
+    ],
+    "gstNumber": "27ABCDE2345G2Y6",
+    "state": "Maharashtra",
+    "pincode": "400001"
+  },
+  {
+    "id": "3",
+    "name": "Anil Alta Technologies",
+    "description": "Advanced technology solutions and IT services provider.",
+    "billingAddresses": [
+      {
+        "id": "b3",
+        "addressLine1": "67 Tech Park",
+        "addressLine2": "Innovation Street",
+        "phoneNumber": "9988776655"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s4",
+        "addressLine1": "70 Software Ave",
+        "addressLine2": "Tech Zone",
+        "phoneNumber": "9988771234"
+      }
+    ],
+    "gstNumber": "33ABCDE3456H3Z7",
+    "state": "Tamil Nadu",
+    "pincode": "600001"
+  },
+  {
+    "id": "4",
+    "name": "Anil Maggie Foods",
+    "description": "Quality food products and catering services for various occasions.",
+    "billingAddresses": [
+      {
+        "id": "b4",
+        "addressLine1": "12 Flavor Avenue",
+        "addressLine2": "Food District",
+        "phoneNumber": "9090909090"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s5",
+        "addressLine1": "15 Catering Lane",
+        "addressLine2": "Event Street",
+        "phoneNumber": "9090919191"
+      }
+    ],
+    "gstNumber": "24ABCDE4567J4K8",
+    "state": "Gujarat",
+    "pincode": "380001"
+  },
+  {
+    "id": "5",
+    "name": "Anil Kumar Enterprises",
+    "description": "Multi-business enterprise offering various commercial services.",
+    "billingAddresses": [
+      {
+        "id": "b5",
+        "addressLine1": "101 Main Road",
+        "addressLine2": "Business Center",
+        "phoneNumber": "8877665544"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s6",
+        "addressLine1": "105 Commerce Blvd",
+        "addressLine2": "Industrial Area",
+        "phoneNumber": "8877676767"
+      }
+    ],
+    "gstNumber": "09ABCDE5678K5L9",
+    "state": "Uttar Pradesh",
+    "pincode": "226001"
+  },
+  {
+    "id": "6",
+    "name": "Arun Suppliers",
+    "description": "Reliable supplier of industrial and commercial goods and materials.",
+    "billingAddresses": [
+      {
+        "id": "b6",
+        "addressLine1": "88 Warehouse Lane",
+        "addressLine2": "Supply Zone",
+        "phoneNumber": "9988001122"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s7",
+        "addressLine1": "90 Distribution Road",
+        "addressLine2": "Logistics Park",
+        "phoneNumber": "9988012345"
+      }
+    ],
+    "gstNumber": "07ABCDE6789L6M0",
+    "state": "Delhi",
+    "pincode": "110001"
+  },
+  {
+    "id": "7",
+    "name": "Asdfasf Industries",
+    "description": "Manufacturing and industrial solutions provider with quality products.",
+    "billingAddresses": [
+      {
+        "id": "b7",
+        "addressLine1": "56 Industrial Estate",
+        "addressLine2": "Sector 12",
+        "phoneNumber": "9012345678"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s8",
+        "addressLine1": "60 Factory Road",
+        "addressLine2": "Manufacturing Zone",
+        "phoneNumber": "9012356789"
+      }
+    ],
+    "gstNumber": "08ABCDE7890M7N1",
+    "state": "Haryana",
+    "pincode": "122001"
+  },
+  {
+    "id": "8",
+    "name": "Alpha Beta Corp",
+    "description": "Corporate solutions and business consulting services.",
+    "billingAddresses": [
+      {
+        "id": "b8",
+        "addressLine1": "777 Corporate Lane",
+        "addressLine2": "Finance District",
+        "phoneNumber": "9321654987"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s9",
+        "addressLine1": "780 Business Park",
+        "addressLine2": "Financial Hub",
+        "phoneNumber": "9321660000"
+      }
+    ],
+    "gstNumber": "21ABCDE8901N8O2",
+    "state": "Odisha",
+    "pincode": "751001"
+  },
+  {
+    "id": "9",
+    "name": "Amazing Products Ltd",
+    "description": "Innovative product development and distribution company.",
+    "billingAddresses": [
+      {
+        "id": "b9",
+        "addressLine1": "500 Product Park",
+        "addressLine2": "Creation City",
+        "phoneNumber": "9234567890"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s10",
+        "addressLine1": "505 Innovation Blvd",
+        "addressLine2": "Research District",
+        "phoneNumber": "9234570000"
+      }
+    ],
+    "gstNumber": "22ABCDE9012O9P3",
+    "state": "Punjab",
+    "pincode": "160001"
+  },
+  {
+    "id": "10",
+    "name": "Advance Systems",
+    "description": "Advanced system integration and technical support services.",
+    "billingAddresses": [
+      {
+        "id": "b10",
+        "addressLine1": "33 Integration Road",
+        "addressLine2": "Tech City",
+        "phoneNumber": "9876512345"
+      }
+    ],
+    "shippingAddresses": [
+      {
+        "id": "s11",
+        "addressLine1": "40 Support Street",
+        "addressLine2": "Service Area",
+        "phoneNumber": "9876523456"
+      }
+    ],
+    "gstNumber": "23ABCDE0123P0Q4",
+    "state": "Rajasthan",
+    "pincode": "302001"
+  }
+],
+
   "sidebarData": [
     {
       "icon": "ri-dashboard-line",
