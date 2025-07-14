@@ -25,8 +25,11 @@ export default function Sidebar() {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 1024);
+      const isSmallScreen = window.innerWidth <= 1024;
+      const forcedShrinkRoutes = ['/modules/report', '/modules/settings'];
+      setIsMobile(isSmallScreen || forcedShrinkRoutes.includes(pathname));
     };
+ 
 
     const handleClickOutsideSidebar = (event: MouseEvent) => {
       if (
@@ -48,22 +51,19 @@ export default function Sidebar() {
       }
     };
 
-    // Run initial screen size check
+ 
     checkScreenSize();
-
-    // Attach all listeners
+  
+    // Attach resize listener
     window.addEventListener("resize", checkScreenSize);
-    document.addEventListener("mousedown", handleClickOutsideSidebar);
-    document.addEventListener("mousedown", handleClickOutsideDropdown);
-
-    // Cleanup all listeners
+  
     return () => {
       window.removeEventListener("resize", checkScreenSize);
-      document.removeEventListener("mousedown", handleClickOutsideSidebar);
-      document.removeEventListener("mousedown", handleClickOutsideDropdown);
     };
-  }, [isDropdownOpen]);
-
+ 
+  }, [pathname]); // 🔁 Add pathname so it re-runs on route change
+  
+ 
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
 
@@ -276,8 +276,21 @@ export default function Sidebar() {
             </div>
 
             <ul className="py-2">
+            <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
+                <i className="ri-moon-line mr-3 text-gray-600 "></i>
+               
+
+                <span className="text-[14px] text-gray-800 leading-none">
+                  Profile
+                </span>
+
+                
+              </li>
+
+
               <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-moon-line mr-3 text-gray-600 "></i>
+ 
                 <span className="text-[14px] text-gray-800 leading-none">
                   Dark Mode
                 </span>
@@ -299,7 +312,7 @@ export default function Sidebar() {
                 <i className="ri-grid-fill mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Integrations</span>
               </li>
-              <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
+              <li  onClick={() => router.push('/modules/settings')} className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
                 <i className="ri-settings-3-line mr-3 text-gray-600"></i>
                 <span className="text-[14px] text-gray-800">Settings</span>
               </li>

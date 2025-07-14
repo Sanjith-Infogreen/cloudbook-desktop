@@ -15,7 +15,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, pageTitle }: LayoutProps) {
-  // State to control the visibility of the search dropdown
+ 
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const sideMenuBar = useSelector((state: RootState) => state.sideMenu.sideMenuBar);
@@ -50,20 +50,22 @@ export default function Layout({ children, pageTitle }: LayoutProps) {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* The ProgressBar component will manage its own loading state and animation */}
+       
       <ProgressBar />
 
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        {/* Pass the handleSearchClick function to the Header component */}
+        
         <Header pageTitle={pageTitle} onSearchClick={handleSearchClick} />
 
+ 
         <main className="bg-white">
           {/* Pass the search dropdown state and toggle function to the Dashboard component */}
+ 
           <Dashboard
             isDropdownOpen={isSearchDropdownOpen}
-            handleDropdownToggle={handleSearchClick} // Re-using handleSearchClick to close the dropdown
+            handleDropdownToggle={handleSearchClick}  
           />
           {children}
         </main>
