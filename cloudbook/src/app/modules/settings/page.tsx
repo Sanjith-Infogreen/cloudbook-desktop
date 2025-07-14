@@ -6,6 +6,7 @@ import Layout from "../../components/Layout";
 
 // Import your setting components
 import ProfileSettings from "./components/profileSettings";
+import Branding from "./components/branding";
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -149,9 +150,12 @@ const SettingsPage = () => {
   const renderSettingComponent = () => {
     switch (activeSetting) {
       case "Profile":
-        // Pass the required props here
+         
         return <ProfileSettings activeReport={activeSetting} activeCategory={activeCategory} />;
-
+        case "Branding":
+            
+            return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
+    
       default:
         return (
           <div className="p-4 text-center text-gray-600">

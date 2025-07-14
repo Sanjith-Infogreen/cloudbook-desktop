@@ -28,8 +28,8 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ options, name, value, onChange 
 );
 
 
-// Props for the main ProfileSettings component
-interface ProfileSettingsProps {
+// Props for the main Branding component
+interface BrandingProps {
   activeReport?: string | null; // Made optional as it's not used in the provided snippet
   activeCategory?: string | null; // Made optional as it's not used in the provided snippet
 }
@@ -124,7 +124,7 @@ interface FormData {
   };
 }
 
-const ProfileSettings: React.FC<ProfileSettingsProps> = ({ activeReport, activeCategory }) => {
+const Branding: React.FC<BrandingProps> = ({ activeReport, activeCategory }) => {
   // State to manage the currently active tab
   const [activeTab, setActiveTab] = useState<string>("basicData"); // Default to 'basicData'
 
@@ -502,7 +502,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ activeReport, activeC
   return (
     <div className="flex flex-col"> {/* Added a wrapper div */}
       <div className="p-2 bg-white flex-grow overflow-y-auto max-h-[calc(100vh-105px)]  h-[calc(100vh-105px)]">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Profile Settings</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">Brand Settings</h2>
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap border-b border-gray-200 mb-4">
@@ -544,4 +544,4 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ activeReport, activeC
   );
 };
 
-export default ProfileSettings;
+export default Branding;
