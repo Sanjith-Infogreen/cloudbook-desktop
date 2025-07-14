@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-
+// ----- Tunables -----
+const DROPDOWN_HEIGHT_PX = 260;        
+const DESCRIPTION_WIDTH_PX = 220;     
+// --------------------
 interface CommonTypeaheadProps {
   name: string;
   placeholder?: string;
@@ -46,22 +49,69 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+// dropdown position code start
+  const [openDirection, setOpenDirection] = useState<"bottom" | "top">("bottom"); 
+  const [descSide, setDescSide] = useState<"right" | "left">("right");  
+
+  const updateMenuAndDescPos = useCallback(() => {
+    if (!inputRef.current) return;
+    const rect = inputRef.current.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+
+    const spaceBelow = viewportHeight - rect.bottom;
+    const shouldOpenBottom = spaceBelow >= DROPDOWN_HEIGHT_PX;
+    const newDirection: "bottom" | "top" = shouldOpenBottom ? "bottom" : "top";
+    setOpenDirection(newDirection);
+
+    const topCoord =
+      newDirection === "bottom"
+        ? rect.bottom + window.scrollY
+        : rect.top + window.scrollY - DROPDOWN_HEIGHT_PX;
+
+    setMenuPos({
+      left: rect.left,
+      top: topCoord,
+      width: rect.width,
+    });
+
+    const spaceRight = viewportWidth - rect.right;
+    const newSide: "right" | "left" =
+      spaceRight >= DESCRIPTION_WIDTH_PX ? "right" : "left";
+    setDescSide(newSide);
+
+    setHoveredPosition({
+      x:
+        newSide === "right"
+          ? rect.right + 10
+          : rect.left - DESCRIPTION_WIDTH_PX - 10,
+      y: topCoord,
+    });
+  }, []);
+
+
+
+  useEffect(() => {
+    updateMenuAndDescPos();
+    updateDescriptionPosition();
+  }, [searchTerm, isDropdownOpen, updateMenuAndDescPos]);
+// dropdown position code end
+
+  // Re-run on scroll/resize
+  useEffect(() => {
+    const handler = () => updateMenuAndDescPos();
+    window.addEventListener("resize", handler);
+    window.addEventListener("scroll", handler, true);
+    return () => {
+      window.removeEventListener("resize", handler);
+      window.removeEventListener("scroll", handler, true);
+    };
+  }, [updateMenuAndDescPos]);
   // code for open dropdown over the table open
   const [menuPos, setMenuPos] = useState({ left: 0, top: 0, width: 0 });
   const [mounted, setMounted] = useState(false);
 
-  /** 1️⃣ When input gains focus or term changes, remember its screen coords */
-  const updateMenuPos = () => {
-    if (inputRef.current) {
-      const rect = inputRef.current.getBoundingClientRect();
-      setMenuPos({
-        left: rect.left,
-        top: rect.bottom + window.scrollY,
-        width: rect.width,
-      });
-    }
-  };
-  useEffect(updateMenuPos, [searchTerm, isDropdownOpen]);
+
 
   useEffect(() => {
     setMounted(true);
@@ -105,15 +155,28 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
   };
 
   // Update description card position (fixed position like original)
-  const updateDescriptionPosition = () => {
-    if (!dropdownRef.current) return;
+ const updateDescriptionPosition = () => {
+  if (!dropdownRef.current) return;
+  const dropdownRect = dropdownRef.current.getBoundingClientRect();
+  const scrollY = window.scrollY;
+  const scrollX = window.scrollX;
 
-    const dropdownRect = dropdownRef.current.getBoundingClientRect();
-    setHoveredPosition({
-      x: dropdownRect.right + 10,
-      y: dropdownRect.top + 40,
-    });
-  };
+  // Horizontal positioning (left or right of dropdown)
+  const newX =
+    descSide === "right"
+      ? dropdownRect.right + 10 + scrollX
+      : dropdownRect.left - DESCRIPTION_WIDTH_PX - 10 + scrollX;
+
+  // Vertical positioning: always aligned to top of dropdown
+   const newY =
+    openDirection === "bottom"
+      ? dropdownRect.top+40 + scrollY
+      : dropdownRect.bottom-290 + scrollY; // dropdown is ABOVE, so align to its bottom
+ 
+  setHoveredPosition({ x: newX, y: newY });
+};
+
+
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -331,7 +394,12 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
         createPortal(
           <div
             className="absolute top-full mt-1 left-0 right-0 bg-white border border-gray-200 rounded-sm shadow-lg z-50 max-h-64 overflow-hidden flex flex-col"
-            style={{ position: "absolute", ...menuPos, width: menuPos.width }}
+            style={{ position: "absolute",
+              left: menuPos.left,
+              top: menuPos.top,
+              width: menuPos.width,
+              // Force fixed height to aid top-opening calc
+              height: DROPDOWN_HEIGHT_PX,}}
           >
             <div className="flex-1 overflow-y-auto py-0">
               {filteredData.length > 0 ? (
@@ -390,8 +458,8 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
         <div
           className="fixed bg-white border border-gray-200 rounded-sm shadow-lg p-3 z-[60] max-w-xs"
           style={{
-            left: `${hoveredPosition.x}px`,
-            top: `${hoveredPosition.y}px`,
+            left: hoveredPosition.x,
+              top: hoveredPosition.y,
           }}
           onMouseEnter={handleDescriptionMouseEnter}
           onMouseLeave={handleDescriptionMouseLeave}
