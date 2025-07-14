@@ -29,7 +29,6 @@ export default function Sidebar() {
       const forcedShrinkRoutes = ['/modules/report', '/modules/settings'];
       setIsMobile(isSmallScreen || forcedShrinkRoutes.includes(pathname));
     };
- 
 
     const handleClickOutsideSidebar = (event: MouseEvent) => {
       if (
@@ -51,18 +50,21 @@ export default function Sidebar() {
       }
     };
 
- 
     checkScreenSize();
-  
+
     // Attach resize listener
     window.addEventListener("resize", checkScreenSize);
-  
+    // Attach click outside dropdown listener
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
+
+
     return () => {
       window.removeEventListener("resize", checkScreenSize);
+      // Clean up the event listener when the component unmounts
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
     };
- 
-  }, [pathname]); // 🔁 Add pathname so it re-runs on route change
-  
+
+  }, [pathname, isDropdownOpen, dropdownRef]);  
  
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
@@ -276,16 +278,7 @@ export default function Sidebar() {
             </div>
 
             <ul className="py-2">
-            <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
-                <i className="ri-moon-line mr-3 text-gray-600 "></i>
-               
-
-                <span className="text-[14px] text-gray-800 leading-none">
-                  Profile
-                </span>
-
-                
-              </li>
+             
 
 
               <li className="flex items-center px-2 py-1.5 mb-1 hover:bg-gray-100 rounded-md cursor-pointer">
