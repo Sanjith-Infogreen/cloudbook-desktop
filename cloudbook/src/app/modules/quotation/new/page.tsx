@@ -455,7 +455,7 @@ const NewQuotation = () => {
                 <h2 className="text-lg text-[#009333] mt-5 mb-5">
                   Product Details
                 </h2>
-                <div className="max-h-[calc(100vh-520px)] overflow-y-auto">
+                <div className="max-h-[calc(100vh-580px)] overflow-y-auto">
                   <table className="w-full text-[14px] text-sm">
                     <thead className="bg-[#f8f9fa] text-left  text-[#12344d] sticky-table-header">
                       <tr>
