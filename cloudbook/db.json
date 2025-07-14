@@ -301,7 +301,8 @@
     {
       "id": "1",
       "name": "Product A",
-      "remarks": "Electronics category"
+      "remarks": "Electronics category",
+      "status": true
     },
     {
       "id": "2",
