@@ -22,7 +22,7 @@ export default function ProgressBar() {
     setProgress(0);
 
     let currentProgress = 0;
-    const intervalTime = 80; // How often to update the progress (milliseconds)
+    const intervalTime = 0; // How often to update the progress (milliseconds)
     const incrementAmount = 5; // How much to increment each time
 
     timerRef.current = setInterval(() => {

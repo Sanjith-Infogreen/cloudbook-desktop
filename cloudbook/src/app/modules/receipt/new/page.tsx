@@ -269,63 +269,14 @@ const NewReceipt = () => {
     }
   };
 
-  // Handler for individual bill balance changes
-  const handleBillBalanceChange = (id: number, value: string) => {
-    const regex = /^\d*\.?\d{0,2}$/;
-    if (value === "" || regex.test(value)) {
-      setBills((prevBills) =>
-        prevBills.map((bill) =>
-          bill.id === id ? { ...bill, balance: value } : bill
-        )
-      );
-    }
-  };
-
-  // Calculate total sum of 'Total' and 'Paid' columns
-  const totalSum = bills.reduce((sum, bill) => sum + (bill.total || 0), 0);
-  const paidSum = bills.reduce((sum, bill) => sum + (bill.paid || 0), 0);
-
+ 
   return (
     <Layout pageTitle="Receipt New">
-      <div className="min-h-screen">
+      <div className="">
         <main id="main-content" className="flex-1">
           <div className="flex-1 overflow-y-auto h-[calc(100vh-104px)]">
             <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
-              {/* Top section: Supplier Name and Date */}
-              {/* <div className="border-b border-gray-300">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 py-2 mb-1">
-                  <div className="lg:pr-4">
-                    <FormField label="Supplier Name" required className="!mb-0">
-                      <CommonTypeahead
-                        className="capitalize"
-                        name="supplierName"
-                        placeholder="Enter supplier name"
-                        data={typeHead}
-                        required={true}
-                        searchFields={["name"]}
-                        displayField="name"
-                        minSearchLength={1}
-                        onAddNew={handleAddNewName}
-                        onSelect={handleNameSelect}
-                      />
-                    </FormField>
-                  </div>
-                  <div className="space-y-4 flex justify-end">
-                    <FormField label="" className="w-full lg:w-1/2 !mb-0">
-                      <DatePicker
-                        name="date"
-                        id="date"
-                        selected={date}
-                        initialDate={date}
-                        onChange={(e) => {
-                          setDate(e);
-                        }}
-                        className="w-full"
-                      />
-                    </FormField>
-                  </div>
-                </div>
-              </div> */}
+               
 
               {/* Middle section: Remarks, Mode, Bank Account, Amount, and Supplier Details */}
               <div className="px-4 py-4">
@@ -487,7 +438,7 @@ const NewReceipt = () => {
                       </div>
 
                       {/* Content */}
-                      <div className="overflow-x-auto mt-3">
+                      <div className="overflow-x-auto mt-3 h-[calc(100vh-210px)]">
                         {loading ? (
                           <div className="p-4 text-center text-gray-500">
                             Loading trader data...
@@ -591,7 +542,7 @@ const NewReceipt = () => {
                           //   </div>
                           // )
                           /* Transactions Table */
-                          <div className="h-[calc(100vh-410px)] ">
+                          <div className="max-h-[calc(100vh-410px)] ">
                             <table className="w-full h-full overflow-y-auto ">
                               <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10">
                                 <tr className="divide-x divide-[#efefef]">
@@ -696,91 +647,7 @@ const NewReceipt = () => {
                 </div>
               </div>
 
-              {/* Bills Table Section */}
-              <div className="h-[calc(100vh-422px)] max-h-[calc(100vh-422px)] overflow-y-auto pr-5 pl-4">
-                <table className="w-full text-sm">
-                  <thead className="bg-[#f8f9fa] text-left text-[#12344d] sticky-table-header">
-                    <tr>
-                      <th className="th-cell w-[5%]">S.no</th>
-                      <th className="th-cell w-[15%]">Date</th>
-                      <th className="th-cell w-[15%]">Bill Number</th>
-                      <th className="th-cell w-[15%]">Purpose</th>
-                      <th className="th-cell w-[15%] text-right">Total</th>
-                      <th className="th-cell w-[15%] text-right">Paid</th>
-                      <th className="th-cell w-[20%] text-right">Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody id="productTableBody">
-                    {bills.length > 0 ? (
-                      bills.map((bill, index) => (
-                        <tr key={bill.id} className="border-b border-gray-200">
-                          <td className="td-cell">{index + 1}</td>
-                          <td className="td-cell">{bill.date}</td>
-                          <td className="td-cell">{bill.billNumber}</td>
-                          <td className="td-cell">{bill.purpose}</td>
-                          <td className="td-cell text-right">
-                            {bill.total.toLocaleString("en-IN", {
-                              style: "currency",
-                              currency: "INR",
-                            })}
-                          </td>
-                          <td className="td-cell text-right text-[#009333]">
-                            {bill.paid.toLocaleString("en-IN", {
-                              style: "currency",
-                              currency: "INR",
-                            })}
-                          </td>
-                          <td className="td-cell">
-                            <Input
-                              name={`balance-${bill.id}`}
-                              placeholder="Enter Balance"
-                              className="form-control number_with_decimal text-right"
-                              value={bill.balance.toString()}
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) =>
-                                handleBillBalanceChange(bill.id, e.target.value)
-                              }
-                            />
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan={7}
-                          className="p-4 text-center text-gray-500"
-                        >
-                          Select a supplier to view bills.
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                  {/* Table Footer for Totals */}
-                  {bills.length > 0 && (
-                    <tfoot className="bg-[#f8f9fa] text-left text-[#12344d] font-bold sticky-table-footer">
-                      <tr>
-                        <td colSpan={4} className="p-2 text-right">
-                          Total:
-                        </td>
-                        <td className="p-2 text-right">
-                          {totalSum.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td>
-                        <td className="p-2 text-right">
-                          {paidSum.toLocaleString("en-IN", {
-                            style: "currency",
-                            currency: "INR",
-                          })}
-                        </td>
-                        <td className="p-2"></td>
-                      </tr>
-                    </tfoot>
-                  )}
-                </table>
-              </div>
+             
             </form>
           </div>
         </main>

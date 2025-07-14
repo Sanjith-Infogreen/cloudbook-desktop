@@ -280,9 +280,9 @@ const CashbookReport: React.FC<CashbookReportProps> = ({
 
   return (
     <main className="flex-1">
-      <h3 className="text-[16px] p-2 sm:text-[16px] font-medium text-[#009333]">
+            {/* <h3 className="text-[16px] p-2 sm:text-[16px] font-medium text-[#009333]">
         {activeReport}
-      </h3>
+      </h3> */}
 
       {/* Header Section */}
       <div className="flex justify-between items-center px-1.5 py-1.5 bg-[#ebeff3]">
@@ -378,12 +378,12 @@ const CashbookReport: React.FC<CashbookReportProps> = ({
       {/* Table Section */}
       <div className="bg-[#ebeff3]">
         {selectedIds.length > 1 && (
-          <div className="fixed top-42 left-1/2 transform -translate-x-1/2 z-50 badge-selected">
+          <div className="fixed top-42 left-1/2 transform -translate-x-1/2  z-29 badge-selected">
             {selectedIds.length} Product Sales Reports selected
           </div>
         )}
 
-        <div className="mx-2 h-[calc(100vh-187px)] overflow-hidden rounded-lg bg-white">
+        <div className="mx-2 h-[calc(100vh-148px)] overflow-hidden rounded-lg bg-white">
           <div className="h-full overflow-y-auto">
             <table className="w-full">
               <thead className="sticky-table-header">
