@@ -1,6 +1,5 @@
 import { Input } from '@/app/utils/form-controls';
 import React, { ReactNode, useState, useEffect } from 'react';
-
 interface SubscriptionProps {
   activeReport?: string | null;
   activeCategory?: string | null;
@@ -9,74 +8,62 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
   return (
     <div className="flex flex-col bg-gray-100 ">
        <div className="flex justify-between items-center p-6">
-  <h5 className="text-[14px] font-bold text-gray-800">Subscriptions</h5>
+  <h5 className="text-[16px] font-bold text-gray-800">Subscriptions</h5>
   <button className="bg-[#009333] text-[14px]  text-white py-1 px-2 rounded">
     Manage Subscriptions
   </button>
 </div>
       <div className="p-2 bg-gray-100 flex-grow overflow-y-auto max-h-[calc(100vh-125px)] h-[calc(100vh-125px)]">
-       
         {/* PLAN DETAILS */}
         <div className="bg-white p-4 rounded-lg shadow-md mb-4 mx-2">
           <h3 className="text-[14px]  mb-3 text-[#009333]"><i className="ri-map-line mr-2"></i> PLAN DETAILS</h3>
           <div className="flex justify-between items-center mb-2">
             <span className="text-[14px] font-medium">Plan Name</span>
-            <span className="text-[#FF971E] font-medium text-lg">Monthly Plan ( ₹799 ) </span>
+            <span className="text-[#BD7400] font-semibold text-lg">Monthly Plan ( ₹799 ) </span>
           </div>
         </div>
-
         <div className="bg-white p-4 rounded-lg shadow-md mb-4 mx-2">
       <h3 className="text-[14px] mb-3 text-[#009333] flex items-center">
-        {/* Changed to use Remix Icon class name directly */}
         <i className="ri ri-line-chart-line mr-2"></i> USAGE STATS
       </h3>
       <div className="grid grid-cols-3 gap-4">
         {/* Sales */}
         <div className="flex flex-col items-center p-2 border border-gray-200 rounded-lg">
           <div className="text-2xl text-[#009333] mb-1">
-            {/* Changed to use Remix Icon class name directly */}
             <i className="ri ri-shopping-cart-line"></i>
           </div>
           <p className="text-[14px] text-center font-medium">Sales</p>
           <span className="text-gray-600 text-[12px]"><span className='text-[#009333]'>320</span> / 1000 used</span>
         </div>
-
         {/* Purchases */}
         <div className="flex flex-col items-center p-2 border border-gray-200 rounded-lg">
           <div className="text-2xl text-[#009333] mb-1">
-            {/* Changed to use Remix Icon class name directly */}
             <i className="ri ri-exchange-dollar-line"></i>
           </div>
           <p className="text-[14px] text-center font-medium">Purchases</p>
           <span className="text-gray-600 text-[12px]"><span className='text-[#009333]'>20</span>  / 1000 used</span>
         </div>
-
         {/* Users */}
         <div className="flex flex-col items-center p-2 border border-gray-200 rounded-lg">
           <div className="text-2xl text-[#009333] mb-1">
-            {/* Changed to use Remix Icon class name directly */}
             <i className="ri ri-user-3-line"></i>
           </div>
           <p className="text-[14px] text-center font-medium">Users</p>
           <span className="text-gray-600 text-[12px]"><span className='text-[#009333]'>1</span>  / 2 used</span>
         </div>
       </div>
-
       <div className="grid grid-cols-2 gap-4 mt-4">
         {/* Custom Reports */}
         <div className="flex flex-col items-center p-2 border border-gray-200 rounded-lg">
           <div className="text-2xl text-[#009333] mb-1">
-            {/* Changed to use Remix Icon class name directly */}
             <i className="ri ri-file-chart-line"></i>
           </div>
           <p className="text-[14px] text-center font-medium">Custom Reports</p>
           <span className="text-gray-600 text-[12px]">0 / 0 used</span>
         </div>
-
         {/* API Limit (per day) */}
         <div className="flex flex-col items-center p-2 border border-gray-200 rounded-lg">
           <div className="text-2xl text-[#009333] mb-1">
-            {/* Changed to use Remix Icon class name directly */}
             <i className="ri ri-code-s-slash-line"></i>
           </div>
           <p className="text-[14px] text-center font-medium">API Limit (per day)</p>
@@ -84,7 +71,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
         </div>
       </div>
     </div>
- 
         {/* OTHER MODULES */}
         <div className="bg-white p-4 rounded-lg shadow-md mb-4 mx-2">
           <h3 className="text-[14px]   mb-3 text-[#009333]"><i className="ri-shape-fill  mr-2"></i> OTHER MODULES</h3>
@@ -111,11 +97,9 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
             </div>
           </div>
         </div>
-
         {/* FEATURES */}
         <div className="bg-white p-4 rounded-lg shadow-md mb-4 mx-2">
           <h3 className="text-[14px]   mb-3 text-[#009333]"><i className="ri-list-check mr-2"></i> FEATURES</h3>
-          
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">SALES</h5>
             <div className="grid grid-cols-2 gap-y-1 gap-x-4 text-gray-800 text-[14px]">
@@ -132,7 +116,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Multi-lingual Invoicing</span>
             </div>
           </div>
-
           {/* PURCHASES */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">PURCHASES</h5>
@@ -144,7 +127,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Expenses & Mileage Tracking</span>
             </div>
           </div>
-
           {/* BANKING */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">BANKING</h5>
@@ -155,7 +137,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Direct Bank Feeds via Partner Banks</span>
             </div>
           </div>
-
           {/* REPORTS */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">REPORTS</h5>
@@ -166,7 +147,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Custom Financial Report Generator</span>
             </div>
           </div>
-
           {/* GST RETURNS */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">GST RETURNS</h5>
@@ -178,7 +158,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> GST Payments</span>
             </div>
           </div>
-
           {/* ACCOUNTANT */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">ACCOUNTANT</h5>
@@ -191,7 +170,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Transaction Locking</span>
             </div>
           </div>
-
           {/* GENERAL */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">GENERAL</h5>
@@ -204,7 +182,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Generate Payment Links</span>
             </div>
           </div>
-
           {/* CUSTOM AUTOMATION */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1   text-[15px] text-[#009333]">CUSTOM AUTOMATION</h5>
@@ -216,7 +193,6 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Timesheet - Customer Approvals</span>
             </div>
           </div>
-
           {/* SUPPORT */}
           <div className="mb-8">
             <h5 className=" font-semibold  text-md   mb-1 text-[15px] text-[#009333]">SUPPORT</h5>
@@ -224,12 +200,9 @@ const Subscription: React.FC<SubscriptionProps> = ({ activeReport, activeCategor
               <span className="p-1"><i className="ri-check-double-fill text-[#009333]"></i> Email</span>
             </div>
           </div>
-
         </div>
       </div>
-       
     </div>
   );
 };
-
 export default Subscription;
