@@ -230,11 +230,11 @@ const Categories = () => {
 
   return (
     <Layout pageTitle="Categories">
-      <div className="flex-1">
-        <main id="main-content" className="flex-1 overflow-y-auto bg-white">
-          <div className="flex">
-            <aside className="w-[240px] h-[100vh] bg-[#f8f9fa] border-[#ebeff3] px-3 flex flex-col space-y-4">
-              <div className="mt-2">
+        <div className="flex mt[-2px]">
+        {/* Sidebar */}
+        <aside className="w-[240px] h-[100vh] bg-[#f8f9fa] border-[#ebeff3] px-3 flex flex-col space-y-4">
+     
+               <div className="mt-2">
                 <h1 className="text-[18px] sm:text-[20px] font-medium text-[#009333]">Categories</h1>
               </div>
               <div className="relative ">
@@ -268,7 +268,7 @@ const Categories = () => {
               </div>
             </aside>
 
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1">
               {activeLedger && (
                 <div className="px-4 py-2 border-b border-gray-300 bg-white w-full">
                   <h1 className="text-[18px] sm:text-[20px] font-semibold text-[#009333]">
@@ -314,9 +314,9 @@ const Categories = () => {
               )}
 
               {activeLedger && tableData.length > 0 && (
-                <div className="mx-2 max-h-[calc(100vh-300px)] flex justify-center overflow-hidden rounded-lg bg-white text-[14px]">
-                  <div className="w-full max-w-2xl h-full overflow-y-auto border border-gray-200 rounded-lg shadow-lg">
-                    <table className="w-full">
+                 <div className="ms-2 me-2  max-h-[calc(100vh-320px)] overflow-y-auto  pl-2 mb-2 relative rounded-lg">
+              <table className="w-full text-sm rounded-lg">
+                
                       <thead className="sticky-table-header bg-gray-100">
                         <tr>
                           <th className="th-cell">S.no</th>
@@ -329,7 +329,7 @@ const Categories = () => {
                       <tbody className="bg-white divide-y divide-gray-200">
                         {tableData.map((item, index) => (
                           <tr key={item.id}>
-                            <td className="td-cell text-center">{index + 1}</td>
+                            <td className="td-cell text-left">{index + 1}</td>
                             <td className="td-cell">{item.name || ""}</td>
                             <td className="td-cell">{item.remarks || ""}</td>
                             <td className="td-cell">
@@ -348,7 +348,7 @@ const Categories = () => {
                                 <i className="ri-delete-bin-line"></i>
                               </button>
                             </td>
-                            <td className="td-cell text-center">
+                            <td className="td-cell text-left">
                               <ToggleSwitch
                                 isChecked={item.status !== false}
                                 onChange={(checked) => handleToggleStatus(item.id, item.status)}
@@ -359,11 +359,11 @@ const Categories = () => {
                       </tbody>
                     </table>
                   </div>
-                </div>
+                
               )}
             </div>
-          </div>
-        </main>
+           
+        
       </div>
     </Layout>
   );
