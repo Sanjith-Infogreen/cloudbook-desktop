@@ -453,6 +453,8 @@ const CommonTypeahead: React.FC<CommonTypeaheadProps> = ({
           document.body
         )}
 
+
+
       {/* Description Card */}
       {hoveredItem && hoveredItem.description && isDropdownOpen && (
         <div
