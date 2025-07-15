@@ -7,6 +7,7 @@ import Layout from "../../components/Layout";
 // Import your setting components
 import ProfileSettings from "./components/profileSettings";
 import Branding from "./components/branding";
+import RolesList from "./components/role";
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -155,6 +156,9 @@ const SettingsPage = () => {
         case "Branding":
             
             return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
+
+            case "Roles":
+            return <RolesList />;
     
       default:
         return (
