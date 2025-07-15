@@ -1,31 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import clsx from "clsx";
 
-interface SerialItem {
-  serialNumber: string;
+interface BatchItem {
+  batchNumber: string;
+  expDate: string;
   mrp: string;
+  stock: string;
 }
 
 interface Props {
-  modalData: SerialItem[];
-  initialSerialNumber?: string;
+  modalData: BatchItem[];
+  initialBatchNumber?: string;
   onClose: () => void;
-  onSave: (selectedItem: SerialItem | null) => void;
+  onSave: (selectedItem: BatchItem | null) => void;
 }
 
-const SerialNumberModal: React.FC<Props> = ({
+const BatchModal: React.FC<Props> = ({
   modalData,
-  initialSerialNumber,
+  initialBatchNumber,
   onClose,
   onSave,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
-    if (!initialSerialNumber) return null;
-    const idx = modalData.findIndex(
-      (i) => i.serialNumber === initialSerialNumber
-    );
+    if (!initialBatchNumber) return null;
+    const idx = modalData.findIndex((i) => i.batchNumber === initialBatchNumber);
     return idx === -1 ? null : idx;
   });
 
@@ -46,9 +45,7 @@ const SerialNumberModal: React.FC<Props> = ({
       >
         {/* Header */}
         <div className="relative border-b border-[#dee2e6] px-4 py-2 bg-[#f8f8f8] rounded-tl-md">
-          <span className="text-[16px] text-[#212529]">
-            Select Serial Number
-          </span>
+          <span className="text-[16px] text-[#212529]">Select Batch Number</span>
           <button
             onClick={onClose}
             className="absolute -top-[10px] -right-[10px] text-gray-500 hover:text-gray-700 bg-[#909090] hover:bg-[#cc0000] rounded-full w-[30px] h-[30px] border-2 border-white"
@@ -58,7 +55,7 @@ const SerialNumberModal: React.FC<Props> = ({
         </div>
 
         {/* Table */}
-        
+
         <main className="flex-1  overflow-auto mt-4 px-4 ">
           <div className="max-h-[calc(100vh-287px)]  border-r border-l border-b border-gray-100 rounded-md">
             <table className="w-full h-full overflow-y-auto  ">
@@ -66,7 +63,13 @@ const SerialNumberModal: React.FC<Props> = ({
                 <tr className="divide-x divide-[#efefef]">
                   <th className="text-center px-2 py-2 text-xs font-medium text-gray-600"></th>
                   <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                    Serial Number
+                    Batch Number
+                  </th>
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    Exp Date
+                  </th>
+                  <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
+                    Stock
                   </th>
                   <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
                     MRP
@@ -76,7 +79,7 @@ const SerialNumberModal: React.FC<Props> = ({
               <tbody className="divide-y divide-[#efefef]">
                 {modalData.map((item, index) => (
                   <tr
-                    key={item.serialNumber}
+                    key={item.mrp}
                     className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
                     onClick={() => handleRowClick(index)}
                   >
@@ -91,9 +94,15 @@ const SerialNumberModal: React.FC<Props> = ({
                       />
                     </td>
                     <td className="px-2 py-2  text-sm font-medium">
-                      {item.serialNumber}
+                      {item.batchNumber}
                     </td>
-                    <td className="px-2 py-2  text-green-600 text-sm font-medium">
+                    <td className="px-2 py-2  text-sm font-medium">
+                      {item.expDate}
+                    </td>
+                    <td className="px-2 py-2  text-sm font-medium">
+                      {item.stock}
+                    </td>
+                    <td className="px-2 py-2 text-green-600 text-sm font-medium ">
                       ₹{item.mrp}
                     </td>
                   </tr>
@@ -107,4 +116,4 @@ const SerialNumberModal: React.FC<Props> = ({
   );
 };
 
-export default SerialNumberModal;
+export default BatchModal;
