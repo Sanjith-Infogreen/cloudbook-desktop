@@ -1,10 +1,11 @@
 "use client";
+import DatePicker from "@/app/utils/commonDatepicker";
 import useInputValidation from "@/app/utils/inputValidations";
 import { useState, KeyboardEvent } from "react";
 
 export interface BatchItem {
   batchNumber: string;
-  expDate: string;
+  expDate: string | undefined;
   stock: string;
   mrp: string;
 }
@@ -23,54 +24,68 @@ const AddBatchModal: React.FC<Props> = ({
   onBatchNumberChange,
 }) => {
   const [batchNumber, setBatchNumber] = useState("");
-  const [expDate, setExpDate] = useState("");
+  const [expDate, setExpDate] = useState<string | undefined>("");
   const [stock, setStock] = useState("");
   const [mrp, setMrp] = useState("");
   const [duplicateError, setDuplicateError] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   useInputValidation();
-  const addSerial = () => {
+  const addBatch = () => {
     const trimmed = batchNumber.trim();
     if (!trimmed) return;
 
-    // Check for duplicate (excluding current edit index)
+    // Check for duplicate (excluding current editing index)
     const exists = batchNumbers.some(
-      (s, idx) => s.batchNumber === trimmed && idx !== editingIndex
+      (b, idx) => b.batchNumber === trimmed && idx !== editingIndex
     );
     if (exists) {
       setDuplicateError(true);
       return;
     }
 
+    const newItem: BatchItem = {
+      batchNumber: trimmed,
+      expDate: expDate,
+      stock: stock.trim(),
+      mrp: mrp.trim(),
+    };
+
     const updated = [...batchNumbers];
 
-    // if (editingIndex !== null) {
-    //   // Update existing serial
-    //   updated[editingIndex] = { batchNumber: trimmed };
-    // } else {
-    //   // Add new serial
-    //   updated.push({ batchNumber: trimmed });
-    // }
+    if (editingIndex !== null) {
+      updated[editingIndex] = newItem;
+    } else {
+      updated.push(newItem);
+    }
 
     onBatchNumberChange(updated);
+
+    // Reset state
     setBatchNumber("");
+    setExpDate("");
+    setStock("");
+    setMrp("");
     setEditingIndex(null);
     setDuplicateError(false);
   };
 
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") addSerial();
+    if (e.key === "Enter") addBatch();
   };
 
   const deleteSerial = (serial: string) =>
     onBatchNumberChange(batchNumbers.filter((s) => s.batchNumber !== serial));
 
-  const editBatchNumber = (serial: string) => {
-    const index = batchNumbers.findIndex((s) => s.batchNumber === serial);
+  const editBatchNumber = (batch: string) => {
+    const index = batchNumbers.findIndex((s) => s.batchNumber === batch);
     if (index !== -1) {
+      const item = batchNumbers[index];
       setEditingIndex(index);
-      setBatchNumber(serial);
+      setBatchNumber(item.batchNumber);
+      setExpDate(item.expDate);
+      setStock(item.stock);
+      setMrp(item.mrp);
       setDuplicateError(false);
     }
   };
@@ -112,19 +127,19 @@ const AddBatchModal: React.FC<Props> = ({
                   onChange={(e) => setBatchNumber(e.target.value)}
                   onKeyDown={handleEnter}
                 />
-                <input
-                  type="text"
-                  className="flex-1 block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333] alphanumeric no_space all_uppercase"
-                  placeholder="Enter serial number"
-                  value={expDate}
-                  onChange={(e) => setExpDate(e.target.value)}
-                  onKeyDown={handleEnter}
+
+                <DatePicker
+                  id="expDate"
+                  name="expDate"
+                  onChange={(e) => setExpDate(e)}
+                  selected={expDate}
+                  className=" w-[50%]"
                 />
               </div>
               <div className="flex gap-2">
                 <input
                   type="text"
-                  className="flex-1 block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333] alphanumeric no_space all_uppercase"
+                  className="flex-1 block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333]  no_space only_number"
                   placeholder="Enter stock value"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
@@ -132,25 +147,22 @@ const AddBatchModal: React.FC<Props> = ({
                 />
                 <input
                   type="text"
-                  className="flex-1 block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333] alphanumeric no_space all_uppercase"
+                  className="flex-1 block w-full h-[35px] px-[0.75rem] py-[0.375rem] text-[#212529] bg-white border border-[#cbcbcb] rounded-md leading-[1.5] focus:outline-none focus:border-[#009333]  no_space only_number"
                   placeholder="Enter MRP"
                   value={mrp}
                   onChange={(e) => setMrp(e.target.value)}
                   onKeyDown={handleEnter}
                 />
               </div>
-              <button
-                onClick={addSerial}
-                className="btn-sm btn-primary px-2"
-                disabled={!batchNumber.trim()}
-              >
-                {editingIndex !== null ? "Update" : "Save"}
-              </button>
-              {duplicateError && (
-                <div className="text-red-500 text-sm">
-                  Batch number already exists.
-                </div>
-              )}
+              <div className="flex items-center justify-center">
+                <button
+                  onClick={addBatch}
+                  className="btn-sm btn-primary px-2 w-full py-2"
+                  disabled={!batchNumber.trim()}
+                >
+                  {editingIndex !== null ? "Update" : "Save"}
+                </button>
+              </div>
 
               {/* table */}
               <div className="overflow-x-auto">
