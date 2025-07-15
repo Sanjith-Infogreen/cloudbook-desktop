@@ -22,7 +22,6 @@ export default function Sidebar() {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -42,13 +41,12 @@ export default function Sidebar() {
 
     const handleClickOutsideDropdown = (event: MouseEvent) => {
       if (
-        (isDropdownOpen || isMobileDropdownOpen) &&
+        isDropdownOpen &&
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
         !(event.target as HTMLElement).closest(".bottom-profile-toggle-area")
       ) {
         setIsDropdownOpen(false);
-        setIsMobileDropdownOpen(false)
       }
     };
 
@@ -66,7 +64,7 @@ export default function Sidebar() {
       document.removeEventListener("mousedown", handleClickOutsideDropdown);
     };
 
-  }, [pathname, isDropdownOpen, dropdownRef,isMobileDropdownOpen]);  
+  }, [pathname, isDropdownOpen, dropdownRef]);  
  
   // Add state for submenu position
   const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 });
@@ -98,12 +96,7 @@ export default function Sidebar() {
     setIsDropdownOpen((prev) => !prev);
   };
 
-
-   const toggleMobileDropdown = (event: React.MouseEvent) => {
-    // This function now just toggles the state directly.
-    // The `handleClickOutsideDropdown` will handle closing when clicking outside.
-    setIsMobileDropdownOpen((prev) => !prev);
-  };
+  
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
@@ -474,7 +467,7 @@ export default function Sidebar() {
         </div>
       )}
 
-      <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center" onClick={toggleMobileDropdown}>
+      <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center" onClick={toggleDropdown}>
         <div className="mr-2">
           <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
             <img
@@ -485,7 +478,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-       {isMobileDropdownOpen && (
+       {isDropdownOpen && (
           <div
             ref={dropdownRef}
             className="absolute top-[calc(100vh-350px)] h-[340px] left-[60px] p-2 ml-2 w-75 bg-white rounded-xl z-50 shadow-[0_4px_16px_#27313a66]"
