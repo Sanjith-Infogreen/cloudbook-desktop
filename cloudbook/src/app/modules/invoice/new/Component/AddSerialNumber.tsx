@@ -133,7 +133,7 @@ const AddSerialNumberModal: React.FC<Props> = ({
 
               {/* table */}
               <div className="overflow-x-auto">
-                <div className="max-h-[calc(100vh-210px)] border-r border-l  border-gray-100 rounded-md">
+                <div className="max-h-[calc(100vh-210px)] border-r border-l border-b  border-[#efefef] rounded-md">
                   <table className="w-full h-full overflow-y-auto  ">
                     <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10 rounded-t-md">
                       <tr className="divide-x divide-[#efefef]">
@@ -148,12 +148,12 @@ const AddSerialNumberModal: React.FC<Props> = ({
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="border-b rounded-md border-gray-100">
+                    <tbody className="divide-y divide-[#efefef]">
                       {serialNumbers.length === 0 ? (
-                        <tr >
+                        <tr>
                           <td
                             colSpan={3}
-                            className="py-4 text-center text-gray-400 "
+                            className="py-4 text-center text-gray-400"
                           >
                             No serial numbers added yet
                           </td>
@@ -164,23 +164,23 @@ const AddSerialNumberModal: React.FC<Props> = ({
                             key={s.serialNumber}
                             className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
                           >
-                            <td className="px-2 py-2 border-b border-[#efefef] text-sm text-gray-900">
+                            <td className="px-2 py-2 text-sm text-gray-900">
                               {i + 1}
                             </td>
-                            <td className="px-2 py-2 border-b border-[#efefef] text-sm text-gray-900">
+                            <td className="px-2 py-2 text-sm text-gray-900">
                               {s.serialNumber}
                             </td>
-                            <td className="px-2 py-2 border-b border-[#efefef] text-sm text-gray-900 text-center">
+                            <td className="px-2 py-2 text-sm text-gray-900 text-center">
                               <button
                                 onClick={() => editSerialNumber(s.serialNumber)}
-                                className="text-gary-600"
+                                className="text-gray-600 cursor-pointer"
                                 title="Edit"
                               >
                                 <i className="ri-pencil-line"></i>
                               </button>
                               <button
                                 onClick={() => deleteSerial(s.serialNumber)}
-                                className="text-red-600 ms-3"
+                                className="text-red-600 ms-3 cursor-pointer"
                                 title="Delete"
                               >
                                 <i className="ri-delete-bin-line"></i>

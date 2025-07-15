@@ -60,7 +60,7 @@ const SerialNumberModal: React.FC<Props> = ({
         {/* Table */}
         
         <main className="flex-1  overflow-auto mt-4 px-4 ">
-          <div className="max-h-[calc(100vh-287px)]  border-r border-l border-gray-100 rounded-md">
+          <div className="max-h-[calc(100vh-287px)]  border-r border-l border-b border-gray-100 rounded-md">
             <table className="w-full h-full overflow-y-auto  ">
               <thead className="bg-[#fafcfc] sticky top-0 shadow-[inset_0_1px_0_#efefef,inset_0_-1px_0_#efefef] z-10 rounded-t-md">
                 <tr className="divide-x divide-[#efefef]">
@@ -73,14 +73,14 @@ const SerialNumberModal: React.FC<Props> = ({
                   </th>
                 </tr>
               </thead>
-              <tbody className="border-b rounded-md border-gray-100">
+              <tbody className="divide-y divide-[#efefef]">
                 {modalData.map((item, index) => (
                   <tr
                     key={item.serialNumber}
-                    className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
+                    className="hover:bg-[#f8faf9] "
                     onClick={() => handleRowClick(index)}
                   >
-                    <td className="text-center px-2 py-2 border-b border-[#efefef]">
+                    <td className="text-center px-2 py-2 ">
                       <input
                         type="radio"
                         name="serialNumberRadio"
@@ -90,10 +90,10 @@ const SerialNumberModal: React.FC<Props> = ({
                         onChange={() => handleRowClick(index)}
                       />
                     </td>
-                    <td className="px-2 py-2 border-b border-[#efefef] text-sm font-medium">
+                    <td className="px-2 py-2  text-sm font-medium">
                       {item.serialNumber}
                     </td>
-                    <td className="px-2 py-2 border-b border-[#efefef] text-green-600 text-sm font-medium">
+                    <td className="px-2 py-2  text-green-600 text-sm font-medium">
                       ₹{item.mrp.toLocaleString()}
                     </td>
                   </tr>
