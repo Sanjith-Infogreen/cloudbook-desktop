@@ -99,11 +99,7 @@ export default function Sidebar() {
   };
 
 
-   const toggleMobileDropdown = (event: React.MouseEvent) => {
-    // This function now just toggles the state directly.
-    // The `handleClickOutsideDropdown` will handle closing when clicking outside.
-    setIsMobileDropdownOpen((prev) => !prev);
-  };
+  
 
   // DESKTOP SIDEBAR
   if (!isMobile) {
@@ -474,7 +470,8 @@ export default function Sidebar() {
         </div>
       )}
 
-      <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center" onClick={toggleMobileDropdown}>
+      <div className="absolute bottom-0 w-full border-t border-t-[#b0b3b7] py-2 pl-2 pr-4 flex items-center" onClick={toggleDropdown}>
+
         <div className="mr-2">
           <div className="bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center overflow-hidden">
             <img
@@ -485,7 +482,9 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-       {isMobileDropdownOpen && (
+
+       {isDropdownOpen && (
+
           <div
             ref={dropdownRef}
             className="absolute top-[calc(100vh-350px)] h-[340px] left-[60px] p-2 ml-2 w-75 bg-white rounded-xl z-50 shadow-[0_4px_16px_#27313a66]"
