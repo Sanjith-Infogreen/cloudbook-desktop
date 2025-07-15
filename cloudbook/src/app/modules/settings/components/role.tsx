@@ -30,8 +30,11 @@ type ItemPermissions = {
   delete: boolean;
   
 };
-
-// NEW TYPES based on the image
+interface RolesProps {
+  activeReport?: string | null; // Made optional as it's not used in the provided snippet
+  activeCategory?: string | null; // Made optional as it's not used in the provided snippet
+}
+// NEW TYPES based on the image 
 type InventoryAdjustmentsPermissions = {
   fullAccess: boolean;
   view: boolean;
@@ -69,7 +72,7 @@ type Permissions = {
   banking: BankingPermissions;                           // New section
 };
 
-export default function RolesList() {
+export default function RolesList({ activeReport, activeCategory }: RolesProps) {
   const [showNewRole, setShowNewRole] = useState(false);
 
   const roles = [
