@@ -5,6 +5,7 @@ import Layout from '@/app/components/Layout';
 import SearchableSelect, { Option } from '@/app/utils/searchableSelect';  
 import FilterSidebar from '@/app/utils/filterSIdebar';  
 import BatchModal from '../invoice/new/Component/BatchModal';
+import AddBatchModal from '../purchase/new/component/AddBatchModal';
 
 const Page: React.FC = () => {
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);  
@@ -16,6 +17,8 @@ const Page: React.FC = () => {
 
   const [batchModalOpen, setBatchModalOpen] = useState(false);
   const [BatchData, setBatchData] = useState<any>(null);
+  const [batchDetails, setBatchDetails] = useState<any[]>([]);
+  const [addBatchModalOpen, setAddBatchModalOpen] = useState(false);
 
 
   const fruitOptions: Option[] = [
@@ -146,6 +149,7 @@ const Page: React.FC = () => {
 
             
             {batchModalOpen && (
+             
               <BatchModal
                 modalData={batchData}
                 initialBatchNumber={BatchData?.batchNumber}
@@ -159,6 +163,20 @@ const Page: React.FC = () => {
                {BatchData.stock}
               </div>
             )}
+
+
+            <button
+              onClick={() => setAddBatchModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              Add Batch MODAL
+            </button>
+
+            <AddBatchModal 
+               isOpen={addBatchModalOpen}
+              onClose={() => setAddBatchModalOpen(false)}
+              batchNumbers={batchDetails}
+              onBatchNumberChange={setBatchDetails}/>
 
         {/* Filter Sidebar */}
         <FilterSidebar
