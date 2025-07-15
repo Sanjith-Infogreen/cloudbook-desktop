@@ -73,7 +73,7 @@ const SerialNumberModal: React.FC<Props> = ({
                   </th>
                 </tr>
               </thead>
-              <tbody >
+              <tbody className="border-b rounded-md border-gray-100">
                 {modalData.map((item, index) => (
                   <tr
                     key={item.serialNumber}

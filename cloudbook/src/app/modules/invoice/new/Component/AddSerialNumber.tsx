@@ -148,7 +148,7 @@ const AddSerialNumberModal: React.FC<Props> = ({
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="border-b rounded-md border-gray-100">
                       {serialNumbers.length === 0 ? (
                         <tr >
                           <td
