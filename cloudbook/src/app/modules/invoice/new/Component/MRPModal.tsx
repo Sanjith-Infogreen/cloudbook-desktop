@@ -1,30 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import clsx from "clsx";
 
-interface SerialItem {
-  serialNumber: string;
+interface MRPItem {
   mrp: string;
+  qty:string
 }
 
 interface Props {
-  modalData: SerialItem[];
-  initialSerialNumber?: string;
+  modalData: MRPItem[];
+  initialMRP?: string;
   onClose: () => void;
-  onSave: (selectedItem: SerialItem | null) => void;
+  onSave: (selectedItem: MRPItem | null) => void;
 }
 
-const SerialNumberModal: React.FC<Props> = ({
+const MRPModal: React.FC<Props> = ({
   modalData,
-  initialSerialNumber,
+  initialMRP,
   onClose,
   onSave,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
-    if (!initialSerialNumber) return null;
+    if (!initialMRP) return null;
     const idx = modalData.findIndex(
-      (i) => i.serialNumber === initialSerialNumber
+      (i) => i.mrp === initialMRP
     );
     return idx === -1 ? null : idx;
   });
@@ -47,7 +46,7 @@ const SerialNumberModal: React.FC<Props> = ({
         {/* Header */}
         <div className="relative border-b border-[#dee2e6] px-4 py-2 bg-[#f8f8f8] rounded-tl-md">
           <span className="text-[16px] text-[#212529]">
-            Select Serial Number
+            Select MRP
           </span>
           <button
             onClick={onClose}
@@ -66,17 +65,17 @@ const SerialNumberModal: React.FC<Props> = ({
                 <tr className="divide-x divide-[#efefef]">
                   <th className="text-center px-2 py-2 text-xs font-medium text-gray-600"></th>
                   <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                    Serial Number
+                    MRP
                   </th>
                   <th className="text-left px-2 py-2 text-xs font-medium text-gray-600">
-                    MRP
+                    Quantity
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#efefef]">
                 {modalData.map((item, index) => (
                   <tr
-                    key={item.serialNumber}
+                    key={item.mrp}
                     className="hover:bg-[#f8faf9] divide-x divide-[#efefef]"
                     onClick={() => handleRowClick(index)}
                   >
@@ -90,11 +89,11 @@ const SerialNumberModal: React.FC<Props> = ({
                         onChange={() => handleRowClick(index)}
                       />
                     </td>
-                    <td className="px-2 py-2  text-sm font-medium">
-                      {item.serialNumber}
-                    </td>
-                    <td className="px-2 py-2  text-green-600 text-sm font-medium">
+                    <td className="px-2 py-2 text-green-600 text-sm font-medium ">
                       ₹{item.mrp}
+                    </td>
+                    <td className="px-2 py-2  text-sm font-medium">
+                      {item.qty}
                     </td>
                   </tr>
                 ))}
@@ -107,4 +106,4 @@ const SerialNumberModal: React.FC<Props> = ({
   );
 };
 
-export default SerialNumberModal;
+export default MRPModal;
