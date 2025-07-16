@@ -8,6 +8,7 @@ import Layout from "../../components/Layout";
 import ProfileSettings from "./components/profileSettings";
 import Branding from "./components/branding";
 
+
 import Reminders from "./components/reminders";
 import SMSNotifications from "./components/smsnotifications"; 
 
@@ -166,8 +167,6 @@ const SettingsPage = () => {
      case "SMS Notifications":
             return <SMSNotifications activeReport={activeSetting} activeCategory={activeCategory} />;
 
- 
-
       case "Branding":
         return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
       case "Roles":
@@ -175,6 +174,7 @@ const SettingsPage = () => {
         return <RolesList activeReport={activeSetting} activeCategory={activeCategory} />;
       case "Subscription":
         return <Subscription activeReport={activeSetting} activeCategory={activeCategory} />;
+
 
       default:
         return (
