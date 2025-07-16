@@ -159,8 +159,8 @@ const ReminderModal: React.FC<ReminderModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-md w-full max-w-[65%] h-[60vh] flex flex-col "
-        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-md w-full max-w-[50%] h-[60vh] flex flex-col "
+        
       >
         <div className="relative border-b border-[#dee2e6] px-4 py-2 bg-[#f8f8f8] rounded-tl-md">
           <span className="text-[16px] text-[#212529]"> Automated Reminders - Bills</span>
