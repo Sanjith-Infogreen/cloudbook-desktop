@@ -406,220 +406,183 @@ const Reminders: React.FC<RemindersProps> = ({
     switch (activeTab) {
       case "invoices":
         return (
-          <div className="p-4 pt-0 mt-7 ">
-            <h2 className="text-[16px] font-medium ms-1 mb-3 ">
-              Manual Reminders
-            </h2>
+  <div className="p-4 pt-0 mt-7">
+    {/* Manual Reminders */}
+    <h2 className="text-[16px] font-medium ms-1 mb-3">Manual Reminders</h2>
 
-            <div className="overflow-x-auto rounded-lg border border-gray-200 mb-8">
-              <table className="w-full text-sm text-left ">
-                <thead className=" text-gray-500 font-semibold border-b border-gray-200">
-                  <tr>
-                    <th className="ps-3.5 pr-[6.5px] py-[6.5px] text-[11px] text-[#6c718a] w-20%">
-                      NAME
-                    </th>
-                    <th className="p-[6.5px] text-[11px] text-[#6c718a] w-40%">
-                      DESCRIPTION
-                    </th>
+    <div className="overflow-x-auto rounded-lg border border-gray-200 mb-8">
+      <table className="w-full table-fixed text-sm text-left">
+        <thead className="text-gray-500 font-semibold border-b border-gray-200">
+          <tr>
+            <th className="ps-3.5 pr-[6.5px] py-[6.5px] text-[11px] text-[#6c718a] w-[30%]">NAME</th>
+            <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[50%]">DESCRIPTION</th>
+            <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[10%] text-center"></th>
+            <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[10%] text-center">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200 bg-white text-[13px]">
+          {/* Row 1 */}
+          <tr>
+            <td className="p-[6.5px] ps-4 font-medium cursor-pointer text-[#009333] hover:text-green-800">
+              Reminder For Overdue Invoices
+            </td>
+            <td className="p-[6.5px]">
+              You can send this reminder to your customers manually, from an overdue invoice's details page.
+            </td>
+            <td className="p-[6.5px] text-center"></td>
+            <td className="p-[6.5px] text-center relative group">
+              <button
+                className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] bg-white transition duration-150 cursor-pointer"
+                onClick={() => openModal(invoiceReminders.paymentExpected)}
+              >
+                <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
+                <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                  <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">Edit</div>
+                  <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
+                </div>
+              </button>
+            </td>
+          </tr>
 
-                    <th className="p-[6.5px] text-[11px] text-[#6c718a] w-40% text-center">
-                      ACTIONS
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white text-[13px] ">
-                  <tr>
-                    <td className="p-[6.5px] ps-4  font-medium cursor-pointer text-[#009333] hover:text-green-800">
-                      Reminder For Overdue Invoices
+          {/* Row 2 */}
+          <tr>
+            <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] font-medium cursor-pointer hover:text-green-800">
+              Reminder For Sent Invoices
+            </td>
+            <td className="p-[6.5px]">
+              You can send this reminder to your customers manually, from a sent (but not overdue) details page.
+            </td>
+            <td className="p-[6.5px] text-center"></td>
+            <td className="p-[6.5px] text-center relative group">
+              <button
+                className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] bg-white transition duration-150 cursor-pointer"
+                onClick={() => openModal(invoiceReminders.paymentExpected)}
+              >
+                <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
+                <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                  <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">Edit</div>
+                  <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
+                </div>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    {/* Automated Reminders */}
+    <div className="mt-8 pt-0">
+      <h2 className="text-[16px] font-medium ms-1 mb-3">Automated Reminders</h2>
+
+      <div className="overflow-x-auto rounded-lg border border-gray-200">
+        <table className="w-full table-fixed text-sm text-left">
+          <thead className="text-gray-500 font-semibold border-b border-gray-200">
+            <tr>
+              <th className="ps-3.5 pr-[6.5px] py-[6.5px] text-[11px] text-[#6c718a] w-[30%]">NAME</th>
+              <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[50%]">SCHEDULE</th>
+              <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[10%] text-center">STATUS</th>
+              <th className="p-[6.5px] text-[11px] text-[#6c718a] w-[10%] text-center">ACTIONS</th>
+            </tr>
+          </thead>
+
+          <tbody className="bg-white divide-y divide-gray-200 text-[13px]">
+            {/* Section: Expected Payment Date */}
+            <tr className="bg-[#f9f9fb]">
+              <td colSpan={4} className="px-4 py-3 text-[12px]">
+                Reminders Based on Expected Payment Date
+              </td>
+            </tr>
+            <tr>
+              <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] cursor-pointer hover:text-green-800">
+                <div className="flex items-center gap-1">
+                  {invoiceReminders.paymentExpected.name}
+                  <i className="ri-information-2-fill text-[16px] text-[#bdbbbc] cursor-pointer"></i>
+                </div>
+              </td>
+              <td className="p-[6.5px]">
+                Remind me {invoiceReminders.paymentExpected.scheduleDays} day(s)
+                {invoiceReminders.paymentExpected.scheduleTime}
+                {invoiceReminders.paymentExpected.scheduleBasis}
+              </td>
+              <td className="p-[6.5px] text-center">
+                <Toggle
+                  name="paymentExpectedInvoice"
+                  checked={invoiceReminders.paymentExpected.enabled}
+                  onChange={() => openModal(invoiceReminders.paymentExpected)}
+                />
+              </td>
+              <td className="p-[6.5px] text-center relative group">
+                <button
+                  className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] bg-white transition duration-150 cursor-pointer"
+                  onClick={() => openModal(invoiceReminders.paymentExpected)}
+                >
+                  <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
+                  <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                    <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">Edit</div>
+                    <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
+                  </div>
+                </button>
+              </td>
+            </tr>
+
+            {/* Section: Due Date */}
+            <tr className="bg-gray-50 font-medium">
+              <td colSpan={4} className="p-[6.5px] ps-4">
+                Reminders Based on Due Date
+              </td>
+            </tr>
+
+            {Object.keys(invoiceReminders)
+              .filter((key) => key.startsWith("reminder"))
+              .map((key) => {
+                const reminder = invoiceReminders[key];
+                return (
+                  <tr key={key}>
+                    <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] cursor-pointer hover:text-green-800">
+                      {reminder.name}
                     </td>
                     <td className="p-[6.5px]">
-                      You can send this reminder to your customers manually,
-                      from an overdue invoice's details page.
+                      Remind me {reminder.scheduleDays} day(s) {reminder.scheduleTime} {reminder.scheduleBasis}
+                    </td>
+                    <td className="p-[6.5px] text-center">
+                      <Toggle
+                        name={key}
+                        checked={reminder.enabled}
+                        onChange={() => openModal(reminder)}
+                      />
                     </td>
                     <td className="p-[6.5px] text-center relative group">
                       <button
-                        className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] transition duration-150 cursor-pointer bg-white"
-                        onClick={() =>
-                          openModal(invoiceReminders.paymentExpected)
-                        }
+                        className="px-1.5 py-0.5 rounded border border-gray-300 bg-white transition duration-150 cursor-pointer"
+                        onClick={() => openModal(reminder)}
                       >
-                        <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
-
-                        {/* Tooltip with arrow */}
-                        <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
-                          <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">
-                            Edit
-                          </div>
+                        <i className="ri-more-2-line text-gray-600 text-base"></i>
+                        <div className="absolute bottom-[74%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                          <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded">More</div>
                           <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
                         </div>
                       </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] font-medium cursor-pointer hover:text-green-800">
-                      Reminder For Sent Invoices
-                    </td>
-                    <td className="p-[6.5px]">
-                      You can send this reminder to your customers manually,
-                      from a sent (but not overdue) details page.
-                    </td>
-                    <td className="p-[6.5px]  text-center relative group">
-                      <button
-                        className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] transition duration-150 cursor-pointer bg-white"
-                        onClick={() =>
-                          openModal(invoiceReminders.paymentExpected)
-                        }
-                      >
-                        <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
+                );
+              })}
 
-                        {/* Tooltip with arrow */}
-                        <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
-                          <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">
-                            Edit
-                          </div>
-                          <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
-                        </div>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-8 pt-0">
-              <h2 className="text-[16px] font-medium ms-1 mb-3">
-                Automated Reminders
-              </h2>
+            {/* New Reminder Row */}
+            <tr>
+              <td colSpan={4} className="px-4 py-2 cursor-pointer">
+                <div className="inline-flex items-center space-x-2 text-sm font-medium">
+                  <i className="ri-add-circle-fill text-lg leading-none text-[#009333] hover:text-green-800" />
+                  <span className="leading-none">New Reminder</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+);
 
-              <div className="overflow-x-auto rounded-lg border border-gray-200">
-                <table className="w-full text-sm text-left">
-                  <thead className=" text-gray-500 font-semibold">
-                    <tr>
-                      <th className="ps-3.5 pr-[6.5px] py-[6.5px] text-[11px] text-[#6c718a] w-20%">
-                        NAME
-                      </th>
-                      <th className="p-[6.5px] text-[11px] text-[#6c718a] w-40%">
-                        SCHEDULE
-                      </th>
-                      <th className="p-[6.5px] text-[11px] text-[#6c718a] w-20% text-center">
-                        STATUS
-                      </th>
-                      <th className="p-[6.5px] text-[11px] text-[#6c718a] w-20% text-center">
-                        ACTIONS
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody className="bg-white divide-y divide-gray-200 text-[13px]">
-                    {/* Section: Expected Payment Date */}
-                    <tr className="bg-[#f9f9fb]">
-                      <td colSpan={4} className="px-4 py-3 text-[12px]">
-                        Reminders Based on Expected Payment Date
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] cursor-pointer hover:text-green-800">
-                        <div className="flex items-center gap-1">
-                          {invoiceReminders.paymentExpected.name}
-                          <i className="ri-information-2-fill text-[16px] text-[#bdbbbc] cursor-pointer"></i>
-                        </div>
-                      </td>
-                      <td className="p-[6.5px]">
-                        Remind me
-                        {invoiceReminders.paymentExpected.scheduleDays} day(s)
-                        {invoiceReminders.paymentExpected.scheduleTime}
-                        {invoiceReminders.paymentExpected.scheduleBasis}
-                      </td>
-                      <td className="p-[6.5px] text-center">
-                        <Toggle
-                          name="paymentExpectedInvoice"
-                          checked={invoiceReminders.paymentExpected.enabled}
-                          onChange={() =>
-                            openModal(invoiceReminders.paymentExpected)
-                          } // Open modal on toggle click
-                        />
-                      </td>
-                      <td className="p-[6.5px] text-center relative group">
-                        <button
-                          className="px-1.5 py-0.5 rounded-sm border border-[#ebeaf2] transition duration-150 cursor-pointer bg-white"
-                          onClick={() =>
-                            openModal(invoiceReminders.paymentExpected)
-                          }
-                        >
-                          <i className="ri-pencil-line text-[#bbb8c6] text-base"></i>
-
-                          {/* Tooltip with arrow */}
-                          <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
-                            <div className="bg-gray-800 text-white text-xs px-2 py-2 rounded">
-                              Edit
-                            </div>
-                            <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
-                          </div>
-                        </button>
-                      </td>
-                    </tr>
-
-                    {/* Section: Due Date */}
-                    <tr className="bg-gray-50 font-medium ">
-                      <td colSpan={4} className="p-[6.5px] ps-4">
-                        Reminders Based on Due Date
-                      </td>
-                    </tr>
-
-                    {Object.keys(invoiceReminders)
-                      .filter((key) => key.startsWith("reminder"))
-                      .map((key) => {
-                        const reminder = invoiceReminders[key];
-                        return (
-                          <tr key={key}>
-                            <td className="py-[6.5px] ps-4 pr-[6.5px] text-[#009333] cursor-pointer hover:text-green-800">
-                              {reminder.name}
-                            </td>
-                            <td className="p-[6.5px] ">
-                              Remind me {reminder.scheduleDays} day(s){" "}
-                              {reminder.scheduleTime} {reminder.scheduleBasis}
-                            </td>
-                            <td className="p-[6.5px] text-center">
-                              <Toggle
-                                name={key}
-                                checked={reminder.enabled}
-                                onChange={() => openModal(reminder)} // Open modal on toggle click
-                              />
-                            </td>
-                            <td className="p-[6.5px] text-center relative group">
-                              <button
-                                className="px-1.5 py-0.5 rounded border border-gray-300 bg-white transition duration-150 cursor-pointer"
-                                onClick={() => openModal(reminder)}
-                              >
-                                <i className="ri-more-2-line text-gray-600 text-base"></i>
-
-                                {/* Tooltip with arrow */}
-                                <div className="absolute bottom-[74%] left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
-                                  <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded">
-                                    More
-                                  </div>
-                                  <div className="w-2 h-2 rotate-45 bg-gray-800 mt-[-4px]"></div>
-                                </div>
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-
-                    {/* New Reminder Row */}
-                    <tr>
-                      <td colSpan={4} className="px-4 py-2 cursor-pointer">
-                        <div className="inline-flex items-center space-x-2 text-sm font-medium ">
-                          <i className="ri-add-circle-fill text-lg leading-none text-[#009333] hover:text-green-800" />
-                          <span className="leading-none">New Reminder</span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        );
 
       case "bills":
         return (
