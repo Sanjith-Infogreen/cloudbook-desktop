@@ -7,8 +7,11 @@ import Layout from "../../components/Layout";
 // Import your setting components
 import ProfileSettings from "./components/profileSettings";
 import Branding from "./components/branding";
+ 
 import RolesList from "./components/role";
-
+ 
+import Subscription from "./components/subscription";
+ 
 const SettingsPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,7 +26,7 @@ const SettingsPage = () => {
         { name: "Branding", icon: "ri-palette-line" },
         { name: "Currencies", icon: "ri-currency-line" },
         { name: "Opening Balances", icon: "ri-bank-line" },
-        { name: "Manage Subscription", icon: "ri-bill-line" },
+        { name: "Subscription", icon: "ri-bill-line" },
       ],
     },
     {
@@ -156,10 +159,18 @@ const SettingsPage = () => {
         case "Branding":
             
             return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
+ 
 
             case "Roles":
             return <RolesList />;
     
+ 
+             
+
+            case "Subscription": 
+            
+            return <Subscription activeReport={activeSetting} activeCategory={activeCategory} />;
+ 
       default:
         return (
           <div className="p-4 text-center text-gray-600">
