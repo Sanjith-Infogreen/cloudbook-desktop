@@ -376,47 +376,124 @@ const NewInvoice = () => {
                       {/* Conditional rendering for details or the 'select contact' message */}
                       {details ? (
                         <div className="p-4 text-sm text-gray-700">
-                          <div className="grid grid-cols-2 gap-2">
+                          <div className="grid grid-cols-2 gap-12">
                             <div>
-                              <div className="flex items-center gap-2">
-                                <span className="font-semibold">
-                                  Billing Address
-                                </span>
-                                <button
-                                  type="button"
-                                  className="text-[#009333] text-xs "
-                                >
-                                  Change
-                                </button>
+
+                              <div className="mb-3 border-b border-gray-200 ">
+                                <h2 className="text-lg font-medium text-blue-900 mb-2">Billing Address</h2>
+
+                               
                               </div>
-                              <p className="whitespace-pre-line">
-                                {details.addressLine1 || "N/A"}
-                              </p>
+
+
+                              <div className="space-y-3">
+                                
+
+
+                                {details.billingAddresses?.map((address: any, index: number) => (
+                                  <div key={address.id || index} className="">
+                                    <div className="flex items-start gap-3">
+                                      
+                                      <div className="flex-1">
+                                        <div className="flex justify-between items-center">
+                                          <h4 className="font-medium text-black">{details.name || "N/A"}</h4>
+                                          <div className="flex gap-3">
+                                            <button className="text-[#26ae60] cursor-pointer flex items-center gap-1 text-sm">
+                                              <i className="ri-edit-box-line text-[14px]"></i> Edit
+                                            </button>
+                                            {/* <button className="text-[#e55d67] cursor-pointer flex items-center gap-1 text-sm">
+                                              <i className="ri-delete-bin-7-line text-[14px]"></i> Delete
+                                            </button> */}
+                                          </div>
+                                        </div>
+                                        <p className="text-sm text-gray-800 leading-relaxed">
+                                          <span className="font-medium text-gray-600">Location : </span> {address.addressLine1}, {address.addressLine2}
+                                        </p>
+                                        <p className="text-sm text-gray-800">
+                                          <span className="font-medium text-gray-600">Mobile : </span> {address.phoneNumber || "N/A"}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+
+                              </div>
+
+
+
+
                             </div>
                             <div>
-                              <div className="flex items-center gap-2">
-                                <span className="font-semibold">
-                                  Shipping Address
-                                </span>
-                                <button
-                                  type="button"
-                                  className="text-[#009333] text-xs "
-                                >
-                                  Change
-                                </button>
+
+
+
+                              <div className="mb-3 border-b border-gray-200">
+                                <h2 className="text-lg font-medium text-blue-900 mb-2">Shipping Address</h2>
+
+                                
                               </div>
-                              <p className="whitespace-pre-line">
-                                {details.addressLine2 || "N/A"}
-                              </p>
+
+                              {/* Address List */}
+                              <div className="space-y-3">
+                               
+
+
+                                {details.shippingAddresses?.map((address: any, index: number) => (
+                                  <div key={address.id || index} className="">
+                                    <div className="flex items-start gap-3">
+                                     
+
+                                    
+                                      <div className="flex-1">
+                                        <div className="flex justify-between items-center">
+                                          <h4 className="font-medium text-black">{details.name || "N/A"}</h4>
+                                          <div className="flex gap-3">
+                                            <button className="text-[#26ae60] cursor-pointer flex items-center gap-1 text-sm">
+                                              <i className="ri-edit-box-line text-[14px]"></i> Edit
+                                            </button>
+                                            {/* <button className="text-[#e55d67] cursor-pointer flex items-center gap-1 text-sm">
+                                              <i className="ri-delete-bin-7-line text-[14px]"></i> Delete
+                                            </button> */}
+                                          </div>
+                                        </div>
+                                        <p className="text-sm text-gray-800 leading-relaxed">
+                                          <span className="font-medium text-gray-600">Location : </span> {address.addressLine1}, {address.addressLine2}
+                                        </p>
+                                        <p className="text-sm text-gray-800">
+                                          <span className="font-medium text-gray-600">Mobile : </span> {address.phoneNumber || "N/A"}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+
+
+                              </div>
+
+
+
+
                             </div>
                           </div>
-                          <div className="mt-2">
-                            <span className="font-semibold">
-                              Phone number :
-                            </span>{" "}
-                            {details.phoneNumber || "N/A"}
-                          </div>
+
                         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                       ) : (
                         <div className="text-center p-4 pt-1 text-gray-500 text-sm">
                           Kindly select the contact first
@@ -434,17 +511,16 @@ const NewInvoice = () => {
                           <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`px-3 py-2 font-medium border-b-2 cursor-pointer ${
-                              activeTab === tab
-                                ? "border-[#44745c] text-green-900 bg-white"
-                                : "border-transparent text-[#666c6a]"
-                            }`}
+                            className={`px-3 py-2 font-medium border-b-2 cursor-pointer ${activeTab === tab
+                              ? "border-[#44745c] text-green-900 bg-white"
+                              : "border-transparent text-[#666c6a]"
+                              }`}
                           >
                             {tab === "transport"
                               ? "Transport Details"
                               : tab === "others"
-                              ? "Others"
-                              : "Transactions"}
+                                ? "Others"
+                                : "Transactions"}
                           </button>
                         ))}
                       </div>

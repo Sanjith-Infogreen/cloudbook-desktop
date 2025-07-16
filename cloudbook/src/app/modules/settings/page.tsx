@@ -1,4 +1,4 @@
-// pages/settings.tsx
+ // pages/settings.tsx
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -7,8 +7,13 @@ import Layout from "../../components/Layout";
 // Import your setting components
 import ProfileSettings from "./components/profileSettings";
 import Branding from "./components/branding";
+
 import Reminders from "./components/reminders";
 import SMSNotifications from "./components/smsnotifications"; 
+
+
+import RolesList from "./components/role";
+import Subscription from "./components/subscription";
 
 
 const SettingsPage = () => {
@@ -25,7 +30,7 @@ const SettingsPage = () => {
         { name: "Branding", icon: "ri-palette-line" },
         { name: "Currencies", icon: "ri-currency-line" },
         { name: "Opening Balances", icon: "ri-bank-line" },
-        { name: "Manage Subscription", icon: "ri-bill-line" },
+        { name: "Subscription", icon: "ri-bill-line" },
       ],
     },
     {
@@ -153,11 +158,8 @@ const SettingsPage = () => {
   const renderSettingComponent = () => {
     switch (activeSetting) {
       case "Profile":
-         
         return <ProfileSettings activeReport={activeSetting} activeCategory={activeCategory} />;
-        case "Branding":
-            
-            return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
+
       case "Reminders":
             
            return <Reminders activeReport={activeSetting} activeCategory={activeCategory} />;
@@ -165,6 +167,15 @@ const SettingsPage = () => {
             return <SMSNotifications activeReport={activeSetting} activeCategory={activeCategory} />;
 
  
+
+      case "Branding":
+        return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
+      case "Roles":
+        // This is the change: pass the props here
+        return <RolesList activeReport={activeSetting} activeCategory={activeCategory} />;
+      case "Subscription":
+        return <Subscription activeReport={activeSetting} activeCategory={activeCategory} />;
+
       default:
         return (
           <div className="p-4 text-center text-gray-600">

@@ -11,6 +11,9 @@ import CommonTypeahead from "@/app/utils/commonTypehead";
 import { useDispatch, useSelector } from "react-redux";
 import { setTypeHead } from "@/store/typeHead/typehead";
 import { AppDispatch, RootState } from "@/store/store";
+import SerialNumberModal from "../invoice/new/Component/SerialNumberModal";
+import AddSerialNumberModal from "../purchase/new/component/AddSerialNumber";
+import MRPModal from "../invoice/new/Component/MRPModal";
 
 interface FormFieldProps {
   label: string;
@@ -50,30 +53,45 @@ const NewExpense = () => {
   const dispatch = useDispatch<AppDispatch>();
   const typeHead = useSelector((state: RootState) => state.typeHead.typeHead);
 
-useEffect(()=>{
-  if(typeHead.length===0){
-    fetchTypeHead()
-  }
-},[])
+  useEffect(() => {
+    if (typeHead.length === 0) {
+      fetchTypeHead();
+    }
+  }, []);
+  const [serialModalOpen, setSerialModalOpen] = useState(false);
+  const [addSerialModalOpen, setAddSerialModalOpen] = useState(false);
+  const [mrpModalOpen, setMrpModalOpen] = useState(false);
+  const [chosenSerial, setChosenSerial] = useState<any>(null);
+  const [mrp, setMrp] = useState<any>(null);
 
+  const [serials, setSerials] = useState<any[]>([]);
+
+  const serialData = [
+    { serialNumber: "SN12345", mrp: "1999" },
+    { serialNumber: "SN67890", mrp: "2499" },
+    { serialNumber: "SN54321", mrp: "1799" },
+  ];
+
+  const MRPData = [
+    { qty: "1", mrp: "1999" },
+    { qty: "5", mrp: "2499" },
+    { qty: "10", mrp: "1799" },
+  ];
 
   const fetchTypeHead = async () => {
-  try {
-    const res = await fetch("http://localhost:4000/typeHeadData");
+    try {
+      const res = await fetch("http://localhost:4000/typeHeadData");
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      dispatch(setTypeHead(data));
+    } catch (error) {
+      console.error("Fetch error:", error);
     }
-
-    const data = await res.json();
-    dispatch(setTypeHead(data))
-
-    
-    
-  } catch (error) {
-    console.error("Fetch error:", error);
-  }
-};
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -184,6 +202,71 @@ useEffect(()=>{
                 onSelect={handleNameSelect}
               />
             </div>
+
+            <button
+              onClick={() => setSerialModalOpen(true)}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            >
+              Open Serial Modal
+            </button>
+
+            {serialModalOpen && (
+              <SerialNumberModal
+                modalData={serialData}
+                initialSerialNumber={chosenSerial?.serialNumber}
+                onClose={() => setSerialModalOpen(false)}
+                onSave={(item) => setChosenSerial(item)}
+              />
+            )}
+
+            {chosenSerial && (
+              <div className="mt-4 text-sm text-green-700">
+                Selected Serial: <strong>{chosenSerial.serialNumber}</strong> -
+                ₹{chosenSerial.mrp}
+              </div>
+            )}
+
+            <button
+              onClick={() => setAddSerialModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              Add Serials
+            </button>
+
+            {/* show what parent currently holds */}
+            <pre className="bg-gray-50 p-2 rounded">
+              {JSON.stringify(serials, null, 2)}
+            </pre>
+
+            <AddSerialNumberModal
+              isOpen={addSerialModalOpen}
+              onClose={() => setAddSerialModalOpen(false)}
+              serialNumbers={serials}
+              onSerialsChange={setSerials} // ⬅️ parent state gets the updated list
+            />
+
+            <button
+              onClick={() => setMrpModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              MRP MODAL
+            </button>
+
+            
+            {mrpModalOpen && (
+              <MRPModal
+                modalData={MRPData}
+                initialMRP={mrp?.mrp}
+                onClose={() => setMrpModalOpen(false)}
+                onSave={(item) => setMrp(item)}
+              />
+            )}
+            {mrp && (
+              <div className="mt-4 text-sm text-green-700">
+                Selected Serial: <strong> ₹{mrp.mrp}</strong> -
+               {mrp.qty}
+              </div>
+            )}
           </div>
         </main>
         <footer className="bg-[#ebeff3] py-3 h-[56.9px] px-4 flex justify-start gap-2">
