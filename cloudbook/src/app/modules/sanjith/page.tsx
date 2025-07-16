@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Layout from '@/app/components/Layout';  
 import SearchableSelect, { Option } from '@/app/utils/searchableSelect';  
 import FilterSidebar from '@/app/utils/filterSIdebar';  
+import BatchModal from '../invoice/new/Component/BatchModal';
+import AddBatchModal from '../purchase/new/component/AddBatchModal';
 
 const Page: React.FC = () => {
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);  
@@ -12,6 +14,12 @@ const Page: React.FC = () => {
   const [selectedCountries, setSelectedCountries] = useState<string[]>(['india', 'canada']);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedMultiColors, setSelectedMultiColors] = useState<string[]>([]);
+
+  const [batchModalOpen, setBatchModalOpen] = useState(false);
+  const [BatchData, setBatchData] = useState<any>(null);
+  const [batchDetails, setBatchDetails] = useState<any[]>([]);
+  const [addBatchModalOpen, setAddBatchModalOpen] = useState(false);
+
 
   const fruitOptions: Option[] = [
     { value: 'apple', label: 'Apple' },
@@ -46,6 +54,11 @@ const Page: React.FC = () => {
     { value: 'green', label: 'Green' },
     { value: 'yellow', label: 'Yellow' },
     { value: 'purple', label: 'Purple' },
+  ];
+ const batchData = [
+    { stock: "1", mrp: "1999" , batchNumber:"FSS411",expDate:"25/06/2028"},
+    { stock: "5", mrp: "2499" , batchNumber:"FSS412",expDate:"25/08/2028"},
+    { stock: "10", mrp: "1799" , batchNumber:"FSS413",expDate:"25/09/2028"},
   ];
 
   const handleFruitChange = (value: string | string[] | null) => {
@@ -125,6 +138,45 @@ const Page: React.FC = () => {
         <p className="text-gray-700">
           This is the main content area. Click the "Open Filters" button to see the filter sidebar.
         </p>
+
+
+         <button
+              onClick={() => setBatchModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              Batch MODAL
+            </button>
+
+            
+            {batchModalOpen && (
+             
+              <BatchModal
+                modalData={batchData}
+                initialBatchNumber={BatchData?.batchNumber}
+                onClose={() => setBatchModalOpen(false)}
+                onSave={(item) => setBatchData(item)}
+              />
+            )}
+            {BatchData && (
+              <div className="mt-4 text-sm text-green-700">
+                Selected Serial: <strong> {BatchData.batchNumber}</strong> -
+               {BatchData.stock}
+              </div>
+            )}
+
+
+            <button
+              onClick={() => setAddBatchModalOpen(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              Add Batch MODAL
+            </button>
+
+            <AddBatchModal 
+               isOpen={addBatchModalOpen}
+              onClose={() => setAddBatchModalOpen(false)}
+              batchNumbers={batchDetails}
+              onBatchNumberChange={setBatchDetails}/>
 
         {/* Filter Sidebar */}
         <FilterSidebar

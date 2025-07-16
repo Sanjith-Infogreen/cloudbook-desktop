@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
-
+const DROPDOWN_HEIGHT_PX = 250;
 export interface Option {
   value: string;
   label: string;
@@ -60,20 +60,40 @@ const SearchableSelect = ({
   // code for open dropdown over the table open
   const [menuPos, setMenuPos] = useState({ left: 0, top: 0, width: 0 });
   const [mounted, setMounted] = useState(false);
+const [openDirection, setOpenDirection] = useState<"top" | "bottom">("bottom");
 
   /** 1️⃣ When input gains focus or term changes, remember its screen coords */
   const updateMenuPos = () => {
-    if (wrapperRef.current) {
-      const rect = wrapperRef.current.getBoundingClientRect();
-      setMenuPos({
-        left: rect.left,
-        top: rect.bottom + window.scrollY,
-        width: rect.width,
-      });
-    }
-  };
-  useEffect(updateMenuPos, [searchTerm, isOpen]);
+  if (wrapperRef.current) {
+    const rect = wrapperRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
 
+    const shouldOpenBottom = spaceBelow >= DROPDOWN_HEIGHT_PX;
+    const direction: "top" | "bottom" = shouldOpenBottom ? "bottom" : "top";
+    setOpenDirection(direction);
+
+    const top = direction === "bottom"
+      ? rect.bottom + window.scrollY
+      : rect.top+80 + window.scrollY - DROPDOWN_HEIGHT_PX;
+
+    setMenuPos({
+      left: rect.left,
+      top,
+      width: rect.width,
+    });
+  }
+};
+  useEffect(updateMenuPos, [searchTerm, isOpen]);
+useEffect(() => {
+  const handler = () => updateMenuPos();
+  window.addEventListener("resize", handler);
+  window.addEventListener("scroll", handler, true);
+  return () => {
+    window.removeEventListener("resize", handler);
+    window.removeEventListener("scroll", handler, true);
+  };
+}, []);
   useEffect(() => {
     setMounted(true);
   }, []);
