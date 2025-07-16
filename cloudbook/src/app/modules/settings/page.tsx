@@ -7,6 +7,9 @@ import Layout from "../../components/Layout";
 // Import your setting components
 import ProfileSettings from "./components/profileSettings";
 import Branding from "./components/branding";
+import Reminders from "./components/reminders";
+import SMSNotifications from "./components/smsnotifications"; 
+
 
 const SettingsPage = () => {
   const router = useRouter();
@@ -155,7 +158,13 @@ const SettingsPage = () => {
         case "Branding":
             
             return <Branding activeReport={activeSetting} activeCategory={activeCategory} />;
-    
+      case "Reminders":
+            
+           return <Reminders activeReport={activeSetting} activeCategory={activeCategory} />;
+     case "SMS Notifications":
+            return <SMSNotifications activeReport={activeSetting} activeCategory={activeCategory} />;
+
+ 
       default:
         return (
           <div className="p-4 text-center text-gray-600">
